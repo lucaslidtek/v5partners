@@ -20,6 +20,13 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -101,6 +108,8 @@ export default function DashboardPage() {
   const { toast } = useToast();
   const [matches, setMatches] = useState<Match[]>([]);
   const [activeTab, setActiveTab] = useState("new");
+  const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
+  const selectedMatch = matches.find(m => m.id === selectedMatchId);
 
   useEffect(() => {
     const savedMatches = localStorage.getItem('matches');
@@ -437,7 +446,12 @@ export default function DashboardPage() {
 
                   {/* Actions */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100">
-                     <Button variant="outline" className="border-slate-200 hover:bg-slate-50 hover:text-slate-900">
+                     <Button 
+                      variant="outline" 
+                      className="border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                      onClick={() => setSelectedMatchId(match.id)}
+                      data-testid={`button-details-${match.id}`}
+                    >
                       <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
                     </Button>
 
@@ -569,7 +583,13 @@ export default function DashboardPage() {
                               <p className="text-xs text-slate-500">Receita</p>
                               <p className="font-bold text-slate-900">{process.revenue}</p>
                             </div>
-                            <Button size="sm" variant="outline" className="w-full">
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              className="w-full"
+                              onClick={() => setSelectedMatchId(process.id)}
+                              data-testid={`button-details-${process.id}`}
+                            >
                               Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
                             </Button>
                           </div>
@@ -582,6 +602,100 @@ export default function DashboardPage() {
             )}
           </TabsContent>
         </Tabs>
+
+        {/* Match Details Dialog */}
+        <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl">{selectedMatch?.name}</DialogTitle>
+              <DialogDescription>{selectedMatch?.description}</DialogDescription>
+            </DialogHeader>
+            
+            {selectedMatch && (
+              <div className="space-y-6">
+                {/* Match Score */}
+                <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                    <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
+                  </div>
+                  <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary rounded-full" 
+                      style={{ width: `${selectedMatch.matchScore}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-2">
+                    Excelente match: empresa no seu setor preferido com múltiplo atrativo
+                  </p>
+                </div>
+
+                {/* Detailed Metrics */}
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-slate-900">Métricas Financeiras</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-slate-50 rounded-lg">
+                      <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
+                      <p className="font-bold text-slate-900">{selectedMatch.revenue}</p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg">
+                      <p className="text-xs text-slate-500 mb-1">EBITDA</p>
+                      <p className="font-bold text-green-600">{selectedMatch.ebitda}</p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg">
+                      <p className="text-xs text-slate-500 mb-1">Funcionários</p>
+                      <p className="font-bold text-slate-900">{selectedMatch.employees}</p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg">
+                      <p className="text-xs text-slate-500 mb-1">Setor</p>
+                      <p className="font-bold text-slate-900">{selectedMatch.sector}</p>
+                    </div>
+                    <div className="p-4 bg-slate-50 rounded-lg">
+                      <p className="text-xs text-slate-500 mb-1">Localização</p>
+                      <p className="font-bold text-slate-900">{selectedMatch.location}</p>
+                    </div>
+                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
+                      <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
+                      <p className="font-bold text-primary">{selectedMatch.price}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-slate-900">Diferenciais</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedMatch.tags.map(tag => (
+                      <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stage Information */}
+                <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-slate-900">Status do Processo</h4>
+                  <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+                    <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
+                    <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                    <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
+                    <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                    <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                  </div>
+                  <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary transition-all duration-500" 
+                      style={{ 
+                        width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </Layout>
   );

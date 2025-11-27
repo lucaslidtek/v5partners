@@ -109,6 +109,7 @@ export default function DashboardPage() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [activeTab, setActiveTab] = useState("new");
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
+  const [lastAction, setLastAction] = useState<{ id: number; previousStage: Match['stage'] } | null>(null);
   const selectedMatch = matches.find(m => m.id === selectedMatchId);
 
   useEffect(() => {
@@ -122,6 +123,11 @@ export default function DashboardPage() {
   }, []);
 
   const updateMatchStage = (id: number, newStage: Match['stage']) => {
+    const previousMatch = matches.find(m => m.id === id);
+    if (!previousMatch) return;
+
+    setLastAction({ id, previousStage: previousMatch.stage });
+
     const updatedMatches = matches.map(match => 
       match.id === id ? { ...match, stage: newStage } : match
     );
@@ -144,12 +150,31 @@ export default function DashboardPage() {
         title = "Reunião Solicitada";
         description = "Enviamos sua disponibilidade para o vendedor.";
         break;
+      case 'new':
+        title = "Devolvido para Matches";
+        description = "A empresa voltou para a lista de matches recomendados.";
+        break;
     }
 
-    toast({
+    const toastId = toast({
       title,
       description,
+      action: newStage === 'interested' ? {
+        label: "Desfazer",
+        onClick: () => {
+          if (previousMatch) {
+            updateMatchStage(id, previousMatch.stage);
+          }
+        }
+      } : undefined
     });
+  };
+
+  const revertAction = () => {
+    if (lastAction) {
+      updateMatchStage(lastAction.id, lastAction.previousStage);
+      setLastAction(null);
+    }
   };
 
   function TargetIcon(props: any) {
@@ -583,15 +608,28 @@ export default function DashboardPage() {
                               <p className="text-xs text-slate-500">Receita</p>
                               <p className="font-bold text-slate-900">{process.revenue}</p>
                             </div>
-                            <Button 
-                              size="sm" 
-                              variant="outline" 
-                              className="w-full"
-                              onClick={() => setSelectedMatchId(process.id)}
-                              data-testid={`button-details-${process.id}`}
-                            >
-                              Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
-                            </Button>
+                            <div className="flex gap-2 flex-col md:flex-row">
+                              <Button 
+                                size="sm" 
+                                variant="outline" 
+                                className="w-full"
+                                onClick={() => setSelectedMatchId(process.id)}
+                                data-testid={`button-details-${process.id}`}
+                              >
+                                Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
+                              </Button>
+                              {process.stage === 'interested' && (
+                                <Button 
+                                  size="sm" 
+                                  variant="ghost" 
+                                  className="w-full text-slate-500 hover:text-slate-700"
+                                  onClick={() => updateMatchStage(process.id, 'new')}
+                                  data-testid={`button-revert-${process.id}`}
+                                >
+                                  Reverter
+                                </Button>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </CardContent>

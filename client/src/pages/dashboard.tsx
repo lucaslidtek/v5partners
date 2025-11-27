@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,10 +23,118 @@ import {
   MapPin, DollarSign, Users, TrendingUp, Building2, 
   Eye, Calendar, Lock, Clock
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+type Match = {
+  id: number;
+  name: string;
+  description: string;
+  matchScore: number;
+  revenue: string;
+  ebitda: string;
+  employees: number;
+  sector: string;
+  location: string;
+  price: string;
+  tags: string[];
+  isNew: boolean;
+  stage: 'new' | 'interested' | 'nda_signed' | 'meeting_scheduled';
+};
+
+const initialMatches: Match[] = [
+  {
+    id: 1,
+    name: "TechFlow Solutions",
+    description: "Plataforma SaaS B2B para gestão de workflows empresariais com alta recorrência.",
+    matchScore: 94,
+    revenue: "R$ 3.2M",
+    ebitda: "28%",
+    employees: 22,
+    sector: "SaaS/Tecnologia",
+    location: "São Paulo, SP",
+    price: "R$ 8.5M",
+    tags: ["Receita recorrente", "Alta margem", "Escalável"],
+    isNew: true,
+    stage: 'new'
+  },
+  {
+    id: 2,
+    name: "Empresa Confidencial #156",
+    description: "E-commerce especializado em produtos premium para pets com marca própria consolidada.",
+    matchScore: 89,
+    revenue: "R$ 12.5M",
+    ebitda: "15%",
+    employees: 45,
+    sector: "Varejo/E-commerce",
+    location: "Curitiba, PR",
+    price: "R$ 15M",
+    tags: ["Marca Própria", "Crescimento Acelerado"],
+    isNew: false,
+    stage: 'interested'
+  },
+  {
+    id: 3,
+    name: "HealthTech Innovation",
+    description: "Soluções de telemedicina integradas com prontuários eletrônicos.",
+    matchScore: 91,
+    revenue: "R$ 6.8M",
+    ebitda: "18%",
+    employees: 30,
+    sector: "Saúde",
+    location: "Florianópolis, SC",
+    price: "R$ 10.5M",
+    tags: ["Telemedicina", "SaaS"],
+    isNew: false,
+    stage: 'nda_signed'
+  }
+];
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  const [matches, setMatches] = useState<Match[]>([]);
+
+  useEffect(() => {
+    const savedMatches = localStorage.getItem('matches');
+    if (savedMatches) {
+      setMatches(JSON.parse(savedMatches));
+    } else {
+      setMatches(initialMatches);
+      localStorage.setItem('matches', JSON.stringify(initialMatches));
+    }
+  }, []);
+
+  const updateMatchStage = (id: number, newStage: Match['stage']) => {
+    const updatedMatches = matches.map(match => 
+      match.id === id ? { ...match, stage: newStage } : match
+    );
+    setMatches(updatedMatches);
+    localStorage.setItem('matches', JSON.stringify(updatedMatches));
+
+    let title = "";
+    let description = "";
+
+    switch(newStage) {
+      case 'interested':
+        title = "Interesse Registrado";
+        description = "A empresa foi notificada do seu interesse.";
+        break;
+      case 'nda_signed':
+        title = "NDA Solicitado";
+        description = "Solicitação enviada. Aguarde a liberação dos documentos.";
+        break;
+      case 'meeting_scheduled':
+        title = "Reunião Solicitada";
+        description = "Enviamos sua disponibilidade para o vendedor.";
+        break;
+    }
+
+    toast({
+      title,
+      description,
+    });
+  };
 
   function TargetIcon(props: any) {
     return (
@@ -55,53 +164,6 @@ export default function DashboardPage() {
     { label: "Negociações", value: "1", icon: MessageSquare, color: "text-slate-700" },
   ];
 
-  const matches = [
-    {
-      id: 1,
-      name: "TechFlow Solutions",
-      description: "Plataforma SaaS B2B para gestão de workflows empresariais com alta recorrência.",
-      matchScore: 94,
-      revenue: "R$ 3.2M",
-      ebitda: "28%",
-      employees: 22,
-      sector: "SaaS/Tecnologia",
-      location: "São Paulo, SP",
-      price: "R$ 8.5M",
-      tags: ["Receita recorrente", "Alta margem", "Escalável"],
-      isNew: true,
-      stage: 'new' // new, interested, nda_signed
-    },
-    {
-      id: 2,
-      name: "Empresa Confidencial #156",
-      description: "E-commerce especializado em produtos premium para pets com marca própria consolidada.",
-      matchScore: 89,
-      revenue: "R$ 12.5M",
-      ebitda: "15%",
-      employees: 45,
-      sector: "Varejo/E-commerce",
-      location: "Curitiba, PR",
-      price: "R$ 15M",
-      tags: ["Marca Própria", "Crescimento Acelerado"],
-      isNew: false,
-      stage: 'interested'
-    },
-    {
-      id: 3,
-      name: "HealthTech Innovation",
-      description: "Soluções de telemedicina integradas com prontuários eletrônicos.",
-      matchScore: 91,
-      revenue: "R$ 6.8M",
-      ebitda: "18%",
-      employees: 30,
-      sector: "Saúde",
-      location: "Florianópolis, SC",
-      price: "R$ 10.5M",
-      tags: ["Telemedicina", "SaaS"],
-      isNew: false,
-      stage: 'nda_signed'
-    }
-  ];
 
   const getStageInfo = (stage: string) => {
     switch(stage) {
@@ -343,19 +405,28 @@ export default function DashboardPage() {
                     </Button>
 
                     {match.stage === 'new' && (
-                      <Button className="bg-primary hover:bg-primary/90 shadow-sm group">
+                      <Button 
+                        className="bg-primary hover:bg-primary/90 shadow-sm group"
+                        onClick={() => updateMatchStage(match.id, 'interested')}
+                      >
                         <Heart className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" /> Tenho Interesse
                       </Button>
                     )}
 
                     {match.stage === 'interested' && (
-                      <Button className="bg-amber-600 hover:bg-amber-700 text-white shadow-sm border-amber-700">
+                      <Button 
+                        className="bg-amber-600 hover:bg-amber-700 text-white shadow-sm border-amber-700"
+                        onClick={() => updateMatchStage(match.id, 'nda_signed')}
+                      >
                         <Lock className="mr-2 h-4 w-4" /> Solicitar NDA
                       </Button>
                     )}
 
                     {match.stage === 'nda_signed' && (
-                      <Button className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm border-emerald-700">
+                      <Button 
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm border-emerald-700"
+                        onClick={() => updateMatchStage(match.id, 'meeting_scheduled')}
+                      >
                         <Calendar className="mr-2 h-4 w-4" /> Agendar Reunião
                       </Button>
                     )}

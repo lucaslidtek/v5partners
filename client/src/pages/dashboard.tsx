@@ -301,20 +301,30 @@ export default function DashboardPage() {
 
         {/* Tabs Section */}
         <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
-            <TabsTrigger value="new" className="flex items-center gap-2">
-              Matches Recomendados
-              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
-                {matches.filter(m => m.stage === 'new').length}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="active" className="flex items-center gap-2">
-              Processos
-              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
-                {matches.filter(m => m.stage !== 'new').length}
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
+          <div className="border-b border-slate-200 mb-8">
+            <TabsList className="grid grid-cols-2 w-full max-w-md gap-0 bg-transparent p-0">
+              <TabsTrigger 
+                value="new" 
+                className="relative py-4 px-6 text-base font-medium text-slate-600 hover:text-slate-900 transition-colors data-[state=active]:text-primary data-[state=active]:bg-transparent after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-primary after:rounded-t-full after:scale-x-0 data-[state=active]:after:scale-x-100 after:transition-transform after:duration-300 flex items-center gap-3"
+              >
+                <Heart className="h-4 w-4" />
+                Matches Recomendados
+                <Badge variant="secondary" className="ml-auto px-2.5 py-0.5 text-xs font-semibold bg-slate-100 text-slate-700">
+                  {matches.filter(m => m.stage === 'new').length}
+                </Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="active" 
+                className="relative py-4 px-6 text-base font-medium text-slate-600 hover:text-slate-900 transition-colors data-[state=active]:text-primary data-[state=active]:bg-transparent after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-primary after:rounded-t-full after:scale-x-0 data-[state=active]:after:scale-x-100 after:transition-transform after:duration-300 flex items-center gap-3"
+              >
+                <Clock className="h-4 w-4" />
+                Processos
+                <Badge variant="secondary" className="ml-auto px-2.5 py-0.5 text-xs font-semibold bg-slate-100 text-slate-700">
+                  {matches.filter(m => m.stage !== 'new').length}
+                </Badge>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* New Matches Tab */}
           <TabsContent value="new" className="space-y-6">

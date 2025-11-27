@@ -230,7 +230,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-24' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-16' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'}`}>
           <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900`}>Olá, {user?.name || "Investidor"}! 👋</h1>

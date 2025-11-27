@@ -156,17 +156,9 @@ export default function DashboardPage() {
         break;
     }
 
-    const toastId = toast({
+    toast({
       title,
-      description,
-      action: newStage === 'interested' ? {
-        label: "Desfazer",
-        onClick: () => {
-          if (previousMatch) {
-            updateMatchStage(id, previousMatch.stage);
-          }
-        }
-      } : undefined
+      description
     });
   };
 

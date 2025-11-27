@@ -54,6 +54,7 @@ type Match = {
   stage: 'new' | 'interested' | 'nda_signed' | 'meeting_scheduled';
   logo?: string;
   logoColor?: string;
+  logoImage?: string;
 };
 
 const initialMatches: Match[] = [
@@ -106,7 +107,8 @@ const initialMatches: Match[] = [
     isNew: false,
     stage: 'nda_signed',
     logo: "HT",
-    logoColor: "bg-emerald-500"
+    logoColor: "bg-emerald-500",
+    logoImage: "/healthtech-logo.png"
   }
 ];
 
@@ -224,6 +226,13 @@ export default function DashboardPage() {
 
   const renderLogo = (match: Match) => {
     if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
+      if (match.logoImage) {
+        return (
+          <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src={match.logoImage} alt={match.name} className="w-full h-full object-cover" />
+          </div>
+        );
+      }
       return (
         <div className={`h-12 w-12 rounded-lg ${match.logoColor || 'bg-slate-200'} flex items-center justify-center flex-shrink-0`}>
           <span className="text-white font-bold text-sm">{match.logo}</span>

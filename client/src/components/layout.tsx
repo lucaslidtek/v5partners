@@ -1,8 +1,9 @@
 import React from "react";
 import { useAuth } from "@/lib/context";
 import { Button } from "@/components/ui/button";
-import { Bell, User, LogOut } from "lucide-react";
+import { Bell, User, LogOut, Settings } from "lucide-react";
 import { Link } from "wouter";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import logo from "@assets/v5partners_color1_1764265378727.png";
 
@@ -32,10 +33,41 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                     <p className="text-sm font-semibold text-foreground">{user.name}</p>
                     <p className="text-xs text-muted-foreground capitalize">{user.role === 'investor' ? 'Investidor' : user.role}</p>
                   </div>
-                  <div className="h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center text-primary font-medium">
-                    {user.name.substring(0, 2).toUpperCase()}
-                  </div>
-                  <Button variant="ghost" size="icon" onClick={logout} title="Sair" className="text-muted-foreground hover:text-destructive">
+                  
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button 
+                        className="h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center text-primary font-medium hover:bg-muted/80 transition-colors cursor-pointer"
+                        data-testid="button-user-menu"
+                      >
+                        {user.name.substring(0, 2).toUpperCase()}
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuItem data-testid="menu-profile">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Perfil</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem data-testid="menu-settings">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Configurações</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem onClick={logout} data-testid="menu-logout" className="text-destructive focus:text-destructive">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Sair</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={logout} 
+                    title="Sair" 
+                    className="hidden sm:flex text-muted-foreground hover:text-destructive"
+                    data-testid="button-logout-desktop"
+                  >
                     <LogOut className="h-4 w-4" />
                   </Button>
                 </div>

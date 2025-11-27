@@ -52,6 +52,8 @@ type Match = {
   tags: string[];
   isNew: boolean;
   stage: 'new' | 'interested' | 'nda_signed' | 'meeting_scheduled';
+  logo?: string;
+  logoColor?: string;
 };
 
 const initialMatches: Match[] = [
@@ -68,11 +70,13 @@ const initialMatches: Match[] = [
     price: "R$ 8.5M",
     tags: ["Receita recorrente", "Alta margem", "Escalável"],
     isNew: true,
-    stage: 'new'
+    stage: 'new',
+    logo: "TF",
+    logoColor: "bg-blue-500"
   },
   {
     id: 2,
-    name: "Empresa Confidencial #156",
+    name: "PetPremium Brasil",
     description: "E-commerce especializado em produtos premium para pets com marca própria consolidada.",
     matchScore: 89,
     revenue: "R$ 12.5M",
@@ -83,7 +87,9 @@ const initialMatches: Match[] = [
     price: "R$ 15M",
     tags: ["Marca Própria", "Crescimento Acelerado"],
     isNew: false,
-    stage: 'interested'
+    stage: 'interested',
+    logo: "PP",
+    logoColor: "bg-pink-500"
   },
   {
     id: 3,
@@ -98,7 +104,9 @@ const initialMatches: Match[] = [
     price: "R$ 10.5M",
     tags: ["Telemedicina", "SaaS"],
     isNew: false,
-    stage: 'nda_signed'
+    stage: 'nda_signed',
+    logo: "HT",
+    logoColor: "bg-emerald-500"
   }
 ];
 
@@ -212,6 +220,21 @@ export default function DashboardPage() {
       return match.name;
     }
     return `Empresa Confidencial #${match.id}`;
+  };
+
+  const renderLogo = (match: Match) => {
+    if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
+      return (
+        <div className={`h-12 w-12 rounded-lg ${match.logoColor || 'bg-slate-200'} flex items-center justify-center flex-shrink-0`}>
+          <span className="text-white font-bold text-sm">{match.logo}</span>
+        </div>
+      );
+    }
+    return (
+      <div className="h-12 w-12 rounded-lg bg-slate-200 flex items-center justify-center flex-shrink-0">
+        <Lock className="h-6 w-6 text-slate-400" />
+      </div>
+    );
   };
 
   const stats = [
@@ -497,11 +520,14 @@ export default function DashboardPage() {
             >
               <Card className={`border-slate-200 ${!isMobile && 'hover:border-primary/30 hover:shadow-lg'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
                 <div className={`${isMobile ? 'p-4' : 'p-6'}`}>
-                  {/* Header com título e status */}
-                  <div className="flex items-start justify-between gap-2 mb-3">
-                    <div className="flex-1">
-                      <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 leading-tight`}>{getDisplayName(match)}</h3>
-                      <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-1`}>{match.sector} • {match.location}</p>
+                  {/* Header com logo, título e status */}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex gap-3 flex-1 items-start">
+                      {renderLogo(match)}
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 leading-tight`}>{getDisplayName(match)}</h3>
+                        <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-1`}>{match.sector} • {match.location}</p>
+                      </div>
                     </div>
                     {match.isNew && (
                       <span className={`${isMobile ? 'text-2xs px-2 py-1' : 'text-xs px-2.5 py-0.5'} bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap`}>Novo</span>
@@ -682,10 +708,13 @@ export default function DashboardPage() {
                   >
                     <Card className={`border-l-4 ${config.borderColor} ${isMobile ? 'rounded-xl' : ''}`}>
                       <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
-                        <div className="flex items-start justify-between gap-2 mb-3">
-                          <div className="flex-1">
-                            <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900`}>{getDisplayName(process)}</h3>
-                            <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-0.5`}>{process.sector} • {process.location}</p>
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex gap-3 flex-1 items-start min-w-0">
+                            {renderLogo(process)}
+                            <div className="flex-1 min-w-0">
+                              <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900`}>{getDisplayName(process)}</h3>
+                              <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-0.5`}>{process.sector} • {process.location}</p>
+                            </div>
                           </div>
                           <Badge className={`${config.color} ${isMobile ? 'text-2xs py-1 px-2 whitespace-nowrap' : 'text-xs'}`}>
                             {isMobile ? config.label.split(' ')[0] : config.label}
@@ -752,7 +781,10 @@ export default function DashboardPage() {
         <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
           <DialogContent className={`${isMobile ? 'max-w-full mx-2 max-h-[80vh]' : 'max-w-2xl max-h-[90vh]'} overflow-y-auto`}>
             <DialogHeader>
-              <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
+              <div className="flex items-center gap-3 mb-2">
+                {selectedMatch && renderLogo(selectedMatch)}
+                <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
+              </div>
               <DialogDescription>{selectedMatch?.description}</DialogDescription>
             </DialogHeader>
             

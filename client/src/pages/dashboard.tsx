@@ -230,7 +230,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-24' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'}`}>
           <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900`}>Olá, {user?.name || "Investidor"}! 👋</h1>
@@ -379,7 +379,7 @@ export default function DashboardPage() {
           </div>
 
           {/* New Matches Tab */}
-          <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-0 py-4' : 'space-y-6'}`}>
+          <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -528,7 +528,7 @@ export default function DashboardPage() {
           </TabsContent>
 
           {/* Active Processes Tab */}
-          <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-0 py-4' : 'space-y-6'}`}>
+          <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">

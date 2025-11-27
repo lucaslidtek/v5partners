@@ -59,7 +59,7 @@ export default function ProfileSelectionPage() {
 
   return (
     <Layout showHeader={false}>
-      <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-muted/30 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -68,8 +68,8 @@ export default function ProfileSelectionPage() {
           <div className="flex items-center justify-center gap-2 mb-6">
              <img src={logo} alt="V5 Partners" className="h-12 w-auto object-contain" />
           </div>
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">Escolha seu perfil</h1>
-          <p className="text-lg text-slate-600">Selecione a opção que melhor descreve você para começar</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Escolha seu perfil</h1>
+          <p className="text-lg text-muted-foreground">Selecione a opção que melhor descreve você para começar</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full">
@@ -80,21 +80,21 @@ export default function ProfileSelectionPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full border-slate-200 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden group">
+              <Card className="h-full border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden group bg-card">
                 <div className={`absolute top-0 left-0 w-full h-1 ${profile.color}`} />
                 
                 <CardHeader className="text-center pt-10 pb-2">
                   <div className={`mx-auto w-16 h-16 rounded-full ${profile.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                     <profile.icon className={`w-8 h-8 ${profile.id === 'franchise' ? 'text-accent' : profile.id === 'seller' ? 'text-secondary' : 'text-primary'}`} />
                   </div>
-                  <CardTitle className="text-xl font-bold text-slate-900">{profile.title}</CardTitle>
-                  <CardDescription className="mt-2 text-base">{profile.description}</CardDescription>
+                  <CardTitle className="text-xl font-bold text-foreground">{profile.title}</CardTitle>
+                  <CardDescription className="mt-2 text-base text-muted-foreground">{profile.description}</CardDescription>
                 </CardHeader>
                 
                 <CardContent className="flex-grow py-6">
                   <ul className="space-y-3">
                     {profile.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-slate-600">
+                      <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
                         <div className={`mt-0.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
                         <span>{feature}</span>
                       </li>

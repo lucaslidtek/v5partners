@@ -10,7 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight, ChevronLeft, Check, X, User, Briefcase } from "lucide-react";
 
 export default function OnboardingPage() {
   const { user, updateUserData } = useAuth();
@@ -131,8 +131,20 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Já teve empresa anteriormente?</Label>
                  <div className="flex gap-4">
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, hasExperience: true})}>Sim</Button>
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, hasExperience: false})}>Não</Button>
+                   <Button 
+                    variant={formData.hasExperience === true ? "default" : "outline"} 
+                    className={`flex-1 ${formData.hasExperience === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, hasExperience: true})}
+                   >
+                     <Check className="mr-2 h-4 w-4" /> Sim
+                   </Button>
+                   <Button 
+                    variant={formData.hasExperience === false ? "default" : "outline"} 
+                    className={`flex-1 ${formData.hasExperience === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, hasExperience: false})}
+                   >
+                     <X className="mr-2 h-4 w-4" /> Não
+                   </Button>
                  </div>
               </div>
               <div className="space-y-2">
@@ -312,8 +324,20 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Passivos Existentes?</Label>
                 <div className="flex gap-4">
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, liabilities: true})}>Sim</Button>
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, liabilities: false})}>Não</Button>
+                   <Button 
+                    variant={formData.liabilities === true ? "default" : "outline"} 
+                    className={`flex-1 ${formData.liabilities === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, liabilities: true})}
+                   >
+                     <Check className="mr-2 h-4 w-4" /> Sim
+                   </Button>
+                   <Button 
+                    variant={formData.liabilities === false ? "default" : "outline"} 
+                    className={`flex-1 ${formData.liabilities === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, liabilities: false})}
+                   >
+                     <X className="mr-2 h-4 w-4" /> Não
+                   </Button>
                  </div>
               </div>
             </div>
@@ -440,8 +464,20 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Perfil Ideal</Label>
                 <div className="flex gap-4">
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, operatorType: 'investor'})}>Investidor</Button>
-                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, operatorType: 'operator'})}>Operador</Button>
+                   <Button 
+                    variant={formData.operatorType === 'investor' ? "default" : "outline"} 
+                    className={`flex-1 ${formData.operatorType === 'investor' ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, operatorType: 'investor'})}
+                   >
+                     <User className="mr-2 h-4 w-4" /> Investidor
+                   </Button>
+                   <Button 
+                    variant={formData.operatorType === 'operator' ? "default" : "outline"} 
+                    className={`flex-1 ${formData.operatorType === 'operator' ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    onClick={() => setFormData({...formData, operatorType: 'operator'})}
+                   >
+                     <Briefcase className="mr-2 h-4 w-4" /> Operador
+                   </Button>
                  </div>
               </div>
               <div className="space-y-2">
@@ -480,8 +516,20 @@ export default function OnboardingPage() {
                 <div className="space-y-2">
                   <Label>Exclusividade Territorial?</Label>
                    <div className="flex gap-4">
-                     <Button variant="outline" className="flex-1">Sim</Button>
-                     <Button variant="outline" className="flex-1">Não</Button>
+                     <Button 
+                      variant={formData.exclusivity === true ? "default" : "outline"} 
+                      className={`flex-1 ${formData.exclusivity === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                      onClick={() => setFormData({...formData, exclusivity: true})}
+                     >
+                       <Check className="mr-2 h-4 w-4" /> Sim
+                     </Button>
+                     <Button 
+                      variant={formData.exclusivity === false ? "default" : "outline"} 
+                      className={`flex-1 ${formData.exclusivity === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                      onClick={() => setFormData({...formData, exclusivity: false})}
+                     >
+                       <X className="mr-2 h-4 w-4" /> Não
+                     </Button>
                    </div>
                 </div>
                 <div className="space-y-2">

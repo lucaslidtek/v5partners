@@ -570,7 +570,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-3' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100'} ${!isMobile && 'border-t border-slate-100'}`}>
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-3' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100'}`}>
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
@@ -712,7 +712,7 @@ export default function DashboardPage() {
                           </div>
                         )}
 
-                        <div className={`flex gap-2 ${isMobile ? 'pt-3' : 'pt-2 border-t border-slate-100'} ${!isMobile && 'border-t border-slate-100'}`}>
+                        <div className={`flex gap-2 ${isMobile ? 'pt-3' : 'pt-2 border-t border-slate-100'}`}>
                           <Button 
                             variant="outline" 
                             className={`flex-1 border-slate-200 hover:bg-slate-50 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}

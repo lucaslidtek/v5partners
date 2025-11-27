@@ -206,23 +206,17 @@ export default function ProfilePage() {
         </Button>
         
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900" data-testid="text-profile-title">Perfil</h1>
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold text-slate-900" data-testid="text-profile-title">Perfil</h1>
+            {profileInfo && ProfileIcon && (
+              <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-2 text-sm font-medium`} data-testid="badge-profile-type">
+                <ProfileIcon className="w-4 h-4" />
+                <span>{profileInfo.title}</span>
+              </div>
+            )}
+          </div>
           <p className="text-slate-500 mt-1">Informações da sua conta</p>
         </div>
-
-        {profileInfo && ProfileIcon && (
-          <Card className={`${profileInfo.bgColor} ${profileInfo.textColor} p-6 mb-8`} data-testid="card-profile-type">
-            <div className="flex items-start gap-4">
-              <div className={`p-3 rounded-lg ${profileInfo.badgeColor} flex-shrink-0`}>
-                <ProfileIcon className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold mb-1" data-testid="text-profile-type-title">{profileInfo.title}</h2>
-                <p className="opacity-90" data-testid="text-profile-type-description">{profileInfo.description}</p>
-              </div>
-            </div>
-          </Card>
-        )}
 
         <Card className="p-6" data-testid="card-profile">
           {user?.role === "investor" && renderInvestorProfile()}

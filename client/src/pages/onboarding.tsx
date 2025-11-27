@@ -575,8 +575,8 @@ export default function OnboardingPage() {
            </AnimatePresence>
           </CardContent>
           <CardFooter className="flex justify-between border-t p-6">
-            <Button variant="outline" onClick={handleBack} disabled={step === 1 && !user} className="border-slate-200 hover:bg-slate-50 hover:text-primary">
-              Voltar
+            <Button variant="ghost" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-slate-50 hover:text-primary">
+              <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
             <Button onClick={handleNext} className="bg-primary hover:bg-primary/90">
               {step === totalSteps ? "Finalizar" : "Próximo"} <ChevronRight className="ml-2 h-4 w-4" />

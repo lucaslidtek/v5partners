@@ -31,9 +31,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email,
       name,
       city: "",
-      role: null,
+      role: "investor",
+      // Investor Profile Data
+      location: "São Paulo, SP",
+      ageRange: "31-40",
+      education: "Administração de Empresas",
+      investmentRange: "500k-1m",
+      roiTime: "medium",
+      hasExperience: true,
+      // Additional mock data for complete profile
+      tradeName: "",
+      segment: "",
+      monthlyRevenue: "",
+      ebitda: "",
+      employees: "",
+      sellReason: "",
+      stage: "",
+      franchiseName: "",
+      yearsInMarket: "",
+      numberOfUnits: "",
+      initialInvestment: "",
+      franchiseFee: "",
+      payback: "",
+      operatorType: "",
     });
-    setLocation("/profile-selection");
+    setLocation("/dashboard");
   };
 
   const logout = () => {

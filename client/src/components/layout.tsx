@@ -2,13 +2,14 @@ import React from "react";
 import { useAuth } from "@/lib/context";
 import { Button } from "@/components/ui/button";
 import { Bell, User, LogOut, Settings } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import logo from "@assets/v5partners_color1_1764265378727.png";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
   const { user, logout } = useAuth();
+  const [, setLocation] = useLocation();
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] font-sans text-foreground">
@@ -44,11 +45,11 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem data-testid="menu-profile">
+                      <DropdownMenuItem onClick={() => setLocation("/profile")} data-testid="menu-profile">
                         <User className="mr-2 h-4 w-4" />
                         <span>Perfil</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem data-testid="menu-settings">
+                      <DropdownMenuItem onClick={() => setLocation("/settings")} data-testid="menu-settings">
                         <Settings className="mr-2 h-4 w-4" />
                         <span>Configurações</span>
                       </DropdownMenuItem>

@@ -12,6 +12,8 @@ import SummaryPage from "@/pages/summary";
 import DashboardPage from "@/pages/dashboard";
 import ValuationPage from "@/pages/valuation";
 import ProcessesPage from "@/pages/processes";
+import ProfilePage from "@/pages/profile";
+import SettingsPage from "@/pages/settings";
 
 function Router() {
   return (
@@ -24,6 +26,8 @@ function Router() {
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/valuation" component={ValuationPage} />
       <Route path="/processes" component={ProcessesPage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/settings" component={SettingsPage} />
       <Route component={NotFound} />
     </Switch>
   );

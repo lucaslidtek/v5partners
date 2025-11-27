@@ -7,10 +7,11 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Check, X, User, Briefcase } from "lucide-react";
+import { ChevronRight, ChevronLeft, Check, X, User, Briefcase, Lock, Info } from "lucide-react";
 
 export default function OnboardingPage() {
   const { user, updateUserData } = useAuth();
@@ -217,12 +218,26 @@ export default function OnboardingPage() {
         case 1: // Identificação e Setor
           return (
             <div className="space-y-4">
+              <Alert className="border-amber-200 bg-amber-50">
+                <Lock className="h-4 w-4 text-amber-600" />
+                <AlertDescription className="text-amber-800">
+                  <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores <strong>após o NDA ser assinado</strong>. Antes disso, aparecerão como "Empresa Confidencial".
+                </AlertDescription>
+              </Alert>
               <div className="space-y-2">
-                <Label>Nome Fantasia (Opcional)</Label>
+                <Label>Nome Fantasia</Label>
                 <Input 
-                  placeholder="Se desejar manter confidencial, deixe em branco" 
+                  placeholder="Ex: TechFlow Solutions" 
                   onChange={(e) => setFormData({...formData, tradeName: e.target.value})}
                 />
+              </div>
+              <div className="space-y-2">
+                <Label>Logo da Empresa (URL)</Label>
+                <Input 
+                  placeholder="Ex: https://example.com/logo.png" 
+                  onChange={(e) => setFormData({...formData, logoUrl: e.target.value})}
+                />
+                <p className="text-xs text-slate-500">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
               </div>
               <div className="space-y-2">
                 <Label>Cidade / Estado</Label>
@@ -386,12 +401,26 @@ export default function OnboardingPage() {
         case 1: // Identificação da Franquia
           return (
             <div className="space-y-4">
+              <Alert className="border-amber-200 bg-amber-50">
+                <Lock className="h-4 w-4 text-amber-600" />
+                <AlertDescription className="text-amber-800">
+                  <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores <strong>após o NDA ser assinado</strong>. Antes disso, aparecerão como "Empresa Confidencial".
+                </AlertDescription>
+              </Alert>
               <div className="space-y-2">
                 <Label>Nome da Franquia</Label>
                 <Input 
                   placeholder="Ex: Minha Franquia"
                   onChange={(e) => setFormData({...formData, franchiseName: e.target.value})}
                 />
+              </div>
+              <div className="space-y-2">
+                <Label>Logo da Franquia (URL)</Label>
+                <Input 
+                  placeholder="Ex: https://example.com/logo.png" 
+                  onChange={(e) => setFormData({...formData, logoUrl: e.target.value})}
+                />
+                <p className="text-xs text-slate-500">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">

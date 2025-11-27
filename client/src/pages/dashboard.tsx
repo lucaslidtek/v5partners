@@ -207,6 +207,13 @@ export default function DashboardPage() {
     )
   }
 
+  const getDisplayName = (match: Match) => {
+    if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
+      return match.name;
+    }
+    return `Empresa Confidencial #${match.id}`;
+  };
+
   const stats = [
     { label: "Matches Ativos", value: "12", icon: TargetIcon, color: "text-primary" },
     { label: "Empresas Favoritadas", value: "4", icon: Heart, color: "text-secondary" },
@@ -493,7 +500,7 @@ export default function DashboardPage() {
                   {/* Header com título e status */}
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div className="flex-1">
-                      <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 leading-tight`}>{match.name}</h3>
+                      <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 leading-tight`}>{getDisplayName(match)}</h3>
                       <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-1`}>{match.sector} • {match.location}</p>
                     </div>
                     {match.isNew && (
@@ -677,7 +684,7 @@ export default function DashboardPage() {
                       <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
                         <div className="flex items-start justify-between gap-2 mb-3">
                           <div className="flex-1">
-                            <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900`}>{process.name}</h3>
+                            <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900`}>{getDisplayName(process)}</h3>
                             <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-0.5`}>{process.sector} • {process.location}</p>
                           </div>
                           <Badge className={`${config.color} ${isMobile ? 'text-2xs py-1 px-2 whitespace-nowrap' : 'text-xs'}`}>
@@ -745,7 +752,7 @@ export default function DashboardPage() {
         <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
           <DialogContent className={`${isMobile ? 'max-w-full mx-2 max-h-[80vh]' : 'max-w-2xl max-h-[90vh]'} overflow-y-auto`}>
             <DialogHeader>
-              <DialogTitle className="text-2xl">{selectedMatch?.name}</DialogTitle>
+              <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
               <DialogDescription>{selectedMatch?.description}</DialogDescription>
             </DialogHeader>
             

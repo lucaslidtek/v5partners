@@ -301,20 +301,32 @@ export default function DashboardPage() {
 
         {/* Tabs Section */}
         <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
-            <TabsTrigger value="new" className="flex items-center gap-2">
-              Matches Recomendados
-              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
-                {matches.filter(m => m.stage === 'new').length}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="active" className="flex items-center gap-2">
-              Processos
-              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
-                {matches.filter(m => m.stage !== 'new').length}
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
+          <div className="border-b border-slate-200 mb-8">
+            <TabsList className="grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0">
+              <TabsTrigger 
+                value="new" 
+                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm"
+              >
+                Matches Recomendados
+                <Badge 
+                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
+                >
+                  {matches.filter(m => m.stage === 'new').length}
+                </Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="active" 
+                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm"
+              >
+                Processos Ativos
+                <Badge 
+                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
+                >
+                  {matches.filter(m => m.stage !== 'new').length}
+                </Badge>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* New Matches Tab */}
           <TabsContent value="new" className="space-y-6">

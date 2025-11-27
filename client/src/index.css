@@ -46,53 +46,55 @@
 }
 
 :root {
-  /* Navy Blue Primary */
-  --primary: 217 33% 17%; /* #1e293b - Dark slate/navy */
-  --primary-foreground: 210 40% 98%;
+  /* V5 Partners - Royal Blue #00205D */
+  --primary: 219 100% 18%;
+  --primary-foreground: 0 0% 100%;
 
-  /* Teal/Cyan Secondary */
-  --secondary: 189 94% 43%; /* #06b6d4 - Cyan 500 */
-  --secondary-foreground: 210 40% 98%;
+  /* V5 Partners - Cyan/Light Blue #1BB5F2 */
+  --secondary: 200 88% 53%;
+  --secondary-foreground: 219 100% 18%;
 
-  /* Yellow Accent */
-  --accent: 45 93% 47%; /* #f59e0b - Amber 500 */
-  --accent-foreground: 217 33% 17%;
+  /* V5 Partners - Bright Blue #0C70F2 */
+  --accent: 214 91% 50%;
+  --accent-foreground: 0 0% 100%;
 
-  --background: 210 40% 98%; /* Light blueish gray */
-  --foreground: 217 33% 17%;
+  /* Backgrounds */
+  --background: 0 0% 100%; /* #FFFFFF */
+  --foreground: 180 64% 2%; /* #020909 */
 
   --card: 0 0% 100%;
-  --card-foreground: 217 33% 17%;
+  --card-foreground: 180 64% 2%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 217 33% 17%;
+  --popover-foreground: 180 64% 2%;
 
-  --muted: 210 40% 96%;
+  /* V5 Partners - Light Gray #F1F1F1 */
+  --muted: 0 0% 95%;
   --muted-foreground: 215 16% 47%;
 
   --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
+  --destructive-foreground: 0 0% 98%;
 
   --border: 214 32% 91%;
   --input: 214 32% 91%;
-  --ring: 217 33% 17%;
+  --ring: 219 100% 18%;
 
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
-  --chart-1: 189 94% 43%;
-  --chart-2: 45 93% 47%;
-  --chart-3: 217 33% 17%;
-  --chart-4: 43 74% 66%;
-  --chart-5: 27 87% 67%;
+  --chart-1: 219 100% 18%;
+  --chart-2: 200 88% 53%;
+  --chart-3: 214 91% 50%;
+  --chart-4: 212 100% 34%;
+  --chart-5: 180 64% 2%;
 
   --sidebar: 0 0% 100%;
   --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary: 219 100% 18%;
   --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-accent: 0 0% 95%;
+  --sidebar-accent-foreground: 219 100% 18%;
   --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+  --sidebar-ring: 219 100% 18%;
 }
 
 .dark {

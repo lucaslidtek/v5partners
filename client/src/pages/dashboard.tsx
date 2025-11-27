@@ -468,7 +468,7 @@ export default function DashboardPage() {
           </div>
 
           {/* New Matches Tab */}
-          <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4' : 'space-y-6'}`}>
+          <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -617,7 +617,7 @@ export default function DashboardPage() {
           </TabsContent>
 
           {/* Active Processes Tab */}
-          <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4' : 'space-y-6'}`}>
+          <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">

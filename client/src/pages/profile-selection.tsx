@@ -38,7 +38,7 @@ export default function ProfileSelectionPage() {
       ],
       color: "bg-secondary",
       buttonColor: "bg-secondary hover:bg-secondary/90",
-      textColor: "text-white"
+      textColor: "text-primary"
     },
     {
       id: "franchise",
@@ -53,7 +53,7 @@ export default function ProfileSelectionPage() {
       ],
       color: "bg-accent",
       buttonColor: "bg-accent hover:bg-accent/90",
-      textColor: "text-slate-900" // Accent is yellow, so dark text is better
+      textColor: "text-white"
     }
   ];
 

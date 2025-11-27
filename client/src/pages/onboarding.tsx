@@ -52,6 +52,7 @@ export default function OnboardingPage() {
                   <Label>Nome Completo</Label>
                   <Input 
                     defaultValue={user?.name} 
+                    placeholder="Ex: João Silva"
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                   />
                 </div>
@@ -388,6 +389,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Nome da Franquia</Label>
                 <Input 
+                  placeholder="Ex: Minha Franquia"
                   onChange={(e) => setFormData({...formData, franchiseName: e.target.value})}
                 />
               </div>

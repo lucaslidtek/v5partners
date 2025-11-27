@@ -573,64 +573,73 @@ export default function DashboardPage() {
                   >
                     <Card className={`border-l-4 ${config.borderColor}`}>
                       <CardContent className="p-6">
-                        <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex items-start justify-between mb-4">
                           <div className="flex-grow">
-                            <div className="flex items-start justify-between mb-3">
-                              <div>
-                                <h3 className="text-lg font-bold text-slate-900">{process.name}</h3>
-                                <p className="text-slate-500 text-sm">{process.sector} • {process.location}</p>
-                              </div>
-                              <Badge className={config.color}>
-                                {config.label}
-                              </Badge>
-                            </div>
-                            
-                            <div className="space-y-2 mb-4">
-                              <div className="flex justify-between text-xs font-medium text-slate-500">
-                                <span>Progresso</span>
-                                <span>{config.progress}%</span>
-                              </div>
-                              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                                <div 
-                                  className="h-full bg-primary transition-all duration-500"
-                                  style={{ width: `${config.progress}%` }}
-                                />
-                              </div>
-                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">{process.name}</h3>
+                            <p className="text-slate-500 text-sm">{process.sector} • {process.location}</p>
                           </div>
-                          
-                          <div className="flex md:flex-col gap-2 justify-center md:justify-start md:min-w-[140px] border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
-                            <div className="text-center md:text-left mb-2">
-                              <p className="text-xs text-slate-500">Valor</p>
-                              <p className="font-bold text-slate-900">{process.price}</p>
-                            </div>
-                            <div className="text-center md:text-left mb-4">
-                              <p className="text-xs text-slate-500">Receita</p>
-                              <p className="font-bold text-slate-900">{process.revenue}</p>
-                            </div>
-                            <div className="flex gap-2 flex-col md:flex-row">
-                              <Button 
-                                size="sm" 
-                                variant="outline" 
-                                className="w-full"
-                                onClick={() => setSelectedMatchId(process.id)}
-                                data-testid={`button-details-${process.id}`}
-                              >
-                                Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
-                              </Button>
-                              {process.stage === 'interested' && (
-                                <Button 
-                                  size="sm" 
-                                  variant="ghost" 
-                                  className="w-full text-slate-500 hover:text-slate-700"
-                                  onClick={() => updateMatchStage(process.id, 'new')}
-                                  data-testid={`button-revert-${process.id}`}
-                                >
-                                  Reverter
-                                </Button>
-                              )}
-                            </div>
+                          <Badge className={config.color}>
+                            {config.label}
+                          </Badge>
+                        </div>
+
+                        {/* Compatibility Bar */}
+                        <div className="bg-sky-50/50 rounded-lg p-4 mb-4 border border-sky-100">
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                            <span className="text-lg font-bold text-primary">{process.matchScore}%</span>
                           </div>
+                          <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-primary rounded-full" 
+                              style={{ width: `${process.matchScore}%` }}
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="space-y-2 mb-4">
+                          <div className="flex justify-between text-xs font-medium text-slate-500">
+                            <span>Progresso</span>
+                            <span>{config.progress}%</span>
+                          </div>
+                          <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-primary transition-all duration-500"
+                              style={{ width: `${config.progress}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mb-4">
+                          <div className="p-3 bg-slate-50 rounded-lg">
+                            <p className="text-xs text-slate-500 mb-1">Valor</p>
+                            <p className="font-bold text-slate-900">{process.price}</p>
+                          </div>
+                          <div className="p-3 bg-slate-50 rounded-lg">
+                            <p className="text-xs text-slate-500 mb-1">Receita</p>
+                            <p className="font-bold text-slate-900">{process.revenue}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2 pt-2 border-t border-slate-100">
+                          <Button 
+                            variant="outline" 
+                            className="flex-1 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                            onClick={() => setSelectedMatchId(process.id)}
+                            data-testid={`button-details-${process.id}`}
+                          >
+                            <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
+                          </Button>
+                          {process.stage === 'interested' && (
+                            <Button 
+                              variant="ghost" 
+                              className="flex-1 text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                              onClick={() => updateMatchStage(process.id, 'new')}
+                              data-testid={`button-revert-${process.id}`}
+                            >
+                              Reverter
+                            </Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>

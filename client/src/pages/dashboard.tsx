@@ -111,6 +111,7 @@ export default function DashboardPage() {
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
   const [lastAction, setLastAction] = useState<{ id: number; previousStage: Match['stage'] } | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
   const selectedMatch = matches.find(m => m.id === selectedMatchId);
 
   const filteredMatches = matches.filter(match => {
@@ -131,6 +132,11 @@ export default function DashboardPage() {
       setMatches(initialMatches);
       localStorage.setItem('matches', JSON.stringify(initialMatches));
     }
+
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const updateMatchStage = (id: number, newStage: Match['stage']) => {
@@ -224,47 +230,49 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
         {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900">Olá, {user?.name || "Investidor"}! 👋</h1>
-          <p className="text-slate-500 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>
+        <div className={`${isMobile ? 'mb-4' : 'mb-8'}`}>
+          <h1 className={`${isMobile ? 'text-xl' : 'text-3xl'} font-bold text-slate-900`}>Olá, {user?.name || "Investidor"}! 👋</h1>
+          {!isMobile && <p className="text-slate-500 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {stats.map((stat, index) => (
-            <Card key={index} className="border-slate-200 hover:shadow-md transition-shadow">
-              <CardContent className="p-6 flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
-                  <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
-                </div>
-                <div className={`h-12 w-12 rounded-full bg-slate-50 flex items-center justify-center ${stat.color}`}>
-                  <stat.icon className="h-6 w-6" />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {/* Stats Grid - Hidden on Mobile */}
+        {!isMobile && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {stats.map((stat, index) => (
+              <Card key={index} className="border-slate-200 hover:shadow-md transition-shadow">
+                <CardContent className="p-6 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
+                    <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
+                  </div>
+                  <div className={`h-12 w-12 rounded-full bg-slate-50 flex items-center justify-center ${stat.color}`}>
+                    <stat.icon className="h-6 w-6" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
         {/* Search and Filter Bar */}
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className={`flex ${isMobile ? 'flex-col gap-2' : 'flex-col md:flex-row gap-4'} ${isMobile ? 'mb-4' : 'mb-8'}`}>
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
             <Input 
-              placeholder="Buscar por setor, localização ou nome..." 
-              className="pl-10 h-11 bg-white border-slate-200 shadow-sm"
+              placeholder={isMobile ? "Buscar..." : "Buscar por setor, localização ou nome..."} 
+              className={`pl-10 ${isMobile ? 'h-10' : 'h-11'} bg-white border-slate-200 shadow-sm`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="input-search"
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
+          <div className={`flex ${isMobile ? 'gap-1' : 'gap-2'} overflow-x-auto pb-2 md:pb-0`}>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap">
-                  <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
+                <Button variant="outline" className={`${isMobile ? 'h-10 px-2' : 'h-11'} border-slate-200 bg-white whitespace-nowrap text-sm`}>
+                  <Filter className={`${isMobile ? 'h-4 w-4' : 'mr-2 h-4 w-4'}`} /> {!isMobile && 'Filtros Avançados'}
                 </Button>
               </SheetTrigger>
               <SheetContent>
@@ -329,23 +337,25 @@ export default function DashboardPage() {
               </SheetContent>
             </Sheet>
 
-            <Button 
-              variant="outline" 
-              className="h-11 border-slate-200 bg-white whitespace-nowrap"
-              onClick={() => setLocation('/valuation')}
-            >
-              <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
-            </Button>
+            {!isMobile && (
+              <Button 
+                variant="outline" 
+                className="h-11 border-slate-200 bg-white whitespace-nowrap"
+                onClick={() => setLocation('/valuation')}
+              >
+                <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
+              </Button>
+            )}
           </div>
         </div>
 
         {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <div className="border-b border-slate-200 mb-8">
-            <TabsList className="grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0">
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 rounded-t-2xl shadow-lg' : ''}`}>
+          <div className={`${isMobile ? 'border-0 mb-0 px-4 py-2' : 'border-b border-slate-200 mb-8'}`}>
+            <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 
                 value="new" 
-                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm"
+                className={`relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'}`}
               >
                 Matches Recomendados
                 <Badge 
@@ -356,7 +366,7 @@ export default function DashboardPage() {
               </TabsTrigger>
               <TabsTrigger 
                 value="active" 
-                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm"
+                className={`relative px-0 py-3 h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'}`}
               >
                 Processos Ativos
                 <Badge 
@@ -369,7 +379,7 @@ export default function DashboardPage() {
           </div>
 
           {/* New Matches Tab */}
-          <TabsContent value="new" className="space-y-6">
+          <TabsContent value="new" className={`${isMobile ? 'space-y-3 pb-4' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -389,8 +399,8 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <Card className="border-slate-200 hover:border-primary/30 hover:shadow-lg transition-all duration-300 overflow-hidden">
-                <div className="p-6">
+              <Card className={`border-slate-200 ${!isMobile && 'hover:border-primary/30 hover:shadow-lg'} transition-all duration-300 overflow-hidden`}>
+                <div className={`${isMobile ? 'p-4' : 'p-6'}`}>
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                     <div>
                       <div className="flex items-center gap-3 mb-1">
@@ -424,31 +434,41 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Key Metrics Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-                    <div className="text-center p-3 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
-                      <p className="font-bold text-slate-900">{match.revenue}</p>
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2' : 'grid-cols-2 md:grid-cols-5 gap-4'} ${isMobile ? 'mb-4' : 'mb-6'}`}>
+                    <div className={`text-center ${isMobile ? 'p-2' : 'p-3'} bg-slate-50 rounded-lg`}>
+                      <p className={`${isMobile ? 'text-2xs' : 'text-xs'} text-slate-500 mb-1`}>Receita</p>
+                      <p className={`font-bold ${isMobile ? 'text-sm' : ''} text-slate-900`}>{match.revenue}</p>
                     </div>
-                    <div className="text-center p-3 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">EBITDA</p>
-                      <p className="font-bold text-green-600">{match.ebitda}</p>
+                    <div className={`text-center ${isMobile ? 'p-2' : 'p-3'} bg-slate-50 rounded-lg`}>
+                      <p className={`${isMobile ? 'text-2xs' : 'text-xs'} text-slate-500 mb-1`}>EBITDA</p>
+                      <p className={`font-bold ${isMobile ? 'text-sm' : ''} text-green-600`}>{match.ebitda}</p>
                     </div>
-                    <div className="text-center p-3 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Funcionários</p>
-                      <p className="font-bold text-slate-900">{match.employees}</p>
-                    </div>
-                     <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1">
-                      <p className="text-xs text-slate-500 mb-1">Setor</p>
-                      <p className="font-bold text-slate-900 truncate" title={match.sector}>{match.sector}</p>
-                    </div>
-                    <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1 border border-primary/10 bg-primary/5">
-                      <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
-                      <p className="font-bold text-primary">{match.price}</p>
-                    </div>
+                    {!isMobile && (
+                      <>
+                        <div className="text-center p-3 bg-slate-50 rounded-lg">
+                          <p className="text-xs text-slate-500 mb-1">Funcionários</p>
+                          <p className="font-bold text-slate-900">{match.employees}</p>
+                        </div>
+                        <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1">
+                          <p className="text-xs text-slate-500 mb-1">Setor</p>
+                          <p className="font-bold text-slate-900 truncate" title={match.sector}>{match.sector}</p>
+                        </div>
+                        <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1 border border-primary/10 bg-primary/5">
+                          <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
+                          <p className="font-bold text-primary">{match.price}</p>
+                        </div>
+                      </>
+                    )}
+                    {isMobile && (
+                      <div className="text-center p-2 bg-primary/5 rounded-lg col-span-2 border border-primary/10">
+                        <p className="text-2xs text-slate-500 mb-1">Valor</p>
+                        <p className="font-bold text-sm text-primary">{match.price}</p>
+                      </div>
+                    )}
                   </div>
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className={`flex flex-wrap ${isMobile ? 'gap-1 mb-3' : 'gap-2 mb-6'}`}>
                     {match.tags.map(tag => (
                       <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600 font-normal">
                         {tag}
@@ -476,40 +496,40 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100">
+                  <div className={`grid ${isMobile ? 'grid-cols-1 gap-2' : 'grid-cols-1 md:grid-cols-2 gap-3'} pt-4 border-t border-slate-100`}>
                      <Button 
                       variant="outline" 
-                      className="border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                      className={`border-slate-200 hover:bg-slate-50 hover:text-slate-900 ${isMobile ? 'h-9 text-sm' : ''}`}
                       onClick={() => setSelectedMatchId(match.id)}
                       data-testid={`button-details-${match.id}`}
                     >
-                      <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
+                      <Eye className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${!isMobile && 'mr-2'}`} /> {!isMobile && 'Ver Detalhes'}
                     </Button>
 
                     {match.stage === 'new' && (
                       <Button 
-                        className="bg-primary hover:bg-primary/90 shadow-sm group"
+                        className={`bg-primary hover:bg-primary/90 shadow-sm group ${isMobile ? 'h-9 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'interested')}
                       >
-                        <Heart className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" /> Tenho Interesse
+                        <Heart className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {!isMobile && 'Tenho Interesse'}
                       </Button>
                     )}
 
                     {match.stage === 'interested' && (
                       <Button 
-                        className="bg-amber-600 hover:bg-amber-700 text-white shadow-sm border-amber-700"
+                        className={`bg-amber-600 hover:bg-amber-700 text-white shadow-sm border-amber-700 ${isMobile ? 'h-9 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'nda_signed')}
                       >
-                        <Lock className="mr-2 h-4 w-4" /> Solicitar NDA
+                        <Lock className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${!isMobile && 'mr-2'}`} /> {!isMobile && 'Solicitar NDA'}
                       </Button>
                     )}
 
                     {match.stage === 'nda_signed' && (
                       <Button 
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm border-emerald-700"
+                        className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm border-emerald-700 ${isMobile ? 'h-9 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'meeting_scheduled')}
                       >
-                        <Calendar className="mr-2 h-4 w-4" /> Agendar Reunião
+                        <Calendar className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${!isMobile && 'mr-2'}`} /> {!isMobile && 'Agendar Reunião'}
                       </Button>
                     )}
                   </div>
@@ -521,7 +541,7 @@ export default function DashboardPage() {
           </TabsContent>
 
           {/* Active Processes Tab */}
-          <TabsContent value="active" className="space-y-6">
+          <TabsContent value="active" className={`${isMobile ? 'space-y-3 pb-4' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -578,33 +598,35 @@ export default function DashboardPage() {
                     animate={{ opacity: 1, y: 0 }}
                   >
                     <Card className={`border-l-4 ${config.borderColor}`}>
-                      <CardContent className="p-6">
+                      <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex-grow">
-                            <h3 className="text-lg font-bold text-slate-900">{process.name}</h3>
-                            <p className="text-slate-500 text-sm">{process.sector} • {process.location}</p>
+                            <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-bold text-slate-900`}>{process.name}</h3>
+                            <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500`}>{process.sector} • {process.location}</p>
                           </div>
-                          <Badge className={config.color}>
+                          <Badge className={`${config.color} ${isMobile ? 'text-2xs py-0.5 px-1.5' : ''}`}>
                             {config.label}
                           </Badge>
                         </div>
 
                         {/* Compatibility Bar */}
-                        <div className="bg-sky-50/50 rounded-lg p-4 mb-4 border border-sky-100">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
-                            <span className="text-lg font-bold text-primary">{process.matchScore}%</span>
+                        {!isMobile && (
+                          <div className="bg-sky-50/50 rounded-lg p-4 mb-4 border border-sky-100">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                              <span className="text-lg font-bold text-primary">{process.matchScore}%</span>
+                            </div>
+                            <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-primary rounded-full" 
+                                style={{ width: `${process.matchScore}%` }}
+                              />
+                            </div>
                           </div>
-                          <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-primary rounded-full" 
-                              style={{ width: `${process.matchScore}%` }}
-                            />
-                          </div>
-                        </div>
+                        )}
                         
-                        <div className="space-y-2 mb-4">
-                          <div className="flex justify-between text-xs font-medium text-slate-500">
+                        <div className={`space-y-2 ${isMobile ? 'mb-3' : 'mb-4'}`}>
+                          <div className={`flex justify-between ${isMobile ? 'text-2xs' : 'text-xs'} font-medium text-slate-500`}>
                             <span>Progresso</span>
                             <span>{config.progress}%</span>
                           </div>
@@ -616,34 +638,36 @@ export default function DashboardPage() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                          <div className="p-3 bg-slate-50 rounded-lg">
-                            <p className="text-xs text-slate-500 mb-1">Valor</p>
-                            <p className="font-bold text-slate-900">{process.price}</p>
+                        {!isMobile && (
+                          <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div className="p-3 bg-slate-50 rounded-lg">
+                              <p className="text-xs text-slate-500 mb-1">Valor</p>
+                              <p className="font-bold text-slate-900">{process.price}</p>
+                            </div>
+                            <div className="p-3 bg-slate-50 rounded-lg">
+                              <p className="text-xs text-slate-500 mb-1">Receita</p>
+                              <p className="font-bold text-slate-900">{process.revenue}</p>
+                            </div>
                           </div>
-                          <div className="p-3 bg-slate-50 rounded-lg">
-                            <p className="text-xs text-slate-500 mb-1">Receita</p>
-                            <p className="font-bold text-slate-900">{process.revenue}</p>
-                          </div>
-                        </div>
+                        )}
 
-                        <div className="flex gap-2 pt-2 border-t border-slate-100">
+                        <div className={`flex gap-2 pt-2 border-t border-slate-100`}>
                           <Button 
                             variant="outline" 
-                            className="flex-1 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                            className={`flex-1 border-slate-200 hover:bg-slate-50 hover:text-slate-900 ${isMobile ? 'h-9 text-sm' : ''}`}
                             onClick={() => setSelectedMatchId(process.id)}
                             data-testid={`button-details-${process.id}`}
                           >
-                            <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
+                            <Eye className={`${isMobile ? 'h-3 w-3' : 'h-4 w-4'} ${!isMobile && 'mr-2'}`} /> {!isMobile && 'Ver Detalhes'}
                           </Button>
                           {process.stage === 'interested' && (
                             <Button 
                               variant="ghost" 
-                              className="flex-1 text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                              className={`flex-1 text-slate-500 hover:text-slate-700 hover:bg-slate-50 ${isMobile ? 'h-9 text-sm' : ''}`}
                               onClick={() => updateMatchStage(process.id, 'new')}
                               data-testid={`button-revert-${process.id}`}
                             >
-                              Reverter
+                              {isMobile ? '↶' : 'Reverter'}
                             </Button>
                           )}
                         </div>
@@ -658,7 +682,7 @@ export default function DashboardPage() {
 
         {/* Match Details Dialog */}
         <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className={`${isMobile ? 'max-w-full mx-2 max-h-[80vh]' : 'max-w-2xl max-h-[90vh]'} overflow-y-auto`}>
             <DialogHeader>
               <DialogTitle className="text-2xl">{selectedMatch?.name}</DialogTitle>
               <DialogDescription>{selectedMatch?.description}</DialogDescription>

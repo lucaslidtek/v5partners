@@ -114,12 +114,6 @@ export default function ProfileSelectionPage() {
             </motion.div>
           ))}
         </div>
-        
-        <div className="mt-12">
-           <Button variant="outline" className="text-slate-500 border-slate-200 hover:bg-white" onClick={() => window.history.back()}>
-             Voltar ao início
-           </Button>
-        </div>
       </div>
     </Layout>
   );

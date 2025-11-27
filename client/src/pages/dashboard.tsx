@@ -14,6 +14,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -21,7 +27,7 @@ import { motion } from "framer-motion";
 import { 
   Search, Filter, Heart, FileText, MessageSquare, 
   MapPin, DollarSign, Users, TrendingUp, Building2, 
-  Eye, Calendar, Lock, Clock
+  Eye, Calendar, Lock, Clock, ArrowRight
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -94,6 +100,7 @@ export default function DashboardPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [matches, setMatches] = useState<Match[]>([]);
+  const [activeTab, setActiveTab] = useState("new");
 
   useEffect(() => {
     const savedMatches = localStorage.getItem('matches');
@@ -289,24 +296,42 @@ export default function DashboardPage() {
             >
               <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
             </Button>
-            <Button 
-              variant="outline" 
-              className="h-11 border-slate-200 bg-white whitespace-nowrap"
-              onClick={() => setLocation('/processes')}
-            >
-              <Clock className="mr-2 h-4 w-4" /> Acompanhar Processos
-            </Button>
           </div>
         </div>
 
-        {/* Matches Section */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-900">Matches Recomendados</h2>
-            <Badge variant="secondary" className="bg-slate-100 text-slate-600 hover:bg-slate-200">2 novos</Badge>
-          </div>
+        {/* Tabs Section */}
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
+            <TabsTrigger value="new" className="flex items-center gap-2">
+              Matches Recomendados
+              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
+                {matches.filter(m => m.stage === 'new').length}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="active" className="flex items-center gap-2">
+              Processos
+              <Badge variant="secondary" className="ml-2 px-2 py-0.5 text-xs">
+                {matches.filter(m => m.stage !== 'new').length}
+              </Badge>
+            </TabsTrigger>
+          </TabsList>
 
-          {matches.map((match) => (
+          {/* New Matches Tab */}
+          <TabsContent value="new" className="space-y-6">
+            {matches.filter(m => m.stage === 'new').length === 0 ? (
+              <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                    <Heart className="h-6 w-6 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg font-medium text-slate-900">Nenhum novo match</h3>
+                  <p className="text-slate-500 text-center max-w-sm mt-1">
+                    Todos os matches já têm processos em andamento. Continue acompanhando na aba de Processos.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              matches.filter(m => m.stage === 'new').map((match) => (
             <motion.div 
               key={match.id}
               initial={{ opacity: 0, y: 20 }}
@@ -434,8 +459,117 @@ export default function DashboardPage() {
                 </div>
               </Card>
             </motion.div>
-          ))}
-        </div>
+              ))
+            )}
+          </TabsContent>
+
+          {/* Active Processes Tab */}
+          <TabsContent value="active" className="space-y-6">
+            {matches.filter(m => m.stage !== 'new').length === 0 ? (
+              <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                    <Clock className="h-6 w-6 text-slate-400" />
+                  </div>
+                  <h3 className="text-lg font-medium text-slate-900">Nenhum processo ativo</h3>
+                  <p className="text-slate-500 text-center max-w-sm mt-1">
+                    Demonstre interesse em oportunidades para iniciar um processo de negociação.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              matches.filter(m => m.stage !== 'new').map((process) => {
+                const getStageConfig = (stage: Match['stage']) => {
+                  switch(stage) {
+                    case 'interested':
+                      return {
+                        label: "Interesse Demonstrado",
+                        color: "bg-amber-100 text-amber-800",
+                        borderColor: "border-amber-500",
+                        progress: 33
+                      };
+                    case 'nda_signed':
+                      return {
+                        label: "NDA Assinado",
+                        color: "bg-blue-100 text-blue-800",
+                        borderColor: "border-blue-500",
+                        progress: 66
+                      };
+                    case 'meeting_scheduled':
+                      return {
+                        label: "Reunião Agendada",
+                        color: "bg-emerald-100 text-emerald-800",
+                        borderColor: "border-emerald-500",
+                        progress: 90
+                      };
+                    default:
+                      return {
+                        label: "Em Andamento",
+                        color: "bg-slate-100",
+                        borderColor: "border-slate-500",
+                        progress: 0
+                      };
+                  }
+                };
+
+                const config = getStageConfig(process.stage);
+
+                return (
+                  <motion.div
+                    key={process.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <Card className={`border-l-4 ${config.borderColor}`}>
+                      <CardContent className="p-6">
+                        <div className="flex flex-col md:flex-row gap-6">
+                          <div className="flex-grow">
+                            <div className="flex items-start justify-between mb-3">
+                              <div>
+                                <h3 className="text-lg font-bold text-slate-900">{process.name}</h3>
+                                <p className="text-slate-500 text-sm">{process.sector} • {process.location}</p>
+                              </div>
+                              <Badge className={config.color}>
+                                {config.label}
+                              </Badge>
+                            </div>
+                            
+                            <div className="space-y-2 mb-4">
+                              <div className="flex justify-between text-xs font-medium text-slate-500">
+                                <span>Progresso</span>
+                                <span>{config.progress}%</span>
+                              </div>
+                              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-primary transition-all duration-500"
+                                  style={{ width: `${config.progress}%` }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="flex md:flex-col gap-2 justify-center md:justify-start md:min-w-[140px] border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
+                            <div className="text-center md:text-left mb-2">
+                              <p className="text-xs text-slate-500">Valor</p>
+                              <p className="font-bold text-slate-900">{process.price}</p>
+                            </div>
+                            <div className="text-center md:text-left mb-4">
+                              <p className="text-xs text-slate-500">Receita</p>
+                              <p className="font-bold text-slate-900">{process.revenue}</p>
+                            </div>
+                            <Button size="sm" variant="outline" className="w-full">
+                              Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })
+            )}
+          </TabsContent>
+        </Tabs>
       </div>
     </Layout>
   );

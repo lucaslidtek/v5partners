@@ -237,8 +237,17 @@ export default function DashboardPage() {
           {!isMobile && <p className="text-slate-500 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
         </div>
 
-        {/* Stats Grid - Hidden on Mobile */}
-        {!isMobile && (
+        {/* Stats Grid */}
+        {isMobile ? (
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            {stats.slice(0, 4).map((stat, index) => (
+              <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg p-3 border border-primary/10">
+                <p className="text-2xs text-slate-600 font-medium mb-1.5">{stat.label}</p>
+                <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => (
               <Card key={index} className="border-slate-200 hover:shadow-md transition-shadow">
@@ -257,7 +266,7 @@ export default function DashboardPage() {
         )}
 
         {/* Search and Filter Bar */}
-        <div className={`flex ${isMobile ? 'flex-col gap-2.5' : 'flex-col md:flex-row gap-4'} ${isMobile ? 'mb-4' : 'mb-8'}`}>
+        <div className={`flex ${isMobile ? 'flex-col gap-2.5' : 'flex-col md:flex-row gap-4'} ${isMobile ? 'mb-2' : 'mb-8'}`}>
           <div className="relative flex-grow">
             <Search className={`absolute ${isMobile ? 'left-3.5 top-3.5' : 'left-3 top-3'} ${isMobile ? 'h-4 w-4' : 'h-4 w-4'} text-slate-400`} />
             <Input 

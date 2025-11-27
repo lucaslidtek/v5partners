@@ -575,7 +575,7 @@ export default function OnboardingPage() {
            </AnimatePresence>
           </CardContent>
           <CardFooter className="flex justify-between border-t p-6">
-            <Button variant="outline" onClick={handleBack} disabled={step === 1 && !user}>
+            <Button variant="outline" onClick={handleBack} disabled={step === 1 && !user} className="border-slate-200 hover:bg-slate-50 hover:text-primary">
               Voltar
             </Button>
             <Button onClick={handleNext} className="bg-primary hover:bg-primary/90">

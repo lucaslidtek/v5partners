@@ -227,7 +227,7 @@ export default function DashboardPage() {
                       <div className="flex items-center gap-3 mb-1">
                         <h3 className="text-xl font-bold text-slate-900">{match.name}</h3>
                         {match.isNew && (
-                          <span className="bg-emerald-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm">Novo Match</span>
+                          <span className="bg-emerald-600 text-white text-xs px-2.5 py-0.5 rounded-full shadow-sm font-normal">Novo Match</span>
                         )}
                       </div>
                       <p className="text-slate-500">{match.description}</p>

@@ -110,7 +110,18 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState("new");
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
   const [lastAction, setLastAction] = useState<{ id: number; previousStage: Match['stage'] } | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const selectedMatch = matches.find(m => m.id === selectedMatchId);
+
+  const filteredMatches = matches.filter(match => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      match.name.toLowerCase().includes(searchLower) ||
+      match.sector.toLowerCase().includes(searchLower) ||
+      match.location.toLowerCase().includes(searchLower) ||
+      match.description.toLowerCase().includes(searchLower)
+    );
+  });
 
   useEffect(() => {
     const savedMatches = localStorage.getItem('matches');
@@ -244,6 +255,9 @@ export default function DashboardPage() {
             <Input 
               placeholder="Buscar por setor, localização ou nome..." 
               className="pl-10 h-11 bg-white border-slate-200 shadow-sm"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              data-testid="input-search"
             />
           </div>
           <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
@@ -337,7 +351,7 @@ export default function DashboardPage() {
                 <Badge 
                   className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
                 >
-                  {matches.filter(m => m.stage === 'new').length}
+                  {filteredMatches.filter(m => m.stage === 'new').length}
                 </Badge>
               </TabsTrigger>
               <TabsTrigger 
@@ -348,7 +362,7 @@ export default function DashboardPage() {
                 <Badge 
                   className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
                 >
-                  {matches.filter(m => m.stage !== 'new').length}
+                  {filteredMatches.filter(m => m.stage !== 'new').length}
                 </Badge>
               </TabsTrigger>
             </TabsList>
@@ -356,7 +370,7 @@ export default function DashboardPage() {
 
           {/* New Matches Tab */}
           <TabsContent value="new" className="space-y-6">
-            {matches.filter(m => m.stage === 'new').length === 0 ? (
+            {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
@@ -369,7 +383,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              matches.filter(m => m.stage === 'new').map((match) => (
+              filteredMatches.filter(m => m.stage === 'new').map((match) => (
             <motion.div 
               key={match.id}
               initial={{ opacity: 0, y: 20 }}
@@ -508,7 +522,7 @@ export default function DashboardPage() {
 
           {/* Active Processes Tab */}
           <TabsContent value="active" className="space-y-6">
-            {matches.filter(m => m.stage !== 'new').length === 0 ? (
+            {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
@@ -521,7 +535,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              matches.filter(m => m.stage !== 'new').map((process) => {
+              filteredMatches.filter(m => m.stage !== 'new').map((process) => {
                 const getStageConfig = (stage: Match['stage']) => {
                   switch(stage) {
                     case 'interested':

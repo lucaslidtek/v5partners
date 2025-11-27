@@ -239,11 +239,11 @@ export default function DashboardPage() {
           </div>
           {isMobile && (
             <Button 
-              variant="default"
-              className="h-10 px-3 rounded-lg font-semibold bg-primary hover:bg-primary/90 text-white flex-shrink-0"
+              variant="outline"
+              className="h-10 px-3 rounded-lg font-semibold border-slate-200 bg-white text-slate-900 hover:bg-slate-50 flex-shrink-0 whitespace-nowrap"
               onClick={() => setLocation('/valuation')}
             >
-              <TrendingUp className="h-4 w-4" />
+              <TrendingUp className="h-4 w-4 mr-2" /> Novo Valuation
             </Button>
           )}
         </div>

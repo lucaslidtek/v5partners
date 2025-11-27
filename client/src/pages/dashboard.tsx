@@ -574,16 +574,16 @@ export default function DashboardPage() {
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
-                        className={`bg-primary hover:bg-primary/90 shadow-md font-semibold group ${isMobile ? 'h-10 text-sm col-span-2' : ''}`}
+                        className={`bg-primary hover:bg-primary/90 shadow-md font-semibold group ${isMobile ? 'h-10 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'interested')}
                       >
-                        <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Marcar Interesse' : 'Tenho Interesse'}
+                        <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}
                       </Button>
                     )}
 
                     {match.stage === 'interested' && (
                       <Button 
-                        className={`bg-amber-600 hover:bg-amber-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm col-span-2' : ''}`}
+                        className={`bg-amber-600 hover:bg-amber-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'nda_signed')}
                       >
                         <Lock className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'NDA' : 'Solicitar NDA'}
@@ -592,7 +592,7 @@ export default function DashboardPage() {
 
                     {match.stage === 'nda_signed' && (
                       <Button 
-                        className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm col-span-2' : ''}`}
+                        className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
                         onClick={() => updateMatchStage(match.id, 'meeting_scheduled')}
                       >
                         <Calendar className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Reunião' : 'Agendar Reunião'}

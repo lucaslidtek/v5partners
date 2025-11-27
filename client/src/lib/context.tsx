@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email,
       name,
       city: "",
-      role: "investor",
+      role: null,
       // Investor Profile Data
       location: "São Paulo, SP",
       ageRange: "31-40",
@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       payback: "",
       operatorType: "",
     });
-    setLocation("/dashboard");
+    setLocation("/profile-selection");
   };
 
   const logout = () => {

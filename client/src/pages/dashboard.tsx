@@ -357,7 +357,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full ${isMobile ? 'sticky top-0 bg-white border-b border-slate-200 shadow-sm z-40' : ''}`}>
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full ${isMobile ? 'sticky top-0 border-b border-slate-200 shadow-sm z-40' : ''}`}>
           <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 mb-8'}`}>
             <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 

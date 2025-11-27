@@ -68,7 +68,8 @@ export default function DashboardPage() {
       location: "São Paulo, SP",
       price: "R$ 8.5M",
       tags: ["Receita recorrente", "Alta margem", "Escalável"],
-      isNew: true
+      isNew: true,
+      stage: 'new' // new, interested, nda_signed
     },
     {
       id: 2,
@@ -82,9 +83,38 @@ export default function DashboardPage() {
       location: "Curitiba, PR",
       price: "R$ 15M",
       tags: ["Marca Própria", "Crescimento Acelerado"],
-      isNew: false
+      isNew: false,
+      stage: 'interested'
+    },
+    {
+      id: 3,
+      name: "HealthTech Innovation",
+      description: "Soluções de telemedicina integradas com prontuários eletrônicos.",
+      matchScore: 91,
+      revenue: "R$ 6.8M",
+      ebitda: "18%",
+      employees: 30,
+      sector: "Saúde",
+      location: "Florianópolis, SC",
+      price: "R$ 10.5M",
+      tags: ["Telemedicina", "SaaS"],
+      isNew: false,
+      stage: 'nda_signed'
     }
   ];
+
+  const getStageInfo = (stage: string) => {
+    switch(stage) {
+      case 'new':
+        return { label: 'Demonstrar Interesse', icon: Heart, nextStep: 'Solicitar NDA' };
+      case 'interested':
+        return { label: 'Solicitar NDA', icon: Lock, nextStep: 'Agendar Reunião' };
+      case 'nda_signed':
+        return { label: 'Agendar Reunião', icon: Calendar, nextStep: 'Finalizar' };
+      default:
+        return { label: 'Demonstrar Interesse', icon: Heart, nextStep: 'Solicitar NDA' };
+    }
+  };
 
   return (
     <Layout>
@@ -287,20 +317,48 @@ export default function DashboardPage() {
                     ))}
                   </div>
 
+                  {/* Process Progress */}
+                  <div className="mb-4 mt-2">
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+                      <span className={match.stage === 'new' || match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                    </div>
+                    <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden w-full">
+                      <div 
+                        className="h-full bg-primary transition-all duration-500 ease-in-out" 
+                        style={{ 
+                          width: match.stage === 'new' ? '10%' : match.stage === 'interested' ? '50%' : '100%' 
+                        }}
+                      />
+                    </div>
+                  </div>
+
                   {/* Actions */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pt-4 border-t border-slate-100">
-                    <Button className="bg-primary hover:bg-primary/90">
-                      <Heart className="mr-2 h-4 w-4" /> Tenho Interesse
-                    </Button>
-                    <Button variant="outline" className="border-slate-200">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100">
+                     <Button variant="outline" className="border-slate-200 hover:bg-slate-50 hover:text-slate-900">
                       <Eye className="mr-2 h-4 w-4" /> Ver Detalhes
                     </Button>
-                     <Button variant="outline" className="border-slate-200">
-                      <Lock className="mr-2 h-4 w-4" /> Solicitar NDA
-                    </Button>
-                     <Button variant="outline" className="border-slate-200">
-                      <Calendar className="mr-2 h-4 w-4" /> Agendar Reunião
-                    </Button>
+
+                    {match.stage === 'new' && (
+                      <Button className="bg-primary hover:bg-primary/90 shadow-sm group">
+                        <Heart className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" /> Tenho Interesse
+                      </Button>
+                    )}
+
+                    {match.stage === 'interested' && (
+                      <Button className="bg-amber-600 hover:bg-amber-700 text-white shadow-sm border-amber-700">
+                        <Lock className="mr-2 h-4 w-4" /> Solicitar NDA
+                      </Button>
+                    )}
+
+                    {match.stage === 'nda_signed' && (
+                      <Button className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm border-emerald-700">
+                        <Calendar className="mr-2 h-4 w-4" /> Agendar Reunião
+                      </Button>
+                    )}
                   </div>
                 </div>
               </Card>

@@ -230,7 +230,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-24' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'}`}>
           <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900`}>Olá, {user?.name || "Investidor"}! 👋</h1>
@@ -266,7 +266,7 @@ export default function DashboardPage() {
         )}
 
         {/* Search and Filter Bar */}
-        <div className={`flex ${isMobile ? 'flex-col gap-2.5' : 'flex-col md:flex-row gap-4'} ${isMobile ? 'mb-2' : 'mb-8'}`}>
+        <div className={`flex ${isMobile ? 'flex-col gap-2' : 'flex-col md:flex-row gap-4'} ${isMobile ? 'mb-1' : 'mb-8'}`}>
           <div className="relative flex-grow">
             <Search className={`absolute ${isMobile ? 'left-3.5 top-3.5' : 'left-3 top-3'} ${isMobile ? 'h-4 w-4' : 'h-4 w-4'} text-slate-400`} />
             <Input 
@@ -346,20 +346,18 @@ export default function DashboardPage() {
               </SheetContent>
             </Sheet>
 
-            {!isMobile && (
-              <Button 
-                variant="outline" 
-                className="h-11 border-slate-200 bg-white whitespace-nowrap"
-                onClick={() => setLocation('/valuation')}
-              >
-                <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
-              </Button>
-            )}
+            <Button 
+              variant={isMobile ? "default" : "outline"}
+              className={`${isMobile ? 'h-11 px-3 rounded-lg font-semibold shadow-md bg-primary hover:bg-primary/90 text-white' : 'h-11 border-slate-200 bg-white whitespace-nowrap'} whitespace-nowrap`}
+              onClick={() => setLocation('/valuation')}
+            >
+              <TrendingUp className={`${isMobile ? 'h-4 w-4 mr-2' : 'mr-2 h-4 w-4'}`} /> {isMobile ? 'Valuation' : 'Novo Valuation'}
+            </Button>
           </div>
         </div>
 
         {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200/50 shadow-2xl z-50' : ''}`}>
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full ${isMobile ? 'fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200/50 shadow-2xl z-50 mt-1' : ''}`}>
           <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 mb-8'}`}>
             <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 

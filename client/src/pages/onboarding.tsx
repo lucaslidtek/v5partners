@@ -102,7 +102,7 @@ export default function OnboardingPage() {
                 <Label>Modalidade Desejada</Label>
                 <div className="grid gap-2">
                    {["Abrir franquia do zero (Greenfield)", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border border-border p-3 rounded-md hover:bg-muted cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer w-full">{opt}</label>
                      </div>
@@ -143,7 +143,7 @@ export default function OnboardingPage() {
                 <Label>Habilidades Predominantes</Label>
                 <div className="flex flex-wrap gap-2">
                   {["Gestão", "Comercial", "Marketing", "Finanças", "Operacional", "RH"].map(skill => (
-                    <div key={skill} className="flex items-center space-x-2 bg-muted px-3 py-1.5 rounded-full">
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full">
                        <Checkbox id={`skill-${skill}`} />
                        <label htmlFor={`skill-${skill}`} className="text-sm font-medium">{skill}</label>
                     </div>
@@ -171,10 +171,10 @@ export default function OnboardingPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <Label>Grau de Envolvimento Operacional</Label>
-                    <span className="text-xs text-muted-foreground">Moderado</span>
+                    <span className="text-xs text-slate-500">Moderado</span>
                   </div>
                   <Slider defaultValue={[50]} max={100} step={10} className="w-full" />
-                  <div className="flex justify-between text-xs text-muted-foreground">
+                  <div className="flex justify-between text-xs text-slate-400">
                     <span>Investidor Ausente</span>
                     <span>Operação Full-time</span>
                   </div>
@@ -183,10 +183,10 @@ export default function OnboardingPage() {
                  <div className="space-y-2">
                   <div className="flex justify-between">
                     <Label>Tolerância ao Risco</Label>
-                    <span className="text-xs text-muted-foreground">Conservador</span>
+                    <span className="text-xs text-slate-500">Conservador</span>
                   </div>
                   <Slider defaultValue={[30]} max={100} step={10} className="w-full" />
-                   <div className="flex justify-between text-xs text-muted-foreground">
+                   <div className="flex justify-between text-xs text-slate-400">
                     <span>Baixo Risco</span>
                     <span>Alto Risco</span>
                   </div>
@@ -235,7 +235,7 @@ export default function OnboardingPage() {
                 <Label>Tipo de Operação</Label>
                 <div className="grid grid-cols-2 gap-2">
                    {["Loja Física", "E-commerce", "Serviço", "Indústria"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border border-border p-3 rounded-md hover:bg-muted cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
                      </div>
@@ -270,7 +270,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Grau de dependência do dono</Label>
                 <Slider defaultValue={[70]} max={100} step={10} className="w-full" />
-                <div className="flex justify-between text-xs text-muted-foreground">
+                <div className="flex justify-between text-xs text-slate-400">
                   <span>Baixa (Gestão Profissional)</span>
                   <span>Alta (Dono Operacional)</span>
                 </div>
@@ -301,7 +301,7 @@ export default function OnboardingPage() {
                     <Button 
                       key={stage} 
                       variant="outline" 
-                      className="flex-1 text-sm border-input"
+                      className="flex-1 text-sm border-slate-200"
                       onClick={() => setFormData({...formData, stage})}
                     >
                       {stage}
@@ -329,7 +329,7 @@ export default function OnboardingPage() {
                 <Label>Tipo de Transação Aceita</Label>
                  <div className="grid grid-cols-1 gap-2">
                    {["Venda Total (100%)", "Venda Parcial (Sócio Majoritário)", "Venda Parcial (Sócio Minoritário)"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border border-border p-3 rounded-md hover:bg-muted cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
                      </div>
@@ -391,7 +391,7 @@ export default function OnboardingPage() {
                 <Label>Modelos Disponíveis</Label>
                 <div className="grid grid-cols-2 gap-2">
                    {["Loja Física", "Quiosque", "Home Based", "Microfranquia"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border border-border p-2 rounded-md hover:bg-muted cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-2 rounded-md hover:bg-slate-50 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm w-full cursor-pointer">{opt}</label>
                      </div>
@@ -430,7 +430,7 @@ export default function OnboardingPage() {
                <div className="space-y-2">
                   <Label>Payback Médio (Meses)</Label>
                   <Slider defaultValue={[24]} max={60} step={1} className="w-full" />
-                  <div className="text-right text-sm text-muted-foreground mt-1">24 meses</div>
+                  <div className="text-right text-sm text-slate-500 mt-1">24 meses</div>
                </div>
              </div>
           );
@@ -461,7 +461,7 @@ export default function OnboardingPage() {
                 <Label>Competências Essenciais</Label>
                 <div className="flex flex-wrap gap-2">
                   {["Liderança", "Vendas", "Gestão Financeira", "Marketing Local"].map(skill => (
-                    <div key={skill} className="flex items-center space-x-2 bg-muted px-3 py-1.5 rounded-full">
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full">
                        <Checkbox id={`f-skill-${skill}`} />
                        <label htmlFor={`f-skill-${skill}`} className="text-sm font-medium">{skill}</label>
                     </div>
@@ -535,25 +535,25 @@ export default function OnboardingPage() {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <Card className="border-border shadow-md bg-card">
+        <Card className="border-slate-200 shadow-md">
           <CardHeader>
              <div className="flex items-center justify-between mb-4">
                 <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user}>
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
-                <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">
                    {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
                 </span>
                 <div className="w-10" /> {/* Spacer */}
              </div>
-             <CardTitle className="text-2xl font-bold text-center text-foreground">{getStepTitle()}</CardTitle>
+             <CardTitle className="text-2xl font-bold text-center">{getStepTitle()}</CardTitle>
           </CardHeader>
           <CardContent>
-           <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+           <div className="flex items-center justify-between text-sm text-slate-500 mb-2">
              <span>Passo {step} de {totalSteps}</span>
              <span>{Math.round((step / totalSteps) * 100)}% Completo</span>
            </div>
-           <div className="h-2 w-full bg-muted rounded-full mb-8">
+           <div className="h-2 w-full bg-slate-100 rounded-full mb-8">
              <motion.div 
                className="h-full bg-primary rounded-full"
                initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}

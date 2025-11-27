@@ -8,6 +8,8 @@ import { useAuth } from "@/lib/context";
 import { motion } from "framer-motion";
 import { Lock, Mail, ArrowRight } from "lucide-react";
 
+import logo from "@assets/v5partners_color1_1764265378727.png";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,11 +37,8 @@ export default function LoginPage() {
           className="w-full max-w-md z-10"
         >
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 mb-2">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20">
-                V5
-              </div>
-              <span className="text-2xl font-bold text-slate-900">Partners</span>
+            <div className="inline-flex items-center justify-center mb-2">
+              <img src={logo} alt="V5 Partners" className="h-16 w-auto object-contain" />
             </div>
             <h1 className="text-2xl font-bold text-slate-900 mt-4">Bem-vindo de volta</h1>
             <p className="text-slate-500 mt-2">Acesse sua conta para gerenciar seus matches</p>

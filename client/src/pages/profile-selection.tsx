@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/context";
 import { motion } from "framer-motion";
 import { Target, Briefcase, Store, CheckCircle2 } from "lucide-react";
+import logo from "@assets/v5partners_color1_1764265378727.png";
 
 export default function ProfileSelectionPage() {
   const { setProfileType } = useAuth();
@@ -65,10 +66,7 @@ export default function ProfileSelectionPage() {
           className="text-center max-w-3xl mb-12"
         >
           <div className="flex items-center justify-center gap-2 mb-6">
-             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20">
-                V5
-              </div>
-             <span className="text-xl font-bold text-slate-900">MatchConnect</span>
+             <img src={logo} alt="V5 Partners" className="h-12 w-auto object-contain" />
           </div>
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Escolha seu perfil</h1>
           <p className="text-lg text-slate-600">Selecione a opção que melhor descreve você para começar</p>

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Bell, User, LogOut } from "lucide-react";
 import { Link } from "wouter";
 
+import logo from "@assets/v5partners_color1_1764265378727.png";
+
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
   const { user, logout } = useAuth();
 
@@ -15,10 +17,7 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
             <div className="flex items-center gap-2">
               <Link href={user ? "/dashboard" : "/"}>
                 <div className="flex items-center gap-2 cursor-pointer">
-                  <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                    V5
-                  </div>
-                  <span className="text-xl font-bold text-slate-900 tracking-tight">Partners</span>
+                  <img src={logo} alt="V5 Partners" className="h-8 w-auto object-contain" />
                 </div>
               </Link>
             </div>

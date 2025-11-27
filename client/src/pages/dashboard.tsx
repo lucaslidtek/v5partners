@@ -135,13 +135,9 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
-    const savedMatches = localStorage.getItem('matches');
-    if (savedMatches) {
-      setMatches(JSON.parse(savedMatches));
-    } else {
-      setMatches(initialMatches);
-      localStorage.setItem('matches', JSON.stringify(initialMatches));
-    }
+    localStorage.removeItem('matches');
+    setMatches(initialMatches);
+    localStorage.setItem('matches', JSON.stringify(initialMatches));
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();

@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/lib/context";
 import NotFound from "@/pages/not-found";
 import LoginPage from "@/pages/login";
+import RegisterPage from "@/pages/register";
 import ProfileSelectionPage from "@/pages/profile-selection";
 import OnboardingPage from "@/pages/onboarding";
 import SummaryPage from "@/pages/summary";
@@ -14,6 +15,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/profile-selection" component={ProfileSelectionPage} />
       <Route path="/onboarding" component={OnboardingPage} />
       <Route path="/summary" component={SummaryPage} />

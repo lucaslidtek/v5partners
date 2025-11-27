@@ -6,13 +6,12 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/lib/context";
 import { motion } from "framer-motion";
 import { Lock, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
-
 import { Link } from "wouter";
 
 import logoColor from "@assets/v5partners_color1_1764265378727.png";
 import logoWhite from "@assets/v5partners_pb4_1764265422084.png";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -72,13 +71,13 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Right Panel - Login Form */}
+        {/* Right Panel - Register Form */}
         <div className="w-full lg:w-1/2 bg-white flex items-center justify-center p-8 lg:p-24 relative">
           <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
               <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto" />
-              <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Bem-vindo</h1>
-              <p className="text-slate-500 mt-2">Entre com suas credenciais para acessar.</p>
+              <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Criar conta</h1>
+              <p className="text-slate-500 mt-2">Preencha seus dados para começar.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -121,9 +120,6 @@ export default function LoginPage() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password" className="text-slate-700 font-medium">Senha</Label>
-                  <a href="#" className="text-sm text-primary hover:text-primary/80 font-medium transition-colors">
-                    Esqueceu?
-                  </a>
                 </div>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -152,20 +148,20 @@ export default function LoginPage() {
                       transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                       className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
                     />
-                    Entrando...
+                    Criando conta...
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    Acessar Plataforma <ArrowRight className="w-4 h-4" />
+                    Criar conta <ArrowRight className="w-4 h-4" />
                   </span>
                 )}
               </Button>
             </form>
 
             <div className="text-center text-sm">
-              <span className="text-slate-500">Não tem uma conta? </span>
-              <Link href="/register">
-                <a className="font-semibold text-primary hover:text-primary/80 transition-colors">Criar conta</a>
+              <span className="text-slate-500">Já tem uma conta? </span>
+              <Link href="/">
+                <a className="font-semibold text-primary hover:text-primary/80 transition-colors">Fazer login</a>
               </Link>
             </div>
           </div>

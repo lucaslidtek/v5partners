@@ -72,11 +72,6 @@ export default function LoginPage() {
 
         {/* Right Panel - Login Form */}
         <div className="w-full lg:w-1/2 bg-white flex items-center justify-center p-8 lg:p-24 relative">
-           <div className="absolute top-0 right-0 p-8 flex gap-4">
-             <span className="text-sm text-slate-500">Não tem uma conta?</span>
-             <a href="#" className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors">Criar conta</a>
-           </div>
-
           <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
               <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto" />
@@ -164,6 +159,11 @@ export default function LoginPage() {
                 )}
               </Button>
             </form>
+
+            <div className="text-center text-sm">
+              <span className="text-slate-500">Não tem uma conta? </span>
+              <a href="#" className="font-semibold text-primary hover:text-primary/80 transition-colors">Criar conta</a>
+            </div>
           </div>
         </div>
       </div>

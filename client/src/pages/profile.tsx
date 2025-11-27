@@ -2,12 +2,50 @@ import { Layout } from "@/components/layout";
 import { useAuth } from "@/lib/context";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Copy } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { Target, Briefcase, Store } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function ProfilePage() {
   const { user } = useAuth();
   const [, setLocation] = useLocation();
+
+  const getProfileInfo = () => {
+    switch(user?.role) {
+      case "investor":
+        return {
+          title: "Investidor / Comprador",
+          description: "Procurando empresas para comprar ou investir",
+          icon: Target,
+          bgColor: "bg-primary",
+          textColor: "text-white",
+          badgeColor: "bg-primary/10 text-primary"
+        };
+      case "seller":
+        return {
+          title: "Vendedor / Empresa",
+          description: "Vendendo sua empresa ou negócio",
+          icon: Briefcase,
+          bgColor: "bg-secondary",
+          textColor: "text-primary",
+          badgeColor: "bg-secondary/10 text-secondary"
+        };
+      case "franchise":
+        return {
+          title: "Franqueadora",
+          description: "Expandindo a franquia com novos franqueados",
+          icon: Store,
+          bgColor: "bg-accent",
+          textColor: "text-white",
+          badgeColor: "bg-accent/10 text-accent"
+        };
+      default:
+        return null;
+    }
+  };
+
+  const profileInfo = getProfileInfo();
+  const ProfileIcon = profileInfo?.icon;
 
   const renderInvestorProfile = () => (
     <div className="space-y-6">
@@ -169,12 +207,22 @@ export default function ProfilePage() {
         
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900" data-testid="text-profile-title">Perfil</h1>
-          <p className="text-slate-500 mt-1">
-            {user?.role === "investor" && "Informações do seu perfil de investidor"}
-            {user?.role === "seller" && "Informações da sua empresa"}
-            {user?.role === "franchise" && "Informações da sua franquia"}
-          </p>
+          <p className="text-slate-500 mt-1">Informações da sua conta</p>
         </div>
+
+        {profileInfo && ProfileIcon && (
+          <Card className={`${profileInfo.bgColor} ${profileInfo.textColor} p-6 mb-8`} data-testid="card-profile-type">
+            <div className="flex items-start gap-4">
+              <div className={`p-3 rounded-lg ${profileInfo.badgeColor} flex-shrink-0`}>
+                <ProfileIcon className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-1" data-testid="text-profile-type-title">{profileInfo.title}</h2>
+                <p className="opacity-90" data-testid="text-profile-type-description">{profileInfo.description}</p>
+              </div>
+            </div>
+          </Card>
+        )}
 
         <Card className="p-6" data-testid="card-profile">
           {user?.role === "investor" && renderInvestorProfile()}

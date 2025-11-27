@@ -10,7 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 export default function OnboardingPage() {
   const { user, updateUserData } = useAuth();
@@ -195,15 +195,311 @@ export default function OnboardingPage() {
         default: return null;
       }
     }
+
+    // SELLER FLOW (Empresa à Venda)
+    if (role === "seller") {
+      switch (step) {
+        case 1: // Identificação e Setor
+          return (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Nome Fantasia (Opcional)</Label>
+                <Input 
+                  placeholder="Se desejar manter confidencial, deixe em branco" 
+                  onChange={(e) => setFormData({...formData, tradeName: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Cidade / Estado</Label>
+                <Input placeholder="Ex: Curitiba, PR" onChange={(e) => setFormData({...formData, location: e.target.value})}/>
+              </div>
+              <div className="space-y-2">
+                <Label>Segmento de Atuação</Label>
+                <Select onValueChange={(v) => setFormData({...formData, segment: v})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o segmento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="varejo">Varejo</SelectItem>
+                    <SelectItem value="servicos">Serviços</SelectItem>
+                    <SelectItem value="alimentacao">Alimentação</SelectItem>
+                    <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                    <SelectItem value="saude">Saúde</SelectItem>
+                    <SelectItem value="industria">Indústria</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Tipo de Operação</Label>
+                <div className="grid grid-cols-2 gap-2">
+                   {["Loja Física", "E-commerce", "Serviço", "Indústria"].map((opt) => (
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
+                       <Checkbox id={opt} />
+                       <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                     </div>
+                   ))}
+                </div>
+              </div>
+            </div>
+          );
+        case 2: // Tamanho da Operação
+          return (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Faturamento Mensal Médio</Label>
+                  <Input placeholder="R$ 0,00" />
+                </div>
+                 <div className="space-y-2">
+                  <Label>Lucro Líquido / EBITDA</Label>
+                  <Input placeholder="R$ 0,00" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Ticket Médio</Label>
+                  <Input placeholder="R$ 0,00" />
+                </div>
+                 <div className="space-y-2">
+                  <Label>Nº Funcionários</Label>
+                  <Input type="number" placeholder="0" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Grau de dependência do dono</Label>
+                <Slider defaultValue={[70]} max={100} step={10} className="w-full" />
+                <div className="flex justify-between text-xs text-slate-400">
+                  <span>Baixa (Gestão Profissional)</span>
+                  <span>Alta (Dono Operacional)</span>
+                </div>
+              </div>
+            </div>
+          );
+        case 3: // Estrutura e Momento
+          return (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Motivo da Venda</Label>
+                <Select onValueChange={(v) => setFormData({...formData, sellReason: v})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione o motivo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="aposentadoria">Aposentadoria</SelectItem>
+                    <SelectItem value="mudanca">Mudança de Cidade/País</SelectItem>
+                    <SelectItem value="novos_projetos">Novos Projetos</SelectItem>
+                    <SelectItem value="dissolucao">Dissolução de Sociedade</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+               <div className="space-y-2">
+                <Label>Estágio do Negócio</Label>
+                 <div className="flex gap-2">
+                  {["Crescendo", "Estável", "Em Queda"].map(stage => (
+                    <Button 
+                      key={stage} 
+                      variant="outline" 
+                      className="flex-1 text-sm border-slate-200"
+                      onClick={() => setFormData({...formData, stage})}
+                    >
+                      {stage}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Passivos Existentes?</Label>
+                <div className="flex gap-4">
+                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, liabilities: true})}>Sim</Button>
+                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, liabilities: false})}>Não</Button>
+                 </div>
+              </div>
+            </div>
+          );
+        case 4: // Informações do Deal
+          return (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Valor Pedido (Valuation)</Label>
+                <Input placeholder="R$ 0,00" className="text-lg font-semibold text-primary" />
+              </div>
+              <div className="space-y-2">
+                <Label>Tipo de Transação Aceita</Label>
+                 <div className="grid grid-cols-1 gap-2">
+                   {["Venda Total (100%)", "Venda Parcial (Sócio Majoritário)", "Venda Parcial (Sócio Minoritário)"].map((opt) => (
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
+                       <Checkbox id={opt} />
+                       <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                     </div>
+                   ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Imóvel Próprio na Negociação?</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="nao">Não, é alugado</SelectItem>
+                    <SelectItem value="sim_incluido">Sim, incluído na venda</SelectItem>
+                    <SelectItem value="sim_aparte">Sim, negociado à parte</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          );
+        default: return null;
+      }
+    }
+
+    // FRANCHISOR FLOW (Franqueadora)
+    if (role === "franchise") {
+      switch (step) {
+        case 1: // Identificação da Franquia
+          return (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Nome da Franquia</Label>
+                <Input 
+                  onChange={(e) => setFormData({...formData, franchiseName: e.target.value})}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Segmento</Label>
+                  <Input placeholder="Ex: Alimentação" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Anos de Mercado</Label>
+                  <Input type="number" placeholder="0" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                  <Label>Nº de Unidades</Label>
+                  <Input type="number" placeholder="0" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Cidade Sede</Label>
+                  <Input placeholder="Cidade/UF" />
+                </div>
+              </div>
+               <div className="space-y-2">
+                <Label>Modelos Disponíveis</Label>
+                <div className="grid grid-cols-2 gap-2">
+                   {["Loja Física", "Quiosque", "Home Based", "Microfranquia"].map((opt) => (
+                     <div key={opt} className="flex items-center space-x-2 border p-2 rounded-md hover:bg-slate-50 cursor-pointer">
+                       <Checkbox id={opt} />
+                       <label htmlFor={opt} className="text-sm w-full cursor-pointer">{opt}</label>
+                     </div>
+                   ))}
+                </div>
+              </div>
+            </div>
+          );
+        case 2: // Investimento
+          return (
+             <div className="space-y-4">
+               <div className="space-y-2">
+                  <Label>Investimento Total Inicial (Faixa)</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione a faixa" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="upto100k">Até R$ 100.000</SelectItem>
+                      <SelectItem value="100k-300k">R$ 100.000 - R$ 300.000</SelectItem>
+                      <SelectItem value="300k-500k">R$ 300.000 - R$ 500.000</SelectItem>
+                      <SelectItem value="500k-plus">Acima de R$ 500.000</SelectItem>
+                    </SelectContent>
+                  </Select>
+               </div>
+               <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                    <Label>Taxa de Franquia</Label>
+                    <Input placeholder="R$ 0,00" />
+                 </div>
+                  <div className="space-y-2">
+                    <Label>Capital de Giro</Label>
+                    <Input placeholder="R$ 0,00" />
+                 </div>
+               </div>
+               <div className="space-y-2">
+                  <Label>Payback Médio (Meses)</Label>
+                  <Slider defaultValue={[24]} max={60} step={1} className="w-full" />
+                  <div className="text-right text-sm text-slate-500 mt-1">24 meses</div>
+               </div>
+             </div>
+          );
+        case 3: // Perfil do Franqueado
+          return (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label>Perfil Ideal</Label>
+                <div className="flex gap-4">
+                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, operatorType: 'investor'})}>Investidor</Button>
+                   <Button variant="outline" className="flex-1" onClick={() => setFormData({...formData, operatorType: 'operator'})}>Operador</Button>
+                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Experiência Necessária?</Label>
+                 <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">Não exigida</SelectItem>
+                      <SelectItem value="management">Gestão de Negócios</SelectItem>
+                      <SelectItem value="sector">Experiência no Setor</SelectItem>
+                    </SelectContent>
+                  </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Competências Essenciais</Label>
+                <div className="flex flex-wrap gap-2">
+                  {["Liderança", "Vendas", "Gestão Financeira", "Marketing Local"].map(skill => (
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full">
+                       <Checkbox id={`f-skill-${skill}`} />
+                       <label htmlFor={`f-skill-${skill}`} className="text-sm font-medium">{skill}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        case 4: // Expansão e Suporte
+           return (
+             <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Regiões de Interesse para Expansão</Label>
+                  <Input placeholder="Ex: Sul e Sudeste, Capitais..." />
+                </div>
+                <div className="space-y-2">
+                  <Label>Exclusividade Territorial?</Label>
+                   <div className="flex gap-4">
+                     <Button variant="outline" className="flex-1">Sim</Button>
+                     <Button variant="outline" className="flex-1">Não</Button>
+                   </div>
+                </div>
+                <div className="space-y-2">
+                  <Label>Suporte Oferecido</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {["Treinamento Inicial", "Consultoria de Campo", "Marketing Nacional", "Software de Gestão", "Projeto Arquitetônico", "Manuais de Operação"].map(sup => (
+                      <div key={sup} className="flex items-center space-x-2">
+                         <Checkbox id={`sup-${sup}`} defaultChecked />
+                         <label htmlFor={`sup-${sup}`} className="text-sm">{sup}</label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+             </div>
+           );
+        default: return null;
+      }
+    }
     
-    // Fallback for other roles (simplified for prototype)
-    return (
-      <div className="text-center py-10 text-slate-500">
-        Formulário para {role === 'seller' ? 'Vendedor' : 'Franqueadora'} em desenvolvimento.
-        <br/>
-        Clique em continuar para ver o resumo.
-      </div>
-    );
+    return null;
   };
 
   const getStepTitle = () => {
@@ -213,6 +509,24 @@ export default function OnboardingPage() {
         case 2: return "Perfil de Investimento";
         case 3: return "Experiência Profissional";
         case 4: return "Preferências do Negócio";
+        default: return "";
+      }
+    }
+    if (role === 'seller') {
+      switch(step) {
+        case 1: return "Identificação e Setor";
+        case 2: return "Tamanho da Operação";
+        case 3: return "Estrutura e Momento";
+        case 4: return "Informações do Deal";
+        default: return "";
+      }
+    }
+    if (role === 'franchise') {
+      switch(step) {
+        case 1: return "Dados da Franquia";
+        case 2: return "Investimento e Retorno";
+        case 3: return "Perfil do Franqueado";
+        case 4: return "Expansão e Suporte";
         default: return "";
       }
     }

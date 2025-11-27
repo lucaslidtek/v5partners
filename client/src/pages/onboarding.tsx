@@ -35,6 +35,8 @@ export default function OnboardingPage() {
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
+    } else if (step === 1) {
+      setLocation("/profile-selection");
     }
   };
 
@@ -573,7 +575,6 @@ export default function OnboardingPage() {
             <Button 
               variant="outline" 
               onClick={handleBack} 
-              disabled={step === 1}
               className="border-slate-200"
             >
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar

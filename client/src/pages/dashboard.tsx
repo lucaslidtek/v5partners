@@ -290,7 +290,7 @@ export default function DashboardPage() {
             {isMobile && (
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-11 w-11 flex-shrink-0 hover:bg-slate-100">
+                  <Button variant="outline" size="icon" className="h-11 w-11 flex-shrink-0 border-slate-200 bg-white hover:bg-slate-50">
                     <Filter className="h-4 w-4 text-slate-600" />
                   </Button>
                 </SheetTrigger>

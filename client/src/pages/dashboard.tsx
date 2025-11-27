@@ -4,6 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/context";
+import { useLocation } from "wouter";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
 import { motion } from "framer-motion";
 import { 
   Search, Filter, Heart, FileText, MessageSquare, 
@@ -13,6 +25,7 @@ import {
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const [, setLocation] = useLocation();
 
   function TargetIcon(props: any) {
     return (
@@ -109,13 +122,86 @@ export default function DashboardPage() {
             />
           </div>
           <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
-            <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap">
-              <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
-            </Button>
-            <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap">
+                  <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
+                </Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Filtros Avançados</SheetTitle>
+                  <SheetDescription>
+                    Refine sua busca por oportunidades de investimento.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="py-6 space-y-6">
+                  <div className="space-y-2">
+                    <Label>Faixa de Valor (Valuation)</Label>
+                    <Slider defaultValue={[50]} max={100} step={1} className="py-4" />
+                    <div className="flex justify-between text-xs text-slate-500">
+                      <span>R$ 1M</span>
+                      <span>R$ 100M+</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>Setores de Interesse</Label>
+                    <div className="space-y-2 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="tech" />
+                        <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="retail" />
+                        <Label htmlFor="retail" className="font-normal">Varejo</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="health" />
+                        <Label htmlFor="health" className="font-normal">Saúde</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="fintech" />
+                        <Label htmlFor="fintech" className="font-normal">Fintech</Label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Métricas Financeiras</Label>
+                    <div className="space-y-2 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="ebitda" defaultChecked />
+                        <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="growth" />
+                        <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4">
+                    <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
+                      Aplicar Filtros
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Button 
+              variant="outline" 
+              className="h-11 border-slate-200 bg-white whitespace-nowrap"
+              onClick={() => setLocation('/valuation')}
+            >
               <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
             </Button>
-            <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap">
+            <Button 
+              variant="outline" 
+              className="h-11 border-slate-200 bg-white whitespace-nowrap"
+              onClick={() => setLocation('/processes')}
+            >
               <Clock className="mr-2 h-4 w-4" /> Acompanhar Processos
             </Button>
           </div>

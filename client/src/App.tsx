@@ -10,6 +10,8 @@ import ProfileSelectionPage from "@/pages/profile-selection";
 import OnboardingPage from "@/pages/onboarding";
 import SummaryPage from "@/pages/summary";
 import DashboardPage from "@/pages/dashboard";
+import ValuationPage from "@/pages/valuation";
+import ProcessesPage from "@/pages/processes";
 
 function Router() {
   return (
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/onboarding" component={OnboardingPage} />
       <Route path="/summary" component={SummaryPage} />
       <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/valuation" component={ValuationPage} />
+      <Route path="/processes" component={ProcessesPage} />
       <Route component={NotFound} />
     </Switch>
   );

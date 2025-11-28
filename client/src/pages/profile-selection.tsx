@@ -38,7 +38,7 @@ export default function ProfileSelectionPage() {
       ],
       color: "bg-secondary",
       buttonColor: "bg-secondary hover:bg-secondary/90",
-      textColor: "text-primary"
+      textColor: "text-blue-900"
     },
     {
       id: "franchise",
@@ -66,7 +66,7 @@ export default function ProfileSelectionPage() {
           className="text-center max-w-3xl mb-12"
         >
           <div className="flex items-center justify-center gap-2 mb-6">
-             <img src={logo} alt="V5 Partners" className="h-12 w-auto object-contain" />
+             <img src={logo} alt="V5 Partners" className="h-12 w-auto object-contain dark:brightness-0 dark:invert" />
           </div>
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Escolha seu perfil</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">Selecione a opção que melhor descreve você para começar</p>

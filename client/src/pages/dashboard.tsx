@@ -479,22 +479,22 @@ export default function DashboardPage() {
             <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 
                 value="new" 
-                className={`relative px-0 ${isMobile ? 'py-4' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-sm' : 'text-sm'}`}
+                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
               >
                 Matches Recomendados
                 <Badge 
-                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
+                  className={`${isMobile ? 'ml-1.5 px-2 py-0.5 text-2xs' : 'ml-3 px-2.5 py-1 text-xs'} font-semibold rounded-full bg-primary/10 text-primary border-0`}
                 >
                   {filteredMatches.filter(m => m.stage === 'new').length}
                 </Badge>
               </TabsTrigger>
               <TabsTrigger 
                 value="active" 
-                className={`relative px-0 ${isMobile ? 'py-4' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-sm' : 'text-sm'}`}
+                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
               >
                 Processos Ativos
                 <Badge 
-                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
+                  className={`${isMobile ? 'ml-1.5 px-2 py-0.5 text-2xs' : 'ml-3 px-2.5 py-1 text-xs'} font-semibold rounded-full bg-primary/10 text-primary border-0`}
                 >
                   {filteredMatches.filter(m => m.stage !== 'new').length}
                 </Badge>

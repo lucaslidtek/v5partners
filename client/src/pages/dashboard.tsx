@@ -769,7 +769,7 @@ export default function DashboardPage() {
                               onClick={() => updateMatchStage(process.id, 'new')}
                               data-testid={`button-revert-${process.id}`}
                             >
-                              ↶ {!isMobile && 'Reverter'}
+                              ↶ Reverter
                             </Button>
                           )}
                         </div>

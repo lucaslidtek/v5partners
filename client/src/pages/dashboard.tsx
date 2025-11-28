@@ -34,7 +34,7 @@ import { motion } from "framer-motion";
 import { 
   Search, Filter, Heart, FileText, MessageSquare, 
   MapPin, DollarSign, Users, TrendingUp, Building2, 
-  Eye, Calendar, Lock, Clock, ArrowRight
+  Eye, Calendar, Lock, Clock, ArrowRight, Undo2
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -769,7 +769,7 @@ export default function DashboardPage() {
                               onClick={() => updateMatchStage(process.id, 'new')}
                               data-testid={`button-revert-${process.id}`}
                             >
-                              ↶ Reverter
+                              <Undo2 className="h-4 w-4 mr-2" /> Reverter
                             </Button>
                           )}
                         </div>

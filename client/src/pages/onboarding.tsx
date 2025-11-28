@@ -104,7 +104,7 @@ export default function OnboardingPage() {
                 <Label>Modalidade Desejada</Label>
                 <div className="grid gap-2">
                    {["Abrir franquia do zero (Greenfield)", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer w-full">{opt}</label>
                      </div>
@@ -135,14 +135,14 @@ export default function OnboardingPage() {
                  <div className="flex gap-4">
                    <Button 
                     variant={formData.hasExperience === true ? "default" : "outline"} 
-                    className={`flex-1 ${formData.hasExperience === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.hasExperience === true ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, hasExperience: true})}
                    >
                      <Check className="mr-2 h-4 w-4" /> Sim
                    </Button>
                    <Button 
                     variant={formData.hasExperience === false ? "default" : "outline"} 
-                    className={`flex-1 ${formData.hasExperience === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.hasExperience === false ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, hasExperience: false})}
                    >
                      <X className="mr-2 h-4 w-4" /> Não
@@ -157,7 +157,7 @@ export default function OnboardingPage() {
                 <Label>Habilidades Predominantes</Label>
                 <div className="flex flex-wrap gap-2">
                   {["Gestão", "Comercial", "Marketing", "Finanças", "Operacional", "RH"].map(skill => (
-                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full">
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
                        <Checkbox id={`skill-${skill}`} />
                        <label htmlFor={`skill-${skill}`} className="text-sm font-medium">{skill}</label>
                     </div>
@@ -185,10 +185,10 @@ export default function OnboardingPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <Label>Grau de Envolvimento Operacional</Label>
-                    <span className="text-xs text-slate-500">Moderado</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">Moderado</span>
                   </div>
                   <Slider defaultValue={[50]} max={100} step={10} className="w-full" />
-                  <div className="flex justify-between text-xs text-slate-400">
+                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
                     <span>Investidor Ausente</span>
                     <span>Operação Full-time</span>
                   </div>
@@ -197,10 +197,10 @@ export default function OnboardingPage() {
                  <div className="space-y-2">
                   <div className="flex justify-between">
                     <Label>Tolerância ao Risco</Label>
-                    <span className="text-xs text-slate-500">Conservador</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">Conservador</span>
                   </div>
                   <Slider defaultValue={[30]} max={100} step={10} className="w-full" />
-                   <div className="flex justify-between text-xs text-slate-400">
+                   <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
                     <span>Baixo Risco</span>
                     <span>Alto Risco</span>
                   </div>
@@ -218,9 +218,9 @@ export default function OnboardingPage() {
         case 1: // Identificação e Setor
           return (
             <div className="space-y-4">
-              <Alert className="border-amber-200 bg-amber-50">
-                <Lock className="h-4 w-4 text-amber-600" />
-                <AlertDescription className="text-amber-800">
+              <Alert className="border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
+                <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <AlertDescription className="text-amber-800 dark:text-amber-200">
                   <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores <strong>após o NDA ser assinado</strong>. Antes disso, aparecerão como "Empresa Confidencial".
                 </AlertDescription>
               </Alert>
@@ -237,7 +237,7 @@ export default function OnboardingPage() {
                   placeholder="Ex: https://example.com/logo.png" 
                   onChange={(e) => setFormData({...formData, logoUrl: e.target.value})}
                 />
-                <p className="text-xs text-slate-500">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
               </div>
               <div className="space-y-2">
                 <Label>Cidade / Estado</Label>
@@ -263,7 +263,7 @@ export default function OnboardingPage() {
                 <Label>Tipo de Operação</Label>
                 <div className="grid grid-cols-2 gap-2">
                    {["Loja Física", "E-commerce", "Serviço", "Indústria"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
                      </div>
@@ -298,7 +298,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Grau de dependência do dono</Label>
                 <Slider defaultValue={[70]} max={100} step={10} className="w-full" />
-                <div className="flex justify-between text-xs text-slate-400">
+                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
                   <span>Baixa (Gestão Profissional)</span>
                   <span>Alta (Dono Operacional)</span>
                 </div>
@@ -329,7 +329,7 @@ export default function OnboardingPage() {
                     <Button 
                       key={stage} 
                       variant="outline" 
-                      className="flex-1 text-sm border-slate-200"
+                      className="flex-1 text-sm border-slate-200 dark:border-slate-700"
                       onClick={() => setFormData({...formData, stage})}
                     >
                       {stage}
@@ -342,14 +342,14 @@ export default function OnboardingPage() {
                 <div className="flex gap-4">
                    <Button 
                     variant={formData.liabilities === true ? "default" : "outline"} 
-                    className={`flex-1 ${formData.liabilities === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.liabilities === true ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, liabilities: true})}
                    >
                      <Check className="mr-2 h-4 w-4" /> Sim
                    </Button>
                    <Button 
                     variant={formData.liabilities === false ? "default" : "outline"} 
-                    className={`flex-1 ${formData.liabilities === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.liabilities === false ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, liabilities: false})}
                    >
                      <X className="mr-2 h-4 w-4" /> Não
@@ -369,7 +369,7 @@ export default function OnboardingPage() {
                 <Label>Tipo de Transação Aceita</Label>
                  <div className="grid grid-cols-1 gap-2">
                    {["Venda Total (100%)", "Venda Parcial (Sócio Majoritário)", "Venda Parcial (Sócio Minoritário)"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
                      </div>
@@ -401,9 +401,9 @@ export default function OnboardingPage() {
         case 1: // Identificação da Franquia
           return (
             <div className="space-y-4">
-              <Alert className="border-amber-200 bg-amber-50">
-                <Lock className="h-4 w-4 text-amber-600" />
-                <AlertDescription className="text-amber-800">
+              <Alert className="border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
+                <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <AlertDescription className="text-amber-800 dark:text-amber-200">
                   <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores <strong>após o NDA ser assinado</strong>. Antes disso, aparecerão como "Empresa Confidencial".
                 </AlertDescription>
               </Alert>
@@ -420,7 +420,7 @@ export default function OnboardingPage() {
                   placeholder="Ex: https://example.com/logo.png" 
                   onChange={(e) => setFormData({...formData, logoUrl: e.target.value})}
                 />
-                <p className="text-xs text-slate-500">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Cole a URL de sua logo. Será exibida após NDA assinado.</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -446,7 +446,7 @@ export default function OnboardingPage() {
                 <Label>Modelos Disponíveis</Label>
                 <div className="grid grid-cols-2 gap-2">
                    {["Loja Física", "Quiosque", "Home Based", "Microfranquia"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border p-2 rounded-md hover:bg-slate-50 cursor-pointer">
+                     <div key={opt} className="flex items-center space-x-2 border p-2 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm w-full cursor-pointer">{opt}</label>
                      </div>
@@ -485,7 +485,7 @@ export default function OnboardingPage() {
                <div className="space-y-2">
                   <Label>Payback Médio (Meses)</Label>
                   <Slider defaultValue={[24]} max={60} step={1} className="w-full" />
-                  <div className="text-right text-sm text-slate-500 mt-1">24 meses</div>
+                  <div className="text-right text-sm text-slate-500 dark:text-slate-400 mt-1">24 meses</div>
                </div>
              </div>
           );
@@ -497,14 +497,14 @@ export default function OnboardingPage() {
                 <div className="flex gap-4">
                    <Button 
                     variant={formData.operatorType === 'investor' ? "default" : "outline"} 
-                    className={`flex-1 ${formData.operatorType === 'investor' ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.operatorType === 'investor' ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, operatorType: 'investor'})}
                    >
                      <User className="mr-2 h-4 w-4" /> Investidor
                    </Button>
                    <Button 
                     variant={formData.operatorType === 'operator' ? "default" : "outline"} 
-                    className={`flex-1 ${formData.operatorType === 'operator' ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                    className={`flex-1 ${formData.operatorType === 'operator' ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                     onClick={() => setFormData({...formData, operatorType: 'operator'})}
                    >
                      <Briefcase className="mr-2 h-4 w-4" /> Operador
@@ -528,7 +528,7 @@ export default function OnboardingPage() {
                 <Label>Competências Essenciais</Label>
                 <div className="flex flex-wrap gap-2">
                   {["Liderança", "Vendas", "Gestão Financeira", "Marketing Local"].map(skill => (
-                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full">
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
                        <Checkbox id={`f-skill-${skill}`} />
                        <label htmlFor={`f-skill-${skill}`} className="text-sm font-medium">{skill}</label>
                     </div>
@@ -549,14 +549,14 @@ export default function OnboardingPage() {
                    <div className="flex gap-4">
                      <Button 
                       variant={formData.exclusivity === true ? "default" : "outline"} 
-                      className={`flex-1 ${formData.exclusivity === true ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                      className={`flex-1 ${formData.exclusivity === true ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                       onClick={() => setFormData({...formData, exclusivity: true})}
                      >
                        <Check className="mr-2 h-4 w-4" /> Sim
                      </Button>
                      <Button 
                       variant={formData.exclusivity === false ? "default" : "outline"} 
-                      className={`flex-1 ${formData.exclusivity === false ? "" : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary"}`}
+                      className={`flex-1 ${formData.exclusivity === false ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-primary/30 hover:text-primary"}`}
                       onClick={() => setFormData({...formData, exclusivity: false})}
                      >
                        <X className="mr-2 h-4 w-4" /> Não
@@ -614,25 +614,25 @@ export default function OnboardingPage() {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <Card className="border-slate-200 shadow-md">
+        <Card className="border-slate-200 dark:border-slate-700 shadow-md dark:bg-slate-900">
           <CardHeader>
              <div className="flex items-center justify-between mb-4">
                 <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user}>
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
-                <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">
+                <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                    {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
                 </span>
                 <div className="w-10" /> {/* Spacer */}
              </div>
-             <CardTitle className="text-2xl font-bold text-center">{getStepTitle()}</CardTitle>
+             <CardTitle className="text-2xl font-bold text-center dark:text-white">{getStepTitle()}</CardTitle>
           </CardHeader>
           <CardContent>
-           <div className="flex items-center justify-between text-sm text-slate-500 mb-2">
+           <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
              <span>Passo {step} de {totalSteps}</span>
              <span>{Math.round((step / totalSteps) * 100)}% Completo</span>
            </div>
-           <div className="h-2 w-full bg-slate-100 rounded-full mb-8">
+           <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-8">
              <motion.div 
                className="h-full bg-primary rounded-full"
                initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
@@ -653,8 +653,8 @@ export default function OnboardingPage() {
              </motion.div>
            </AnimatePresence>
           </CardContent>
-          <CardFooter className="flex justify-between border-t p-6">
-            <Button variant="ghost" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-slate-50 hover:text-primary">
+          <CardFooter className="flex justify-between border-t border-slate-200 dark:border-slate-700 p-6">
+            <Button variant="ghost" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary">
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
             <Button onClick={handleNext} className="bg-primary hover:bg-primary/90">

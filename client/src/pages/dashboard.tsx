@@ -269,13 +269,13 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'} flex items-center justify-between`}>
           <div>
-            <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900`}>Olá, {user?.name || "Investidor"}! 👋</h1>
-            {!isMobile && <p className="text-slate-500 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
+            <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>Olá, {user?.name || "Investidor"}! 👋</h1>
+            {!isMobile && <p className="text-slate-500 dark:text-slate-400 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
           </div>
           {isMobile && (
             <Button 
               variant="outline"
-              className="h-10 px-3 rounded-lg font-semibold border-slate-200 bg-white text-slate-900 hover:bg-slate-50 flex-shrink-0 whitespace-nowrap"
+              className="h-10 px-3 rounded-lg font-semibold border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 flex-shrink-0 whitespace-nowrap"
               onClick={() => setLocation('/valuation')}
             >
               <TrendingUp className="h-4 w-4 mr-2" /> Novo Valuation
@@ -287,22 +287,22 @@ export default function DashboardPage() {
         {isMobile ? (
           <div className="grid grid-cols-2 gap-2 mb-3">
             {stats.slice(0, 4).map((stat, index) => (
-              <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg p-3 border border-primary/10">
-                <p className="text-2xs text-slate-600 font-medium mb-1.5">{stat.label}</p>
-                <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+              <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-3 border border-primary/10 dark:border-slate-700">
+                <p className="text-2xs text-slate-600 dark:text-slate-400 font-medium mb-1.5">{stat.label}</p>
+                <p className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
               </div>
             ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => (
-              <Card key={index} className="border-slate-200 hover:shadow-md transition-shadow">
+              <Card key={index} className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow">
                 <CardContent className="p-6 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
-                    <p className="text-3xl font-bold text-slate-900">{stat.value}</p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
+                    <p className="text-3xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
                   </div>
-                  <div className={`h-12 w-12 rounded-full bg-slate-50 flex items-center justify-center ${stat.color}`}>
+                  <div className={`h-12 w-12 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${stat.color}`}>
                     <stat.icon className="h-6 w-6" />
                   </div>
                 </CardContent>
@@ -317,7 +317,7 @@ export default function DashboardPage() {
             <Search className={`absolute ${isMobile ? 'left-3.5 top-3.5' : 'left-3 top-3'} ${isMobile ? 'h-4 w-4' : 'h-4 w-4'} text-slate-400`} />
             <Input 
               placeholder={isMobile ? "Buscar oportunidades..." : "Buscar por setor, localização ou nome..."} 
-              className={`pl-10 ${isMobile ? 'h-11 rounded-lg' : 'h-11'} bg-white border border-slate-200 shadow-sm focus:ring-2 focus:ring-primary/20 transition-all`}
+              className={`pl-10 ${isMobile ? 'h-11 rounded-lg' : 'h-11'} bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/30 focus:ring-2 focus:ring-primary/20 transition-all`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="input-search"

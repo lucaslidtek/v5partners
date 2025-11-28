@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/context";
 import { motion } from "framer-motion";
 import { Target, Briefcase, Store, CheckCircle2 } from "lucide-react";
-import logo from "@assets/v5partners_color1_1764265378727.png";
+import logoColor from "@assets/v5partners_color1_1764265378727.png";
+import logoWhite from "@assets/v5partners_white1_1764345179398.png";
+import { useContext } from "react";
 
 export default function ProfileSelectionPage() {
-  const { setProfileType } = useAuth();
+  const { setProfileType, settings } = useAuth();
 
   const profiles = [
     {
@@ -66,7 +68,7 @@ export default function ProfileSelectionPage() {
           className="text-center max-w-3xl mb-12"
         >
           <div className="flex items-center justify-center gap-2 mb-6">
-             <img src={logo} alt="V5 Partners" className="h-12 w-auto object-contain dark:brightness-0 dark:invert" />
+             <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-12 w-auto object-contain" />
           </div>
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Escolha seu perfil</h1>
           <p className="text-lg text-slate-600 dark:text-slate-400">Selecione a opção que melhor descreve você para começar</p>

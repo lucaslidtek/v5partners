@@ -76,7 +76,8 @@ export default function LoginPage() {
         <div className="w-full lg:w-1/2 bg-white dark:bg-slate-900 flex items-center justify-center p-8 lg:p-24 relative">
           <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
-              <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto" />
+              <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto dark:hidden" />
+              <img src={logoWhite} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto hidden dark:block" />
               <h1 className="text-3xl font-bold text-foreground dark:text-white tracking-tight">Bem-vindo</h1>
               <p className="text-muted-foreground dark:text-slate-400 mt-2">Entre com suas credenciais para acessar.</p>
             </div>

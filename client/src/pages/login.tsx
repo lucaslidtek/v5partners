@@ -10,7 +10,7 @@ import { Lock, Mail, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "wouter";
 
 import logoColor from "@assets/v5partners_color1_1764265378727.png";
-import logoWhite from "@assets/v5partners_pb4_1764265422084.png";
+import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

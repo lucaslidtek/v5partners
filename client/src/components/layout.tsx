@@ -6,7 +6,7 @@ import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import logoColor from "@assets/v5partners_color1_1764265378727.png";
-import logoWhite from "@assets/v5partners_pb4_1764265422084.png";
+import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 import { useContext } from "react";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {

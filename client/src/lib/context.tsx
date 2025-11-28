@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { useLocation } from "wouter";
 
 type ProfileType = "investor" | "seller" | "franchise" | null;
@@ -11,6 +11,12 @@ interface UserData {
   [key: string]: any;
 }
 
+interface SettingsData {
+  darkMode: boolean;
+  notifications: boolean;
+  shareData: boolean;
+}
+
 interface AuthContextType {
   user: UserData | null;
   login: (email: string, name: string) => void;
@@ -18,12 +24,18 @@ interface AuthContextType {
   setProfileType: (type: ProfileType) => void;
   updateUserData: (data: Partial<UserData>) => void;
   isAuthenticated: boolean;
+  settings: SettingsData;
+  updateSettings: (settings: Partial<SettingsData>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserData | null>(null);
+  const [settings, setSettings] = useState<SettingsData>(() => {
+    const saved = localStorage.getItem("settings");
+    return saved ? JSON.parse(saved) : { darkMode: false, notifications: true, shareData: false };
+  });
   const [, setLocation] = useLocation();
 
   const login = (email: string, name: string) => {
@@ -97,6 +109,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const updateSettings = (newSettings: Partial<SettingsData>) => {
+    const updated = { ...settings, ...newSettings };
+    setSettings(updated);
+    localStorage.setItem("settings", JSON.stringify(updated));
+    
+    if (newSettings.darkMode !== undefined) {
+      if (newSettings.darkMode) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (settings.darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -106,6 +140,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setProfileType,
         updateUserData,
         isAuthenticated: !!user,
+        settings,
+        updateSettings,
       }}
     >
       {children}

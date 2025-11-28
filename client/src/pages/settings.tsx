@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { Switch } from "@/components/ui/switch";
+import { useAuth } from "@/lib/context";
 
 export default function SettingsPage() {
   const [, setLocation] = useLocation();
+  const { settings, updateSettings } = useAuth();
 
   return (
     <Layout>
@@ -21,34 +23,46 @@ export default function SettingsPage() {
         </Button>
         
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900" data-testid="text-settings-title">Configurações</h1>
-          <p className="text-slate-500 mt-1">Gerencie suas preferências</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white" data-testid="text-settings-title">Configurações</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">Gerencie suas preferências</p>
         </div>
         
-        <Card className="p-6" data-testid="card-settings">
+        <Card className="p-6 dark:bg-slate-950 dark:border-slate-800" data-testid="card-settings">
           <div className="space-y-0">
-            <div className="flex items-center justify-between py-4 border-b border-border last:border-b-0">
+            <div className="flex items-center justify-between py-4 border-b border-border dark:border-slate-800 last:border-b-0">
               <div>
-                <p className="font-semibold text-foreground" data-testid="text-setting-notifications">Notificações</p>
-                <p className="text-sm text-muted-foreground">Receber notificações por email</p>
+                <p className="font-semibold text-foreground dark:text-white" data-testid="text-setting-notifications">Notificações</p>
+                <p className="text-sm text-muted-foreground dark:text-slate-400">Receber notificações por email</p>
               </div>
-              <Switch data-testid="switch-notifications" defaultChecked />
+              <Switch 
+                data-testid="switch-notifications" 
+                checked={settings.notifications}
+                onCheckedChange={(checked) => updateSettings({ notifications: checked })}
+              />
             </div>
 
-            <div className="flex items-center justify-between py-4 border-b border-border last:border-b-0">
+            <div className="flex items-center justify-between py-4 border-b border-border dark:border-slate-800 last:border-b-0">
               <div>
-                <p className="font-semibold text-foreground" data-testid="text-setting-theme">Tema Escuro</p>
-                <p className="text-sm text-muted-foreground">Alternar entre tema claro e escuro</p>
+                <p className="font-semibold text-foreground dark:text-white" data-testid="text-setting-theme">Tema Escuro</p>
+                <p className="text-sm text-muted-foreground dark:text-slate-400">Alternar entre tema claro e escuro</p>
               </div>
-              <Switch data-testid="switch-theme" />
+              <Switch 
+                data-testid="switch-theme" 
+                checked={settings.darkMode}
+                onCheckedChange={(checked) => updateSettings({ darkMode: checked })}
+              />
             </div>
 
-            <div className="flex items-center justify-between py-4 border-b border-border last:border-b-0">
+            <div className="flex items-center justify-between py-4 border-b border-border dark:border-slate-800 last:border-b-0">
               <div>
-                <p className="font-semibold text-foreground" data-testid="text-setting-analytics">Compartilhar Dados</p>
-                <p className="text-sm text-muted-foreground">Ajude-nos a melhorar compartilhando dados</p>
+                <p className="font-semibold text-foreground dark:text-white" data-testid="text-setting-analytics">Compartilhar Dados</p>
+                <p className="text-sm text-muted-foreground dark:text-slate-400">Ajude-nos a melhorar compartilhando dados</p>
               </div>
-              <Switch data-testid="switch-analytics" />
+              <Switch 
+                data-testid="switch-analytics" 
+                checked={settings.shareData}
+                onCheckedChange={(checked) => updateSettings({ shareData: checked })}
+              />
             </div>
           </div>
         </Card>

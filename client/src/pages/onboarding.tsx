@@ -29,7 +29,7 @@ export default function OnboardingPage() {
       setStep(step + 1);
     } else {
       updateUserData(formData);
-      setLocation("/summary");
+      setLocation("/resumo");
     }
   };
 
@@ -37,7 +37,7 @@ export default function OnboardingPage() {
     if (step > 1) {
       setStep(step - 1);
     } else if (step === 1) {
-      setLocation("/profile-selection");
+      setLocation("/escolha-de-perfil");
     }
   };
 

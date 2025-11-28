@@ -19,15 +19,15 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={LoginPage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/profile-selection" component={ProfileSelectionPage} />
-      <Route path="/onboarding" component={OnboardingPage} />
-      <Route path="/summary" component={SummaryPage} />
+      <Route path="/registrar" component={RegisterPage} />
+      <Route path="/escolha-de-perfil" component={ProfileSelectionPage} />
+      <Route path="/integracao" component={OnboardingPage} />
+      <Route path="/resumo" component={SummaryPage} />
       <Route path="/dashboard" component={DashboardPage} />
-      <Route path="/valuation" component={ValuationPage} />
-      <Route path="/processes" component={ProcessesPage} />
-      <Route path="/profile" component={ProfilePage} />
-      <Route path="/settings" component={SettingsPage} />
+      <Route path="/avaliacao" component={ValuationPage} />
+      <Route path="/processos" component={ProcessesPage} />
+      <Route path="/perfil" component={ProfilePage} />
+      <Route path="/configuracoes" component={SettingsPage} />
       <Route component={NotFound} />
     </Switch>
   );

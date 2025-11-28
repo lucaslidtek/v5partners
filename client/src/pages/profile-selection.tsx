@@ -108,6 +108,7 @@ export default function ProfileSelectionPage() {
                   <Button 
                     className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
                     onClick={() => setProfileType(profile.id as any)}
+                    data-testid={`button-select-${profile.id}`}
                   >
                     Continuar como {profile.title.split(' / ')[0]}
                   </Button>

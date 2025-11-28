@@ -84,6 +84,7 @@ export default function ProcessesPage() {
           variant="ghost" 
           className="mb-6 pl-0 hover:bg-transparent hover:text-primary"
           onClick={() => setLocation('/dashboard')}
+          data-testid="button-back-processes"
         >
           <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Dashboard
         </Button>

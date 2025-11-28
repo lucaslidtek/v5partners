@@ -135,10 +135,10 @@ export default function SummaryPage() {
         </Card>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <Button className="flex-1 h-12 text-base bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" onClick={() => setLocation("/dashboard")}>
+          <Button className="flex-1 h-12 text-base bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" onClick={() => setLocation("/dashboard")} data-testid="button-finish-profile">
             Finalizar Perfil Agora <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" className="flex-1 h-12 text-base border-slate-200 bg-white" onClick={() => setLocation("/dashboard")}>
+          <Button variant="outline" className="flex-1 h-12 text-base border-slate-200 bg-white" onClick={() => setLocation("/dashboard")} data-testid="button-continue-later">
             <Clock className="mr-2 h-4 w-4" /> Continuar Depois
           </Button>
         </div>

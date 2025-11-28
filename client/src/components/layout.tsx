@@ -47,11 +47,11 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem onClick={() => setLocation("/profile")} data-testid="menu-profile">
+                      <DropdownMenuItem onClick={() => setLocation("/perfil")} data-testid="menu-profile">
                         <User className="mr-2 h-4 w-4" />
                         <span>Perfil</span>
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setLocation("/settings")} data-testid="menu-settings">
+                      <DropdownMenuItem onClick={() => setLocation("/configuracoes")} data-testid="menu-settings">
                         <Settings className="mr-2 h-4 w-4" />
                         <span>Configurações</span>
                       </DropdownMenuItem>

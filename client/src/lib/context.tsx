@@ -88,7 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       payback: 24,
       operatorType: "investor",
     });
-    setLocation("/profile-selection");
+    setLocation("/escolha-de-perfil");
   };
 
   const logout = () => {
@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const setProfileType = (type: ProfileType) => {
     if (user) {
       setUser({ ...user, role: type });
-      setLocation("/onboarding");
+      setLocation("/integracao");
     }
   };
 

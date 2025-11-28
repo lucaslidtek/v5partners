@@ -284,7 +284,7 @@ export default function DashboardPage() {
             <Button 
               variant="outline"
               className="h-10 px-3 rounded-lg font-semibold border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 flex-shrink-0 whitespace-nowrap"
-              onClick={() => setLocation('/valuation')}
+              onClick={() => setLocation('/avaliacao')}
             >
               <TrendingUp className="h-4 w-4 mr-2" /> Novo Valuation
             </Button>
@@ -484,7 +484,7 @@ export default function DashboardPage() {
 
               <Button 
                 className="h-11 bg-emerald-600 text-white border-emerald-600 whitespace-nowrap font-medium transition-colors hover:bg-emerald-700 shadow-sm"
-                onClick={() => setLocation('/valuation')}
+                onClick={() => setLocation('/avaliacao')}
               >
                 <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
               </Button>

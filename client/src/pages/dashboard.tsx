@@ -410,7 +410,7 @@ export default function DashboardPage() {
             <div className={`flex gap-2 overflow-x-auto pb-2 md:pb-0`}>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="outline" className="h-11 border-slate-200 bg-white whitespace-nowrap font-medium transition-colors hover:bg-slate-50">
+                  <Button className="h-11 bg-blue-600 text-white border-blue-600 whitespace-nowrap font-medium transition-colors hover:bg-blue-700 shadow-sm">
                     <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
                   </Button>
                 </SheetTrigger>
@@ -483,8 +483,7 @@ export default function DashboardPage() {
               </Sheet>
 
               <Button 
-                variant="outline"
-                className="h-11 border-slate-200 bg-white whitespace-nowrap"
+                className="h-11 bg-emerald-600 text-white border-emerald-600 whitespace-nowrap font-medium transition-colors hover:bg-emerald-700 shadow-sm"
                 onClick={() => setLocation('/valuation')}
               >
                 <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation

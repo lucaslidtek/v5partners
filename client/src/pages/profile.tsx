@@ -49,236 +49,236 @@ export default function ProfilePage() {
 
   const renderInvestorProfile = () => (
     <div className="space-y-6">
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Nome Completo</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-name">{user?.name || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Nome Completo</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-name">{user?.name || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Email</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-email">{user?.email || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Email</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-email">{user?.email || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Localização</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-location">{user?.location || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Localização</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-location">{user?.location || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Faixa Etária</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-age">{user?.ageRange || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Faixa Etária</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-age">{user?.ageRange || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Formação</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-education">{user?.education || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Formação</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-education">{user?.education || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Faixa de Investimento</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-investment">{user?.investmentRange || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Faixa de Investimento</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-investment">{user?.investmentRange || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Modalidade Desejada</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-modality">{user?.modality || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Modalidade Desejada</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-modality">{user?.modality || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Retorno Desejado</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-roi">{user?.roiTime || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Retorno Desejado</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-roi">{user?.roiTime || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Experiência Anterior em Empresas</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-experience">
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Experiência Anterior em Empresas</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-experience">
           {user?.hasExperience === true ? "Sim" : user?.hasExperience === false ? "Não" : "-"}
         </p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Setores de Experiência</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-sectors">{user?.experienceSectors || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Setores de Experiência</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-sectors">{user?.experienceSectors || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Habilidades Predominantes</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-skills">{user?.skills || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Habilidades Predominantes</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-skills">{user?.skills || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Setores de Interesse</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-interest-sectors">{user?.interestSectors || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Setores de Interesse</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-interest-sectors">{user?.interestSectors || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Grau de Envolvimento Operacional</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-involvement">{user?.operationalInvolvement ? `${user.operationalInvolvement}%` : "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Grau de Envolvimento Operacional</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-involvement">{user?.operationalInvolvement ? `${user.operationalInvolvement}%` : "-"}</p>
       </div>
 
       <div>
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Tolerância ao Risco</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-risk-tolerance">{user?.riskTolerance ? `${user.riskTolerance}%` : "-"}</p>
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Tolerância ao Risco</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-risk-tolerance">{user?.riskTolerance ? `${user.riskTolerance}%` : "-"}</p>
       </div>
     </div>
   );
 
   const renderSellerProfile = () => (
     <div className="space-y-6">
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Nome Fantasia da Empresa</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-trade-name">{user?.tradeName || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Nome Fantasia da Empresa</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-trade-name">{user?.tradeName || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Logo da Empresa</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Logo da Empresa</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Email do Proprietário</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-email">{user?.email || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Email do Proprietário</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-email">{user?.email || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Localização</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-location">{user?.location || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Localização</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-location">{user?.location || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Segmento</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-segment">{user?.segment || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Segmento</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-segment">{user?.segment || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Tipo de Operação</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-operation-type">{user?.operationType || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Tipo de Operação</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-operation-type">{user?.operationType || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Faturamento Mensal Médio</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-revenue">{user?.monthlyRevenue || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Faturamento Mensal Médio</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-revenue">{user?.monthlyRevenue || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Ticket Médio</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-ticket">{user?.ticketAverage || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Ticket Médio</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-ticket">{user?.ticketAverage || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">EBITDA / Lucro Líquido</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-ebitda">{user?.ebitda || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">EBITDA / Lucro Líquido</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-ebitda">{user?.ebitda || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Número de Funcionários</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-employees">{user?.employees || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Número de Funcionários</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-employees">{user?.employees || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Grau de Dependência do Dono</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-owner-dependence">{user?.ownerDependence ? `${user.ownerDependence}%` : "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Grau de Dependência do Dono</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-owner-dependence">{user?.ownerDependence ? `${user.ownerDependence}%` : "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Motivo da Venda</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-sell-reason">{user?.sellReason || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Motivo da Venda</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-sell-reason">{user?.sellReason || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Estágio do Negócio</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-stage">{user?.stage || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Estágio do Negócio</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-stage">{user?.stage || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Passivos Existentes?</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-liabilities">
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Passivos Existentes?</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-liabilities">
           {user?.liabilities === true ? "Sim" : user?.liabilities === false ? "Não" : "-"}
         </p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Valor Pedido (Valuation)</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-valuation">{user?.valuation || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Valor Pedido (Valuation)</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-valuation">{user?.valuation || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Tipo de Transação Aceita</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-transaction-type">{user?.transactionType || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Tipo de Transação Aceita</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-transaction-type">{user?.transactionType || "-"}</p>
       </div>
 
       <div>
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Imóvel Próprio na Negociação?</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-property-involved">{user?.propertyInvolved || "-"}</p>
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Imóvel Próprio na Negociação?</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-property-involved">{user?.propertyInvolved || "-"}</p>
       </div>
     </div>
   );
 
   const renderFranchiseProfile = () => (
     <div className="space-y-6">
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Nome da Franquia</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-franchise-name">{user?.franchiseName || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Nome da Franquia</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-franchise-name">{user?.franchiseName || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Logo da Franquia</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Logo da Franquia</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Email da Franqueadora</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-email">{user?.email || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Email da Franqueadora</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-email">{user?.email || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Segmento</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-segment">{user?.segment || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Segmento</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-segment">{user?.segment || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Anos de Mercado</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-years-market">{user?.yearsInMarket || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Anos de Mercado</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-years-market">{user?.yearsInMarket || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Cidade Sede</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-headquarters">{user?.headquarters || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Cidade Sede</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-headquarters">{user?.headquarters || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Número de Unidades</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-units">{user?.numberOfUnits || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Número de Unidades</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-units">{user?.numberOfUnits || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Modelos Disponíveis</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-models">{user?.models || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Modelos Disponíveis</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-models">{user?.models || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Investimento Total Inicial (Faixa)</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-investment">{user?.initialInvestment || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Investimento Total Inicial (Faixa)</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-investment">{user?.initialInvestment || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Taxa de Franquia</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-franchise-fee">{user?.franchiseFee || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Taxa de Franquia</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-franchise-fee">{user?.franchiseFee || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Capital de Giro</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-working-capital">{user?.workingCapital || "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Capital de Giro</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-working-capital">{user?.workingCapital || "-"}</p>
       </div>
 
-      <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Payback Médio</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-payback">{user?.payback ? `${user.payback} meses` : "-"}</p>
+      <div className="border-b border-border dark:border-slate-700 pb-6">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Payback Médio</label>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-payback">{user?.payback ? `${user.payback} meses` : "-"}</p>
       </div>
 
       <div>
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Perfil Ideal do Franqueado</label>
-        <p className="text-lg font-semibold capitalize" data-testid="text-profile-operator-type">
+        <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Perfil Ideal do Franqueado</label>
+        <p className="text-lg font-semibold capitalize dark:text-white" data-testid="text-profile-operator-type">
           {user?.operatorType === "investor" ? "Investidor" : user?.operatorType === "operator" ? "Operador" : "-"}
         </p>
       </div>
@@ -299,7 +299,7 @@ export default function ProfilePage() {
         
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-slate-900" data-testid="text-profile-title">Perfil</h1>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white" data-testid="text-profile-title">Perfil</h1>
             {profileInfo && ProfileIcon && (
               <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-2 text-sm font-medium`} data-testid="badge-profile-type">
                 <ProfileIcon className="w-4 h-4" />
@@ -307,10 +307,10 @@ export default function ProfilePage() {
               </div>
             )}
           </div>
-          <p className="text-slate-500 mt-1">Informações da sua conta</p>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">Informações da sua conta</p>
         </div>
 
-        <Card className="p-6" data-testid="card-profile">
+        <Card className="p-6 dark:bg-slate-900 dark:border-slate-800" data-testid="card-profile">
           {user?.role === "investor" && renderInvestorProfile()}
           {user?.role === "seller" && renderSellerProfile()}
           {user?.role === "franchise" && renderFranchiseProfile()}

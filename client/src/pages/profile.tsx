@@ -80,15 +80,45 @@ export default function ProfilePage() {
       </div>
 
       <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Modalidade Desejada</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-modality">{user?.modality || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Retorno Desejado</label>
         <p className="text-lg font-semibold" data-testid="text-profile-roi">{user?.roiTime || "-"}</p>
       </div>
 
-      <div>
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Experiência Anterior em Empresas</label>
         <p className="text-lg font-semibold" data-testid="text-profile-experience">
           {user?.hasExperience === true ? "Sim" : user?.hasExperience === false ? "Não" : "-"}
         </p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Setores de Experiência</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-sectors">{user?.experienceSectors || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Habilidades Predominantes</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-skills">{user?.skills || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Setores de Interesse</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-interest-sectors">{user?.interestSectors || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Grau de Envolvimento Operacional</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-involvement">{user?.operationalInvolvement ? `${user.operationalInvolvement}%` : "-"}</p>
+      </div>
+
+      <div>
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Tolerância ao Risco</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-risk-tolerance">{user?.riskTolerance ? `${user.riskTolerance}%` : "-"}</p>
       </div>
     </div>
   );
@@ -98,6 +128,11 @@ export default function ProfilePage() {
       <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Nome Fantasia da Empresa</label>
         <p className="text-lg font-semibold" data-testid="text-profile-trade-name">{user?.tradeName || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Logo da Empresa</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
       </div>
 
       <div className="border-b border-border pb-6">
@@ -116,8 +151,18 @@ export default function ProfilePage() {
       </div>
 
       <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Tipo de Operação</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-operation-type">{user?.operationType || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Faturamento Mensal Médio</label>
         <p className="text-lg font-semibold" data-testid="text-profile-revenue">{user?.monthlyRevenue || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Ticket Médio</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-ticket">{user?.ticketAverage || "-"}</p>
       </div>
 
       <div className="border-b border-border pb-6">
@@ -131,13 +176,40 @@ export default function ProfilePage() {
       </div>
 
       <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Grau de Dependência do Dono</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-owner-dependence">{user?.ownerDependence ? `${user.ownerDependence}%` : "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Motivo da Venda</label>
         <p className="text-lg font-semibold" data-testid="text-profile-sell-reason">{user?.sellReason || "-"}</p>
       </div>
 
-      <div>
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Estágio do Negócio</label>
         <p className="text-lg font-semibold" data-testid="text-profile-stage">{user?.stage || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Passivos Existentes?</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-liabilities">
+          {user?.liabilities === true ? "Sim" : user?.liabilities === false ? "Não" : "-"}
+        </p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Valor Pedido (Valuation)</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-valuation">{user?.valuation || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Tipo de Transação Aceita</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-transaction-type">{user?.transactionType || "-"}</p>
+      </div>
+
+      <div>
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Imóvel Próprio na Negociação?</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-property-involved">{user?.propertyInvolved || "-"}</p>
       </div>
     </div>
   );
@@ -147,6 +219,11 @@ export default function ProfilePage() {
       <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Nome da Franquia</label>
         <p className="text-lg font-semibold" data-testid="text-profile-franchise-name">{user?.franchiseName || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Logo da Franquia</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-logo">{user?.logoUrl || "-"}</p>
       </div>
 
       <div className="border-b border-border pb-6">
@@ -165,12 +242,22 @@ export default function ProfilePage() {
       </div>
 
       <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Cidade Sede</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-headquarters">{user?.headquarters || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Número de Unidades</label>
         <p className="text-lg font-semibold" data-testid="text-profile-units">{user?.numberOfUnits || "-"}</p>
       </div>
 
       <div className="border-b border-border pb-6">
-        <label className="text-sm font-medium text-muted-foreground block mb-2">Investimento Inicial (Faixa)</label>
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Modelos Disponíveis</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-models">{user?.models || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Investimento Total Inicial (Faixa)</label>
         <p className="text-lg font-semibold" data-testid="text-profile-investment">{user?.initialInvestment || "-"}</p>
       </div>
 
@@ -180,8 +267,13 @@ export default function ProfilePage() {
       </div>
 
       <div className="border-b border-border pb-6">
+        <label className="text-sm font-medium text-muted-foreground block mb-2">Capital de Giro</label>
+        <p className="text-lg font-semibold" data-testid="text-profile-working-capital">{user?.workingCapital || "-"}</p>
+      </div>
+
+      <div className="border-b border-border pb-6">
         <label className="text-sm font-medium text-muted-foreground block mb-2">Payback Médio</label>
-        <p className="text-lg font-semibold" data-testid="text-profile-payback">{user?.payback || "-"}</p>
+        <p className="text-lg font-semibold" data-testid="text-profile-payback">{user?.payback ? `${user.payback} meses` : "-"}</p>
       </div>
 
       <div>

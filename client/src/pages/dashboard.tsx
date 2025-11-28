@@ -329,7 +329,7 @@ export default function DashboardPage() {
                     <Filter className="h-4 w-4 text-slate-600" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="bottom">
+                <SheetContent side="bottom" className="rounded-t-3xl">
                   <SheetHeader>
                     <SheetTitle>Filtros Avançados</SheetTitle>
                     <SheetDescription>

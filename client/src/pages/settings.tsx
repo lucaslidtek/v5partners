@@ -27,7 +27,7 @@ export default function SettingsPage() {
           <p className="text-slate-500 dark:text-slate-400 mt-1">Gerencie suas preferências</p>
         </div>
         
-        <Card className="p-6 dark:bg-slate-950 dark:border-slate-800" data-testid="card-settings">
+        <Card className="p-6 dark:bg-slate-950 dark:border-slate-800 bg-[#0F172B]" data-testid="card-settings">
           <div className="space-y-0">
             <div className="flex items-center justify-between py-4 border-b border-border dark:border-slate-800 last:border-b-0">
               <div>

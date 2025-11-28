@@ -161,8 +161,8 @@ export default function RegisterPage() {
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground">Já tem uma conta? </span>
-              <Link href="/">
-                <a className="font-semibold text-primary hover:text-primary/80 transition-colors">Fazer login</a>
+              <Link href="/" className="font-semibold text-primary hover:text-primary/80 transition-colors">
+                Fazer login
               </Link>
             </div>
           </div>

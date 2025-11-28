@@ -165,8 +165,8 @@ export default function LoginPage() {
 
             <div className="text-center text-sm">
               <span className="text-muted-foreground dark:text-slate-400">Não tem uma conta? </span>
-              <Link href="/registrar">
-                <a className="font-semibold text-primary hover:text-primary/80 transition-colors">Criar conta</a>
+              <Link href="/registrar" className="font-semibold text-primary hover:text-primary/80 transition-colors">
+                Criar conta
               </Link>
             </div>
           </div>

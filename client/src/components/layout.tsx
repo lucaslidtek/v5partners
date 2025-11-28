@@ -5,10 +5,12 @@ import { Bell, User, LogOut, Settings } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-import logo from "@assets/v5partners_color1_1764265378727.png";
+import logoColor from "@assets/v5partners_color1_1764265378727.png";
+import logoWhite from "@assets/v5partners_pb4_1764265422084.png";
+import { useContext } from "react";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
-  const { user, logout } = useAuth();
+  const { user, logout, settings } = useAuth();
   const [, setLocation] = useLocation();
 
   return (
@@ -19,7 +21,7 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
             <div className="flex items-center gap-2">
               <Link href={user ? "/dashboard" : "/"}>
                 <div className="flex items-center gap-2 cursor-pointer">
-                  <img src={logo} alt="V5 Partners" className="h-8 w-auto object-contain" />
+                  <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-8 w-auto object-contain" />
                 </div>
               </Link>
             </div>

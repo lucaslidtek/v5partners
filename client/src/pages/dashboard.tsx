@@ -474,12 +474,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full mt-4 ${isMobile ? 'sticky top-0 border-b border-slate-200 z-40' : ''}`}>
-          <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 mb-8'}`}>
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full mt-4 ${isMobile ? 'sticky top-0 border-b border-slate-200 dark:border-slate-800 z-40' : ''}`}>
+          <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 dark:border-slate-800 mb-8'}`}>
             <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 
                 value="new" 
-                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
+                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
               >
                 Matches Recomendados
                 <Badge 
@@ -490,7 +490,7 @@ export default function DashboardPage() {
               </TabsTrigger>
               <TabsTrigger 
                 value="active" 
-                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 hover:text-slate-900 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
+                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
               >
                 Processos Ativos
                 <Badge 
@@ -505,13 +505,13 @@ export default function DashboardPage() {
           {/* New Matches Tab */}
           <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
-                  <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-                    <Heart className="h-6 w-6 text-slate-400" />
+                  <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                    <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                   </div>
-                  <h3 className="text-lg font-medium text-slate-900">Nenhum novo match</h3>
-                  <p className="text-slate-500 text-center max-w-sm mt-1">
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum novo match</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
                     Todos os matches já têm processos em andamento. Continue acompanhando na aba de Processos.
                   </p>
                 </CardContent>
@@ -523,15 +523,15 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <Card className={`border-slate-200 ${!isMobile && 'hover:border-primary/30 hover:shadow-lg'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
+              <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
                 <div className={`${isMobile ? 'p-4' : 'p-6'}`}>
                   {/* Header com logo, título e status */}
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex gap-3 flex-1 items-start">
                       {renderLogo(match)}
                       <div className="flex-1 min-w-0">
-                        <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 leading-tight`}>{getDisplayName(match)}</h3>
-                        <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-1`}>{match.sector} • {match.location}</p>
+                        <h3 className={`${isMobile ? 'text-base font-bold' : 'text-xl font-bold'} text-slate-900 dark:text-white leading-tight`}>{getDisplayName(match)}</h3>
+                        <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 dark:text-slate-400 mt-1`}>{match.sector} • {match.location}</p>
                       </div>
                     </div>
                     {match.isNew && (
@@ -542,10 +542,10 @@ export default function DashboardPage() {
                   {/* Progresso Bar */}
                   <div className={`${isMobile ? 'mb-3' : 'mb-6'}`}>
                     <div className="flex justify-between items-center mb-1.5">
-                      <span className={`${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600`}>Progresso</span>
+                      <span className={`${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600 dark:text-slate-400`}>Progresso</span>
                       <span className={`${isMobile ? 'text-sm' : 'text-sm'} font-bold text-primary`}>{match.matchScore}%</span>
                     </div>
-                    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-primary rounded-full transition-all duration-500" 
                         style={{ width: `${match.matchScore}%` }}
@@ -556,24 +556,24 @@ export default function DashboardPage() {
                   {/* Key Metrics Grid */}
                   {!isMobile && (
                     <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 mb-6`}>
-                      <div className="text-center p-3 bg-slate-50 rounded-lg">
-                        <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
-                        <p className="font-bold text-slate-900">{match.revenue}</p>
+                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita Anual</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{match.revenue}</p>
                       </div>
-                      <div className="text-center p-3 bg-slate-50 rounded-lg">
-                        <p className="text-xs text-slate-500 mb-1">EBITDA</p>
-                        <p className="font-bold text-green-600">{match.ebitda}</p>
+                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
+                        <p className="font-bold text-green-600 dark:text-emerald-400">{match.ebitda}</p>
                       </div>
-                      <div className="text-center p-3 bg-slate-50 rounded-lg">
-                        <p className="text-xs text-slate-500 mb-1">Funcionários</p>
-                        <p className="font-bold text-slate-900">{match.employees}</p>
+                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Funcionários</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{match.employees}</p>
                       </div>
-                      <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1">
-                        <p className="text-xs text-slate-500 mb-1">Setor</p>
-                        <p className="font-bold text-slate-900 truncate" title={match.sector}>{match.sector}</p>
+                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg col-span-2 md:col-span-1">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Setor</p>
+                        <p className="font-bold text-slate-900 dark:text-white truncate" title={match.sector}>{match.sector}</p>
                       </div>
-                      <div className="text-center p-3 bg-slate-50 rounded-lg col-span-2 md:col-span-1 border border-primary/10 bg-primary/5">
-                        <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
+                      <div className="text-center p-3 bg-slate-50 dark:bg-blue-900/30 rounded-lg col-span-2 md:col-span-1 border border-primary/10 dark:border-primary/30 bg-primary/5 dark:bg-primary/10">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Preço Pedido</p>
                         <p className="font-bold text-primary">{match.price}</p>
                       </div>
                     </div>
@@ -582,7 +582,7 @@ export default function DashboardPage() {
                   {/* Tags */}
                   <div className={`flex flex-wrap ${isMobile ? 'gap-1.5 mb-3' : 'gap-2 mb-6'}`}>
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600 font-normal">
+                      <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal">
                         {tag}
                       </Badge>
                     ))}
@@ -590,14 +590,14 @@ export default function DashboardPage() {
 
                   {/* Process Progress */}
                   <div className="mb-4 mt-2">
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 px-1">
                       <span className={match.stage === 'new' || match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1 mx-2"></div>
                       <span className={match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1 mx-2"></div>
                       <span className={match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
                     </div>
-                    <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden w-full">
+                    <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden w-full">
                       <div 
                         className="h-full bg-primary transition-all duration-500 ease-in-out" 
                         style={{ 
@@ -608,7 +608,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-3' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100'}`}>
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-3' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800'}`}>
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
@@ -640,7 +640,7 @@ export default function DashboardPage() {
                     {/* Secondary Action - Details */}
                     <Button 
                       variant="outline" 
-                      className={`border-slate-200 hover:bg-slate-50 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
+                      className={`border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                       onClick={() => setSelectedMatchId(match.id)}
                       data-testid={`button-details-${match.id}`}
                     >
@@ -657,13 +657,13 @@ export default function DashboardPage() {
           {/* Active Processes Tab */}
           <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'space-y-6'}`}>
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 bg-slate-50">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
-                  <div className="h-12 w-12 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-                    <Clock className="h-6 w-6 text-slate-400" />
+                  <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                    <Clock className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                   </div>
-                  <h3 className="text-lg font-medium text-slate-900">Nenhum processo ativo</h3>
-                  <p className="text-slate-500 text-center max-w-sm mt-1">
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum processo ativo</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
                     Demonstre interesse em oportunidades para iniciar um processo de negociação.
                   </p>
                 </CardContent>
@@ -711,14 +711,14 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    <Card className={`border-l-4 ${config.borderColor} ${isMobile ? 'rounded-xl' : ''}`}>
+                    <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
                       <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
                         <div className="flex items-start justify-between gap-3 mb-3">
                           <div className="flex gap-3 flex-1 items-start min-w-0">
                             {renderLogo(process)}
                             <div className="flex-1 min-w-0">
-                              <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900`}>{getDisplayName(process)}</h3>
-                              <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 mt-0.5`}>{process.sector} • {process.location}</p>
+                              <h3 className={`${isMobile ? 'text-base font-bold' : 'text-lg font-bold'} text-slate-900 dark:text-white`}>{getDisplayName(process)}</h3>
+                              <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-500 dark:text-slate-400 mt-0.5`}>{process.sector} • {process.location}</p>
                             </div>
                           </div>
                           <Badge className={`${config.color} ${isMobile ? 'text-2xs py-1 px-2 whitespace-nowrap' : 'text-xs'}`}>
@@ -728,11 +728,11 @@ export default function DashboardPage() {
 
                         {/* Progress Bar */}
                         <div className={`${isMobile ? 'mb-3' : 'mb-4'}`}>
-                          <div className={`flex justify-between ${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600 mb-1.5`}>
+                          <div className={`flex justify-between ${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600 dark:text-slate-400 mb-1.5`}>
                             <span>Progresso</span>
                             <span>{config.progress}%</span>
                           </div>
-                          <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                          <div className="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                             <div 
                               className="h-full bg-primary transition-all duration-500"
                               style={{ width: `${config.progress}%` }}
@@ -742,21 +742,21 @@ export default function DashboardPage() {
 
                         {!isMobile && (
                           <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div className="p-3 bg-slate-50 rounded-lg">
-                              <p className="text-xs text-slate-500 mb-1">Valor</p>
-                              <p className="font-bold text-slate-900">{process.price}</p>
+                            <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Valor</p>
+                              <p className="font-bold text-slate-900 dark:text-white">{process.price}</p>
                             </div>
-                            <div className="p-3 bg-slate-50 rounded-lg">
-                              <p className="text-xs text-slate-500 mb-1">Receita</p>
-                              <p className="font-bold text-slate-900">{process.revenue}</p>
+                            <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <p className="font-bold text-slate-900 dark:text-white">{process.revenue}</p>
                             </div>
                           </div>
                         )}
 
-                        <div className={`flex gap-2 ${isMobile ? 'pt-3' : 'pt-2 border-t border-slate-100'}`}>
+                        <div className={`flex gap-2 ${isMobile ? 'pt-3' : 'pt-2 border-t border-slate-100 dark:border-slate-800'}`}>
                           <Button 
                             variant="outline" 
-                            className={`flex-1 border-slate-200 hover:bg-slate-50 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
+                            className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                             onClick={() => setSelectedMatchId(process.id)}
                             data-testid={`button-details-${process.id}`}
                           >
@@ -765,7 +765,7 @@ export default function DashboardPage() {
                           {process.stage === 'interested' && (
                             <Button 
                               variant="ghost" 
-                              className={`flex-1 text-slate-500 hover:text-slate-700 hover:bg-slate-50 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
+                              className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
                               onClick={() => updateMatchStage(process.id, 'new')}
                               data-testid={`button-revert-${process.id}`}
                             >

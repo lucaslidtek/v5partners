@@ -122,7 +122,15 @@ export default function DashboardPage() {
   const [lastAction, setLastAction] = useState<{ id: number; previousStage: Match['stage'] } | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [sliderValue, setSliderValue] = useState([50]);
   const selectedMatch = matches.find(m => m.id === selectedMatchId);
+
+  const getValuationLabel = (value: number) => {
+    if (value <= 25) return "R$ 1M - R$ 10M";
+    if (value <= 50) return "R$ 10M - R$ 30M";
+    if (value <= 75) return "R$ 30M - R$ 60M";
+    return "R$ 60M - R$ 100M+";
+  };
 
   const filteredMatches = matches.filter(match => {
     const searchLower = searchTerm.toLowerCase();
@@ -339,7 +347,13 @@ export default function DashboardPage() {
                   <div className="py-6 space-y-6">
                     <div className="space-y-2">
                       <Label>Faixa de Valor (Valuation)</Label>
-                      <Slider defaultValue={[50]} max={100} step={1} className="py-4" />
+                      <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {getValuationLabel(sliderValue[0])}
+                        </span>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{sliderValue[0]}%</span>
+                      </div>
+                      <Slider value={sliderValue} onValueChange={setSliderValue} max={100} step={1} className="py-4" />
                       <div className="flex justify-between text-xs text-slate-500">
                         <span>R$ 1M</span>
                         <span>R$ 100M+</span>
@@ -410,7 +424,13 @@ export default function DashboardPage() {
                   <div className="py-6 space-y-6">
                     <div className="space-y-2">
                       <Label>Faixa de Valor (Valuation)</Label>
-                      <Slider defaultValue={[50]} max={100} step={1} className="py-4" />
+                      <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {getValuationLabel(sliderValue[0])}
+                        </span>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{sliderValue[0]}%</span>
+                      </div>
+                      <Slider value={sliderValue} onValueChange={setSliderValue} max={100} step={1} className="py-4" />
                       <div className="flex justify-between text-xs text-slate-500">
                         <span>R$ 1M</span>
                         <span>R$ 100M+</span>

@@ -37,6 +37,7 @@ interface Company {
   matchScore: number;
   logo: string;
   logoColor: string;
+  type: 'empresa' | 'investidor' | 'franqueadora';
 }
 
 const otherCompanies: Company[] = [
@@ -50,7 +51,8 @@ const otherCompanies: Company[] = [
     description: "Plataforma SaaS focada em automação de processos empresariais com crescimento de 25% ao ano.",
     matchScore: 76,
     logo: "TC",
-    logoColor: "bg-blue-500"
+    logoColor: "bg-blue-500",
+    type: "investidor"
   },
   {
     id: 102,
@@ -62,7 +64,8 @@ const otherCompanies: Company[] = [
     description: "Rede de lojas de moda com presença em shopping centers e loja online consolidada.",
     matchScore: 52,
     logo: "VR",
-    logoColor: "bg-pink-500"
+    logoColor: "bg-pink-500",
+    type: "franqueadora"
   },
   {
     id: 103,
@@ -74,7 +77,8 @@ const otherCompanies: Company[] = [
     description: "Empresa de logística e distribuição com frota própria e parcerias estratégicas.",
     matchScore: 38,
     logo: "LG",
-    logoColor: "bg-amber-500"
+    logoColor: "bg-amber-500",
+    type: "empresa"
   },
   {
     id: 104,
@@ -86,7 +90,8 @@ const otherCompanies: Company[] = [
     description: "Produção e distribuição de alimentos processados com marca conhecida no mercado.",
     matchScore: 68,
     logo: "AL",
-    logoColor: "bg-green-500"
+    logoColor: "bg-green-500",
+    type: "investidor"
   },
   {
     id: 105,
@@ -98,7 +103,8 @@ const otherCompanies: Company[] = [
     description: "Plataforma de educação online com mais de 50 mil alunos ativos mensalmente.",
     matchScore: 82,
     logo: "ED",
-    logoColor: "bg-purple-500"
+    logoColor: "bg-purple-500",
+    type: "franqueadora"
   },
   {
     id: 106,
@@ -110,7 +116,8 @@ const otherCompanies: Company[] = [
     description: "Consultoria especializada em transformação digital para empresas de médio porte.",
     matchScore: 45,
     logo: "CS",
-    logoColor: "bg-cyan-500"
+    logoColor: "bg-cyan-500",
+    type: "investidor"
   }
 ];
 
@@ -145,6 +152,32 @@ export default function OutrasEmpresasPage() {
     }
   };
 
+  const getTypeColor = (type: string) => {
+    switch(type) {
+      case 'investidor':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
+      case 'franqueadora':
+        return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300';
+      case 'empresa':
+        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300';
+      default:
+        return 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300';
+    }
+  };
+
+  const getTypeLabel = (type: string) => {
+    switch(type) {
+      case 'investidor':
+        return 'Investidor';
+      case 'franqueadora':
+        return 'Franqueadora';
+      case 'empresa':
+        return 'Empresa';
+      default:
+        return 'Perfil';
+    }
+  };
+
   const renderLogo = (company: Company) => {
     return (
       <CompatibilityLogo matchScore={company.matchScore} isConfidential={true} size="md" />
@@ -170,10 +203,10 @@ export default function OutrasEmpresasPage() {
         {/* Header */}
         <div className={`${isMobile ? 'mb-4' : 'mb-8'}`}>
           <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-slate-900 dark:text-white mb-2`}>
-            Outras Empresas
+            Outros Perfis
           </h1>
           <p className="text-slate-500 dark:text-slate-400">
-            Explore empresas adicionais que podem ser de seu interesse. Os dados estão protegidos por NDA.
+            Explore perfis adicionais que podem ser de seu interesse. Os dados estão protegidos por NDA.
           </p>
         </div>
 
@@ -297,7 +330,12 @@ export default function OutrasEmpresasPage() {
                     <div className="flex items-start gap-3 mb-5">
                       {renderLogo(company)}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-snug" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-snug" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
+                          <Badge className={`${getTypeColor(company.type)} text-xs px-2 py-0.5 font-semibold`} data-testid={`badge-type-${company.id}`}>
+                            {getTypeLabel(company.type)}
+                          </Badge>
+                        </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{company.sector}</p>
                       </div>
                     </div>
@@ -359,7 +397,10 @@ export default function OutrasEmpresasPage() {
               <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
                 <div className="flex items-center gap-2 min-w-0">
                   {selectedCompany && renderLogo(selectedCompany)}
-                  <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedCompany?.name}</SheetTitle>
+                  <div className="flex-1 min-w-0">
+                    <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedCompany?.name}</SheetTitle>
+                    {selectedCompany && <Badge className={`${getTypeColor(selectedCompany.type)} text-xs px-2 py-0.5 font-semibold mt-1`}>{getTypeLabel(selectedCompany.type)}</Badge>}
+                  </div>
                 </div>
               </SheetHeader>
               {selectedCompany && (
@@ -426,7 +467,10 @@ export default function OutrasEmpresasPage() {
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-2">
                   {selectedCompany && renderLogo(selectedCompany)}
-                  <DialogTitle className="text-2xl">{selectedCompany?.name}</DialogTitle>
+                  <div>
+                    <DialogTitle className="text-2xl">{selectedCompany?.name}</DialogTitle>
+                    {selectedCompany && <Badge className={`${getTypeColor(selectedCompany.type)} text-sm px-2 py-0.5 font-semibold mt-2`}>{getTypeLabel(selectedCompany.type)}</Badge>}
+                  </div>
                 </div>
                 <DialogDescription>{selectedCompany?.sector}</DialogDescription>
               </DialogHeader>

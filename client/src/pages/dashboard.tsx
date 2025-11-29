@@ -70,6 +70,7 @@ type OtherCompany = {
   matchScore: number;
   logo?: string;
   logoColor?: string;
+  type: 'empresa' | 'investidor' | 'franqueadora';
 };
 
 const otherCompanies: OtherCompany[] = [
@@ -83,7 +84,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Solução de software empresarial com foco em otimização de processos",
     matchScore: 76,
     logo: "E1",
-    logoColor: "bg-purple-500"
+    logoColor: "bg-purple-500",
+    type: "investidor"
   },
   {
     id: 102,
@@ -95,7 +97,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Rede de varejo especializada em produtos de qualidade premium",
     matchScore: 52,
     logo: "E2",
-    logoColor: "bg-orange-500"
+    logoColor: "bg-orange-500",
+    type: "franqueadora"
   },
   {
     id: 103,
@@ -107,7 +110,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Empresa de logística e distribuição com foco no nordeste",
     matchScore: 38,
     logo: "E3",
-    logoColor: "bg-cyan-500"
+    logoColor: "bg-cyan-500",
+    type: "empresa"
   },
   {
     id: 104,
@@ -119,7 +123,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Produção e distribuição de alimentos com marca consolidada",
     matchScore: 68,
     logo: "E4",
-    logoColor: "bg-red-500"
+    logoColor: "bg-red-500",
+    type: "investidor"
   },
   {
     id: 105,
@@ -131,7 +136,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Plataforma educacional com foco em treinamento corporativo",
     matchScore: 82,
     logo: "E5",
-    logoColor: "bg-green-500"
+    logoColor: "bg-green-500",
+    type: "franqueadora"
   },
   {
     id: 106,
@@ -143,7 +149,8 @@ const otherCompanies: OtherCompany[] = [
     description: "Consultoria especializada em transformação digital e estratégia",
     matchScore: 45,
     logo: "E6",
-    logoColor: "bg-indigo-500"
+    logoColor: "bg-indigo-500",
+    type: "investidor"
   },
 ];
 
@@ -406,6 +413,32 @@ export default function DashboardPage() {
     }
   };
 
+  const getTypeColor = (type: string) => {
+    switch(type) {
+      case 'investidor':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
+      case 'franqueadora':
+        return 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300';
+      case 'empresa':
+        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300';
+      default:
+        return 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300';
+    }
+  };
+
+  const getTypeLabel = (type: string) => {
+    switch(type) {
+      case 'investidor':
+        return 'Investidor';
+      case 'franqueadora':
+        return 'Franqueadora';
+      case 'empresa':
+        return 'Empresa';
+      default:
+        return 'Perfil';
+    }
+  };
+
   return (
     <Layout>
       <div className={`${isMobile ? 'pb-40' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
@@ -413,7 +446,7 @@ export default function DashboardPage() {
         <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
           <div>
             <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
-              {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Processos Ativos" : "Outras Empresas"}
+              {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Processos Ativos" : "Outros Perfis"}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base">
               {activeTab === "new" ? "Explore novos matches recomendados para você" : activeTab === "active" ? "Acompanhe seus processos em andamento" : "Oportunidades adicionais de investimento"}
@@ -641,6 +674,17 @@ export default function DashboardPage() {
                   className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
                 >
                   {filteredMatches.filter(m => m.stage !== 'new').length}
+                </Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="others" 
+                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
+              >
+                Outros Perfis
+                <Badge 
+                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
+                >
+                  {otherCompanies.length}
                 </Badge>
               </TabsTrigger>
             </TabsList>
@@ -1386,7 +1430,10 @@ export default function DashboardPage() {
                               <div className="flex items-start gap-2 mb-3">
                                 <CompatibilityLogo matchScore={company.matchScore} isConfidential={true} size="sm" />
                                 <div className="flex-1 min-w-0">
-                                  <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
+                                  <div className="flex items-center gap-2 mb-0.5">
+                                    <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
+                                    <Badge className={`${getTypeColor(company.type)} text-2xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(company.type)}</Badge>
+                                  </div>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
                                 </div>
                               </div>

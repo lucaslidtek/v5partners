@@ -76,10 +76,10 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                           ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                           : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
                       }`}
-                      data-testid="nav-outras-empresas"
+                      data-testid="nav-outros-perfis"
                     >
                       <Building2 className="h-4 w-4" />
-                      Outras Empresas
+                      Outros Perfis
                     </Button>
                   </Link>
                 </nav>

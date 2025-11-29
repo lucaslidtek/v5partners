@@ -1181,19 +1181,21 @@ export default function DashboardPage() {
                         <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 rounded-lg`}>
                           <CardContent className="p-4">
                             {/* Header */}
-                            <div className="flex gap-2 items-start mb-3">
+                            <div className="flex gap-2 items-start mb-2">
                               <div className="flex-shrink-0">{renderLogo(process)}</div>
                               <div className="flex-1 min-w-0">
                                 <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
                                 <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
                               </div>
+                            </div>
+
+                            {/* Location & Status Badge */}
+                            <div className="flex gap-2 items-center mb-3">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 truncate flex-1">{process.location}</p>
                               <Badge className={`${config.color} text-2xs py-1 px-2 whitespace-nowrap flex-shrink-0 font-medium`}>
                                 {config.label}
                               </Badge>
                             </div>
-
-                            {/* Location */}
-                            <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{process.location}</p>
 
                             {/* Progress Bar */}
                             <div className="mb-3">

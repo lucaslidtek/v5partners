@@ -1031,23 +1031,28 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                     >
-                      <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-xl">
-                        <div className="p-5">
+                      <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-lg">
+                        <div className="p-4">
+                          {/* Header */}
                           <div className="flex gap-2 items-start mb-2">
-                            {renderLogo(match)}
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
+                            <div className="flex-shrink-0">{renderLogo(match)}</div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
+                            </div>
                             {match.isNew && (
-                              <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                              <span className="text-2xs px-2 py-1 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
                             )}
                           </div>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
+                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{match.location}</p>
 
-                          <div className="mb-4">
-                            <div className="flex justify-between items-center mb-1.5">
-                              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                          {/* Compatibility Score */}
+                          <div className="mb-3">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
                               <span className="text-sm font-bold text-primary">{match.matchScore}%</span>
                             </div>
-                            <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                               <div 
                                 className="h-full bg-primary rounded-full transition-all duration-500" 
                                 style={{ width: `${match.matchScore}%` }}
@@ -1055,45 +1060,56 @@ export default function DashboardPage() {
                             </div>
                           </div>
 
-                          <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">{match.description}</p>
+                          {/* Description */}
+                          <p className="text-2xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">{match.description}</p>
 
-                          <div className="grid grid-cols-3 gap-2 mb-4">
-                            <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                          {/* Metrics Grid - 2 columns for better fit */}
+                          <div className="grid grid-cols-2 gap-2 mb-3">
+                            <div className="p-2 bg-primary/5 dark:bg-primary/10 rounded-md border border-primary/10 dark:border-primary/20">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Preço</p>
                               <p className="font-bold text-primary text-sm">{match.price}</p>
                             </div>
-                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                            <div className="p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md border border-slate-100 dark:border-slate-700/50">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Receita</p>
                               <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
-                            </div>
-                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
-                              <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
                             </div>
                           </div>
 
-                          <div className="flex flex-wrap gap-1 mb-4">
-                            {match.tags.map(tag => (
-                              <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-xs px-2 py-1">
+                          {/* EBITDA metric */}
+                          <div className="p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md border border-slate-100 dark:border-slate-700/50 mb-3">
+                            <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">EBITDA</p>
+                            <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
+                          </div>
+
+                          {/* Tags - horizontal scroll for small screens */}
+                          <div className="flex flex-wrap gap-1.5 mb-3">
+                            {match.tags.slice(0, 2).map(tag => (
+                              <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-2xs px-2 py-0.5">
                                 {tag}
                               </Badge>
                             ))}
+                            {match.tags.length > 2 && (
+                              <Badge variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-2xs px-2 py-0.5">
+                                +{match.tags.length - 2}
+                              </Badge>
+                            )}
                           </div>
 
-                          <div className="grid grid-cols-2 gap-2 pt-4">
+                          {/* Action Buttons */}
+                          <div className="grid grid-cols-2 gap-2">
                             <Button 
-                              className="bg-primary hover:bg-primary/90 shadow-md font-semibold group h-10 text-sm"
+                              className="bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
                               onClick={() => updateMatchStage(match.id, 'interested')}
                             >
-                              <Heart className="h-4 w-4 group-hover:scale-110 transition-transform" /> Interesse
+                              <Heart className="h-4 w-4 mr-1" /> Interesse
                             </Button>
                             <Button 
                               variant="outline" 
-                              className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-10 text-sm"
+                              className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
                               onClick={() => setSelectedMatchId(match.id)}
                               data-testid={`button-details-${match.id}`}
                             >
-                              <Eye className="h-4 w-4" /> Ver
+                              <Eye className="h-4 w-4 mr-1" /> Ver
                             </Button>
                           </div>
                         </div>
@@ -1162,23 +1178,30 @@ export default function DashboardPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                       >
-                        <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 rounded-xl`}>
-                          <CardContent className="p-5">
-                            <div className="flex gap-2 items-start mb-2">
-                              {renderLogo(process)}
-                              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(process)}</h3>
-                              <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap flex-shrink-0`}>
+                        <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 rounded-lg`}>
+                          <CardContent className="p-4">
+                            {/* Header */}
+                            <div className="flex gap-2 items-start mb-3">
+                              <div className="flex-shrink-0">{renderLogo(process)}</div>
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
+                                <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
+                              </div>
+                              <Badge className={`${config.color} text-2xs py-1 px-2 whitespace-nowrap flex-shrink-0 font-medium`}>
                                 {config.label}
                               </Badge>
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
 
-                            <div className="mb-4">
-                              <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
+                            {/* Location */}
+                            <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{process.location}</p>
+
+                            {/* Progress Bar */}
+                            <div className="mb-3">
+                              <div className="flex justify-between text-2xs font-semibold text-slate-600 dark:text-slate-400 mb-1">
                                 <span>Progresso</span>
-                                <span>{config.progress}%</span>
+                                <span className="text-primary font-bold">{config.progress}%</span>
                               </div>
-                              <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                              <div className="h-2 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                                 <div 
                                   className="h-full bg-primary transition-all duration-500"
                                   style={{ width: `${config.progress}%` }}
@@ -1186,25 +1209,25 @@ export default function DashboardPage() {
                               </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-2 mb-4">
-                              <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Valor</p>
+                            {/* Metrics Grid */}
+                            <div className="grid grid-cols-2 gap-2 mb-3">
+                              <div className="p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md border border-slate-100 dark:border-slate-700/50">
+                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Valor</p>
                                 <p className="font-bold text-slate-900 dark:text-white text-sm">{process.price}</p>
                               </div>
-                              <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <div className="p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md border border-slate-100 dark:border-slate-700/50">
+                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Receita</p>
                                 <p className="font-bold text-slate-900 dark:text-white text-sm">{process.revenue}</p>
                               </div>
                             </div>
 
-                            <div className="flex gap-2 pt-4">
-                              <Button 
-                                className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold h-10 text-sm"
-                                onClick={() => setSelectedMatchId(process.id)}
-                              >
-                                <Eye className="h-4 w-4 mr-1" /> Ver
-                              </Button>
-                            </div>
+                            {/* Action Button */}
+                            <Button 
+                              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
+                              onClick={() => setSelectedMatchId(process.id)}
+                            >
+                              <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
+                            </Button>
                           </CardContent>
                         </Card>
                       </motion.div>
@@ -1236,40 +1259,44 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                     >
-                      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 rounded-xl">
-                        <CardContent className="p-5">
-                          <div className="flex items-start gap-3 mb-4">
-                            <div className={`h-12 w-12 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
-                              <span className="text-white font-bold text-sm">{company.logo}</span>
+                      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 rounded-lg">
+                        <CardContent className="p-4">
+                          {/* Header */}
+                          <div className="flex items-start gap-2 mb-3">
+                            <div className={`h-10 w-10 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
+                              <span className="text-white font-bold text-xs">{company.logo}</span>
                             </div>
                             <div className="flex-1 min-w-0">
                               <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
                             </div>
                           </div>
 
-                          <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">{company.description}</p>
+                          {/* Description */}
+                          <p className="text-2xs text-slate-600 dark:text-slate-300 mb-3 line-clamp-2">{company.description}</p>
 
-                          <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-700 mb-4">
-                            <div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
-                              <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.revenue}</p>
+                          {/* Metrics Grid */}
+                          <div className="grid grid-cols-3 gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-700 mb-3">
+                            <div className="text-center">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Receita</p>
+                              <p className="text-sm font-bold text-slate-900 dark:text-white">{company.revenue}</p>
                             </div>
-                            <div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
-                              <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.employees}</p>
+                            <div className="text-center">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Equipe</p>
+                              <p className="text-sm font-bold text-slate-900 dark:text-white">{company.employees}</p>
                             </div>
-                            <div>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Local</p>
-                              <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
+                            <div className="text-center">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-0.5 font-medium">Local</p>
+                              <p className="text-2xs font-bold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
                             </div>
                           </div>
 
+                          {/* Action Button */}
                           <Button 
                             variant="outline" 
-                            className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 h-10"
+                            className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 h-9 rounded-lg transition-all active:scale-95"
                           >
-                            <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
+                            <Lock className="h-3.5 w-3.5 mr-1.5" /> Mais Info
                           </Button>
                         </CardContent>
                       </Card>

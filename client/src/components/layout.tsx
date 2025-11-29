@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "@/lib/context";
 import { Button } from "@/components/ui/button";
-import { Bell, User, LogOut, Settings, Target, Briefcase, Store, Grid3x3, Plus } from "lucide-react";
+import { Bell, User, LogOut, Settings, Target, Briefcase, Store, Grid3x3, Plus, Building2 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -46,12 +46,36 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
       {showHeader && (
         <header className="bg-white dark:bg-slate-900 border-b border-border dark:border-slate-800 sticky top-0 z-50 shadow-sm dark:shadow-slate-900/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-8">
               <Link href={user ? "/dashboard" : "/"}>
                 <div className="flex items-center gap-2 cursor-pointer">
                   <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-8 w-auto object-contain" />
                 </div>
               </Link>
+              
+              {user && (
+                <nav className="hidden md:flex items-center gap-1">
+                  <Link href="/dashboard">
+                    <Button 
+                      variant="ghost" 
+                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      data-testid="nav-dashboard"
+                    >
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Link href="/outras-empresas">
+                    <Button 
+                      variant="ghost" 
+                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2"
+                      data-testid="nav-outras-empresas"
+                    >
+                      <Building2 className="h-4 w-4" />
+                      Outras Empresas
+                    </Button>
+                  </Link>
+                </nav>
+              )}
             </div>
 
             {user && (

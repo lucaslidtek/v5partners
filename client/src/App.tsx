@@ -17,6 +17,7 @@ import EditProfilePage from "@/pages/edit-profile";
 import SettingsPage from "@/pages/settings";
 import PerfilMultiplosPage from "@/pages/perfil-multiplos";
 import NovoPerfilPage from "@/pages/novo-perfil";
+import OutrasEmpresasPage from "@/pages/outras-empresas";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/integracao" component={OnboardingPage} />
       <Route path="/resumo" component={SummaryPage} />
       <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/outras-empresas" component={OutrasEmpresasPage} />
       <Route path="/avaliacao" component={ValuationPage} />
       <Route path="/processos" component={ProcessesPage} />
       <Route path="/perfil" component={ProfilePage} />

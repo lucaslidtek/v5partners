@@ -574,48 +574,38 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full mt-4 ${isMobile ? 'sticky top-0 border-b border-slate-200 dark:border-slate-800 z-40' : ''}`}>
-          <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 dark:border-slate-800 mb-8'}`}>
-            <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
+        {/* Tabs Section - Desktop Only */}
+        {!isMobile && (
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className="w-full mt-4">
+          <div className="border-b border-slate-200 dark:border-slate-800 mb-8">
+            <TabsList className="grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0">
               <TabsTrigger 
                 value="new" 
-                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
+                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
               >
                 Matches Recomendados
                 <Badge 
-                  className={`${isMobile ? 'ml-1.5 px-2 py-0.5 text-2xs' : 'ml-3 px-2.5 py-1 text-xs'} font-semibold rounded-full bg-primary/10 text-primary border-0`}
+                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
                 >
                   {filteredMatches.filter(m => m.stage === 'new').length}
                 </Badge>
               </TabsTrigger>
               <TabsTrigger 
                 value="active" 
-                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
+                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
               >
                 Processos Ativos
                 <Badge 
-                  className={`${isMobile ? 'ml-1.5 px-2 py-0.5 text-2xs' : 'ml-3 px-2.5 py-1 text-xs'} font-semibold rounded-full bg-primary/10 text-primary border-0`}
+                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
                 >
                   {filteredMatches.filter(m => m.stage !== 'new').length}
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger 
-                value="others" 
-                className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
-              >
-                Outras Empresas
-                <Badge 
-                  className={`${isMobile ? 'ml-1.5 px-2 py-0.5 text-2xs' : 'ml-3 px-2.5 py-1 text-xs'} font-semibold rounded-full bg-primary/10 text-primary border-0`}
-                >
-                  {otherCompanies.length}
                 </Badge>
               </TabsTrigger>
             </TabsList>
           </div>
 
-          {/* New Matches Tab */}
-          <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-6'}`}>
+          {/* New Matches Tab - Desktop */}
+          <TabsContent value="new" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -770,8 +760,8 @@ export default function DashboardPage() {
             )}
           </TabsContent>
 
-          {/* Active Processes Tab */}
-          <TabsContent value="active" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-6'}`}>
+          {/* Active Processes Tab - Desktop */}
+          <TabsContent value="active" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
               <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
@@ -1014,6 +1004,102 @@ export default function DashboardPage() {
             ))}
           </TabsContent>
         </Tabs>
+        )}
+
+        {/* Mobile - Show only new matches */}
+        {isMobile && (
+          <div className="space-y-2 mt-4">
+            {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+                <CardContent className="flex flex-col items-center justify-center py-12">
+                  <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                    <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+                  </div>
+                  <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum novo match</h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
+                    Todos os matches já têm processos em andamento. Continue acompanhando na aba de Processos.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              filteredMatches.filter(m => m.stage === 'new').map((match) => (
+                <motion.div 
+                  key={match.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-xl">
+                    <div className="p-5">
+                      <div className="flex gap-2 items-start mb-2">
+                        {renderLogo(match)}
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
+                        {match.isNew && (
+                          <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
+
+                      <div className="mb-4">
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                          <span className="text-sm font-bold text-primary">{match.matchScore}%</span>
+                        </div>
+                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-primary rounded-full transition-all duration-500" 
+                            style={{ width: `${match.matchScore}%` }}
+                          />
+                        </div>
+                      </div>
+
+                      <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">{match.description}</p>
+
+                      <div className="grid grid-cols-3 gap-2 mb-4">
+                        <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                          <p className="font-bold text-primary text-sm">{match.price}</p>
+                        </div>
+                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                          <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
+                        </div>
+                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
+                          <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {match.tags.map(tag => (
+                          <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-xs px-2 py-1">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 pt-4">
+                        <Button 
+                          className="bg-primary hover:bg-primary/90 shadow-md font-semibold group h-10 text-sm"
+                          onClick={() => updateMatchStage(match.id, 'interested')}
+                        >
+                          <Heart className="h-4 w-4 group-hover:scale-110 transition-transform" /> Interesse
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-10 text-sm"
+                          onClick={() => setSelectedMatchId(match.id)}
+                          data-testid={`button-details-${match.id}`}
+                        >
+                          <Eye className="h-4 w-4" /> Ver
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))
+            )}
+          </div>
+        )}
 
         {/* Match Details - Sheet for Mobile, Dialog for Desktop */}
         {isMobile ? (

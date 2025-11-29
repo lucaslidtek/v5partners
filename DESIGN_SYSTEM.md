@@ -51,7 +51,7 @@ Este documento descreve o padrão visual e os componentes utilizados em toda a a
 
 ### Botões
 
-#### Botão Principal (Voltar/Navegação)
+#### Botão de Voltar (Ghost - Navegação)
 ```jsx
 <Button 
   variant="ghost" 
@@ -64,27 +64,67 @@ Este documento descreve o padrão visual e os componentes utilizados em toda a a
 - Usado em páginas secundárias para navegação de volta
 - Sempre com ícone `ArrowLeft` à esquerda
 - Classe: `mb-6 pl-0 hover:bg-transparent hover:text-primary`
+- **Variante**: `ghost`
 
 #### Botão Primário
 ```jsx
-<Button>Ação Principal</Button>
+<Button 
+  className="bg-primary hover:bg-primary/90 text-white font-semibold"
+  onClick={() => handleAction()}
+>
+  <Icon className="h-4 w-4 mr-1.5" /> Ação Principal
+</Button>
 ```
 - Fundo azul royal (#00205D)
+- Texto branco, bold
+- Com ícone à esquerda (`mr-1.5` de margem)
 - Usado para ações principais/submit
+- Hover estado: escurece 10% (`hover:bg-primary/90`)
+- **Variante**: padrão (sem variant especificado)
 
 #### Botão Secundário
 ```jsx
-<Button variant="outline">Ação Secundária</Button>
+<Button 
+  variant="outline" 
+  className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold"
+  onClick={() => handleAction()}
+>
+  <Icon className="h-4 w-4 mr-1" /> Ação Secundária
+</Button>
 ```
-- Borda com cor primária
-- Usado para ações alternativas
+- Borda cinza clara (#E3E8F0)
+- Sem fundo ou fundo do card
+- Usado para ações alternativas ou menos destacadas
+- Hover: fundo suave cinzento
+- **Variante**: `outline`
+
+#### Botão "Ver Detalhes" (Primário com Ícone)
+```jsx
+<Button 
+  onClick={() => handleViewDetails()}
+  data-testid="button-details-id"
+>
+  <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
+</Button>
+```
+- Botão primário (azul royal)
+- Sempre com ícone `Eye` à esquerda
+- Espaçamento: `mr-1.5` entre ícone e texto
+- Usado para abrir/visualizar detalhes de um item
+- **Variante**: padrão (sem variant)
 
 #### Botão Ghost
 ```jsx
-<Button variant="ghost">Link</Button>
+<Button 
+  variant="ghost"
+  onClick={() => handleAction()}
+>
+  Link Text
+</Button>
 ```
 - Sem borda ou fundo
 - Usado para ações menos relevantes
+- **Variante**: `ghost`
 
 ---
 

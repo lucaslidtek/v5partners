@@ -287,52 +287,326 @@ export default function ProfilePage() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <Button 
-            variant="ghost" 
-            className="pl-0 hover:bg-transparent hover:text-primary"
-            onClick={() => setLocation('/dashboard')}
-            data-testid="button-back-profile"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Dashboard
-          </Button>
-          <Button 
-            onClick={() => setLocation('/editar-perfil')}
-            data-testid="button-edit-profile"
-          >
-            Editar Perfil
-          </Button>
-        </div>
-        
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            {user?.profilePhoto && (
-              <img 
-                src={user.profilePhoto} 
-                alt={user.name} 
-                className="w-16 h-16 rounded-full object-cover border-2 border-primary"
-                data-testid="img-profile-photo"
-              />
-            )}
-            <div>
-              <h1 className="text-3xl font-bold text-slate-900 dark:text-white" data-testid="text-profile-title">Perfil</h1>
-              {profileInfo && ProfileIcon && (
-                <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-2 text-sm font-medium mt-2 w-fit`} data-testid="badge-profile-type">
-                  <ProfileIcon className="w-4 h-4" />
-                  <span>{profileInfo.title}</span>
+      <div className="w-full bg-gradient-to-b from-slate-50 dark:from-slate-900 to-transparent min-h-screen">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          {/* Navigation */}
+          <div className="flex items-center justify-between mb-8">
+            <Button 
+              variant="ghost" 
+              className="pl-0 hover:bg-transparent hover:text-primary"
+              onClick={() => setLocation('/dashboard')}
+              data-testid="button-back-profile"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
+            </Button>
+            <Button 
+              onClick={() => setLocation('/editar-perfil')}
+              data-testid="button-edit-profile"
+              className="bg-primary hover:bg-primary/90"
+            >
+              Editar Perfil
+            </Button>
+          </div>
+
+          {/* Profile Header Card */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg dark:shadow-slate-950/50 overflow-hidden mb-8">
+            <div className="h-32 sm:h-40 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent dark:from-primary/20" />
+            
+            <div className="px-6 sm:px-8 pb-6 sm:pb-8">
+              {/* Profile Photo and Title */}
+              <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-16 sm:-mt-20 mb-6">
+                <div className="flex-shrink-0">
+                  {user?.profilePhoto ? (
+                    <img 
+                      src={user.profilePhoto} 
+                      alt={user.name} 
+                      className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl object-cover border-4 border-white dark:border-slate-900 shadow-lg"
+                      data-testid="img-profile-photo"
+                    />
+                  ) : (
+                    <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border-4 border-white dark:border-slate-900 shadow-lg flex items-center justify-center">
+                      <span className="text-4xl sm:text-5xl font-bold text-white">{user?.name?.substring(0, 1)}</span>
+                    </div>
+                  )}
                 </div>
-              )}
+                
+                <div className="flex-1">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2" data-testid="text-profile-title">{user?.name || "Usuário"}</h1>
+                  {profileInfo && ProfileIcon && (
+                    <div className={`${profileInfo.badgeColor} px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold w-fit`} data-testid="badge-profile-type">
+                      <ProfileIcon className="w-5 h-5" />
+                      <span>{profileInfo.title}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Mobile: Stack edit button */}
+                <div className="sm:hidden w-full">
+                  <Button 
+                    onClick={() => setLocation('/editar-perfil')}
+                    data-testid="button-edit-profile-mobile"
+                    className="w-full bg-primary hover:bg-primary/90"
+                  >
+                    Editar Perfil
+                  </Button>
+                </div>
+              </div>
+
+              {/* Quick Info Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Email</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.email || "-"}</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Localização</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.location || "-"}</p>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Tipo</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white capitalize">{user?.role || "-"}</p>
+                </div>
+              </div>
             </div>
           </div>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Informações da sua conta</p>
-        </div>
 
-        <Card className="p-6 dark:bg-slate-900 dark:border-slate-800" data-testid="card-profile">
-          {user?.role === "investor" && renderInvestorProfile()}
-          {user?.role === "seller" && renderSellerProfile()}
-          {user?.role === "franchise" && renderFranchiseProfile()}
-        </Card>
+          {/* Profile Details Sections */}
+          <div className="space-y-6">
+            {/* Render sections grouped by category */}
+            {user?.role === "investor" && (
+              <>
+                {/* Personal Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações Pessoais</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Faixa Etária</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.ageRange || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Formação</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.education || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Investment Profile */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Perfil de Investimento</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Faixa de Investimento</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.investmentRange || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Retorno Desejado</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.roiTime || "-"}</p>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Modalidade Desejada</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.modality || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Experience & Skills */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Experiência Profissional</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Experiência Anterior</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.hasExperience === true ? "Sim" : user?.hasExperience === false ? "Não" : "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Setores</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.experienceSectors || "-"}</p>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Habilidades</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.skills || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interests & Preferences */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Preferências</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Setores de Interesse</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.interestSectors || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Envolvimento Operacional</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.operationalInvolvement ? `${user.operationalInvolvement}%` : "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Tolerância ao Risco</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.riskTolerance ? `${user.riskTolerance}%` : "-"}</p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {user?.role === "seller" && (
+              <>
+                {/* Company Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações da Empresa</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Nome Fantasia</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.tradeName || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Segmento</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.segment || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Tipo de Operação</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.operationType || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Estágio</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.stage || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Financial Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações Financeiras</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Faturamento Mensal</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.monthlyRevenue || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">EBITDA</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.ebitda || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Ticket Médio</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.ticketAverage || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Funcionários</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.employees || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Operational Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações Operacionais</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Motivo da Venda</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.sellReason || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Dependência do Dono</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.ownerDependence ? `${user.ownerDependence}%` : "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Passivos</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.liabilities === true ? "Sim" : user?.liabilities === false ? "Não" : "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Imóvel Próprio</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.propertyInvolved || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Deal Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações do Deal</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="sm:col-span-2">
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Valuation</p>
+                      <p className="text-2xl font-bold text-primary">{user?.valuation || "-"}</p>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Tipo de Transação</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.transactionType || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {user?.role === "franchise" && (
+              <>
+                {/* Franchise Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações da Franquia</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Nome</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.franchiseName || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Segmento</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.segment || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Anos no Mercado</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.yearsInMarket || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Cidade Sede</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.headquarters || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Unidades</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.numberOfUnits || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Modelos</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.models || "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Investment Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Investimento e Retorno</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Investimento Inicial</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.initialInvestment || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Taxa de Franquia</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.franchiseFee || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Capital de Giro</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.workingCapital || "-"}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Payback Médio</p>
+                      <p className="text-base font-medium text-slate-900 dark:text-white">{user?.payback ? `${user.payback} meses` : "-"}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Operator Info */}
+                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Perfil Ideal do Franqueado</h2>
+                  <div>
+                    <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Tipo</p>
+                    <p className="text-base font-medium text-slate-900 dark:text-white capitalize">
+                      {user?.operatorType === "investor" ? "Investidor" : user?.operatorType === "operator" ? "Operador" : "-"}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </Layout>
   );

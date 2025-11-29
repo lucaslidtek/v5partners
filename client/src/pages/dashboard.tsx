@@ -1384,13 +1384,7 @@ export default function DashboardPage() {
                             const colors = getCompatibilityColor(company.matchScore);
                             return (
                               <div className="flex items-start gap-2 mb-3">
-                                <div className={`h-10 w-10 rounded-lg ${colors.barColor} flex items-center justify-center flex-shrink-0`}>
-                                  {company.logo ? (
-                                    <span className="text-white font-bold text-xs">{company.logo}</span>
-                                  ) : (
-                                    <Lock className="h-5 w-5 text-white" />
-                                  )}
-                                </div>
+                                <CompatibilityLogo matchScore={company.matchScore} isConfidential={true} size="sm" />
                                 <div className="flex-1 min-w-0">
                                   <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>

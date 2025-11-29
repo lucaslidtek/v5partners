@@ -8,6 +8,7 @@ interface UserData {
   email: string;
   city: string;
   role: ProfileType;
+  profilePhoto?: string;
   [key: string]: any;
 }
 

@@ -288,24 +288,42 @@ export default function ProfilePage() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Button 
-          variant="ghost" 
-          className="mb-6 pl-0 hover:bg-transparent hover:text-primary"
-          onClick={() => setLocation('/dashboard')}
-          data-testid="button-back-profile"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Dashboard
-        </Button>
+        <div className="flex items-center justify-between mb-6">
+          <Button 
+            variant="ghost" 
+            className="pl-0 hover:bg-transparent hover:text-primary"
+            onClick={() => setLocation('/dashboard')}
+            data-testid="button-back-profile"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" /> Voltar para Dashboard
+          </Button>
+          <Button 
+            onClick={() => setLocation('/editar-perfil')}
+            data-testid="button-edit-profile"
+          >
+            Editar Perfil
+          </Button>
+        </div>
         
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white" data-testid="text-profile-title">Perfil</h1>
-            {profileInfo && ProfileIcon && (
-              <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-2 text-sm font-medium`} data-testid="badge-profile-type">
-                <ProfileIcon className="w-4 h-4" />
-                <span>{profileInfo.title}</span>
-              </div>
+          <div className="flex items-center gap-3 mb-4">
+            {user?.profilePhoto && (
+              <img 
+                src={user.profilePhoto} 
+                alt={user.name} 
+                className="w-16 h-16 rounded-full object-cover border-2 border-primary"
+                data-testid="img-profile-photo"
+              />
             )}
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white" data-testid="text-profile-title">Perfil</h1>
+              {profileInfo && ProfileIcon && (
+                <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-2 text-sm font-medium mt-2 w-fit`} data-testid="badge-profile-type">
+                  <ProfileIcon className="w-4 h-4" />
+                  <span>{profileInfo.title}</span>
+                </div>
+              )}
+            </div>
           </div>
           <p className="text-slate-500 dark:text-slate-400 mt-1">Informações da sua conta</p>
         </div>

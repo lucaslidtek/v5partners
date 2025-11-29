@@ -13,6 +13,7 @@ import DashboardPage from "@/pages/dashboard";
 import ValuationPage from "@/pages/valuation";
 import ProcessesPage from "@/pages/processes";
 import ProfilePage from "@/pages/profile";
+import EditProfilePage from "@/pages/edit-profile";
 import SettingsPage from "@/pages/settings";
 
 function Router() {
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/avaliacao" component={ValuationPage} />
       <Route path="/processos" component={ProcessesPage} />
       <Route path="/perfil" component={ProfilePage} />
+      <Route path="/editar-perfil" component={EditProfilePage} />
       <Route path="/configuracoes" component={SettingsPage} />
       <Route component={NotFound} />
     </Switch>

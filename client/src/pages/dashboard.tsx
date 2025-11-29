@@ -1371,13 +1371,8 @@ export default function DashboardPage() {
                         <CardContent className="p-4">
                           {/* Header */}
                           <div className="flex items-start gap-2 mb-3">
-                            <div className="relative flex-shrink-0">
-                              <div className={`h-10 w-10 rounded-lg ${company.logoColor} flex items-center justify-center`}>
-                                <span className="text-white font-bold text-xs">{company.logo}</span>
-                              </div>
-                              <div className="absolute -bottom-1 -right-1 bg-slate-900 dark:bg-white rounded-full p-1 flex items-center justify-center">
-                                <Lock className="h-3 w-3 text-white dark:text-slate-900" />
-                              </div>
+                            <div className={`h-10 w-10 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
+                              <span className="text-white font-bold text-xs">{company.logo}</span>
                             </div>
                             <div className="flex-1 min-w-0">
                               <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>

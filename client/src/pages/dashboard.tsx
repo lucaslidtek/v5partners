@@ -548,14 +548,12 @@ export default function DashboardPage() {
                   {/* Header com logo, título e status */}
                   {isMobile ? (
                     <>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <div className="flex gap-2 flex-1 items-center min-w-0">
-                          {renderLogo(match)}
-                          <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(match)}</h3>
-                        </div>
-                        {match.isNew && (
-                          <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
-                        )}
+                      {match.isNew && (
+                        <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold inline-block mb-3">Novo</span>
+                      )}
+                      <div className="flex items-center gap-2 mb-2">
+                        {renderLogo(match)}
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(match)}</h3>
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
                     </>
@@ -755,14 +753,12 @@ export default function DashboardPage() {
                       <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
                         {isMobile ? (
                           <>
-                            <div className="flex items-center justify-between gap-2 mb-3">
-                              <div className="flex gap-2 flex-1 items-center min-w-0">
-                                {renderLogo(process)}
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(process)}</h3>
-                              </div>
-                              <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap flex-shrink-0`}>
-                                {config.label}
-                              </Badge>
+                            <Badge className={`${config.color} text-xs py-1.5 px-2.5 inline-block mb-3`}>
+                              {config.label}
+                            </Badge>
+                            <div className="flex items-center gap-2 mb-2">
+                              {renderLogo(process)}
+                              <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(process)}</h3>
                             </div>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
                           </>

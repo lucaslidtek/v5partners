@@ -7,10 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, ArrowLeft, Upload, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, Upload, X, Lock } from "lucide-react";
+import React from "react";
 
 export default function EditProfilePage() {
   const { user, updateUserData } = useAuth();
@@ -20,7 +22,7 @@ export default function EditProfilePage() {
   const [profilePhoto, setProfilePhoto] = useState<string | undefined>(user?.profilePhoto);
 
   const role = user?.role || "investor";
-  const totalSteps = 5;
+  const totalSteps = role === "investor" ? 4 : 5;
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -47,8 +49,38 @@ export default function EditProfilePage() {
   const handleBack = () => {
     if (step > 1) {
       setStep(step - 1);
-    } else {
+    } else if (step === 1) {
       setLocation("/perfil");
+    }
+  };
+
+  const getStepTitle = () => {
+    if (role === "investor") {
+      switch (step) {
+        case 1: return "Informações Pessoais";
+        case 2: return "Perfil de Investimento";
+        case 3: return "Experiência Profissional";
+        case 4: return "Preferências do Negócio";
+        default: return "";
+      }
+    } else if (role === "seller") {
+      switch (step) {
+        case 1: return "Identificação e Setor";
+        case 2: return "Tamanho da Operação";
+        case 3: return "Estrutura e Momento";
+        case 4: return "Informações do Deal";
+        case 5: return "Confirmação";
+        default: return "";
+      }
+    } else {
+      switch (step) {
+        case 1: return "Identificação da Franquia";
+        case 2: return "Investimento e Retorno";
+        case 3: return "Perfil do Franqueado";
+        case 4: return "Expansão e Suporte";
+        case 5: return "Confirmação";
+        default: return "";
+      }
     }
   };
 
@@ -57,14 +89,14 @@ export default function EditProfilePage() {
       switch (step) {
         case 1:
           return (
-            <div className="space-y-6">
-              <div>
-                <Label className="mb-4 block">Foto de Perfil (Opcional)</Label>
-                <div className="flex items-center gap-6">
+            <div className="space-y-4">
+              <div className="pb-4 border-b border-slate-200 dark:border-slate-700">
+                <Label className="block mb-3">Foto de Perfil (Opcional)</Label>
+                <div className="flex items-center gap-4">
                   <div className="relative">
                     {profilePhoto ? (
-                      <div className="relative w-24 h-24">
-                        <img src={profilePhoto} alt="Perfil" className="w-24 h-24 rounded-full object-cover" />
+                      <div className="relative w-20 h-20">
+                        <img src={profilePhoto} alt="Perfil" className="w-20 h-20 rounded-full object-cover" />
                         <button
                           onClick={() => setProfilePhoto(undefined)}
                           className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 hover:bg-destructive/80"
@@ -74,14 +106,14 @@ export default function EditProfilePage() {
                         </button>
                       </div>
                     ) : (
-                      <div className="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center">
-                        <Upload className="w-8 h-8 text-slate-400" />
+                      <div className="w-20 h-20 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center">
+                        <Upload className="w-6 h-6 text-slate-400" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1">
                     <label htmlFor="photo-upload" className="cursor-pointer">
-                      <Button variant="outline" asChild>
+                      <Button variant="outline" size="sm" asChild>
                         <span data-testid="button-upload-photo">Escolher Foto</span>
                       </Button>
                     </label>
@@ -124,7 +156,7 @@ export default function EditProfilePage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Localização</Label>
+                <Label>Cidade / Estado</Label>
                 <Input 
                   defaultValue={user?.location} 
                   placeholder="Ex: São Paulo, SP" 
@@ -147,7 +179,7 @@ export default function EditProfilePage() {
           return (
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label>Faixa de Investimento</Label>
+                <Label>Faixa de Investimento Disponível</Label>
                 <Select defaultValue={user?.investmentRange} onValueChange={(v) => setFormData({...formData, investmentRange: v})}>
                   <SelectTrigger data-testid="select-investment">
                     <SelectValue placeholder="Selecione o valor" />
@@ -191,36 +223,46 @@ export default function EditProfilePage() {
         case 3:
           return (
             <div className="space-y-6">
-              <div className="space-y-3">
-                <Label>Experiência Anterior em Empresas</Label>
-                <div className="grid gap-2">
-                  {["Sim", "Não"].map((opt) => (
-                    <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
-                      <Checkbox id={opt} />
-                      <label htmlFor={opt} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer w-full">{opt}</label>
-                    </div>
-                  ))}
+              <div className="space-y-2">
+                <Label>Já teve empresa anteriormente?</Label>
+                <div className="flex gap-4">
+                  <Button 
+                    variant={formData.hasExperience === true ? "default" : "outline"} 
+                    className={`flex-1 ${formData.hasExperience === true ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"}`}
+                    onClick={() => setFormData({...formData, hasExperience: true})}
+                    data-testid="button-experience-yes"
+                  >
+                    Sim
+                  </Button>
+                  <Button 
+                    variant={formData.hasExperience === false ? "default" : "outline"} 
+                    className={`flex-1 ${formData.hasExperience === false ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"}`}
+                    onClick={() => setFormData({...formData, hasExperience: false})}
+                    data-testid="button-experience-no"
+                  >
+                    Não
+                  </Button>
                 </div>
               </div>
-
               <div className="space-y-2">
-                <Label>Setores de Experiência (Opcional)</Label>
+                <Label>Setores de Experiência</Label>
                 <Input 
                   defaultValue={user?.experienceSectors}
-                  placeholder="Ex: Varejo, Tecnologia, Saúde" 
+                  placeholder="Ex: Varejo, Tecnologia, Saúde..." 
                   onChange={(e) => setFormData({...formData, experienceSectors: e.target.value})}
                   data-testid="input-sectors"
                 />
               </div>
-
               <div className="space-y-2">
-                <Label>Habilidades Predominantes (Opcional)</Label>
-                <Input 
-                  defaultValue={user?.skills}
-                  placeholder="Ex: Gestão, Comercial, Marketing" 
-                  onChange={(e) => setFormData({...formData, skills: e.target.value})}
-                  data-testid="input-skills"
-                />
+                <Label>Habilidades Predominantes</Label>
+                <div className="flex flex-wrap gap-2">
+                  {["Gestão", "Comercial", "Marketing", "Finanças", "Operacional", "RH"].map(skill => (
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
+                      <Checkbox id={`skill-${skill}`} />
+                      <label htmlFor={`skill-${skill}`} className="text-sm font-medium cursor-pointer">{skill}</label>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           );
@@ -229,51 +271,53 @@ export default function EditProfilePage() {
             <div className="space-y-6">
               <div className="space-y-2">
                 <Label>Setores de Interesse</Label>
-                <Input 
-                  defaultValue={user?.interestSectors}
-                  placeholder="Ex: Alimentação, Saúde & Beleza, Tecnologia" 
-                  onChange={(e) => setFormData({...formData, interestSectors: e.target.value})}
-                  data-testid="input-interest"
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  {["Alimentação", "Saúde & Beleza", "Serviços", "Educação", "Tecnologia", "Moda", "Casa & Construção", "Automotivo"].map(sector => (
+                    <div key={sector} className="flex items-center space-x-2">
+                      <Checkbox id={`sector-${sector}`} />
+                      <label htmlFor={`sector-${sector}`} className="text-sm cursor-pointer">{sector}</label>
+                    </div>
+                  ))}
+                </div>
               </div>
+              
+              <div className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <Label>Grau de Envolvimento Operacional</Label>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{formData.operationalInvolvement || user?.operationalInvolvement || 50}%</span>
+                  </div>
+                  <Slider 
+                    defaultValue={[user?.operationalInvolvement || 50]}
+                    max={100}
+                    step={10}
+                    onValueChange={(v) => setFormData({...formData, operationalInvolvement: v[0]})}
+                    data-testid="slider-involvement"
+                  />
+                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                    <span>Investidor Ausente</span>
+                    <span>Operação Full-time</span>
+                  </div>
+                </div>
 
-              <div className="space-y-2">
-                <Label>Grau de Envolvimento Operacional ({formData.operationalInvolvement || user?.operationalInvolvement || 50}%)</Label>
-                <Slider 
-                  defaultValue={[user?.operationalInvolvement || 50]}
-                  max={100}
-                  step={10}
-                  onValueChange={(v) => setFormData({...formData, operationalInvolvement: v[0]})}
-                  data-testid="slider-involvement"
-                />
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <Label>Tolerância ao Risco</Label>
+                    <span className="text-xs text-slate-500 dark:text-slate-400">{formData.riskTolerance || user?.riskTolerance || 50}%</span>
+                  </div>
+                  <Slider 
+                    defaultValue={[user?.riskTolerance || 50]}
+                    max={100}
+                    step={10}
+                    onValueChange={(v) => setFormData({...formData, riskTolerance: v[0]})}
+                    data-testid="slider-risk"
+                  />
+                  <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                    <span>Baixo Risco</span>
+                    <span>Alto Risco</span>
+                  </div>
+                </div>
               </div>
-
-              <div className="space-y-2">
-                <Label>Tolerância ao Risco ({formData.riskTolerance || user?.riskTolerance || 50}%)</Label>
-                <Slider 
-                  defaultValue={[user?.riskTolerance || 50]}
-                  max={100}
-                  step={10}
-                  onValueChange={(v) => setFormData({...formData, riskTolerance: v[0]})}
-                  data-testid="slider-risk"
-                />
-              </div>
-            </div>
-          );
-        case 5:
-          return (
-            <div className="space-y-4">
-              <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 p-4 rounded-lg">
-                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Resumo das Alterações</h3>
-                <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                  <li>✓ Informações pessoais atualizadas</li>
-                  <li>✓ Preferências de investimento revisadas</li>
-                  <li>✓ Experiência e habilidades atualizadas</li>
-                  <li>✓ Interesses e tolerância ao risco ajustados</li>
-                  {profilePhoto && <li>✓ Foto de perfil adicionada</li>}
-                </ul>
-              </div>
-              <p className="text-slate-600 dark:text-slate-400 text-sm">Clique em "Salvar" para confirmar todas as alterações ao seu perfil.</p>
             </div>
           );
       }
@@ -281,14 +325,21 @@ export default function EditProfilePage() {
       switch (step) {
         case 1:
           return (
-            <div className="space-y-6">
-              <div>
-                <Label className="mb-4 block">Foto de Perfil (Opcional)</Label>
-                <div className="flex items-center gap-6">
+            <div className="space-y-4">
+              <Alert className="border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
+                <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <AlertDescription className="text-amber-800 dark:text-amber-200">
+                  <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores <strong>após o NDA ser assinado</strong>. Antes disso, aparecerão como "Empresa Confidencial".
+                </AlertDescription>
+              </Alert>
+              
+              <div className="pb-4 border-b border-slate-200 dark:border-slate-700">
+                <Label className="block mb-3">Foto de Perfil (Opcional)</Label>
+                <div className="flex items-center gap-4">
                   <div className="relative">
                     {profilePhoto ? (
-                      <div className="relative w-24 h-24">
-                        <img src={profilePhoto} alt="Perfil" className="w-24 h-24 rounded-full object-cover" />
+                      <div className="relative w-20 h-20">
+                        <img src={profilePhoto} alt="Perfil" className="w-20 h-20 rounded-full object-cover" />
                         <button
                           onClick={() => setProfilePhoto(undefined)}
                           className="absolute -top-2 -right-2 bg-destructive text-white rounded-full p-1 hover:bg-destructive/80"
@@ -298,14 +349,14 @@ export default function EditProfilePage() {
                         </button>
                       </div>
                     ) : (
-                      <div className="w-24 h-24 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center">
-                        <Upload className="w-8 h-8 text-slate-400" />
+                      <div className="w-20 h-20 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center">
+                        <Upload className="w-6 h-6 text-slate-400" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1">
                     <label htmlFor="photo-upload" className="cursor-pointer">
-                      <Button variant="outline" asChild>
+                      <Button variant="outline" size="sm" asChild>
                         <span data-testid="button-upload-photo">Escolher Foto</span>
                       </Button>
                     </label>
@@ -323,17 +374,7 @@ export default function EditProfilePage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Email</Label>
-                <Input 
-                  defaultValue={user?.email}
-                  type="email"
-                  placeholder="seu@email.com"
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  data-testid="input-email"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Nome Fantasia da Empresa</Label>
+                <Label>Nome Fantasia</Label>
                 <Input 
                   defaultValue={user?.tradeName}
                   placeholder="Ex: TechFlow Solutions"
@@ -342,109 +383,184 @@ export default function EditProfilePage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Localização</Label>
+                <Label>Cidade / Estado</Label>
                 <Input 
                   defaultValue={user?.location}
-                  placeholder="Ex: São Paulo, SP" 
+                  placeholder="Ex: Curitiba, PR" 
                   onChange={(e) => setFormData({...formData, location: e.target.value})}
                   data-testid="input-location"
                 />
+              </div>
+              <div className="space-y-2">
+                <Label>Segmento de Atuação</Label>
+                <Select defaultValue={user?.segment} onValueChange={(v) => setFormData({...formData, segment: v})}>
+                  <SelectTrigger data-testid="select-segment">
+                    <SelectValue placeholder="Selecione o segmento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="varejo">Varejo</SelectItem>
+                    <SelectItem value="servicos">Serviços</SelectItem>
+                    <SelectItem value="alimentacao">Alimentação</SelectItem>
+                    <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                    <SelectItem value="saude">Saúde</SelectItem>
+                    <SelectItem value="industria">Indústria</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           );
         case 2:
           return (
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <Label>Segmento</Label>
-                <Input 
-                  defaultValue={user?.segment}
-                  placeholder="Ex: Tecnologia" 
-                  onChange={(e) => setFormData({...formData, segment: e.target.value})}
-                  data-testid="input-segment"
-                />
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Faturamento Mensal Médio</Label>
+                  <Input 
+                    defaultValue={user?.monthlyRevenue}
+                    placeholder="R$ 0,00" 
+                    onChange={(e) => setFormData({...formData, monthlyRevenue: e.target.value})}
+                    data-testid="input-revenue"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Lucro Líquido / EBITDA</Label>
+                  <Input 
+                    defaultValue={user?.ebitda}
+                    placeholder="R$ 0,00" 
+                    onChange={(e) => setFormData({...formData, ebitda: e.target.value})}
+                    data-testid="input-ebitda"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Ticket Médio</Label>
+                  <Input 
+                    defaultValue={user?.ticketAverage}
+                    placeholder="R$ 0,00" 
+                    onChange={(e) => setFormData({...formData, ticketAverage: e.target.value})}
+                    data-testid="input-ticket"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Nº Funcionários</Label>
+                  <Input 
+                    defaultValue={user?.employees}
+                    type="number" 
+                    placeholder="0" 
+                    onChange={(e) => setFormData({...formData, employees: e.target.value})}
+                    data-testid="input-employees"
+                  />
+                </div>
               </div>
               <div className="space-y-2">
-                <Label>Tipo de Operação</Label>
-                <Input 
-                  defaultValue={user?.operationType}
-                  placeholder="Ex: E-commerce" 
-                  onChange={(e) => setFormData({...formData, operationType: e.target.value})}
-                  data-testid="input-operation"
+                <Label>Grau de dependência do dono</Label>
+                <Slider 
+                  defaultValue={[user?.ownerDependence || 70]}
+                  max={100}
+                  step={10}
+                  onValueChange={(v) => setFormData({...formData, ownerDependence: v[0]})}
+                  data-testid="slider-dependence"
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Faturamento Mensal Médio</Label>
-                <Input 
-                  defaultValue={user?.monthlyRevenue}
-                  placeholder="Ex: R$ 85.000" 
-                  onChange={(e) => setFormData({...formData, monthlyRevenue: e.target.value})}
-                  data-testid="input-revenue"
-                />
+                <div className="flex justify-between text-xs text-slate-400 dark:text-slate-500">
+                  <span>Baixa (Gestão Profissional)</span>
+                  <span>Alta (Dono Operacional)</span>
+                </div>
               </div>
             </div>
           );
         case 3:
           return (
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div className="space-y-2">
-                <Label>EBITDA / Lucro Líquido</Label>
-                <Input 
-                  defaultValue={user?.ebitda}
-                  placeholder="Ex: R$ 22.000" 
-                  onChange={(e) => setFormData({...formData, ebitda: e.target.value})}
-                  data-testid="input-ebitda"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Número de Funcionários</Label>
-                <Input 
-                  defaultValue={user?.employees}
-                  placeholder="Ex: 8" 
-                  onChange={(e) => setFormData({...formData, employees: e.target.value})}
-                  data-testid="input-employees"
-                />
+                <Label>Motivo da Venda</Label>
+                <Select defaultValue={user?.sellReason} onValueChange={(v) => setFormData({...formData, sellReason: v})}>
+                  <SelectTrigger data-testid="select-reason">
+                    <SelectValue placeholder="Selecione o motivo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="aposentadoria">Aposentadoria</SelectItem>
+                    <SelectItem value="mudanca">Mudança de Cidade/País</SelectItem>
+                    <SelectItem value="novos_projetos">Novos Projetos</SelectItem>
+                    <SelectItem value="dissolucao">Dissolução de Sociedade</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label>Estágio do Negócio</Label>
-                <Input 
-                  defaultValue={user?.stage}
-                  placeholder="Ex: Estável" 
-                  onChange={(e) => setFormData({...formData, stage: e.target.value})}
-                  data-testid="input-stage"
-                />
+                <div className="flex gap-2">
+                  {["Crescendo", "Estável", "Em Queda"].map(stage => (
+                    <Button 
+                      key={stage}
+                      variant={formData.stage === stage ? "default" : "outline"} 
+                      className="flex-1 text-sm border-slate-200 dark:border-slate-700"
+                      onClick={() => setFormData({...formData, stage})}
+                      data-testid={`button-stage-${stage.toLowerCase()}`}
+                    >
+                      {stage}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Passivos Existentes?</Label>
+                <div className="flex gap-4">
+                  <Button 
+                    variant={formData.liabilities === true ? "default" : "outline"} 
+                    className={`flex-1 ${formData.liabilities === true ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"}`}
+                    onClick={() => setFormData({...formData, liabilities: true})}
+                    data-testid="button-liabilities-yes"
+                  >
+                    Sim
+                  </Button>
+                  <Button 
+                    variant={formData.liabilities === false ? "default" : "outline"} 
+                    className={`flex-1 ${formData.liabilities === false ? "" : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"}`}
+                    onClick={() => setFormData({...formData, liabilities: false})}
+                    data-testid="button-liabilities-no"
+                  >
+                    Não
+                  </Button>
+                </div>
               </div>
             </div>
           );
         case 4:
           return (
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <Label>Motivo da Venda</Label>
-                <Input 
-                  defaultValue={user?.sellReason}
-                  placeholder="Ex: Novos Projetos" 
-                  onChange={(e) => setFormData({...formData, sellReason: e.target.value})}
-                  data-testid="input-reason"
-                />
-              </div>
+            <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Valor Pedido (Valuation)</Label>
                 <Input 
                   defaultValue={user?.valuation}
-                  placeholder="Ex: R$ 650.000" 
+                  placeholder="R$ 0,00" 
+                  className="text-lg font-semibold text-primary"
                   onChange={(e) => setFormData({...formData, valuation: e.target.value})}
                   data-testid="input-valuation"
                 />
               </div>
               <div className="space-y-2">
                 <Label>Tipo de Transação Aceita</Label>
-                <Input 
-                  defaultValue={user?.transactionType}
-                  placeholder="Ex: Venda Total (100%)" 
-                  onChange={(e) => setFormData({...formData, transactionType: e.target.value})}
-                  data-testid="input-transaction"
-                />
+                <div className="grid grid-cols-1 gap-2">
+                  {["Venda Total (100%)", "Venda Parcial (Sócio Majoritário)", "Venda Parcial (Sócio Minoritário)"].map((opt) => (
+                    <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
+                      <Checkbox id={opt} />
+                      <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Imóvel Próprio na Negociação?</Label>
+                <Select defaultValue={user?.propertyInvolved}>
+                  <SelectTrigger data-testid="select-property">
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="nao">Não, é alugado</SelectItem>
+                    <SelectItem value="sim_incluido">Sim, incluído na venda</SelectItem>
+                    <SelectItem value="sim_aparte">Sim, negociado à parte</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           );
@@ -461,7 +577,7 @@ export default function EditProfilePage() {
                   {profilePhoto && <li>✓ Foto de perfil adicionada</li>}
                 </ul>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-sm">Clique em "Salvar" para confirmar todas as alterações ao seu perfil.</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">Clique em "Finalizar" para confirmar todas as alterações ao seu perfil.</p>
             </div>
           );
       }
@@ -470,49 +586,34 @@ export default function EditProfilePage() {
 
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Button 
-          variant="ghost" 
-          className="mb-6 pl-0 hover:bg-transparent hover:text-primary"
-          onClick={() => setLocation('/perfil')}
-          data-testid="button-back"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Voltar
-        </Button>
-
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2" data-testid="text-title">Editar Perfil</h1>
-          <div className="flex justify-between items-center mt-6">
-            {Array.from({ length: totalSteps }).map((_, i) => (
-              <div key={i} className="flex items-center flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all ${
-                  i + 1 <= step 
-                    ? 'bg-primary text-white' 
-                    : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
-                }`}>
-                  {i + 1}
-                </div>
-                {i < totalSteps - 1 && (
-                  <div className={`flex-1 h-1 mx-2 rounded-full transition-all ${
-                    i + 1 < step ? 'bg-primary' : 'bg-slate-200 dark:bg-slate-700'
-                  }`} />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Card className="dark:bg-slate-900 dark:border-slate-800" data-testid="card-edit-form">
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <Card className="border-slate-200 dark:border-slate-700 shadow-md dark:bg-slate-900">
           <CardHeader>
-            <CardTitle data-testid="text-step-title">
-              {step === 1 && "Informações Pessoais"}
-              {step === 2 && "Preferências de Investimento"}
-              {step === 3 && "Experiência e Habilidades"}
-              {step === 4 && "Interesses e Tolerância"}
-              {step === 5 && "Confirmação"}
-            </CardTitle>
+            <div className="flex items-center justify-between mb-4">
+              <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user} data-testid="button-back-header">
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" data-testid="text-role">
+                {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
+              </span>
+              <div className="w-10" />
+            </div>
+            <CardTitle className="text-2xl font-bold text-center dark:text-white" data-testid="text-step-title">{getStepTitle()}</CardTitle>
           </CardHeader>
           <CardContent>
+            <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
+              <span data-testid="text-step-counter">Passo {step} de {totalSteps}</span>
+              <span data-testid="text-step-percent">{Math.round((step / totalSteps) * 100)}% Completo</span>
+            </div>
+            <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-8">
+              <motion.div 
+                className="h-full bg-primary rounded-full"
+                initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
+                animate={{ width: `${(step / totalSteps) * 100}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -525,19 +626,22 @@ export default function EditProfilePage() {
               </motion.div>
             </AnimatePresence>
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex justify-between border-t border-slate-200 dark:border-slate-700 p-6">
             <Button 
-              variant="outline" 
-              onClick={handleBack}
-              data-testid="button-back-step"
+              variant="ghost" 
+              onClick={handleBack} 
+              disabled={step === 1 && !user}
+              className="hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary"
+              data-testid="button-back-footer"
             >
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
             <Button 
               onClick={handleNext}
-              data-testid="button-next-step"
+              className="bg-primary hover:bg-primary/90"
+              data-testid="button-next-footer"
             >
-              {step === totalSteps ? "Salvar" : "Próximo"} 
+              {step === totalSteps ? "Finalizar" : "Próximo"} 
               {step !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
             </Button>
           </CardFooter>

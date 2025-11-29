@@ -376,7 +376,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-40' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
           <div>

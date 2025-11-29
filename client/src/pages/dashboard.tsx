@@ -363,7 +363,7 @@ export default function DashboardPage() {
             </h1>
             {!isMobile && <p className="text-slate-500 dark:text-slate-400 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
           </div>
-          {isMobile && (
+          {isMobile && (activeTab === "new" || activeTab === "active") && (
             <Button 
               variant="outline"
               className="h-10 px-3 rounded-lg font-semibold border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 flex-shrink-0 whitespace-nowrap"

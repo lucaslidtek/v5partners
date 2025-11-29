@@ -302,7 +302,7 @@ export default function OutrasEmpresasPage() {
                     {(() => {
                       const colors = getCompatibilityColor(company.matchScore);
                       return (
-                        <div className={`${colors.bgColor} p-3 rounded-lg border ${colors.borderColor} mb-5`}>
+                        <div className="mb-5">
                           <div className="flex justify-between items-center mb-1.5">
                             <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
                             <span className={`text-sm font-bold ${colors.textColor}`}>{company.matchScore}%</span>

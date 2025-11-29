@@ -361,6 +361,31 @@ export default function DashboardPage() {
   const stats = activeTab === "active" ? activeStats : newStats;
 
 
+  const getCompatibilityColor = (score: number) => {
+    if (score >= 70) {
+      return {
+        barColor: 'bg-emerald-500',
+        bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
+        borderColor: 'border-emerald-200 dark:border-emerald-800',
+        textColor: 'text-emerald-600 dark:text-emerald-400'
+      };
+    } else if (score >= 40) {
+      return {
+        barColor: 'bg-amber-500',
+        bgColor: 'bg-amber-50 dark:bg-amber-950/30',
+        borderColor: 'border-amber-200 dark:border-amber-800',
+        textColor: 'text-amber-600 dark:text-amber-400'
+      };
+    } else {
+      return {
+        barColor: 'bg-red-500',
+        bgColor: 'bg-red-50 dark:bg-red-950/30',
+        borderColor: 'border-red-200 dark:border-red-800',
+        textColor: 'text-red-600 dark:text-red-400'
+      };
+    }
+  };
+
   const getStageInfo = (stage: string) => {
     switch(stage) {
       case 'new':
@@ -665,18 +690,23 @@ export default function DashboardPage() {
                   )}
 
                   {/* Match Score Bar - More Prominent */}
-                  <div className={`${isMobile ? 'mb-5' : 'mb-7'} bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20 dark:border-primary/30`}>
-                    <div className="flex justify-between items-center mb-2.5">
-                      <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
-                      <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} text-primary`}>{match.matchScore}%</span>
-                    </div>
-                    <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-primary rounded-full transition-all duration-500" 
-                        style={{ width: `${match.matchScore}%` }}
-                      />
-                    </div>
-                  </div>
+                  {(() => {
+                    const colors = getCompatibilityColor(match.matchScore);
+                    return (
+                      <div className={`${isMobile ? 'mb-5' : 'mb-7'} ${colors.bgColor} p-4 rounded-lg border ${colors.borderColor}`}>
+                        <div className="flex justify-between items-center mb-2.5">
+                          <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
+                          <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} ${colors.textColor}`}>{match.matchScore}%</span>
+                        </div>
+                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                            style={{ width: `${match.matchScore}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {/* Description Preview */}
                   <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-5`}>{match.description}</p>
@@ -1057,18 +1087,23 @@ export default function DashboardPage() {
                           <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{match.location}</p>
 
                           {/* Compatibility Score */}
-                          <div className="mb-3">
-                            <div className="flex justify-between items-center mb-1">
-                              <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
-                              <span className="text-sm font-bold text-primary">{match.matchScore}%</span>
-                            </div>
-                            <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                              <div 
-                                className="h-full bg-primary rounded-full transition-all duration-500" 
-                                style={{ width: `${match.matchScore}%` }}
-                              />
-                            </div>
-                          </div>
+                          {(() => {
+                            const colors = getCompatibilityColor(match.matchScore);
+                            return (
+                              <div className="mb-3">
+                                <div className="flex justify-between items-center mb-1">
+                                  <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                                  <span className={`text-sm font-bold ${colors.textColor}`}>{match.matchScore}%</span>
+                                </div>
+                                <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                  <div 
+                                    className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                                    style={{ width: `${match.matchScore}%` }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })()}
 
                           {/* Description */}
                           <p className="text-2xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">{match.description}</p>

@@ -34,7 +34,17 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                 <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 capitalize mt-1">{user.role === 'investor' ? 'Investidor' : user.role}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 capitalize mt-1">
+                      {(() => {
+                        const roleMap: Record<string, string> = {
+                          'investor': 'Investidor',
+                          'seller': 'Vendedor',
+                          'admin': 'Administrador',
+                          'user': 'Usuário'
+                        };
+                        return roleMap[user.role as string] || user.role;
+                      })()}
+                    </p>
                   </div>
                   
                   <DropdownMenu>

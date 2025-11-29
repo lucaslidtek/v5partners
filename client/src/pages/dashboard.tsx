@@ -559,10 +559,10 @@ export default function DashboardPage() {
                     )}
                   </div>
 
-                  {/* Progresso Bar */}
-                  <div className={`${isMobile ? 'mb-3' : 'mb-6'}`}>
+                  {/* Match Score Bar */}
+                  <div className={`${isMobile ? 'mb-3' : 'mb-4'}`}>
                     <div className="flex justify-between items-center mb-1.5">
-                      <span className={`${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600 dark:text-slate-400`}>Progresso</span>
+                      <span className={`${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-slate-600 dark:text-slate-400`}>Compatibilidade</span>
                       <span className={`${isMobile ? 'text-sm' : 'text-sm'} font-bold text-primary`}>{match.matchScore}%</span>
                     </div>
                     <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -573,58 +573,34 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  {/* Key Metrics Grid */}
+                  {/* Description Preview */}
+                  <p className={`${isMobile ? 'text-2xs' : 'text-sm'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-4`}>{match.description}</p>
+
+                  {/* Key Metrics Grid - Simplified */}
                   {!isMobile && (
-                    <div className={`grid grid-cols-2 md:grid-cols-5 gap-4 mb-6`}>
-                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita Anual</p>
+                    <div className={`grid grid-cols-3 gap-3 mb-4`}>
+                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                        <p className="font-bold text-primary text-lg">{match.price}</p>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
                         <p className="font-bold text-slate-900 dark:text-white">{match.revenue}</p>
                       </div>
-                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
                         <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
-                        <p className="font-bold text-green-600 dark:text-emerald-400">{match.ebitda}</p>
-                      </div>
-                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Funcionários</p>
-                        <p className="font-bold text-slate-900 dark:text-white">{match.employees}</p>
-                      </div>
-                      <div className="text-center p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg col-span-2 md:col-span-1">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Setor</p>
-                        <p className="font-bold text-slate-900 dark:text-white truncate" title={match.sector}>{match.sector}</p>
-                      </div>
-                      <div className="text-center p-3 bg-slate-50 dark:bg-blue-900/30 rounded-lg col-span-2 md:col-span-1 border border-primary/10 dark:border-primary/30 bg-primary/5 dark:bg-primary/10">
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Preço Pedido</p>
-                        <p className="font-bold text-primary">{match.price}</p>
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400">{match.ebitda}</p>
                       </div>
                     </div>
                   )}
 
                   {/* Tags */}
-                  <div className={`flex flex-wrap ${isMobile ? 'gap-1.5 mb-3' : 'gap-2 mb-6'}`}>
+                  <div className={`flex flex-wrap ${isMobile ? 'gap-1.5 mb-3' : 'gap-2 mb-4'}`}>
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal">
+                      <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-xs">
                         {tag}
                       </Badge>
                     ))}
-                  </div>
-
-                  {/* Process Progress */}
-                  <div className="mb-4 mt-2">
-                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 px-1">
-                      <span className={match.stage === 'new' || match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
-                      <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1 mx-2"></div>
-                      <span className={match.stage === 'interested' || match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
-                      <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1 mx-2"></div>
-                      <span className={match.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
-                    </div>
-                    <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden w-full">
-                      <div 
-                        className="h-full bg-primary transition-all duration-500 ease-in-out" 
-                        style={{ 
-                          width: match.stage === 'new' ? '10%' : match.stage === 'interested' ? '50%' : '100%' 
-                        }}
-                      />
-                    </div>
                   </div>
 
                   {/* Actions */}
@@ -724,6 +700,20 @@ export default function DashboardPage() {
                 };
 
                 const config = getStageConfig(process.stage);
+                
+                // Get next step
+                const getNextStep = (stage: Match['stage']) => {
+                  switch(stage) {
+                    case 'interested':
+                      return { label: 'Solicitar NDA', action: 'nda_signed', icon: Lock };
+                    case 'nda_signed':
+                      return { label: 'Agendar Reunião', action: 'meeting_scheduled', icon: Calendar };
+                    default:
+                      return null;
+                  }
+                };
+                
+                const nextStep = getNextStep(process.stage);
 
                 return (
                   <motion.div
@@ -745,6 +735,15 @@ export default function DashboardPage() {
                             {isMobile ? config.label.split(' ')[0] : config.label}
                           </Badge>
                         </div>
+
+                        {/* Next Step Hint */}
+                        {nextStep && (
+                          <div className={`${isMobile ? 'mb-3 p-2.5' : 'mb-4 p-3'} bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-800 rounded-lg`}>
+                            <p className={`${isMobile ? 'text-2xs' : 'text-xs'} font-semibold text-sky-700 dark:text-sky-300`}>
+                              Próximo passo: {nextStep.label}
+                            </p>
+                          </div>
+                        )}
 
                         {/* Progress Bar */}
                         <div className={`${isMobile ? 'mb-3' : 'mb-4'}`}>
@@ -773,24 +772,44 @@ export default function DashboardPage() {
                           </div>
                         )}
 
-                        <div className={`flex gap-2 ${isMobile ? 'pt-3' : 'pt-2 border-t border-slate-100 dark:border-slate-800'}`}>
-                          <Button 
-                            variant="outline" 
-                            className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
-                            onClick={() => setSelectedMatchId(process.id)}
-                            data-testid={`button-details-${process.id}`}
-                          >
-                            <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Ver Detalhes'}
-                          </Button>
-                          {process.stage === 'interested' && (
-                            <Button 
-                              variant="ghost" 
-                              className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
-                              onClick={() => updateMatchStage(process.id, 'new')}
-                              data-testid={`button-revert-${process.id}`}
-                            >
-                              <Undo2 className="h-4 w-4 mr-2" /> Reverter
-                            </Button>
+                        <div className={`flex gap-2 ${isMobile ? 'pt-3 flex-col' : 'pt-2 border-t border-slate-100 dark:border-slate-800'}`}>
+                          {nextStep ? (
+                            <>
+                              <Button 
+                                className={`${isMobile ? 'flex-1 h-10 text-sm' : 'flex-1'} bg-primary hover:bg-primary/90 text-white font-semibold`}
+                                onClick={() => updateMatchStage(process.id, nextStep.action as Match['stage'])}
+                                data-testid={`button-next-step-${process.id}`}
+                              >
+                                <nextStep.icon className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? nextStep.label.split(' ')[0] : nextStep.label}
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
+                                onClick={() => setSelectedMatchId(process.id)}
+                                data-testid={`button-details-${process.id}`}
+                              >
+                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Detalhes'}
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <Button 
+                                variant="outline" 
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
+                                onClick={() => setSelectedMatchId(process.id)}
+                                data-testid={`button-details-${process.id}`}
+                              >
+                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Ver Detalhes'}
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
+                                onClick={() => updateMatchStage(process.id, 'new')}
+                                data-testid={`button-revert-${process.id}`}
+                              >
+                                <Undo2 className="h-4 w-4 mr-2" /> Reverter
+                              </Button>
+                            </>
                           )}
                         </div>
                       </CardContent>

@@ -1464,21 +1464,26 @@ export default function DashboardPage() {
                 <div className="flex-1 overflow-y-auto pr-4">
                   <div className="space-y-6 pb-6">
                     {/* Match Score */}
-                    <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
-                      <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
-                    </div>
-                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-primary rounded-full" 
-                        style={{ width: `${selectedMatch.matchScore}%` }}
-                      />
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">
-                      Excelente match: empresa no seu setor preferido com múltiplo atrativo
-                    </p>
-                  </div>
+                    {(() => {
+                      const colors = getCompatibilityColor(selectedMatch.matchScore);
+                      return (
+                        <div className={`${colors.bgColor} rounded-lg p-4 border ${colors.borderColor}`}>
+                          <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                            <span className={`text-lg font-bold ${colors.textColor}`}>{selectedMatch.matchScore}%</span>
+                          </div>
+                          <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full ${colors.barColor} rounded-full`}
+                              style={{ width: `${selectedMatch.matchScore}%` }}
+                            />
+                          </div>
+                          <p className="text-xs text-slate-500 mt-2">
+                            Excelente match: empresa no seu setor preferido com múltiplo atrativo
+                          </p>
+                        </div>
+                      );
+                    })()}
 
                   {/* Detailed Metrics */}
                   <div className="space-y-4">
@@ -1589,21 +1594,26 @@ export default function DashboardPage() {
               {selectedMatch && (
                 <div className="space-y-6">
                   {/* Match Score */}
-                  <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
-                      <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
-                    </div>
-                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-primary rounded-full" 
-                        style={{ width: `${selectedMatch.matchScore}%` }}
-                      />
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">
-                      Excelente match: empresa no seu setor preferido com múltiplo atrativo
-                    </p>
-                  </div>
+                  {(() => {
+                    const colors = getCompatibilityColor(selectedMatch.matchScore);
+                    return (
+                      <div className={`${colors.bgColor} rounded-lg p-4 border ${colors.borderColor}`}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                          <span className={`text-lg font-bold ${colors.textColor}`}>{selectedMatch.matchScore}%</span>
+                        </div>
+                        <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${colors.barColor} rounded-full`}
+                            style={{ width: `${selectedMatch.matchScore}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-slate-500 mt-2">
+                          Excelente match: empresa no seu setor preferido com múltiplo atrativo
+                        </p>
+                      </div>
+                    );
+                  })()}
 
                   {/* Detailed Metrics */}
                   <div className="space-y-4">

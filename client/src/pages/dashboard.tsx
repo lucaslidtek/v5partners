@@ -1610,7 +1610,7 @@ export default function DashboardPage() {
 
         {/* Mobile Tab Bar */}
         {isMobile && (
-          <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-lg dark:shadow-slate-950/50">
+          <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-lg dark:shadow-slate-950/50 pb-6">
             <div className="flex items-center justify-around h-16 px-2">
               <button
                 onClick={() => setActiveTab("new")}

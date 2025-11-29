@@ -807,9 +807,9 @@ export default function DashboardPage() {
           <Sheet open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
             <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
               <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 min-w-0">
                   {selectedMatch && renderLogo(selectedMatch)}
-                  <SheetTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
+                  <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
                 </div>
               </SheetHeader>
               {selectedMatch && (

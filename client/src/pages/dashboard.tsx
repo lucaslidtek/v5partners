@@ -372,8 +372,8 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Stats Grid */}
-        {isMobile ? (
+        {/* Stats Grid - Mobile only for "new" and "active" tabs */}
+        {isMobile && (activeTab === "new" || activeTab === "active") && (
           <div className="grid grid-cols-2 gap-2 mb-3">
             {stats.slice(0, 4).map((stat, index) => (
               <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-3 border border-primary/10 dark:border-slate-700">
@@ -382,7 +382,10 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        ) : (
+        )}
+
+        {/* Stats Grid - Desktop */}
+        {!isMobile && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => (
               <Card key={index} className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow">

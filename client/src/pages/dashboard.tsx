@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { CompatibilityLogo } from "@/components/compatibility-logo";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/context";
@@ -334,22 +335,6 @@ export default function DashboardPage() {
   };
 
   const renderLogo = (match: Match, matchScore?: number) => {
-    const compatibilityColors = matchScore !== undefined ? getCompatibilityColor(matchScore) : null;
-    const getBackgroundColor = (barColor: string) => {
-      // Convert solid color to light/opaque version
-      if (barColor === 'bg-emerald-500') return 'bg-emerald-100 dark:bg-emerald-900/30';
-      if (barColor === 'bg-amber-500') return 'bg-amber-100 dark:bg-amber-900/30';
-      if (barColor === 'bg-red-500') return 'bg-red-100 dark:bg-red-900/30';
-      return 'bg-slate-100 dark:bg-slate-800';
-    };
-    const getIconColor = (barColor: string) => {
-      // Get darker icon color for light backgrounds
-      if (barColor === 'bg-emerald-500') return 'text-emerald-600 dark:text-emerald-400';
-      if (barColor === 'bg-amber-500') return 'text-amber-600 dark:text-amber-400';
-      if (barColor === 'bg-red-500') return 'text-red-600 dark:text-red-400';
-      return 'text-slate-400';
-    };
-    
     if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
       if (match.logoImage) {
         return (
@@ -364,13 +349,7 @@ export default function DashboardPage() {
         </div>
       );
     }
-    const backgroundColor = compatibilityColors ? getBackgroundColor(compatibilityColors.barColor) : 'bg-slate-100 dark:bg-slate-800';
-    const iconColor = compatibilityColors ? getIconColor(compatibilityColors.barColor) : 'text-slate-400';
-    return (
-      <div className={`h-12 w-12 rounded-lg ${backgroundColor} flex items-center justify-center flex-shrink-0`}>
-        <Lock className={`h-6 w-6 ${iconColor}`} />
-      </div>
-    );
+    return <CompatibilityLogo matchScore={matchScore || match.matchScore} isConfidential size="md" />;
   };
 
   const newStats = [
@@ -1121,15 +1100,7 @@ export default function DashboardPage() {
                             const colors = getCompatibilityColor(match.matchScore);
                             return (
                               <div className="flex gap-2 items-start mb-2">
-                                <div className={`h-10 w-10 rounded-lg flex items-center justify-center flex-shrink-0`} style={{
-                                  backgroundColor: colors.barColor === 'bg-emerald-500' ? 'rgb(240, 253, 250)' : colors.barColor === 'bg-amber-500' ? 'rgb(254, 252, 231)' : 'rgb(254, 242, 242)'
-                                }}>
-                                  {match.logo ? (
-                                    <span className="text-white font-bold text-xs">{match.logo}</span>
-                                  ) : (
-                                    <Lock className={`h-5 w-5 ${colors.textColor}`} />
-                                  )}
-                                </div>
+                                <CompatibilityLogo matchScore={match.matchScore} isConfidential size="sm" />
                                 <div className="flex-1 min-w-0">
                                   <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
@@ -1286,15 +1257,7 @@ export default function DashboardPage() {
                               const colors = getCompatibilityColor(process.matchScore);
                               return (
                                 <div className="flex gap-2 items-start mb-2">
-                                  <div className={`h-10 w-10 rounded-lg flex items-center justify-center flex-shrink-0`} style={{
-                                    backgroundColor: colors.barColor === 'bg-emerald-500' ? 'rgb(240, 253, 250)' : colors.barColor === 'bg-amber-500' ? 'rgb(254, 252, 231)' : 'rgb(254, 242, 242)'
-                                  }}>
-                                    {process.logo ? (
-                                      <span className="text-white font-bold text-xs">{process.logo}</span>
-                                    ) : (
-                                      <Lock className={`h-5 w-5 ${colors.textColor}`} />
-                                    )}
-                                  </div>
+                                  <CompatibilityLogo matchScore={process.matchScore} isConfidential size="sm" />
                                   <div className="flex-1 min-w-0">
                                     <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
                                     <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>

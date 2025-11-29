@@ -1264,7 +1264,7 @@ export default function DashboardPage() {
                             {/* Location & Status Badge */}
                             <div className="flex gap-2 items-center mb-3">
                               <p className="text-2xs text-slate-500 dark:text-slate-400 truncate flex-1">{process.location}</p>
-                              <Badge className={`${config.color} text-2xs py-1 px-2 whitespace-nowrap flex-shrink-0 font-medium`}>
+                              <Badge className={`${config.color} text-xs px-1.5 py-0.5 whitespace-nowrap flex-shrink-0 font-semibold`}>
                                 {config.label}
                               </Badge>
                             </div>

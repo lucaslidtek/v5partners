@@ -1431,6 +1431,34 @@ export default function DashboardPage() {
                       />
                     </div>
                   </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    {selectedMatch.stage === 'new' && (
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'interested')}
+                      >
+                        <Heart className="h-4 w-4 mr-2" /> Demonstrar Interesse
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'interested' && (
+                      <Button 
+                        className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'nda_signed')}
+                      >
+                        <Lock className="h-4 w-4 mr-2" /> Solicitar NDA
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'nda_signed' && (
+                      <Button 
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'meeting_scheduled')}
+                      >
+                        <Calendar className="h-4 w-4 mr-2" /> Agendar Reunião
+                      </Button>
+                    )}
+                  </div>
                   </div>
                 </div>
               )}
@@ -1527,6 +1555,34 @@ export default function DashboardPage() {
                         }}
                       />
                     </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    {selectedMatch.stage === 'new' && (
+                      <Button 
+                        className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'interested')}
+                      >
+                        <Heart className="h-4 w-4 mr-2" /> Demonstrar Interesse
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'interested' && (
+                      <Button 
+                        className="flex-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'nda_signed')}
+                      >
+                        <Lock className="h-4 w-4 mr-2" /> Solicitar NDA
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'nda_signed' && (
+                      <Button 
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'meeting_scheduled')}
+                      >
+                        <Calendar className="h-4 w-4 mr-2" /> Agendar Reunião
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}

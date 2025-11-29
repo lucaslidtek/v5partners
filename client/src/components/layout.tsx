@@ -19,19 +19,19 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
         return {
           title: "Investidor",
           icon: Target,
-          badgeColor: "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
+          badgeColor: "bg-primary/10 text-primary"
         };
       case "seller":
         return {
           title: "Vendedor",
           icon: Briefcase,
-          badgeColor: "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400"
+          badgeColor: "bg-secondary/10 text-secondary"
         };
       case "franchise":
         return {
           title: "Franqueadora",
           icon: Store,
-          badgeColor: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400"
+          badgeColor: "bg-accent/10 text-accent"
         };
       default:
         return null;

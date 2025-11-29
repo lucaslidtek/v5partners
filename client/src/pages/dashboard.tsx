@@ -1088,15 +1088,23 @@ export default function DashboardPage() {
                             )}
                           </div>
 
-                          {/* Action Button */}
-                          <Button 
-                            variant="outline" 
-                            className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
-                            onClick={() => setSelectedMatchId(match.id)}
-                            data-testid={`button-details-${match.id}`}
-                          >
-                            <Eye className="h-4 w-4 mr-1" /> Ver Detalhes
-                          </Button>
+                          {/* Action Buttons */}
+                          <div className="grid grid-cols-2 gap-2">
+                            <Button 
+                              className="bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
+                              onClick={() => updateMatchStage(match.id, 'interested')}
+                            >
+                              <Heart className="h-4 w-4 mr-1" /> Interesse
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                              onClick={() => setSelectedMatchId(match.id)}
+                              data-testid={`button-details-${match.id}`}
+                            >
+                              <Eye className="h-4 w-4 mr-1" /> Ver
+                            </Button>
+                          </div>
                         </div>
                       </Card>
                     </motion.div>
@@ -1208,13 +1216,49 @@ export default function DashboardPage() {
                               </div>
                             </div>
 
-                            {/* Action Button */}
-                            <Button 
-                              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
-                              onClick={() => setSelectedMatchId(process.id)}
-                            >
-                              <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
-                            </Button>
+                            {/* Action Buttons */}
+                            <div className="grid grid-cols-2 gap-2">
+                              {(() => {
+                                const getNextStep = (stage: Match['stage']) => {
+                                  switch(stage) {
+                                    case 'interested':
+                                      return { label: 'NDA', action: 'nda_signed', icon: Lock };
+                                    case 'nda_signed':
+                                      return { label: 'Reunião', action: 'meeting_scheduled', icon: Calendar };
+                                    default:
+                                      return null;
+                                  }
+                                };
+                                const nextStep = getNextStep(process.stage);
+                                return nextStep ? (
+                                  <>
+                                    <Button 
+                                      className="bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
+                                      onClick={() => updateMatchStage(process.id, nextStep.action as Match['stage'])}
+                                    >
+                                      <nextStep.icon className="h-4 w-4 mr-1" /> {nextStep.label}
+                                    </Button>
+                                    <Button 
+                                      variant="outline" 
+                                      className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                                      onClick={() => setSelectedMatchId(process.id)}
+                                      data-testid={`button-details-${process.id}`}
+                                    >
+                                      <Eye className="h-4 w-4 mr-1" /> Ver
+                                    </Button>
+                                  </>
+                                ) : (
+                                  <Button 
+                                    variant="outline" 
+                                    className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg col-span-2"
+                                    onClick={() => setSelectedMatchId(process.id)}
+                                    data-testid={`button-details-${process.id}`}
+                                  >
+                                    <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
+                                  </Button>
+                                );
+                              })()}
+                            </div>
                           </CardContent>
                         </Card>
                       </motion.div>

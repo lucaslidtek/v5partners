@@ -153,7 +153,7 @@ export default function SettingsPage() {
                   onClick={() => setLocation('/editar-perfil')}
                   data-testid="button-edit-profile"
                 >
-                  <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
+                  <Eye className="h-4 w-4 mr-1.5" /> Editar
                 </Button>
               </div>
             </div>

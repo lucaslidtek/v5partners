@@ -340,9 +340,6 @@ export default function DashboardPage() {
                 <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
                   <SheetHeader className="flex-shrink-0 pb-4">
                     <SheetTitle>Filtros Avançados</SheetTitle>
-                    <SheetDescription>
-                      Refine sua busca por oportunidades de investimento.
-                    </SheetDescription>
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto pr-4">
                     <div className="py-6 space-y-6">
@@ -809,12 +806,11 @@ export default function DashboardPage() {
         {isMobile ? (
           <Sheet open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
             <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
-              <SheetHeader className="flex-shrink-0 pb-4 border-b">
-                <div className="flex items-center gap-3 mb-2">
+              <SheetHeader className="flex-shrink-0 pb-4">
+                <div className="flex items-center gap-3">
                   {selectedMatch && renderLogo(selectedMatch)}
                   <SheetTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
                 </div>
-                <SheetDescription>{selectedMatch?.description}</SheetDescription>
               </SheetHeader>
               {selectedMatch && (
                 <div className="flex-1 overflow-y-auto pr-4">

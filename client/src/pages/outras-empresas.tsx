@@ -343,7 +343,7 @@ export default function OutrasEmpresasPage() {
                       data-testid={`button-view-company-${company.id}`}
                       onClick={() => setSelectedCompany(company)}
                     >
-                      <ChevronRight className="h-4 w-4 mr-2" /> Ver Detalhes
+                      <Lock className="h-3.5 w-3.5 mr-1.5" /> Mais Info
                     </Button>
                   </CardContent>
                 </Card>

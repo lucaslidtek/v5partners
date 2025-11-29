@@ -66,6 +66,7 @@ type OtherCompany = {
   revenue: string;
   employees: number;
   description: string;
+  matchScore: number;
   logo?: string;
   logoColor?: string;
 };
@@ -79,6 +80,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 5.2M",
     employees: 28,
     description: "Solução de software empresarial com foco em otimização de processos",
+    matchScore: 76,
     logo: "E1",
     logoColor: "bg-purple-500"
   },
@@ -90,6 +92,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 8.7M",
     employees: 52,
     description: "Rede de varejo especializada em produtos de qualidade premium",
+    matchScore: 52,
     logo: "E2",
     logoColor: "bg-orange-500"
   },
@@ -101,6 +104,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 3.9M",
     employees: 35,
     description: "Empresa de logística e distribuição com foco no nordeste",
+    matchScore: 38,
     logo: "E3",
     logoColor: "bg-cyan-500"
   },
@@ -112,6 +116,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 6.1M",
     employees: 42,
     description: "Produção e distribuição de alimentos com marca consolidada",
+    matchScore: 68,
     logo: "E4",
     logoColor: "bg-red-500"
   },
@@ -123,6 +128,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 4.5M",
     employees: 38,
     description: "Plataforma educacional com foco em treinamento corporativo",
+    matchScore: 82,
     logo: "E5",
     logoColor: "bg-green-500"
   },
@@ -134,6 +140,7 @@ const otherCompanies: OtherCompany[] = [
     revenue: "R$ 7.3M",
     employees: 45,
     description: "Consultoria especializada em transformação digital e estratégia",
+    matchScore: 45,
     logo: "E6",
     logoColor: "bg-indigo-500"
   },
@@ -1015,6 +1022,24 @@ export default function DashboardPage() {
                     </div>
 
                     <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2 flex-1">{company.description}</p>
+
+                    {(() => {
+                      const colors = getCompatibilityColor(company.matchScore);
+                      return (
+                        <div className={`${colors.bgColor} p-3 rounded-lg border ${colors.borderColor} mb-4`}>
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                            <span className={`text-sm font-bold ${colors.textColor}`}>{company.matchScore}%</span>
+                          </div>
+                          <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                              style={{ width: `${company.matchScore}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })()}
 
                     <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-700 mb-4">
                       <div>

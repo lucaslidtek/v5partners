@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "@/lib/context";
 import { Button } from "@/components/ui/button";
-import { Bell, User, LogOut, Settings, Target, Briefcase, Store } from "lucide-react";
+import { Bell, User, LogOut, Settings, Target, Briefcase, Store, Grid3x3, Plus } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -89,9 +89,13 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                             </DropdownMenuItem>
                           ))}
                           <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={() => setLocation("/meus-perfis")} data-testid="menu-manage-profiles">
+                            <Grid3x3 className="mr-2 h-4 w-4" />
+                            <span>Gerenciar Perfis</span>
+                          </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => setLocation("/perfil")} data-testid="menu-profile">
                             <User className="mr-2 h-4 w-4" />
-                            <span>Ver Perfil</span>
+                            <span>Ver Perfil Ativo</span>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

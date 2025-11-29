@@ -375,7 +375,7 @@ export default function DashboardPage() {
         {/* Stats Grid - Mobile only for "new" and "active" tabs */}
         {isMobile && (activeTab === "new" || activeTab === "active") && (
           <div className="grid grid-cols-2 gap-2 mb-3">
-            {stats.slice(0, 4).map((stat, index) => (
+            {(activeTab === "new" ? stats.slice(0, 2) : stats.slice(2, 4)).map((stat, index) => (
               <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-3 border border-primary/10 dark:border-slate-700">
                 <p className="text-2xs text-slate-600 dark:text-slate-400 font-medium mb-1.5">{stat.label}</p>
                 <p className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</p>

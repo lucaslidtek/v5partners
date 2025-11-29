@@ -119,8 +119,8 @@ export default function PerfilMultiplosPage() {
                       <Card
                         className={`h-full transition-all duration-300 cursor-pointer border-2 ${
                           isActive
-                            ? `${config.color} border-opacity-50`
-                            : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
+                            ? `${config.color} text-white border-opacity-50 shadow-lg`
+                            : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600"
                         } ${config.hoverColor}`}
                         onClick={() => switchProfile(profile.id)}
                         data-testid={`card-profile-${profile.id}`}
@@ -128,7 +128,7 @@ export default function PerfilMultiplosPage() {
                         {/* Active Indicator */}
                         {isActive && (
                           <div
-                            className={`absolute top-0 left-0 w-full h-1 ${config.color}`}
+                            className={`absolute top-0 left-0 w-full h-1 bg-white/50`}
                           />
                         )}
 
@@ -136,36 +136,56 @@ export default function PerfilMultiplosPage() {
                           <div className="flex items-start justify-between">
                             <div className="flex items-center gap-3">
                               <div
-                                className={`w-12 h-12 rounded-lg ${config.color}/10 flex items-center justify-center`}
+                                className={`w-12 h-12 rounded-lg ${
+                                  isActive 
+                                    ? 'bg-white/20' 
+                                    : `${config.color}/10`
+                                } flex items-center justify-center`}
                               >
                                 <Icon
-                                  className={`w-6 h-6 ${config.badgeColor}`}
+                                  className={`w-6 h-6 ${
+                                    isActive 
+                                      ? 'text-white' 
+                                      : config.badgeColor
+                                  }`}
                                 />
                               </div>
                               <div>
-                                <CardTitle className="text-lg">
+                                <CardTitle className={`text-lg ${isActive ? 'text-white' : ''}`}>
                                   {config.title}
                                 </CardTitle>
-                                <CardDescription className="text-sm mt-1">
+                                <CardDescription className={`text-sm mt-1 ${
+                                  isActive 
+                                    ? 'text-white/70' 
+                                    : 'text-slate-600 dark:text-slate-400'
+                                }`}>
                                   {profile.name}
                                 </CardDescription>
                               </div>
                             </div>
                             {isActive && (
-                              <CheckCircle2 className={`w-5 h-5 flex-shrink-0`} />
+                              <CheckCircle2 className={`w-5 h-5 flex-shrink-0 text-white`} />
                             )}
                           </div>
                         </CardHeader>
 
                         <CardContent>
-                          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                          <p className={`text-sm mb-4 ${
+                            isActive 
+                              ? 'text-white/80' 
+                              : 'text-slate-600 dark:text-slate-400'
+                          }`}>
                             {config.description}
                           </p>
 
-                          <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                          <div className={`pt-4 border-t ${
+                            isActive 
+                              ? 'border-white/20' 
+                              : 'border-slate-200 dark:border-slate-700'
+                          }`}>
                             <div className="flex flex-wrap gap-2">
                               {isActive ? (
-                                <span className={`inline-block ${config.badgeColor} px-3 py-1 rounded-full text-xs font-medium`}>
+                                <span className={`inline-block bg-white/20 text-white px-3 py-1 rounded-full text-xs font-medium`}>
                                   Ativo
                                 </span>
                               ) : (

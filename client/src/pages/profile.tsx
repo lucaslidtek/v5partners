@@ -324,11 +324,11 @@ export default function ProfilePage() {
                     <img 
                       src={user.profilePhoto} 
                       alt={user.name} 
-                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-primary shadow-md"
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border border-primary shadow-md"
                       data-testid="img-profile-photo"
                     />
                   ) : (
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border-4 border-primary shadow-md flex items-center justify-center">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border border-primary shadow-md flex items-center justify-center">
                       <span className="text-2xl sm:text-3xl font-bold text-white">{user?.name?.substring(0, 1)}</span>
                     </div>
                   )}

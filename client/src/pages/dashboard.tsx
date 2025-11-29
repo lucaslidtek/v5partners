@@ -375,21 +375,12 @@ export default function DashboardPage() {
         <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
           <div>
             <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
-              Olá, {user?.name || "Investidor"}! 👋
+              {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Processos Ativos" : "Outras Empresas"}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base">
               {activeTab === "new" ? "Explore novos matches recomendados para você" : activeTab === "active" ? "Acompanhe seus processos em andamento" : "Oportunidades adicionais de investimento"}
             </p>
           </div>
-          {isMobile && (activeTab === "new" || activeTab === "active") && (
-            <Button 
-              variant="outline"
-              className="h-10 px-3 rounded-lg font-semibold border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 flex-shrink-0 whitespace-nowrap"
-              onClick={() => setLocation('/avaliacao')}
-            >
-              <TrendingUp className="h-4 w-4 mr-2" /> Novo Valuation
-            </Button>
-          )}
         </div>
 
         {/* Stats Grid - Desktop & Mobile Carousel - Only show on New and Active tabs */}

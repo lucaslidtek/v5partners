@@ -1098,7 +1098,7 @@ export default function DashboardPage() {
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
                                 </div>
                                 {match.isNew && (
-                                  <span className="text-base px-2 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                                  <span className="text-xs px-1.5 py-0.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
                                 )}
                               </div>
                             );

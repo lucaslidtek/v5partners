@@ -146,9 +146,23 @@ export default function OutrasEmpresasPage() {
 
   const renderLogo = (company: Company) => {
     const colors = getCompatibilityColor(company.matchScore);
+    const getBackgroundColor = (barColor: string) => {
+      // Convert solid color to light/opaque version
+      if (barColor === 'bg-emerald-500') return 'bg-emerald-100 dark:bg-emerald-900/30';
+      if (barColor === 'bg-amber-500') return 'bg-amber-100 dark:bg-amber-900/30';
+      if (barColor === 'bg-red-500') return 'bg-red-100 dark:bg-red-900/30';
+      return 'bg-slate-100 dark:bg-slate-800';
+    };
+    const getIconColor = (barColor: string) => {
+      // Get darker icon color for light backgrounds
+      if (barColor === 'bg-emerald-500') return 'text-emerald-600 dark:text-emerald-400';
+      if (barColor === 'bg-amber-500') return 'text-amber-600 dark:text-amber-400';
+      if (barColor === 'bg-red-500') return 'text-red-600 dark:text-red-400';
+      return 'text-slate-400';
+    };
     return (
-      <div className={`h-12 w-12 rounded-lg ${colors.barColor} flex items-center justify-center flex-shrink-0`}>
-        <span className="text-white font-bold text-xs">{company.logo}</span>
+      <div className={`h-12 w-12 rounded-lg ${getBackgroundColor(colors.barColor)} flex items-center justify-center flex-shrink-0`}>
+        <Lock className={`h-5 w-5 ${getIconColor(colors.barColor)}`} />
       </div>
     );
   };

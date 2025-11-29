@@ -69,49 +69,43 @@ Este documento descreve o padrão visual e os componentes utilizados em toda a a
 #### Botão Primário
 ```jsx
 <Button 
-  className="bg-primary hover:bg-primary/90 text-white font-semibold"
+  className="bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
   onClick={() => handleAction()}
 >
-  <Icon className="h-4 w-4 mr-1.5" /> Ação Principal
+  <HeartIcon className="h-4 w-4 mr-1" /> Tenho Interesse
 </Button>
 ```
 - Fundo azul royal (#00205D)
 - Texto branco, bold
-- Com ícone à esquerda (`mr-1.5` de margem)
-- Usado para ações principais/submit
-- Hover estado: escurece 10% (`hover:bg-primary/90`)
+- Com ícone à esquerda (`mr-1` de margem)
+- Altura: `h-9` (36px)
+- Tamanho texto: `text-sm`
+- Border radius: `rounded-lg`
+- Hover: escurece 10% (`hover:bg-primary/90`)
+- Active: diminui levemente (`active:scale-95`)
 - **Variante**: padrão (sem variant especificado)
+- **Exemplo de uso**: "Tenho Interesse", ações de confirmação
 
 #### Botão Secundário
 ```jsx
 <Button 
   variant="outline" 
-  className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold"
+  className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
   onClick={() => handleAction()}
 >
-  <Icon className="h-4 w-4 mr-1" /> Ação Secundária
+  Ver Detalhes
 </Button>
 ```
 - Borda cinza clara (#E3E8F0)
-- Sem fundo ou fundo do card
-- Usado para ações alternativas ou menos destacadas
-- Hover: fundo suave cinzento
+- Sem fundo ou fundo suave no hover
+- Texto escuro
+- Altura: `h-9` (36px)
+- Tamanho texto: `text-sm`
+- Border radius: `rounded-lg`
+- Hover: fundo cinzento suave
 - **Variante**: `outline`
+- **Exemplo de uso**: "Editar", "Ver Detalhes", ações secundárias
 
-#### Botão "Ver Detalhes" (Primário com Ícone)
-```jsx
-<Button 
-  onClick={() => handleViewDetails()}
-  data-testid="button-details-id"
->
-  <Eye className="h-4 w-4 mr-1.5" /> Ver Detalhes
-</Button>
-```
-- Botão primário (azul royal)
-- Sempre com ícone `Eye` à esquerda
-- Espaçamento: `mr-1.5` entre ícone e texto
-- Usado para abrir/visualizar detalhes de um item
-- **Variante**: padrão (sem variant)
 
 #### Botão Ghost
 ```jsx

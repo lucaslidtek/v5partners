@@ -1,7 +1,7 @@
 import { Layout } from "@/components/layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Bell, Moon, Share2, Lock, Eye, Globe } from "lucide-react";
+import { ArrowLeft, Bell, Moon, Share2, Lock, Eye, Globe, Pencil } from "lucide-react";
 import { useLocation } from "wouter";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/lib/context";
@@ -155,7 +155,7 @@ export default function SettingsPage() {
                   onClick={() => setLocation('/editar-perfil')}
                   data-testid="button-edit-profile"
                 >
-                  Editar
+                  <Pencil className="h-4 w-4 mr-1" /> Editar
                 </Button>
               </div>
             </div>

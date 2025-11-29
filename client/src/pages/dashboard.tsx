@@ -1099,16 +1099,27 @@ export default function DashboardPage() {
                       <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-lg">
                         <div className="p-4">
                           {/* Header */}
-                          <div className="flex gap-2 items-start mb-2">
-                            <div className="flex-shrink-0">{renderLogo(match)}</div>
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                              <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
-                            </div>
-                            {match.isNew && (
-                              <span className="text-2xs px-2 py-1 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
-                            )}
-                          </div>
+                          {(() => {
+                            const colors = getCompatibilityColor(match.matchScore);
+                            return (
+                              <div className="flex gap-2 items-start mb-2">
+                                <div className={`h-10 w-10 rounded-lg ${colors.barColor} flex items-center justify-center flex-shrink-0`}>
+                                  {match.logo ? (
+                                    <span className="text-white font-bold text-xs">{match.logo}</span>
+                                  ) : (
+                                    <Lock className="h-5 w-5 text-white" />
+                                  )}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                                  <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
+                                </div>
+                                {match.isNew && (
+                                  <span className="text-2xs px-2 py-1 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                                )}
+                              </div>
+                            );
+                          })()}
                           <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{match.location}</p>
 
                           {/* Compatibility Score */}
@@ -1251,13 +1262,24 @@ export default function DashboardPage() {
                         <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 rounded-lg`}>
                           <CardContent className="p-4">
                             {/* Header */}
-                            <div className="flex gap-2 items-start mb-2">
-                              <div className="flex-shrink-0">{renderLogo(process)}</div>
-                              <div className="flex-1 min-w-0">
-                                <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
-                                <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
-                              </div>
-                            </div>
+                            {(() => {
+                              const colors = getCompatibilityColor(process.matchScore);
+                              return (
+                                <div className="flex gap-2 items-start mb-2">
+                                  <div className={`h-10 w-10 rounded-lg ${colors.barColor} flex items-center justify-center flex-shrink-0`}>
+                                    {process.logo ? (
+                                      <span className="text-white font-bold text-xs">{process.logo}</span>
+                                    ) : (
+                                      <Lock className="h-5 w-5 text-white" />
+                                    )}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
+                                    <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
+                                  </div>
+                                </div>
+                              );
+                            })()}
 
                             {/* Location & Status Badge */}
                             <div className="flex gap-2 items-center mb-3">

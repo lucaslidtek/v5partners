@@ -147,7 +147,7 @@ export default function OutrasEmpresasPage() {
 
   const renderLogo = (company: Company) => {
     return (
-      <CompatibilityLogo matchScore={company.matchScore} logoText={company.logo} isConfidential={false} size="md" />
+      <CompatibilityLogo matchScore={company.matchScore} isConfidential={true} size="md" />
     );
   };
 

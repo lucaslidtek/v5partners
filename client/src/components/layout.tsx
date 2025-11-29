@@ -10,7 +10,7 @@ import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 import { useContext } from "react";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
-  const { user, logout, settings } = useAuth();
+  const { user, logout, settings, switchProfile } = useAuth();
   const [, setLocation] = useLocation();
 
   const getProfileInfo = () => {
@@ -63,10 +63,38 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                   <div className="text-right hidden sm:block">
                     <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
                     {profileInfo && ProfileIcon && (
-                      <div className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-2 justify-end w-fit ml-auto`} data-testid="badge-profile-type-header">
-                        <ProfileIcon className="w-3 h-3" />
-                        <span>{profileInfo.title}</span>
-                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <div 
+                            className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-2 justify-end w-fit ml-auto cursor-pointer hover:opacity-80 transition-opacity`} 
+                            data-testid="badge-profile-type-header"
+                          >
+                            <ProfileIcon className="w-3 h-3" />
+                            <span>{profileInfo.title}</span>
+                          </div>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-56">
+                          <div className="px-2 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Meus Perfis</div>
+                          {user.profiles?.map((profile) => (
+                            <DropdownMenuItem 
+                              key={profile.id}
+                              onClick={() => switchProfile(profile.id)}
+                              className="cursor-pointer"
+                              data-testid={`menu-switch-profile-${profile.id}`}
+                            >
+                              <div className="flex items-center gap-2 w-full">
+                                <div className={`w-2 h-2 rounded-full ${user.activeProfileId === profile.id ? 'bg-primary' : 'bg-slate-300'}`} />
+                                <span>{profile.name}</span>
+                              </div>
+                            </DropdownMenuItem>
+                          ))}
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem onClick={() => setLocation("/perfil")} data-testid="menu-profile">
+                            <User className="mr-2 h-4 w-4" />
+                            <span>Ver Perfil</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     )}
                   </div>
                   

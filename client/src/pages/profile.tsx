@@ -7,11 +7,11 @@ import { Target, Briefcase, Store } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user, activeProfile } = useAuth();
   const [, setLocation] = useLocation();
 
   const getProfileInfo = () => {
-    switch(user?.role) {
+    switch(activeProfile?.type) {
       case "investor":
         return {
           title: "Investidor / Comprador",
@@ -46,6 +46,9 @@ export default function ProfilePage() {
 
   const profileInfo = getProfileInfo();
   const ProfileIcon = profileInfo?.icon;
+  
+  // Get profile data from activeProfile
+  const profileData = activeProfile?.data || {};
 
   const renderInvestorProfile = () => (
     <div className="space-y-6">
@@ -61,64 +64,64 @@ export default function ProfilePage() {
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Localização</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-location">{user?.location || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-location">{profileData?.location || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Faixa Etária</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-age">{user?.ageRange || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-age">{profileData?.ageRange || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Formação</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-education">{user?.education || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-education">{profileData?.education || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Faixa de Investimento</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-investment">{user?.investmentRange || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-investment">{profileData?.investmentRange || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Modalidade Desejada</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-modality">{user?.modality || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-modality">{profileData?.modality || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Retorno Desejado</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-roi">{user?.roiTime || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-roi">{profileData?.roiTime || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Experiência Anterior em Empresas</label>
         <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-experience">
-          {user?.hasExperience === true ? "Sim" : user?.hasExperience === false ? "Não" : "-"}
+          {profileData?.hasExperience === true ? "Sim" : profileData?.hasExperience === false ? "Não" : "-"}
         </p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Setores de Experiência</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-sectors">{user?.experienceSectors || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-sectors">{profileData?.experienceSectors || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Habilidades Predominantes</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-skills">{user?.skills || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-skills">{profileData?.skills || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Setores de Interesse</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-interest-sectors">{user?.interestSectors || "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-interest-sectors">{profileData?.interestSectors || "-"}</p>
       </div>
 
       <div className="border-b border-border dark:border-slate-700 pb-6">
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Grau de Envolvimento Operacional</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-involvement">{user?.operationalInvolvement ? `${user.operationalInvolvement}%` : "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-involvement">{profileData?.operationalInvolvement ? `${profileData.operationalInvolvement}%` : "-"}</p>
       </div>
 
       <div>
         <label className="text-sm font-medium text-muted-foreground dark:text-slate-400 block mb-2">Tolerância ao Risco</label>
-        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-risk-tolerance">{user?.riskTolerance ? `${user.riskTolerance}%` : "-"}</p>
+        <p className="text-lg font-semibold dark:text-white" data-testid="text-profile-risk-tolerance">{profileData?.riskTolerance ? `${profileData.riskTolerance}%` : "-"}</p>
       </div>
     </div>
   );

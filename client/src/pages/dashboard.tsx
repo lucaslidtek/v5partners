@@ -392,7 +392,8 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Stats Grid - Desktop & Mobile Carousel */}
+        {/* Stats Grid - Desktop & Mobile Carousel - Only show on New and Active tabs */}
+        {activeTab !== 'others' && (
         <div className={`${isMobile ? 'mb-6 overflow-x-auto pb-2' : 'mb-8'}`}>
           <div className={`${isMobile ? 'flex gap-4 pb-2 min-w-min' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'}`}>
             {stats.map((stat, index) => (
@@ -410,6 +411,7 @@ export default function DashboardPage() {
             ))}
           </div>
         </div>
+        )}
 
         {/* Search and Filter Bar */}
         <div className={`flex ${isMobile ? 'flex-col gap-3 mb-6' : 'flex-col md:flex-row gap-4 mb-8'}`}>

@@ -1750,7 +1750,7 @@ export default function DashboardPage() {
                 data-testid="tab-bar-button-others"
               >
                 <Building2 className="h-5 w-5 mb-0.5" />
-                <span className="text-xs font-medium text-center">Outras</span>
+                <span className="text-xs font-medium text-center">Outros</span>
               </button>
             </div>
           </div>

@@ -27,20 +27,20 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
             </div>
 
             {user && (
-              <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-muted">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200">
                   <Bell className="h-5 w-5" />
                 </Button>
-                <div className="flex items-center gap-3 pl-4 border-l border-border">
+                <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
                   <div className="text-right hidden sm:block">
-                    <p className="text-sm font-semibold text-foreground">{user.name}</p>
-                    <p className="text-xs text-muted-foreground capitalize">{user.role === 'investor' ? 'Investidor' : user.role}</p>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 capitalize mt-1">{user.role === 'investor' ? 'Investidor' : user.role}</p>
                   </div>
                   
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button 
-                        className="h-8 w-8 rounded-full bg-muted border border-border flex items-center justify-center text-primary font-medium hover:bg-muted/80 transition-colors cursor-pointer"
+                        className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold hover:shadow-md hover:shadow-blue-500/30 transition-all duration-200 cursor-pointer"
                         data-testid="button-user-menu"
                       >
                         {user.name.substring(0, 2).toUpperCase()}
@@ -68,7 +68,7 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                     size="icon" 
                     onClick={logout} 
                     title="Sair" 
-                    className="hidden sm:flex text-muted-foreground hover:text-destructive"
+                    className="hidden sm:flex text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors duration-200"
                     data-testid="button-logout-desktop"
                   >
                     <LogOut className="h-4 w-4" />

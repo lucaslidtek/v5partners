@@ -310,22 +310,23 @@ export default function ProfilePage() {
 
           {/* Profile Header Card */}
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg dark:shadow-slate-950/50 overflow-hidden mb-8">
-            <div className="h-32 sm:h-40 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent dark:from-primary/20" />
+            {/* Hero Background (Comentado para uso futuro) */}
+            {/* <div className="h-32 sm:h-40 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent dark:from-primary/20" /> */}
             
-            <div className="px-6 sm:px-8 pb-6 sm:pb-8">
+            <div className="px-6 sm:px-8 py-6 sm:py-8">
               {/* Profile Photo and Title */}
-              <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-16 sm:-mt-20 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
                 <div className="flex-shrink-0">
                   {user?.profilePhoto ? (
                     <img 
                       src={user.profilePhoto} 
                       alt={user.name} 
-                      className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl object-cover border-4 border-white dark:border-slate-900 shadow-lg"
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-4 border-primary shadow-md"
                       data-testid="img-profile-photo"
                     />
                   ) : (
-                    <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border-4 border-white dark:border-slate-900 shadow-lg flex items-center justify-center">
-                      <span className="text-4xl sm:text-5xl font-bold text-white">{user?.name?.substring(0, 1)}</span>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border-4 border-primary shadow-md flex items-center justify-center">
+                      <span className="text-2xl sm:text-3xl font-bold text-white">{user?.name?.substring(0, 1)}</span>
                     </div>
                   )}
                 </div>
@@ -338,17 +339,6 @@ export default function ProfilePage() {
                       <span>{profileInfo.title}</span>
                     </div>
                   )}
-                </div>
-
-                {/* Mobile: Stack edit button */}
-                <div className="sm:hidden w-full">
-                  <Button 
-                    onClick={() => setLocation('/editar-perfil')}
-                    data-testid="button-edit-profile-mobile"
-                    className="w-full bg-primary hover:bg-primary/90"
-                  >
-                    Editar Perfil
-                  </Button>
                 </div>
               </div>
 

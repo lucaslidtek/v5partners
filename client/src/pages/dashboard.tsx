@@ -1091,7 +1091,10 @@ export default function DashboardPage() {
                               <div className="flex gap-2 items-start mb-2">
                                 {renderLogo(match, match.matchScore)}
                                 <div className="flex-1 min-w-0">
-                                  <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                                    <Badge className={`${getTypeColor(match.type)} text-2xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                                  </div>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
                                 </div>
                                 {match.isNew && (

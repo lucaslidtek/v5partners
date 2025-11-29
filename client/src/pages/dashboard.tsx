@@ -337,16 +337,17 @@ export default function DashboardPage() {
                     <Filter className="h-4 w-4 text-slate-600" />
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="bottom" className="rounded-t-3xl">
-                  <SheetHeader>
+                <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
+                  <SheetHeader className="flex-shrink-0 pb-4">
                     <SheetTitle>Filtros Avançados</SheetTitle>
                     <SheetDescription>
                       Refine sua busca por oportunidades de investimento.
                     </SheetDescription>
                   </SheetHeader>
-                  <div className="py-6 space-y-6">
-                    <div className="space-y-2">
-                      <Label>Faixa de Valor (Valuation)</Label>
+                  <div className="flex-1 overflow-y-auto pr-4">
+                    <div className="py-6 space-y-6">
+                      <div className="space-y-2">
+                        <Label>Faixa de Valor (Valuation)</Label>
                       <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
                           {getValuationLabel(sliderValue[0])}
@@ -396,10 +397,11 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-4 pb-4">
                       <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
                         Aplicar Filtros
                       </Button>
+                    </div>
                     </div>
                   </div>
                 </SheetContent>
@@ -414,16 +416,17 @@ export default function DashboardPage() {
                     <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
                   </Button>
                 </SheetTrigger>
-                <SheetContent>
-                  <SheetHeader>
+                <SheetContent className="flex flex-col h-screen">
+                  <SheetHeader className="flex-shrink-0 pb-4">
                     <SheetTitle>Filtros Avançados</SheetTitle>
                     <SheetDescription>
                       Refine sua busca por oportunidades de investimento.
                     </SheetDescription>
                   </SheetHeader>
-                  <div className="py-6 space-y-6">
-                    <div className="space-y-2">
-                      <Label>Faixa de Valor (Valuation)</Label>
+                  <div className="flex-1 overflow-y-auto pr-4">
+                    <div className="py-6 space-y-6">
+                      <div className="space-y-2">
+                        <Label>Faixa de Valor (Valuation)</Label>
                       <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
                           {getValuationLabel(sliderValue[0])}
@@ -473,10 +476,11 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-4 pb-4">
                       <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
                         Aplicar Filtros
                       </Button>
+                    </div>
                     </div>
                   </div>
                 </SheetContent>
@@ -804,8 +808,8 @@ export default function DashboardPage() {
         {/* Match Details - Sheet for Mobile, Dialog for Desktop */}
         {isMobile ? (
           <Sheet open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
-            <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh]">
-              <SheetHeader className="mb-6">
+            <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
+              <SheetHeader className="flex-shrink-0 pb-4 border-b">
                 <div className="flex items-center gap-3 mb-2">
                   {selectedMatch && renderLogo(selectedMatch)}
                   <SheetTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
@@ -813,9 +817,10 @@ export default function DashboardPage() {
                 <SheetDescription>{selectedMatch?.description}</SheetDescription>
               </SheetHeader>
               {selectedMatch && (
-                <div className="space-y-6">
-                  {/* Match Score */}
-                  <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
+                <div className="flex-1 overflow-y-auto pr-4">
+                  <div className="space-y-6 pb-6">
+                    {/* Match Score */}
+                    <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
                       <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
@@ -892,6 +897,7 @@ export default function DashboardPage() {
                         }}
                       />
                     </div>
+                  </div>
                   </div>
                 </div>
               )}

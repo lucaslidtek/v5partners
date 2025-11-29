@@ -150,6 +150,7 @@ export default function SettingsPage() {
                   <p className="text-sm text-muted-foreground dark:text-slate-400">Edite suas informações pessoais</p>
                 </div>
                 <Button 
+                  className="bg-white dark:bg-slate-100 text-slate-900 hover:bg-slate-50 dark:hover:bg-slate-200 border-0"
                   onClick={() => setLocation('/editar-perfil')}
                   data-testid="button-edit-profile"
                 >

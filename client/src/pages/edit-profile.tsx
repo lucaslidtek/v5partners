@@ -54,6 +54,11 @@ export default function EditProfilePage() {
     }
   };
 
+  const handleSave = () => {
+    updateUserData(formData);
+    setLocation("/perfil");
+  };
+
   const getStepTitle = () => {
     if (role === "investor") {
       switch (step) {
@@ -626,7 +631,7 @@ export default function EditProfilePage() {
               </motion.div>
             </AnimatePresence>
           </CardContent>
-          <CardFooter className="flex justify-between border-t border-slate-200 dark:border-slate-700 p-6">
+          <CardFooter className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 p-6">
             <Button 
               variant="ghost" 
               onClick={handleBack} 
@@ -636,14 +641,24 @@ export default function EditProfilePage() {
             >
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
-            <Button 
-              onClick={handleNext}
-              className="bg-primary hover:bg-primary/90"
-              data-testid="button-next-footer"
-            >
-              {step === totalSteps ? "Finalizar" : "Próximo"} 
-              {step !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline"
+                onClick={handleSave}
+                className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
+                data-testid="button-save-footer"
+              >
+                Salvar
+              </Button>
+              <Button 
+                onClick={handleNext}
+                className="bg-primary hover:bg-primary/90"
+                data-testid="button-next-footer"
+              >
+                {step === totalSteps ? "Finalizar" : "Próximo"} 
+                {step !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       </div>

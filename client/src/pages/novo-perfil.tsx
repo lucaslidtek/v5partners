@@ -629,6 +629,7 @@ export default function NovoPerfilPage() {
             <CardFooter className="flex justify-between gap-4">
               <Button
                 variant="outline"
+                className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 rounded-lg"
                 onClick={handleBack}
                 data-testid="button-back-step"
               >

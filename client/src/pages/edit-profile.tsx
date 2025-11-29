@@ -118,7 +118,11 @@ export default function EditProfilePage() {
                   </div>
                   <div className="flex-1">
                     <label htmlFor="photo-upload" className="cursor-pointer">
-                      <Button variant="outline" size="sm" asChild>
+                      <Button 
+                        variant="outline"
+                        className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                        asChild
+                      >
                         <span data-testid="button-upload-photo">Escolher Foto</span>
                       </Button>
                     </label>
@@ -361,7 +365,11 @@ export default function EditProfilePage() {
                   </div>
                   <div className="flex-1">
                     <label htmlFor="photo-upload" className="cursor-pointer">
-                      <Button variant="outline" size="sm" asChild>
+                      <Button 
+                        variant="outline"
+                        className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                        asChild
+                      >
                         <span data-testid="button-upload-photo">Escolher Foto</span>
                       </Button>
                     </label>

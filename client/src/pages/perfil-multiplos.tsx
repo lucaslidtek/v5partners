@@ -190,9 +190,8 @@ export default function PerfilMultiplosPage() {
                                 </span>
                               ) : (
                                 <Button
-                                  size="sm"
                                   variant="outline"
-                                  className="mt-2"
+                                  className="mt-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     switchProfile(profile.id);

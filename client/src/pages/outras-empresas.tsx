@@ -208,7 +208,7 @@ export default function OutrasEmpresasPage() {
 
                     <Button 
                       variant="outline" 
-                      className="w-full text-sm border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 font-medium transition-colors"
+                      className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
                       data-testid={`button-view-company-${company.id}`}
                       onClick={() => setSelectedCompany(company)}
                     >

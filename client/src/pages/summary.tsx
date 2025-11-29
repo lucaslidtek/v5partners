@@ -100,7 +100,10 @@ export default function SummaryPage() {
                         <p className="text-xs text-slate-500">Validação obrigatória para contato com vendedores</p>
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" className="w-full border-primary text-primary hover:bg-primary/5">
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                    >
                       <Upload className="mr-2 h-3 w-3" /> Enviar Documentos
                     </Button>
                   </CardContent>
@@ -138,7 +141,12 @@ export default function SummaryPage() {
           <Button className="flex-1 h-12 text-base bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" onClick={() => setLocation("/dashboard")} data-testid="button-finish-profile">
             Finalizar Perfil Agora <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button variant="outline" className="flex-1 h-12 text-base border-slate-200 bg-white" onClick={() => setLocation("/dashboard")} data-testid="button-continue-later">
+          <Button 
+            variant="outline" 
+            className="flex-1 h-12 text-base border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors rounded-lg" 
+            onClick={() => setLocation("/dashboard")} 
+            data-testid="button-continue-later"
+          >
             <Clock className="mr-2 h-4 w-4" /> Continuar Depois
           </Button>
         </div>

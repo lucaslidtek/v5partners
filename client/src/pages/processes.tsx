@@ -166,7 +166,10 @@ export default function ProcessesPage() {
                             <p className="text-xs text-slate-500">Receita</p>
                             <p className="font-bold text-slate-900">{process.revenue}</p>
                           </div>
-                          <Button size="sm" variant="outline" className="w-full">
+                          <Button 
+                            variant="outline" 
+                            className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                          >
                             Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
                           </Button>
                         </div>

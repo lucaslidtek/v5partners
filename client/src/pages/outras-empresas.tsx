@@ -364,29 +364,29 @@ export default function OutrasEmpresasPage() {
               </SheetHeader>
               {selectedCompany && (
                 <div className="flex-1 overflow-y-auto pr-4 space-y-6">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
+                  </div>
+
                   {/* Compatibility Score */}
                   {(() => {
                     const colors = getCompatibilityColor(selectedCompany.matchScore);
                     return (
-                      <div className={`${colors.bgColor} rounded-lg p-4 border ${colors.borderColor}`}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-bold text-slate-700">Compatibilidade</span>
-                          <span className={`text-lg font-bold ${colors.textColor}`}>{selectedCompany.matchScore}%</span>
+                      <div className="mb-3">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                          <span className={`text-sm font-bold ${colors.textColor}`}>{selectedCompany.matchScore}%</span>
                         </div>
-                        <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                           <div 
-                            className={`h-full ${colors.barColor} rounded-full`}
+                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`}
                             style={{ width: `${selectedCompany.matchScore}%` }}
                           />
                         </div>
                       </div>
                     );
                   })()}
-
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
-                  </div>
 
                   <div className="space-y-4">
                     <h4 className="font-semibold text-slate-900 dark:text-white">Informações</h4>
@@ -433,29 +433,29 @@ export default function OutrasEmpresasPage() {
 
               {selectedCompany && (
                 <div className="space-y-6">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
+                  </div>
+
                   {/* Compatibility Score */}
                   {(() => {
                     const colors = getCompatibilityColor(selectedCompany.matchScore);
                     return (
-                      <div className={`${colors.bgColor} rounded-lg p-4 border ${colors.borderColor}`}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm font-bold text-slate-700">Compatibilidade</span>
-                          <span className={`text-lg font-bold ${colors.textColor}`}>{selectedCompany.matchScore}%</span>
+                      <div className="mb-3">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                          <span className={`text-sm font-bold ${colors.textColor}`}>{selectedCompany.matchScore}%</span>
                         </div>
-                        <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                           <div 
-                            className={`h-full ${colors.barColor} rounded-full`}
+                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`}
                             style={{ width: `${selectedCompany.matchScore}%` }}
                           />
                         </div>
                       </div>
                     );
                   })()}
-
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
-                  </div>
 
                   <div className="space-y-4">
                     <h4 className="font-semibold text-slate-900 dark:text-white">Informações</h4>

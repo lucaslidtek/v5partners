@@ -801,102 +801,199 @@ export default function DashboardPage() {
           </TabsContent>
         </Tabs>
 
-        {/* Match Details Dialog */}
-        <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
-          <DialogContent className={`${isMobile ? 'max-w-full mx-2 max-h-[80vh]' : 'max-w-2xl max-h-[90vh]'} overflow-y-auto`}>
-            <DialogHeader>
-              <div className="flex items-center gap-3 mb-2">
-                {selectedMatch && renderLogo(selectedMatch)}
-                <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
-              </div>
-              <DialogDescription>{selectedMatch?.description}</DialogDescription>
-            </DialogHeader>
-            
-            {selectedMatch && (
-              <div className="space-y-6">
-                {/* Match Score */}
-                <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
-                    <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
-                  </div>
-                  <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-primary rounded-full" 
-                      style={{ width: `${selectedMatch.matchScore}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-slate-500 mt-2">
-                    Excelente match: empresa no seu setor preferido com múltiplo atrativo
-                  </p>
+        {/* Match Details - Sheet for Mobile, Dialog for Desktop */}
+        {isMobile ? (
+          <Sheet open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
+            <SheetContent side="bottom" className="rounded-t-3xl max-h-[85vh]">
+              <SheetHeader className="mb-6">
+                <div className="flex items-center gap-3 mb-2">
+                  {selectedMatch && renderLogo(selectedMatch)}
+                  <SheetTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
                 </div>
+                <SheetDescription>{selectedMatch?.description}</SheetDescription>
+              </SheetHeader>
+              {selectedMatch && (
+                <div className="space-y-6">
+                  {/* Match Score */}
+                  <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                      <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
+                    </div>
+                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary rounded-full" 
+                        style={{ width: `${selectedMatch.matchScore}%` }}
+                      />
+                    </div>
+                    <p className="text-xs text-slate-500 mt-2">
+                      Excelente match: empresa no seu setor preferido com múltiplo atrativo
+                    </p>
+                  </div>
 
-                {/* Detailed Metrics */}
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-slate-900">Métricas Financeiras</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
-                      <p className="font-bold text-slate-900">{selectedMatch.revenue}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">EBITDA</p>
-                      <p className="font-bold text-green-600">{selectedMatch.ebitda}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Funcionários</p>
-                      <p className="font-bold text-slate-900">{selectedMatch.employees}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Setor</p>
-                      <p className="font-bold text-slate-900">{selectedMatch.sector}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <p className="text-xs text-slate-500 mb-1">Localização</p>
-                      <p className="font-bold text-slate-900">{selectedMatch.location}</p>
-                    </div>
-                    <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
-                      <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
-                      <p className="font-bold text-primary">{selectedMatch.price}</p>
+                  {/* Detailed Metrics */}
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-slate-900">Métricas Financeiras</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.revenue}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">EBITDA</p>
+                        <p className="font-bold text-green-600">{selectedMatch.ebitda}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Funcionários</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.employees}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Setor</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.sector}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Localização</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.location}</p>
+                      </div>
+                      <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
+                        <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
+                        <p className="font-bold text-primary">{selectedMatch.price}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Tags */}
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-slate-900">Diferenciais</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedMatch.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600">
-                        {tag}
-                      </Badge>
-                    ))}
+                  {/* Tags */}
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900">Diferenciais</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedMatch.tags.map(tag => (
+                        <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* Stage Information */}
-                <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-slate-900">Status do Processo</h4>
-                  <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
-                    <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
-                    <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                    <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
-                    <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                    <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
-                  </div>
-                  <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-primary transition-all duration-500" 
-                      style={{ 
-                        width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
-                      }}
-                    />
+                  {/* Stage Information */}
+                  <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-slate-900">Status do Processo</h4>
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+                      <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                    </div>
+                    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary transition-all duration-500" 
+                        style={{ 
+                          width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
+              )}
+            </SheetContent>
+          </Sheet>
+        ) : (
+          <Dialog open={!!selectedMatch} onOpenChange={(open) => !open && setSelectedMatchId(null)}>
+            <DialogContent className={`max-w-2xl max-h-[90vh] overflow-y-auto`}>
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  {selectedMatch && renderLogo(selectedMatch)}
+                  <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
+                </div>
+                <DialogDescription>{selectedMatch?.description}</DialogDescription>
+              </DialogHeader>
+              
+              {selectedMatch && (
+                <div className="space-y-6">
+                  {/* Match Score */}
+                  <div className="bg-sky-50 rounded-lg p-4 border border-sky-100">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-slate-700">Compatibilidade com seu perfil</span>
+                      <span className="text-lg font-bold text-primary">{selectedMatch.matchScore}%</span>
+                    </div>
+                    <div className="h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary rounded-full" 
+                        style={{ width: `${selectedMatch.matchScore}%` }}
+                      />
+                    </div>
+                    <p className="text-xs text-slate-500 mt-2">
+                      Excelente match: empresa no seu setor preferido com múltiplo atrativo
+                    </p>
+                  </div>
+
+                  {/* Detailed Metrics */}
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-slate-900">Métricas Financeiras</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Receita Anual</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.revenue}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">EBITDA</p>
+                        <p className="font-bold text-green-600">{selectedMatch.ebitda}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Funcionários</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.employees}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Setor</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.sector}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 rounded-lg">
+                        <p className="text-xs text-slate-500 mb-1">Localização</p>
+                        <p className="font-bold text-slate-900">{selectedMatch.location}</p>
+                      </div>
+                      <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
+                        <p className="text-xs text-slate-500 mb-1">Preço Pedido</p>
+                        <p className="font-bold text-primary">{selectedMatch.price}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900">Diferenciais</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedMatch.tags.map(tag => (
+                        <Badge key={tag} variant="outline" className="border-slate-200 text-slate-600">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Stage Information */}
+                  <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-slate-900">Status do Processo</h4>
+                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+                      <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
+                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
+                      <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                    </div>
+                    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-primary transition-all duration-500" 
+                        style={{ 
+                          width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </Layout>
   );

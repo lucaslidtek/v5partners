@@ -2,13 +2,102 @@ import { Layout } from "@/components/layout";
 import { useAuth } from "@/lib/context";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Lock } from "lucide-react";
 import { Target, Briefcase, Store } from "lucide-react";
 import { useLocation } from "wouter";
+import { useState } from "react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+
+type Company = {
+  id: number;
+  name: string;
+  sector: string;
+  location: string;
+  revenue: string;
+  employees: number;
+  description: string;
+  logo?: string;
+  logoColor?: string;
+};
+
+const otherCompanies: Company[] = [
+  {
+    id: 101,
+    name: "Empresa Confidencial #101",
+    sector: "Tecnologia",
+    location: "Rio de Janeiro, RJ",
+    revenue: "R$ 5.2M",
+    employees: 28,
+    description: "Solução de software empresarial com foco em otimização de processos",
+    logo: "E1",
+    logoColor: "bg-purple-500"
+  },
+  {
+    id: 102,
+    name: "Empresa Confidencial #102",
+    sector: "Varejo",
+    location: "Belo Horizonte, MG",
+    revenue: "R$ 8.7M",
+    employees: 52,
+    description: "Rede de varejo especializada em produtos de qualidade premium",
+    logo: "E2",
+    logoColor: "bg-orange-500"
+  },
+  {
+    id: 103,
+    name: "Empresa Confidencial #103",
+    sector: "Logística",
+    location: "Salvador, BA",
+    revenue: "R$ 3.9M",
+    employees: 35,
+    description: "Empresa de logística e distribuição com foco no nordeste",
+    logo: "E3",
+    logoColor: "bg-cyan-500"
+  },
+  {
+    id: 104,
+    name: "Empresa Confidencial #104",
+    sector: "Alimentação",
+    location: "Brasília, DF",
+    revenue: "R$ 6.1M",
+    employees: 42,
+    description: "Produção e distribuição de alimentos com marca consolidada",
+    logo: "E4",
+    logoColor: "bg-red-500"
+  },
+  {
+    id: 105,
+    name: "Empresa Confidencial #105",
+    sector: "Educação",
+    location: "Porto Alegre, RS",
+    revenue: "R$ 4.5M",
+    employees: 38,
+    description: "Plataforma educacional com foco em treinamento corporativo",
+    logo: "E5",
+    logoColor: "bg-green-500"
+  },
+  {
+    id: 106,
+    name: "Empresa Confidencial #106",
+    sector: "Consultoria",
+    location: "Fortaleza, CE",
+    revenue: "R$ 7.3M",
+    employees: 45,
+    description: "Consultoria especializada em transformação digital e estratégia",
+    logo: "E6",
+    logoColor: "bg-indigo-500"
+  },
+];
 
 export default function ProfilePage() {
   const { user, activeProfile } = useAuth();
   const [, setLocation] = useLocation();
+  const [activeTab, setActiveTab] = useState("details");
 
   const getProfileInfo = () => {
     switch(activeProfile?.type) {
@@ -363,13 +452,20 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Profile Details Sections */}
-          <div className="space-y-6">
-            {/* Render sections grouped by category */}
-            {user?.role === "investor" && (
-              <>
-                {/* Personal Info */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+          {/* Profile Details Sections with Tabs */}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="details">Informações do Perfil</TabsTrigger>
+              <TabsTrigger value="companies">Outras Empresas</TabsTrigger>
+            </TabsList>
+
+            {/* Profile Details Tab */}
+            <TabsContent value="details" className="space-y-6">
+              {/* Render sections grouped by category */}
+              {user?.role === "investor" && (
+                <>
+                  {/* Personal Info */}
+                  <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
                   <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Informações Pessoais</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
@@ -598,7 +694,61 @@ export default function ProfilePage() {
                 </div>
               </>
             )}
-          </div>
+            </TabsContent>
+
+            {/* Other Companies Tab */}
+            <TabsContent value="companies" className="space-y-6">
+              <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm dark:shadow-slate-950/30 p-6 sm:p-8">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6">Outras Oportunidades de Investimento</h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Confira outras empresas que podem se alinhar com seus objetivos de investimento</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {otherCompanies.map((company) => (
+                    <div 
+                      key={company.id}
+                      className="border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:shadow-md dark:hover:shadow-slate-800/50 transition-shadow"
+                      data-testid={`card-company-${company.id}`}
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className={`h-12 w-12 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
+                          <span className="text-white font-bold text-sm">{company.logo}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-slate-900 dark:text-white text-sm" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 line-clamp-2">{company.description}</p>
+
+                      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                        <div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                          <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.revenue}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
+                          <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.employees}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Local</p>
+                          <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
+                        </div>
+                      </div>
+
+                      <Button 
+                        variant="outline" 
+                        className="w-full mt-4 text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        data-testid={`button-view-company-${company.id}`}
+                      >
+                        <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </Layout>

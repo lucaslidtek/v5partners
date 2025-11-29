@@ -644,19 +644,19 @@ export default function EditProfilePage() {
             <div className="flex gap-2">
               <Button 
                 variant="outline"
-                onClick={handleSave}
-                className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
-                data-testid="button-save-footer"
-              >
-                Salvar
-              </Button>
-              <Button 
                 onClick={handleNext}
-                className="bg-primary hover:bg-primary/90"
+                className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
                 data-testid="button-next-footer"
               >
                 {step === totalSteps ? "Finalizar" : "Próximo"} 
                 {step !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
+              </Button>
+              <Button 
+                onClick={handleSave}
+                className="bg-primary hover:bg-primary/90"
+                data-testid="button-save-footer"
+              >
+                Salvar
               </Button>
             </div>
           </CardFooter>

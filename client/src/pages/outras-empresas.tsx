@@ -180,8 +180,8 @@ export default function OutrasEmpresasPage() {
                 <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-300 h-full overflow-hidden" data-testid={`card-company-${company.id}`}>
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex items-start gap-3 mb-4">
-                      <div className={`h-12 w-12 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
-                        <span className="text-white font-bold text-sm">{company.logo}</span>
+                      <div className="h-12 w-12 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
+                        <Lock className="h-5 w-5 text-slate-600 dark:text-slate-400" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-slate-900 dark:text-white text-sm" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>

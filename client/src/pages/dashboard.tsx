@@ -1251,7 +1251,10 @@ export default function DashboardPage() {
                                 <div className="flex gap-2 items-start mb-2">
                                   {renderLogo(process, process.matchScore)}
                                   <div className="flex-1 min-w-0">
-                                    <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
+                                    <div className="flex items-center gap-2 mb-1">
+                                      <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
+                                      <Badge className={`${getTypeColor(process.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                                    </div>
                                     <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
                                   </div>
                                 </div>

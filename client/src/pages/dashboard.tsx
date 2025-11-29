@@ -220,7 +220,7 @@ export default function DashboardPage() {
     ...otherCompanies.map(oc => ({
       ...oc,
       description: oc.description || '',
-      matchScore: 0,
+      matchScore: oc.matchScore,
       ebitda: 'N/A',
       price: 'N/A',
       tags: [],

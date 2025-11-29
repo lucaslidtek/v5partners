@@ -372,8 +372,17 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Stats Grid - Desktop Only */}
-        {!isMobile && (
+        {/* Stats Grid */}
+        {isMobile ? (
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            {stats.slice(0, 4).map((stat, index) => (
+              <div key={index} className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-3 border border-primary/10 dark:border-slate-700">
+                <p className="text-2xs text-slate-600 dark:text-slate-400 font-medium mb-1.5">{stat.label}</p>
+                <p className="text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => (
               <Card key={index} className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow">
@@ -391,19 +400,93 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* Search and Filter Bar - Desktop Only */}
-        {!isMobile && (
-        <div className={`flex flex-col md:flex-row gap-4 mb-8`}>
+        {/* Search and Filter Bar */}
+        <div className={`flex ${isMobile ? 'flex-col gap-2 mb-0' : 'flex-col md:flex-row gap-4 mb-8'}`}>
           <div className="relative flex-grow flex items-center gap-2">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <Search className={`absolute ${isMobile ? 'left-3.5 top-3.5' : 'left-3 top-3'} ${isMobile ? 'h-4 w-4' : 'h-4 w-4'} text-slate-400`} />
             <Input 
-              placeholder="Buscar por setor, localização ou nome..." 
-              className="pl-10 h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/30 focus:ring-2 focus:ring-primary/20 transition-all"
+              placeholder={isMobile ? "Buscar oportunidades..." : "Buscar por setor, localização ou nome..."} 
+              className={`pl-10 ${isMobile ? 'h-11 rounded-lg' : 'h-11'} bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/30 focus:ring-2 focus:ring-primary/20 transition-all`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               data-testid="input-search"
             />
+            {isMobile && (
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon" className="h-11 w-11 flex-shrink-0 border-slate-200 bg-white hover:bg-slate-50">
+                    <Filter className="h-4 w-4 text-slate-600" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
+                  <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
+                    <SheetTitle>Filtros Avançados</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex-1 overflow-y-auto pr-4">
+                    <div className="py-6 space-y-6">
+                      <div className="space-y-2">
+                        <Label>Faixa de Valor (Valuation)</Label>
+                      <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {getValuationLabel(sliderValue[0])}
+                        </span>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{sliderValue[0]}%</span>
+                      </div>
+                      <Slider value={sliderValue} onValueChange={setSliderValue} max={100} step={1} className="py-4" />
+                      <div className="flex justify-between text-xs text-slate-500">
+                        <span>R$ 1M</span>
+                        <span>R$ 100M+</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label>Setores de Interesse</Label>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="tech" />
+                          <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="retail" />
+                          <Label htmlFor="retail" className="font-normal">Varejo</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="health" />
+                          <Label htmlFor="health" className="font-normal">Saúde</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="fintech" />
+                          <Label htmlFor="fintech" className="font-normal">Fintech</Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Métricas Financeiras</Label>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="ebitda" defaultChecked />
+                          <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="growth" />
+                          <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 pb-4">
+                      <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
+                        Aplicar Filtros
+                      </Button>
+                    </div>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
           </div>
+          {!isMobile && (
             <div className={`flex gap-2 overflow-x-auto pb-2 md:pb-0`}>
               <Sheet>
                 <SheetTrigger asChild>
@@ -488,14 +571,13 @@ export default function DashboardPage() {
                 <TrendingUp className="mr-2 h-4 w-4" /> Novo Valuation
               </Button>
             </div>
+          )}
         </div>
-        )}
 
         {/* Tabs Section */}
-        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full mt-4 ${isMobile ? '' : ''}`}>
-          {!isMobile && (
-          <div className={`border-b border-slate-200 dark:border-slate-800 mb-8`}>
-            <TabsList className={`grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none`}>
+        <Tabs defaultValue="new" value={activeTab} onValueChange={setActiveTab} className={`w-full mt-4 ${isMobile ? 'sticky top-0 border-b border-slate-200 dark:border-slate-800 z-40' : ''}`}>
+          <div className={`${isMobile ? 'border-0 mb-0 px-0 py-0' : 'border-b border-slate-200 dark:border-slate-800 mb-8'}`}>
+            <TabsList className={`${isMobile ? 'grid w-full grid-cols-2 h-auto bg-transparent p-0 gap-0 rounded-none' : 'grid w-full max-w-md grid-cols-2 h-auto bg-transparent p-0 gap-0'}`}>
               <TabsTrigger 
                 value="new" 
                 className={`relative px-0 ${isMobile ? 'py-3' : 'py-3'} h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium ${isMobile ? 'text-xs' : 'text-sm'} whitespace-nowrap`}
@@ -531,7 +613,6 @@ export default function DashboardPage() {
               </TabsTrigger>
             </TabsList>
           </div>
-          )}
 
           {/* New Matches Tab */}
           <TabsContent value="new" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-6'}`}>

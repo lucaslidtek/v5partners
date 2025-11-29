@@ -204,7 +204,23 @@ export default function DashboardPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [sliderValue, setSliderValue] = useState([50]);
-  const selectedMatch = matches.find(m => m.id === selectedMatchId);
+  
+  // Create a combined list for selecting both matches and other companies
+  const allCompanies = [
+    ...matches,
+    ...otherCompanies.map(oc => ({
+      ...oc,
+      description: oc.description || '',
+      matchScore: 0,
+      ebitda: 'N/A',
+      price: 'N/A',
+      tags: [],
+      isNew: false,
+      stage: 'new' as const
+    }))
+  ];
+  
+  const selectedMatch = allCompanies.find(m => m.id === selectedMatchId);
 
   const getValuationLabel = (value: number) => {
     if (value <= 25) return "R$ 1M - R$ 10M";

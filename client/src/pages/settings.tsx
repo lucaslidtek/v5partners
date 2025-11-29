@@ -151,10 +151,8 @@ export default function SettingsPage() {
                 </div>
                 <Button 
                   variant="outline"
-                  size="sm"
                   onClick={() => setLocation('/edit-profile')}
                   data-testid="button-edit-profile"
-                  className="dark:border-slate-600 dark:hover:bg-slate-800"
                 >
                   Editar
                 </Button>

@@ -347,12 +347,17 @@ export default function DashboardPage() {
     );
   };
 
-  const stats = [
-    { label: "Matches Ativos", value: "12", icon: TargetIcon, color: "text-primary" },
+  const newStats = [
+    { label: "Matches Disponíveis", value: "12", icon: TargetIcon, color: "text-primary" },
     { label: "Empresas Favoritadas", value: "4", icon: Heart, color: "text-secondary" },
-    { label: "NDAs Assinados", value: "2", icon: FileText, color: "text-accent" },
-    { label: "Negociações", value: "1", icon: MessageSquare, color: "text-slate-700" },
   ];
+
+  const activeStats = [
+    { label: "NDAs Assinados", value: "2", icon: FileText, color: "text-accent" },
+    { label: "Negociações Ativas", value: "1", icon: MessageSquare, color: "text-slate-700" },
+  ];
+
+  const stats = activeTab === "active" ? activeStats : newStats;
 
 
   const getStageInfo = (stage: string) => {

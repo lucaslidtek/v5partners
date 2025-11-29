@@ -1383,6 +1383,25 @@ export default function DashboardPage() {
                           {/* Description */}
                           <p className="text-2xs text-slate-600 dark:text-slate-300 mb-3 line-clamp-2">{company.description}</p>
 
+                          {/* Compatibility Score */}
+                          {(() => {
+                            const colors = getCompatibilityColor(company.matchScore);
+                            return (
+                              <div className={`${colors.bgColor} p-2 rounded-md border ${colors.borderColor} mb-3`}>
+                                <div className="flex justify-between items-center mb-1">
+                                  <span className="text-2xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                                  <span className={`text-xs font-bold ${colors.textColor}`}>{company.matchScore}%</span>
+                                </div>
+                                <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                  <div 
+                                    className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                                    style={{ width: `${company.matchScore}%` }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })()}
+
                           {/* Metrics Grid */}
                           <div className="grid grid-cols-3 gap-1.5 pt-3 border-t border-slate-100 dark:border-slate-700 mb-3">
                             <div className="text-center">

@@ -26,6 +26,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -497,20 +498,20 @@ export default function DashboardPage() {
           </div>
           {!isMobile && (
             <div className={`flex gap-2 overflow-x-auto pb-2 md:pb-0`}>
-              <Sheet>
-                <SheetTrigger asChild>
+              <Dialog>
+                <DialogTrigger asChild>
                   <Button className="h-11 bg-white text-slate-900 border-slate-200 whitespace-nowrap font-medium transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 shadow-sm">
                     <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
                   </Button>
-                </SheetTrigger>
-                <SheetContent className="flex flex-col h-screen">
-                  <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
-                    <SheetTitle>Filtros Avançados</SheetTitle>
-                    <SheetDescription>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Filtros Avançados</DialogTitle>
+                    <DialogDescription>
                       Refine sua busca por oportunidades de investimento.
-                    </SheetDescription>
-                  </SheetHeader>
-                  <div className="flex-1 overflow-y-auto pr-4">
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="overflow-y-auto max-h-[70vh] pr-4">
                     <div className="py-6 space-y-6">
                       <div className="space-y-2">
                         <Label>Faixa de Valor (Valuation)</Label>
@@ -570,8 +571,8 @@ export default function DashboardPage() {
                     </div>
                     </div>
                   </div>
-                </SheetContent>
-              </Sheet>
+                </DialogContent>
+              </Dialog>
 
               <Button 
                 className="h-11 bg-white text-slate-900 border-slate-200 whitespace-nowrap font-medium transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 shadow-sm"

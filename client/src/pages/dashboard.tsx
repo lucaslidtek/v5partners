@@ -57,6 +57,7 @@ type Match = {
   logo?: string;
   logoColor?: string;
   logoImage?: string;
+  type: 'empresa' | 'investidor' | 'franqueadora';
 };
 
 type OtherCompany = {
@@ -170,7 +171,8 @@ const initialMatches: Match[] = [
     isNew: true,
     stage: 'new',
     logo: "TF",
-    logoColor: "bg-blue-500"
+    logoColor: "bg-blue-500",
+    type: "empresa"
   },
   {
     id: 2,
@@ -187,7 +189,8 @@ const initialMatches: Match[] = [
     isNew: false,
     stage: 'interested',
     logo: "PP",
-    logoColor: "bg-pink-500"
+    logoColor: "bg-pink-500",
+    type: "franqueadora"
   },
   {
     id: 3,
@@ -205,7 +208,8 @@ const initialMatches: Match[] = [
     stage: 'nda_signed',
     logo: "HT",
     logoColor: "bg-emerald-500",
-    logoImage: "/healthtech-logo.png"
+    logoImage: "/healthtech-logo.png",
+    type: "empresa"
   }
 ];
 
@@ -707,10 +711,15 @@ export default function DashboardPage() {
                     <>
                       <div className="flex gap-3 items-start mb-3">
                         {renderLogo(match, match.matchScore)}
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
-                        {match.isNew && (
-                          <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
-                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(match)}</h3>
+                            <Badge className={`${getTypeColor(match.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                          </div>
+                          {match.isNew && (
+                            <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
+                          )}
+                        </div>
                       </div>
                       <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
                     </>
@@ -719,7 +728,10 @@ export default function DashboardPage() {
                       <div className="flex gap-4 flex-1 items-start">
                         {renderLogo(match, match.matchScore)}
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                            <Badge className={`${getTypeColor(match.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                          </div>
                           <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
                         </div>
                       </div>
@@ -917,10 +929,15 @@ export default function DashboardPage() {
                           <>
                             <div className="flex gap-2 items-start mb-2">
                               {renderLogo(process)}
-                              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(process)}</h3>
-                              <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap flex-shrink-0`}>
-                                {config.label}
-                              </Badge>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                  <Badge className={`${getTypeColor(process.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                                </div>
+                                <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap`}>
+                                  {config.label}
+                                </Badge>
+                              </div>
                             </div>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
                           </>
@@ -929,7 +946,10 @@ export default function DashboardPage() {
                             <div className="flex gap-4 flex-1 items-start min-w-0">
                               {renderLogo(process)}
                               <div className="flex-1 min-w-0">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                  <Badge className={`${getTypeColor(process.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                                </div>
                                 <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{process.sector} • {process.location}</p>
                               </div>
                             </div>
@@ -1426,7 +1446,10 @@ export default function DashboardPage() {
               <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
                 <div className="flex items-center gap-2 min-w-0">
                   {selectedMatch && renderLogo(selectedMatch, selectedMatch?.matchScore)}
-                  <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
+                  <div className="flex-1 min-w-0">
+                    <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
+                    {selectedMatch && <Badge className={`${getTypeColor(selectedMatch.type)} text-xs px-2 py-0.5 font-semibold mt-1`}>{getTypeLabel(selectedMatch.type)}</Badge>}
+                  </div>
                 </div>
               </SheetHeader>
               {selectedMatch && (
@@ -1555,7 +1578,10 @@ export default function DashboardPage() {
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-2">
                   {selectedMatch && renderLogo(selectedMatch, selectedMatch?.matchScore)}
-                  <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
+                  <div>
+                    <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
+                    {selectedMatch && <Badge className={`${getTypeColor(selectedMatch.type)} text-sm px-2 py-0.5 font-semibold mt-2`}>{getTypeLabel(selectedMatch.type)}</Badge>}
+                  </div>
                 </div>
                 <DialogDescription>{selectedMatch?.description}</DialogDescription>
               </DialogHeader>

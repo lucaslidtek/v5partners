@@ -358,7 +358,9 @@ export default function DashboardPage() {
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'} flex items-center justify-between`}>
           <div>
-            <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>Olá, {user?.name || "Investidor"}! 👋</h1>
+            <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
+              {isMobile ? (activeTab === "new" ? "Novos" : activeTab === "active" ? "Ativos" : "Outras Empresas") : `Olá, ${user?.name || "Investidor"}! 👋`}
+            </h1>
             {!isMobile && <p className="text-slate-500 dark:text-slate-400 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
           </div>
           {isMobile && (
@@ -371,15 +373,6 @@ export default function DashboardPage() {
             </Button>
           )}
         </div>
-
-        {/* Tab Title - Mobile */}
-        {isMobile && (
-          <div className="mb-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-              {activeTab === "new" ? "Novos" : activeTab === "active" ? "Ativos" : "Outras Empresas"}
-            </h2>
-          </div>
-        )}
 
         {/* Stats Grid - Desktop */}
         {!isMobile && (

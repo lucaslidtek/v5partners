@@ -333,7 +333,11 @@ export default function DashboardPage() {
     return `Empresa Confidencial #${match.id}`;
   };
 
-  const renderLogo = (match: Match) => {
+  const renderLogo = (match: Match, matchScore?: number) => {
+    const compatibilityColors = matchScore !== undefined ? getCompatibilityColor(matchScore) : null;
+    const backgroundColor = compatibilityColors ? compatibilityColors.barColor : 'bg-slate-200';
+    const iconColor = compatibilityColors ? 'text-white' : 'text-slate-400';
+    
     if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
       if (match.logoImage) {
         return (
@@ -349,8 +353,8 @@ export default function DashboardPage() {
       );
     }
     return (
-      <div className="h-12 w-12 rounded-lg bg-slate-200 flex items-center justify-center flex-shrink-0">
-        <Lock className="h-6 w-6 text-slate-400" />
+      <div className={`h-12 w-12 rounded-lg ${backgroundColor} flex items-center justify-center flex-shrink-0`}>
+        <Lock className={`h-6 w-6 ${iconColor}`} />
       </div>
     );
   };
@@ -673,7 +677,7 @@ export default function DashboardPage() {
                   {isMobile ? (
                     <>
                       <div className="flex gap-3 items-start mb-3">
-                        {renderLogo(match)}
+                        {renderLogo(match, match.matchScore)}
                         <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
                         {match.isNew && (
                           <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
@@ -684,7 +688,7 @@ export default function DashboardPage() {
                   ) : (
                     <div className="flex items-start justify-between gap-4 mb-6">
                       <div className="flex gap-4 flex-1 items-start">
-                        {renderLogo(match)}
+                        {renderLogo(match, match.matchScore)}
                         <div className="flex-1 min-w-0">
                           <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
                           <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
@@ -1474,7 +1478,7 @@ export default function DashboardPage() {
             <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
               <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
                 <div className="flex items-center gap-2 min-w-0">
-                  {selectedMatch && renderLogo(selectedMatch)}
+                  {selectedMatch && renderLogo(selectedMatch, selectedMatch?.matchScore)}
                   <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
                 </div>
               </SheetHeader>
@@ -1598,7 +1602,7 @@ export default function DashboardPage() {
             <DialogContent className={`max-w-2xl max-h-[90vh] overflow-y-auto`}>
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  {selectedMatch && renderLogo(selectedMatch)}
+                  {selectedMatch && renderLogo(selectedMatch, selectedMatch?.matchScore)}
                   <DialogTitle className="text-2xl">{selectedMatch ? getDisplayName(selectedMatch) : ''}</DialogTitle>
                 </div>
                 <DialogDescription>{selectedMatch?.description}</DialogDescription>

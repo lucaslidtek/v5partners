@@ -144,6 +144,15 @@ export default function OutrasEmpresasPage() {
     }
   };
 
+  const renderLogo = (company: Company) => {
+    const colors = getCompatibilityColor(company.matchScore);
+    return (
+      <div className={`h-12 w-12 rounded-lg ${colors.barColor} flex items-center justify-center flex-shrink-0`}>
+        <span className="text-white font-bold text-xs">{company.logo}</span>
+      </div>
+    );
+  };
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -288,9 +297,7 @@ export default function OutrasEmpresasPage() {
                 <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-lg dark:hover:shadow-slate-800/70 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 h-full overflow-hidden cursor-pointer" data-testid={`card-company-${company.id}`}>
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex items-start gap-3 mb-5">
-                      <div className="h-12 w-12 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
-                        <Lock className="h-5 w-5 text-slate-600 dark:text-slate-400" />
-                      </div>
+                      {renderLogo(company)}
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-snug" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{company.sector}</p>
@@ -353,11 +360,7 @@ export default function OutrasEmpresasPage() {
             <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
               <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
                 <div className="flex items-center gap-2 min-w-0">
-                  {selectedCompany && (
-                    <div className={`h-12 w-12 rounded-lg ${selectedCompany.logoColor} flex items-center justify-center flex-shrink-0`}>
-                      <span className="text-white font-bold text-sm">{selectedCompany.logo}</span>
-                    </div>
-                  )}
+                  {selectedCompany && renderLogo(selectedCompany)}
                   <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedCompany?.name}</SheetTitle>
                 </div>
               </SheetHeader>
@@ -405,11 +408,7 @@ export default function OutrasEmpresasPage() {
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <div className="flex items-center gap-3 mb-2">
-                  {selectedCompany && (
-                    <div className={`h-12 w-12 rounded-lg ${selectedCompany.logoColor} flex items-center justify-center flex-shrink-0`}>
-                      <span className="text-white font-bold text-sm">{selectedCompany.logo}</span>
-                    </div>
-                  )}
+                  {selectedCompany && renderLogo(selectedCompany)}
                   <DialogTitle className="text-2xl">{selectedCompany?.name}</DialogTitle>
                 </div>
                 <DialogDescription>{selectedCompany?.sector}</DialogDescription>

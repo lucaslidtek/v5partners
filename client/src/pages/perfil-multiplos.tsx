@@ -70,7 +70,7 @@ export default function PerfilMultiplosPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 dark:from-slate-950 to-transparent py-8 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-white dark:bg-slate-950 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex items-center gap-4 mb-12">
@@ -120,8 +120,8 @@ export default function PerfilMultiplosPage() {
                         className={`h-full transition-all duration-300 cursor-pointer border-2 ${
                           isActive
                             ? `${config.color} text-white border-opacity-50 shadow-lg`
-                            : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600"
-                        } ${config.hoverColor}`}
+                            : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600"
+                        }`}
                         onClick={() => switchProfile(profile.id)}
                         data-testid={`card-profile-${profile.id}`}
                       >

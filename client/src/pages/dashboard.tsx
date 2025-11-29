@@ -1088,23 +1088,15 @@ export default function DashboardPage() {
                             )}
                           </div>
 
-                          {/* Action Buttons */}
-                          <div className="grid grid-cols-2 gap-2">
-                            <Button 
-                              className="bg-primary hover:bg-primary/90 text-white font-semibold h-9 text-sm rounded-lg transition-all active:scale-95"
-                              onClick={() => updateMatchStage(match.id, 'interested')}
-                            >
-                              <Heart className="h-4 w-4 mr-1" /> Interesse
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
-                              onClick={() => setSelectedMatchId(match.id)}
-                              data-testid={`button-details-${match.id}`}
-                            >
-                              <Eye className="h-4 w-4 mr-1" /> Ver
-                            </Button>
-                          </div>
+                          {/* Action Button */}
+                          <Button 
+                            variant="outline" 
+                            className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+                            onClick={() => setSelectedMatchId(match.id)}
+                            data-testid={`button-details-${match.id}`}
+                          >
+                            <Eye className="h-4 w-4 mr-1" /> Ver Detalhes
+                          </Button>
                         </div>
                       </Card>
                     </motion.div>

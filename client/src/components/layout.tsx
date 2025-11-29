@@ -60,15 +60,16 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                   <Bell className="h-5 w-5" />
                 </Button>
                 <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
-                  <div className="text-right hidden sm:block">
+                  <div className="text-right">
                     <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
                     {profileInfo && ProfileIcon && (
                       <div 
-                        className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-2 justify-end w-fit ml-auto`} 
+                        className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-1 justify-end w-fit ml-auto`} 
                         data-testid="badge-profile-type-header"
                       >
                         <ProfileIcon className="w-3 h-3" />
-                        <span>{profileInfo.title}</span>
+                        <span className="hidden sm:inline">{profileInfo.title}</span>
+                        <span className="sm:hidden">{profileInfo.title.split(' ')[0]}</span>
                       </div>
                     )}
                   </div>

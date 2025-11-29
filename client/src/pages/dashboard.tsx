@@ -1326,6 +1326,8 @@ export default function DashboardPage() {
                           <Button 
                             variant="outline" 
                             className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 h-9 rounded-lg transition-all active:scale-95"
+                            onClick={() => setSelectedMatchId(company.id)}
+                            data-testid={`button-more-info-${company.id}`}
                           >
                             <Lock className="h-3.5 w-3.5 mr-1.5" /> Mais Info
                           </Button>

@@ -544,14 +544,14 @@ export default function DashboardPage() {
               animate={{ opacity: 1, y: 0 }}
             >
               <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
-                <div className={`${isMobile ? 'p-4' : 'p-8'}`}>
+                <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
                   {/* Header com logo, título e status */}
-                  <div className="flex items-start justify-between gap-4 mb-6">
-                    <div className="flex gap-4 flex-1 items-start">
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="flex gap-3 flex-1 items-start">
                       {renderLogo(match)}
                       <div className="flex-1 min-w-0">
-                        <h3 className={`${isMobile ? 'text-base font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white leading-tight`}>{getDisplayName(match)}</h3>
-                        <p className={`${isMobile ? 'text-2xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-2`}>{match.sector} • {match.location}</p>
+                        <h3 className={`${isMobile ? 'text-lg font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white leading-tight`}>{getDisplayName(match)}</h3>
+                        <p className={`${isMobile ? 'text-xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-1`}>{match.sector} • {match.location}</p>
                       </div>
                     </div>
                     {match.isNew && (
@@ -560,10 +560,10 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Match Score Bar */}
-                  <div className={`${isMobile ? 'mb-3' : 'mb-6'}`}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className={`${isMobile ? 'text-2xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400`}>Compatibilidade</span>
-                      <span className={`${isMobile ? 'text-sm' : 'text-base'} font-bold text-primary`}>{match.matchScore}%</span>
+                  <div className={`${isMobile ? 'mb-4' : 'mb-6'}`}>
+                    <div className="flex justify-between items-center mb-1.5">
+                      <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400`}>Compatibilidade</span>
+                      <span className={`${isMobile ? 'text-sm font-bold' : 'text-base font-bold'} text-primary`}>{match.matchScore}%</span>
                     </div>
                     <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div 
@@ -574,10 +574,25 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Description Preview */}
-                  <p className={`${isMobile ? 'text-2xs' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-6`}>{match.description}</p>
+                  <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-4`}>{match.description}</p>
 
-                  {/* Key Metrics Grid - Simplified */}
-                  {!isMobile && (
+                  {/* Key Metrics Grid - Mobile Optimized */}
+                  {isMobile ? (
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                        <p className="font-bold text-primary text-sm">{match.price}</p>
+                      </div>
+                      <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
+                      </div>
+                      <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
+                      </div>
+                    </div>
+                  ) : (
                     <div className={`grid grid-cols-3 gap-4 mb-6`}>
                       <div className="p-4 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
                         <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Preço</p>
@@ -595,16 +610,16 @@ export default function DashboardPage() {
                   )}
 
                   {/* Tags */}
-                  <div className={`flex flex-wrap ${isMobile ? 'gap-1.5 mb-3' : 'gap-2 mb-6'}`}>
+                  <div className={`flex flex-wrap ${isMobile ? 'gap-1 mb-4' : 'gap-2 mb-6'}`}>
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-sm">
+                      <Badge key={tag} variant="outline" className={`border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal ${isMobile ? 'text-xs px-2 py-1' : 'text-sm'}`}>
                         {tag}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Actions */}
-                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-3' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800'}`}>
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-4' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800'}`}>
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
@@ -722,13 +737,13 @@ export default function DashboardPage() {
                     animate={{ opacity: 1, y: 0 }}
                   >
                     <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
-                      <CardContent className={`${isMobile ? 'p-4' : 'p-8'}`}>
-                        <div className="flex items-start justify-between gap-4 mb-6">
-                          <div className="flex gap-4 flex-1 items-start min-w-0">
+                      <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
+                        <div className="flex items-start justify-between gap-3 mb-4">
+                          <div className="flex gap-3 flex-1 items-start min-w-0">
                             {renderLogo(process)}
                             <div className="flex-1 min-w-0">
-                              <h3 className={`${isMobile ? 'text-base font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white`}>{getDisplayName(process)}</h3>
-                              <p className={`${isMobile ? 'text-2xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-2`}>{process.sector} • {process.location}</p>
+                              <h3 className={`${isMobile ? 'text-lg font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white`}>{getDisplayName(process)}</h3>
+                              <p className={`${isMobile ? 'text-xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-1`}>{process.sector} • {process.location}</p>
                             </div>
                           </div>
                           <Badge className={`${config.color} ${isMobile ? 'text-2xs py-1 px-2 whitespace-nowrap' : 'text-sm py-1.5 px-3'}`}>
@@ -738,16 +753,16 @@ export default function DashboardPage() {
 
                         {/* Next Step Hint */}
                         {nextStep && (
-                          <div className={`${isMobile ? 'mb-3 p-2.5' : 'mb-6 p-4'} bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-800 rounded-lg`}>
-                            <p className={`${isMobile ? 'text-2xs' : 'text-sm'} font-semibold text-sky-700 dark:text-sky-300`}>
+                          <div className={`${isMobile ? 'mb-4 p-3' : 'mb-6 p-4'} bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-800 rounded-lg`}>
+                            <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-sky-700 dark:text-sky-300`}>
                               Próximo passo: {nextStep.label}
                             </p>
                           </div>
                         )}
 
                         {/* Progress Bar */}
-                        <div className={`${isMobile ? 'mb-3' : 'mb-6'}`}>
-                          <div className={`flex justify-between ${isMobile ? 'text-2xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400 mb-2`}>
+                        <div className={`${isMobile ? 'mb-4' : 'mb-6'}`}>
+                          <div className={`flex justify-between ${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400 mb-1.5`}>
                             <span>Progresso</span>
                             <span>{config.progress}%</span>
                           </div>
@@ -759,7 +774,18 @@ export default function DashboardPage() {
                           </div>
                         </div>
 
-                        {!isMobile && (
+                        {isMobile ? (
+                          <div className="grid grid-cols-2 gap-2 mb-4">
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Valor</p>
+                              <p className="font-bold text-slate-900 dark:text-white text-sm">{process.price}</p>
+                            </div>
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <p className="font-bold text-slate-900 dark:text-white text-sm">{process.revenue}</p>
+                            </div>
+                          </div>
+                        ) : (
                           <div className="grid grid-cols-2 gap-4 mb-6">
                             <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
                               <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Valor</p>

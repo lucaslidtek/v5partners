@@ -717,7 +717,7 @@ export default function DashboardPage() {
                             <Badge className={`${getTypeColor(match.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
                           </div>
                           {match.isNew && (
-                            <span className="text-xs px-2.5 py-1.5 bg-primary text-white rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
+                            <span className="text-xs px-2.5 py-1.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
                           )}
                         </div>
                       </div>
@@ -736,7 +736,7 @@ export default function DashboardPage() {
                         </div>
                       </div>
                       {match.isNew && (
-                        <span className="text-xs px-3 py-1 bg-primary text-white rounded-full font-semibold whitespace-nowrap">Novo</span>
+                        <span className="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap">Novo</span>
                       )}
                     </div>
                   )}
@@ -1098,7 +1098,7 @@ export default function DashboardPage() {
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
                                 </div>
                                 {match.isNew && (
-                                  <span className="text-2xs px-2 py-1 bg-primary text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                                  <span className="text-2xs px-2 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
                                 )}
                               </div>
                             );

@@ -291,11 +291,7 @@ export default function PerfilMultiplosPage() {
                           <Button
                             className={`w-full ${option.buttonColor} text-white font-semibold h-11`}
                             onClick={() => {
-                              addProfile(
-                                option.id as any,
-                                option.title
-                              );
-                              setShowAddNew(false);
+                              setLocation(`/novo-perfil?tipo=${option.id}`);
                             }}
                             data-testid={`button-add-${option.id}`}
                           >

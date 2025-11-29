@@ -932,7 +932,7 @@ export default function DashboardPage() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
                                   <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
-                                  <Badge className={`${getTypeColor(process.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                                  <Badge className={`${getTypeColor(process.type)} text-3xs px-1 py-0 font-semibold`}>{getTypeLabel(process.type)}</Badge>
                                 </div>
                                 <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap`}>
                                   {config.label}
@@ -1093,7 +1093,7 @@ export default function DashboardPage() {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2 mb-1">
                                     <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                                    <Badge className={`${getTypeColor(match.type)} text-2xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                                    <Badge className={`${getTypeColor(match.type)} text-3xs px-1 py-0 font-semibold`}>{getTypeLabel(match.type)}</Badge>
                                   </div>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
                                 </div>
@@ -1377,7 +1377,7 @@ export default function DashboardPage() {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2 mb-0.5">
                                     <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
-                                    <Badge className={`${getTypeColor(company.type)} text-2xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(company.type)}</Badge>
+                                    <Badge className={`${getTypeColor(company.type)} text-3xs px-1 py-0 font-semibold`}>{getTypeLabel(company.type)}</Badge>
                                   </div>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
                                 </div>

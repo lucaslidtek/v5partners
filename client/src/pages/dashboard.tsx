@@ -370,14 +370,16 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
         {/* Welcome Section */}
-        <div className={`${isMobile ? 'mb-3' : 'mb-8'} flex items-center justify-between`}>
+        <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
           <div>
             <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
-              {isMobile ? (activeTab === "new" ? "Novos" : activeTab === "active" ? "Ativos" : "Outras Empresas") : `Olá, ${user?.name || "Investidor"}! 👋`}
+              Olá, {user?.name || "Investidor"}! 👋
             </h1>
-            {!isMobile && <p className="text-slate-500 dark:text-slate-400 mt-1">Aqui estão as oportunidades mais compatíveis com seu perfil de investimento</p>}
+            <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base">
+              {activeTab === "new" ? "Explore novos matches recomendados para você" : activeTab === "active" ? "Acompanhe seus processos em andamento" : "Oportunidades adicionais de investimento"}
+            </p>
           </div>
           {isMobile && (activeTab === "new" || activeTab === "active") && (
             <Button 
@@ -390,27 +392,27 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Stats Grid - Desktop */}
-        {!isMobile && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Stats Grid - Desktop & Mobile Carousel */}
+        <div className={`${isMobile ? 'mb-6 overflow-x-auto pb-2' : 'mb-8'}`}>
+          <div className={`${isMobile ? 'flex gap-4 pb-2 min-w-min' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'}`}>
             {stats.map((stat, index) => (
-              <Card key={index} className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow">
-                <CardContent className="p-6 flex items-center justify-between">
+              <Card key={index} className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow ${isMobile ? 'flex-shrink-0 w-[160px]' : ''}`}>
+                <CardContent className="p-4 md:p-6 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">{stat.label}</p>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
+                    <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-slate-500 dark:text-slate-400 mb-1`}>{stat.label}</p>
+                    <p className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-slate-900 dark:text-white`}>{stat.value}</p>
                   </div>
-                  <div className={`h-12 w-12 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${stat.color}`}>
-                    <stat.icon className="h-6 w-6" />
+                  <div className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'} rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${stat.color}`}>
+                    <stat.icon className={`${isMobile ? 'h-5 w-5' : 'h-6 w-6'}`} />
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-        )}
+        </div>
 
         {/* Search and Filter Bar */}
-        <div className={`flex ${isMobile ? 'flex-col gap-2 mb-0' : 'flex-col md:flex-row gap-4 mb-8'}`}>
+        <div className={`flex ${isMobile ? 'flex-col gap-3 mb-6' : 'flex-col md:flex-row gap-4 mb-8'}`}>
           <div className="relative flex-grow flex items-center gap-2">
             <Search className={`absolute ${isMobile ? 'left-3.5 top-3.5' : 'left-3 top-3'} ${isMobile ? 'h-4 w-4' : 'h-4 w-4'} text-slate-400`} />
             <Input 
@@ -639,22 +641,22 @@ export default function DashboardPage() {
                   {/* Header com logo, título e status */}
                   {isMobile ? (
                     <>
-                      <div className="flex gap-2 items-start mb-2">
+                      <div className="flex gap-3 items-start mb-3">
                         {renderLogo(match)}
                         <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
                         {match.isNew && (
                           <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
                     </>
                   ) : (
-                    <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex items-start justify-between gap-4 mb-6">
                       <div className="flex gap-4 flex-1 items-start">
                         {renderLogo(match)}
                         <div className="flex-1 min-w-0">
                           <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                          <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{match.sector} • {match.location}</p>
+                          <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
                         </div>
                       </div>
                       {match.isNew && (
@@ -663,11 +665,11 @@ export default function DashboardPage() {
                     </div>
                   )}
 
-                  {/* Match Score Bar */}
-                  <div className={`${isMobile ? 'mb-4' : 'mb-6'}`}>
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400`}>Compatibilidade</span>
-                      <span className={`${isMobile ? 'text-sm font-bold' : 'text-base font-bold'} text-primary`}>{match.matchScore}%</span>
+                  {/* Match Score Bar - More Prominent */}
+                  <div className={`${isMobile ? 'mb-5' : 'mb-7'} bg-primary/5 dark:bg-primary/10 p-4 rounded-lg border border-primary/20 dark:border-primary/30`}>
+                    <div className="flex justify-between items-center mb-2.5">
+                      <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
+                      <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} text-primary`}>{match.matchScore}%</span>
                     </div>
                     <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div 
@@ -678,56 +680,56 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Description Preview */}
-                  <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-4`}>{match.description}</p>
+                  <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-5`}>{match.description}</p>
 
                   {/* Key Metrics Grid - Mobile Optimized */}
                   {isMobile ? (
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                    <div className="grid grid-cols-3 gap-3 mb-5">
+                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Preço</p>
                         <p className="font-bold text-primary text-sm">{match.price}</p>
                       </div>
-                      <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Receita</p>
                         <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
                       </div>
-                      <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">EBITDA</p>
                         <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
                       </div>
                     </div>
                   ) : (
-                    <div className={`grid grid-cols-3 gap-4 mb-6`}>
+                    <div className={`grid grid-cols-3 gap-4 mb-7`}>
                       <div className="p-4 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Preço</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Preço</p>
                         <p className="font-bold text-primary text-2xl">{match.price}</p>
                       </div>
                       <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Receita</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Receita</p>
                         <p className="font-bold text-slate-900 dark:text-white text-xl">{match.revenue}</p>
                       </div>
                       <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">EBITDA</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">EBITDA</p>
                         <p className="font-bold text-emerald-600 dark:text-emerald-400 text-xl">{match.ebitda}</p>
                       </div>
                     </div>
                   )}
 
                   {/* Tags */}
-                  <div className={`flex flex-wrap ${isMobile ? 'gap-1 mb-4' : 'gap-2 mb-6'}`}>
+                  <div className={`flex flex-wrap ${isMobile ? 'gap-2 mb-5' : 'gap-2 mb-7'}`}>
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className={`border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal ${isMobile ? 'text-xs px-2 py-1' : 'text-sm'}`}>
+                      <Badge key={tag} variant="outline" className={`border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-medium ${isMobile ? 'text-xs px-2.5 py-1' : 'text-sm'}`}>
                         {tag}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Actions */}
-                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-2 pt-4' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800'}`}>
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-3 pt-5' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-7 border-t border-slate-100 dark:border-slate-800'}`}>
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
-                        className={`bg-primary hover:bg-primary/90 shadow-md font-semibold group ${isMobile ? 'h-10 text-sm' : ''}`}
+                        className={`bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/30 text-white font-bold group transition-all ${isMobile ? 'h-10 text-sm' : 'h-11'}`}
                         onClick={() => updateMatchStage(match.id, 'interested')}
                       >
                         <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}

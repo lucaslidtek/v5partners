@@ -3,7 +3,7 @@ import { Layout } from "@/components/layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Lock, Search } from "lucide-react";
+import { Building2, Lock, Search, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import {
@@ -177,42 +177,42 @@ export default function OutrasEmpresasPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-300 h-full overflow-hidden" data-testid={`card-company-${company.id}`}>
+                <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-lg dark:hover:shadow-slate-800/70 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 h-full overflow-hidden cursor-pointer" data-testid={`card-company-${company.id}`}>
                   <CardContent className="p-6 flex flex-col h-full">
-                    <div className="flex items-start gap-3 mb-4">
+                    <div className="flex items-start gap-3 mb-5">
                       <div className="h-12 w-12 rounded-lg bg-slate-200 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
                         <Lock className="h-5 w-5 text-slate-600 dark:text-slate-400" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-900 dark:text-white text-sm" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
+                        <h3 className="font-semibold text-slate-900 dark:text-white text-sm leading-snug" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{company.sector}</p>
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2 flex-1">{company.description}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-5 line-clamp-1 flex-1 leading-relaxed">{company.description}</p>
 
-                    <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-700 mb-4">
+                    <div className="grid grid-cols-3 gap-3 pt-5 border-t border-slate-100 dark:border-slate-700 mb-5">
                       <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.revenue}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 font-medium">Receita</p>
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">{company.revenue}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.employees}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 font-medium">Equipe</p>
+                        <p className="text-sm font-bold text-slate-900 dark:text-white">{company.employees}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Local</p>
-                        <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 font-medium">Local</p>
+                        <p className="text-xs font-bold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
                       </div>
                     </div>
 
                     <Button 
                       variant="outline" 
-                      className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
+                      className="w-full text-sm border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 font-medium transition-colors"
                       data-testid={`button-view-company-${company.id}`}
                       onClick={() => setSelectedCompany(company)}
                     >
-                      <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
+                      <ChevronRight className="h-4 w-4 mr-2" /> Ver Detalhes
                     </Button>
                   </CardContent>
                 </Card>

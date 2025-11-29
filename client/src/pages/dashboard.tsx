@@ -772,11 +772,11 @@ export default function DashboardPage() {
                           </div>
                         )}
 
-                        <div className={`flex gap-2 items-center ${isMobile ? 'pt-3 flex-col' : 'pt-2 border-t border-slate-100 dark:border-slate-800'}`}>
+                        <div className={`flex gap-2 ${isMobile ? 'pt-3 flex-col' : 'pt-2 border-t border-slate-100 dark:border-slate-800'}`}>
                           {nextStep ? (
                             <>
                               <Button 
-                                className={`${isMobile ? 'flex-1 h-10 text-sm' : ''} bg-primary hover:bg-primary/90 text-white font-semibold`}
+                                className={`${isMobile ? 'flex-1 h-10 text-sm' : 'flex-1'} bg-primary hover:bg-primary/90 text-white font-semibold`}
                                 onClick={() => updateMatchStage(process.id, nextStep.action as Match['stage'])}
                                 data-testid={`button-next-step-${process.id}`}
                               >
@@ -784,19 +784,18 @@ export default function DashboardPage() {
                               </Button>
                               <Button 
                                 variant="outline" 
-                                size={isMobile ? "default" : "sm"}
-                                className={`${isMobile ? 'flex-1 h-10 text-sm' : ''} border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors`}
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => setSelectedMatchId(process.id)}
                                 data-testid={`button-details-${process.id}`}
                               >
-                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-1'}`} /> {isMobile ? 'Ver' : 'Detalhes'}
+                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Detalhes'}
                               </Button>
                             </>
                           ) : (
                             <>
                               <Button 
                                 variant="outline" 
-                                className={`${isMobile ? 'flex-1 h-10 text-sm' : 'flex-1'} border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors`}
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => setSelectedMatchId(process.id)}
                                 data-testid={`button-details-${process.id}`}
                               >
@@ -804,8 +803,7 @@ export default function DashboardPage() {
                               </Button>
                               <Button 
                                 variant="ghost" 
-                                size="sm"
-                                className={`${isMobile ? 'flex-1 h-10 text-sm' : 'text-slate-500'} dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold`}
+                                className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => updateMatchStage(process.id, 'new')}
                                 data-testid={`button-revert-${process.id}`}
                               >

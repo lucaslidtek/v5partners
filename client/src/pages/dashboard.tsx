@@ -676,17 +676,6 @@ export default function DashboardPage() {
                   {filteredMatches.filter(m => m.stage !== 'new').length}
                 </Badge>
               </TabsTrigger>
-              <TabsTrigger 
-                value="others" 
-                className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
-              >
-                Outros Perfis
-                <Badge 
-                  className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
-                >
-                  {otherCompanies.length}
-                </Badge>
-              </TabsTrigger>
             </TabsList>
           </div>
 
@@ -1045,73 +1034,6 @@ export default function DashboardPage() {
             )}
           </TabsContent>
 
-          {/* Other Companies Tab */}
-          <TabsContent value="others" className={`${isMobile ? 'space-y-2 px-4 py-3 -mx-4 border-0' : 'grid grid-cols-1 lg:grid-cols-3 gap-6'}`}>
-            {otherCompanies.map((company) => (
-              <motion.div
-                key={company.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-300 h-full overflow-hidden" data-testid={`card-company-${company.id}`}>
-                  <CardContent className="p-6 flex flex-col h-full">
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className={`h-12 w-12 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
-                        <span className="text-white font-bold text-sm">{company.logo}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-slate-900 dark:text-white text-sm" data-testid={`text-company-name-${company.id}`}>{company.name}</h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2 flex-1">{company.description}</p>
-
-                    {(() => {
-                      const colors = getCompatibilityColor(company.matchScore);
-                      return (
-                        <div className={`${colors.bgColor} p-3 rounded-lg border ${colors.borderColor} mb-4`}>
-                          <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
-                            <span className={`text-sm font-bold ${colors.textColor}`}>{company.matchScore}%</span>
-                          </div>
-                          <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div 
-                              className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
-                              style={{ width: `${company.matchScore}%` }}
-                            />
-                          </div>
-                        </div>
-                      );
-                    })()}
-
-                    <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-700 mb-4">
-                      <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.revenue}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.employees}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Local</p>
-                        <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
-                      </div>
-                    </div>
-
-                    <Button 
-                      variant="outline" 
-                      className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
-                      data-testid={`button-view-company-${company.id}`}
-                    >
-                      <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </TabsContent>
         </Tabs>
         )}
 

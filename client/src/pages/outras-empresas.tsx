@@ -118,6 +118,14 @@ export default function OutrasEmpresasPage() {
           </p>
         </div>
 
+        {/* Info Box - NDA Warning */}
+        <div className={`${isMobile ? 'mb-4' : 'mb-6'} bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4`}>
+          <p className="text-sm text-blue-700 dark:text-blue-300">
+            <Lock className="h-4 w-4 inline mr-2" />
+            Todos os dados das empresas confidenciais estão protegidos por acordo de NDA. Para mais informações, entre em contato com o vendedor.
+          </p>
+        </div>
+
         {/* Search Bar */}
         <div className={`flex gap-2 mb-6 ${isMobile ? 'flex-col' : 'flex-row'}`}>
           <div className="relative flex-grow flex items-center gap-2">
@@ -195,14 +203,6 @@ export default function OutrasEmpresasPage() {
               </motion.div>
             ))
           )}
-        </div>
-
-        {/* Info Box */}
-        <div className={`${isMobile ? 'mt-6' : 'mt-12'} bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4`}>
-          <p className="text-sm text-blue-700 dark:text-blue-300">
-            <Lock className="h-4 w-4 inline mr-2" />
-            Todos os dados das empresas confidenciais estão protegidos por acordo de NDA. Para mais informações, entre em contato com o vendedor.
-          </p>
         </div>
       </div>
     </Layout>

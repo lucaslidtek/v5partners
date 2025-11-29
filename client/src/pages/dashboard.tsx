@@ -391,7 +391,7 @@ export default function DashboardPage() {
         {/* Stats Grid - Desktop & Mobile Carousel - Only show on New and Active tabs */}
         {activeTab !== 'others' && (
         <div className={`${isMobile ? 'mb-6 overflow-x-auto pb-2' : 'mb-8'}`}>
-          <div className={`${isMobile ? 'flex gap-4 pb-2 min-w-min' : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'}`}>
+          <div className={`${isMobile ? 'flex gap-4 pb-2 min-w-min' : 'grid grid-cols-1 md:grid-cols-2 gap-4'}`}>
             {stats.map((stat, index) => (
               <Card key={index} className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow ${isMobile ? 'flex-shrink-0 w-[160px]' : ''}`}>
                 <CardContent className="p-4 md:p-6 flex items-center justify-between">

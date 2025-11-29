@@ -335,21 +335,24 @@ export default function DashboardPage() {
   };
 
   const renderLogo = (match: Match, matchScore?: number) => {
-    if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
-      if (match.logoImage) {
-        return (
-          <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src={match.logoImage} alt={match.name} className="w-full h-full object-cover" />
-          </div>
-        );
-      }
+    // Show CompatibilityLogo only when NDA not signed
+    if (match.stage === 'new' || match.stage === 'interested') {
+      return <CompatibilityLogo matchScore={matchScore || match.matchScore} isConfidential size="md" />;
+    }
+    
+    // Show actual logo when NDA is signed
+    if (match.logoImage) {
       return (
-        <div className={`h-12 w-12 rounded-lg ${match.logoColor || 'bg-slate-200'} flex items-center justify-center flex-shrink-0`}>
-          <span className="text-white font-bold text-sm">{match.logo}</span>
+        <div className="h-12 w-12 rounded-lg bg-slate-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <img src={match.logoImage} alt={match.name} className="w-full h-full object-cover" />
         </div>
       );
     }
-    return <CompatibilityLogo matchScore={matchScore || match.matchScore} isConfidential size="md" />;
+    return (
+      <div className={`h-12 w-12 rounded-lg ${match.logoColor || 'bg-slate-200'} flex items-center justify-center flex-shrink-0`}>
+        <span className="text-white font-bold text-sm">{match.logo}</span>
+      </div>
+    );
   };
 
   const newStats = [

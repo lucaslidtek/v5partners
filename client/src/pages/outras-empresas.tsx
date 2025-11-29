@@ -3,8 +3,11 @@ import { Layout } from "@/components/layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Lock, Search, ChevronRight } from "lucide-react";
+import { Building2, Lock, Search, ChevronRight, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
 import {
   Dialog,
@@ -12,6 +15,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Sheet,
@@ -106,6 +110,7 @@ export default function OutrasEmpresasPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [sliderValue, setSliderValue] = useState([50]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -153,6 +158,77 @@ export default function OutrasEmpresasPage() {
               data-testid="input-search-other-companies"
             />
           </div>
+          {!isMobile && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="h-11 bg-white text-slate-900 border-slate-200 whitespace-nowrap font-medium transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 shadow-sm">
+                  <Filter className="mr-2 h-4 w-4" /> Filtros Avançados
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Filtros Avançados</DialogTitle>
+                  <DialogDescription>
+                    Refine sua busca por empresas.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="overflow-y-auto max-h-[70vh] pr-4">
+                  <div className="py-6 space-y-6">
+                    <div className="space-y-2">
+                      <Label>Faixa de Receita</Label>
+                      <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                          R$ {Math.round(sliderValue[0] / 10)}M
+                        </span>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{sliderValue[0]}%</span>
+                      </div>
+                      <Slider value={sliderValue} onValueChange={setSliderValue} max={100} step={1} className="py-4" />
+                      <div className="flex justify-between text-xs text-slate-500">
+                        <span>R$ 1M</span>
+                        <span>R$ 30M+</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label>Setores de Interesse</Label>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="tech" />
+                          <Label htmlFor="tech" className="font-normal">Tecnologia</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="retail" />
+                          <Label htmlFor="retail" className="font-normal">Varejo</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="logistica" />
+                          <Label htmlFor="logistica" className="font-normal">Logística</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="alimentacao" />
+                          <Label htmlFor="alimentacao" className="font-normal">Alimentação</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="educacao" />
+                          <Label htmlFor="educacao" className="font-normal">Educação</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="consultoria" />
+                          <Label htmlFor="consultoria" className="font-normal">Consultoria</Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 pb-4">
+                      <Button className="w-full">
+                        Aplicar Filtros
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
 
         {/* Companies Grid */}

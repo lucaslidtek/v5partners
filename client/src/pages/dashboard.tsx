@@ -76,7 +76,7 @@ type OtherCompany = {
 const otherCompanies: OtherCompany[] = [
   {
     id: 101,
-    name: "Empresa Confidencial #101",
+    name: "Confidencial #101",
     sector: "Tecnologia",
     location: "Rio de Janeiro, RJ",
     revenue: "R$ 5.2M",
@@ -89,7 +89,7 @@ const otherCompanies: OtherCompany[] = [
   },
   {
     id: 102,
-    name: "Empresa Confidencial #102",
+    name: "Confidencial #102",
     sector: "Varejo",
     location: "Belo Horizonte, MG",
     revenue: "R$ 8.7M",
@@ -102,7 +102,7 @@ const otherCompanies: OtherCompany[] = [
   },
   {
     id: 103,
-    name: "Empresa Confidencial #103",
+    name: "Confidencial #103",
     sector: "Logística",
     location: "Salvador, BA",
     revenue: "R$ 3.9M",
@@ -115,7 +115,7 @@ const otherCompanies: OtherCompany[] = [
   },
   {
     id: 104,
-    name: "Empresa Confidencial #104",
+    name: "Confidencial #104",
     sector: "Alimentação",
     location: "Brasília, DF",
     revenue: "R$ 6.1M",
@@ -128,7 +128,7 @@ const otherCompanies: OtherCompany[] = [
   },
   {
     id: 105,
-    name: "Empresa Confidencial #105",
+    name: "Confidencial #105",
     sector: "Educação",
     location: "Porto Alegre, RS",
     revenue: "R$ 4.5M",
@@ -141,7 +141,7 @@ const otherCompanies: OtherCompany[] = [
   },
   {
     id: 106,
-    name: "Empresa Confidencial #106",
+    name: "Confidencial #106",
     sector: "Consultoria",
     location: "Fortaleza, CE",
     revenue: "R$ 7.3M",

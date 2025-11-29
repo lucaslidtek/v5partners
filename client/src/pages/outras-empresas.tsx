@@ -43,7 +43,7 @@ interface Company {
 const otherCompanies: Company[] = [
   {
     id: 101,
-    name: "Empresa Confidencial #101",
+    name: "Confidencial #101",
     sector: "Tecnologia",
     revenue: "R$ 15M",
     employees: "45",
@@ -56,7 +56,7 @@ const otherCompanies: Company[] = [
   },
   {
     id: 102,
-    name: "Empresa Confidencial #102",
+    name: "Confidencial #102",
     sector: "Varejo",
     revenue: "R$ 8M",
     employees: "28",
@@ -69,7 +69,7 @@ const otherCompanies: Company[] = [
   },
   {
     id: 103,
-    name: "Empresa Confidencial #103",
+    name: "Confidencial #103",
     sector: "Logística",
     revenue: "R$ 22M",
     employees: "67",
@@ -82,7 +82,7 @@ const otherCompanies: Company[] = [
   },
   {
     id: 104,
-    name: "Empresa Confidencial #104",
+    name: "Confidencial #104",
     sector: "Alimentação",
     revenue: "R$ 12M",
     employees: "35",
@@ -95,7 +95,7 @@ const otherCompanies: Company[] = [
   },
   {
     id: 105,
-    name: "Empresa Confidencial #105",
+    name: "Confidencial #105",
     sector: "Educação",
     revenue: "R$ 10M",
     employees: "52",
@@ -108,7 +108,7 @@ const otherCompanies: Company[] = [
   },
   {
     id: 106,
-    name: "Empresa Confidencial #106",
+    name: "Confidencial #106",
     sector: "Consultoria",
     revenue: "R$ 18M",
     employees: "38",

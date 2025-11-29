@@ -226,7 +226,7 @@ export default function PerfilMultiplosPage() {
             <div className="flex justify-center">
               <Button
                 size="lg"
-                className="gap-2 px-8 h-14 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300"
+                className="gap-2 px-8 h-12 text-base font-semibold bg-primary hover:bg-primary/90 text-white transition-colors shadow-sm dark:shadow-slate-900/50"
                 onClick={() => setShowAddNew(true)}
                 data-testid="button-add-profile"
               >

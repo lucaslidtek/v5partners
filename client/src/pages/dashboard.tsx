@@ -1103,7 +1103,7 @@ export default function DashboardPage() {
                             const colors = getCompatibilityColor(match.matchScore);
                             return (
                               <div className="flex gap-2 items-start mb-2">
-                                <CompatibilityLogo matchScore={match.matchScore} isConfidential size="sm" />
+                                {renderLogo(match, match.matchScore)}
                                 <div className="flex-1 min-w-0">
                                   <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
@@ -1260,7 +1260,7 @@ export default function DashboardPage() {
                               const colors = getCompatibilityColor(process.matchScore);
                               return (
                                 <div className="flex gap-2 items-start mb-2">
-                                  <CompatibilityLogo matchScore={process.matchScore} isConfidential size="sm" />
+                                  {renderLogo(process, process.matchScore)}
                                   <div className="flex-1 min-w-0">
                                     <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
                                     <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>

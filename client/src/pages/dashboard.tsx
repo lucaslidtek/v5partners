@@ -1511,7 +1511,7 @@ export default function DashboardPage() {
             <div className="flex items-center justify-around h-16 px-2">
               <button
                 onClick={() => setActiveTab("new")}
-                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all ${
+                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all relative ${
                   activeTab === "new"
                     ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                     : "text-slate-600 dark:text-slate-400"
@@ -1520,10 +1520,15 @@ export default function DashboardPage() {
               >
                 <Heart className="h-5 w-5 mb-0.5" />
                 <span className="text-xs font-medium text-center">Novos</span>
+                {filteredMatches.filter(m => m.stage === 'new').length > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-white border-0">
+                    {filteredMatches.filter(m => m.stage === 'new').length}
+                  </Badge>
+                )}
               </button>
               <button
                 onClick={() => setActiveTab("active")}
-                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all ${
+                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all relative ${
                   activeTab === "active"
                     ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                     : "text-slate-600 dark:text-slate-400"
@@ -1532,6 +1537,11 @@ export default function DashboardPage() {
               >
                 <Clock className="h-5 w-5 mb-0.5" />
                 <span className="text-xs font-medium text-center">Ativos</span>
+                {filteredMatches.filter(m => m.stage !== 'new').length > 0 && (
+                  <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-white border-0">
+                    {filteredMatches.filter(m => m.stage !== 'new').length}
+                  </Badge>
+                )}
               </button>
               <button
                 onClick={() => setActiveTab("others")}

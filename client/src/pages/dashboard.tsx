@@ -1006,97 +1006,277 @@ export default function DashboardPage() {
         </Tabs>
         )}
 
-        {/* Mobile - Show only new matches */}
+        {/* Mobile Tab Content */}
         {isMobile && (
           <div className="space-y-2 mt-4">
-            {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
-                <CardContent className="flex flex-col items-center justify-center py-12">
-                  <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
-                    <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
-                  </div>
-                  <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum novo match</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
-                    Todos os matches já têm processos em andamento. Continue acompanhando na aba de Processos.
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              filteredMatches.filter(m => m.stage === 'new').map((match) => (
-                <motion.div 
-                  key={match.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-xl">
-                    <div className="p-5">
-                      <div className="flex gap-2 items-start mb-2">
-                        {renderLogo(match)}
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
-                        {match.isNew && (
-                          <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
-                        )}
+            {/* Aba Novos */}
+            {activeTab === "new" && (
+              <>
+                {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
+                  <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+                    <CardContent className="flex flex-col items-center justify-center py-12">
+                      <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                        <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
                       </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
-
-                      <div className="mb-4">
-                        <div className="flex justify-between items-center mb-1.5">
-                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
-                          <span className="text-sm font-bold text-primary">{match.matchScore}%</span>
-                        </div>
-                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-primary rounded-full transition-all duration-500" 
-                            style={{ width: `${match.matchScore}%` }}
-                          />
-                        </div>
-                      </div>
-
-                      <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">{match.description}</p>
-
-                      <div className="grid grid-cols-3 gap-2 mb-4">
-                        <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
-                          <p className="font-bold text-primary text-sm">{match.price}</p>
-                        </div>
-                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
-                          <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
-                        </div>
-                        <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                          <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
-                          <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {match.tags.map(tag => (
-                          <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-xs px-2 py-1">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2 pt-4">
-                        <Button 
-                          className="bg-primary hover:bg-primary/90 shadow-md font-semibold group h-10 text-sm"
-                          onClick={() => updateMatchStage(match.id, 'interested')}
-                        >
-                          <Heart className="h-4 w-4 group-hover:scale-110 transition-transform" /> Interesse
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-10 text-sm"
-                          onClick={() => setSelectedMatchId(match.id)}
-                          data-testid={`button-details-${match.id}`}
-                        >
-                          <Eye className="h-4 w-4" /> Ver
-                        </Button>
-                      </div>
-                    </div>
+                      <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum novo match</h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
+                        Todos os matches já têm processos em andamento. Continue acompanhando na aba de Processos.
+                      </p>
+                    </CardContent>
                   </Card>
-                </motion.div>
-              ))
+                ) : (
+                  filteredMatches.filter(m => m.stage === 'new').map((match) => (
+                    <motion.div 
+                      key={match.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      <Card className="border-l-4 border-l-primary dark:bg-slate-900 rounded-xl">
+                        <div className="p-5">
+                          <div className="flex gap-2 items-start mb-2">
+                            {renderLogo(match)}
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(match)}</h3>
+                            {match.isNew && (
+                              <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                            )}
+                          </div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
+
+                          <div className="mb-4">
+                            <div className="flex justify-between items-center mb-1.5">
+                              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                              <span className="text-sm font-bold text-primary">{match.matchScore}%</span>
+                            </div>
+                            <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-primary rounded-full transition-all duration-500" 
+                                style={{ width: `${match.matchScore}%` }}
+                              />
+                            </div>
+                          </div>
+
+                          <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">{match.description}</p>
+
+                          <div className="grid grid-cols-3 gap-2 mb-4">
+                            <div className="p-2.5 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Preço</p>
+                              <p className="font-bold text-primary text-sm">{match.price}</p>
+                            </div>
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
+                            </div>
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">EBITDA</p>
+                              <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap gap-1 mb-4">
+                            {match.tags.map(tag => (
+                              <Badge key={tag} variant="outline" className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-normal text-xs px-2 py-1">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 pt-4">
+                            <Button 
+                              className="bg-primary hover:bg-primary/90 shadow-md font-semibold group h-10 text-sm"
+                              onClick={() => updateMatchStage(match.id, 'interested')}
+                            >
+                              <Heart className="h-4 w-4 group-hover:scale-110 transition-transform" /> Interesse
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-10 text-sm"
+                              onClick={() => setSelectedMatchId(match.id)}
+                              data-testid={`button-details-${match.id}`}
+                            >
+                              <Eye className="h-4 w-4" /> Ver
+                            </Button>
+                          </div>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))
+                )}
+              </>
+            )}
+
+            {/* Aba Ativos */}
+            {activeTab === "active" && (
+              <>
+                {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
+                  <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+                    <CardContent className="flex flex-col items-center justify-center py-12">
+                      <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                        <Clock className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+                      </div>
+                      <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum processo ativo</h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
+                        Demonstre interesse em oportunidades para iniciar um processo de negociação.
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  filteredMatches.filter(m => m.stage !== 'new').map((process) => {
+                    const getStageConfig = (stage: Match['stage']) => {
+                      switch(stage) {
+                        case 'interested':
+                          return {
+                            label: "Interesse Demonstrado",
+                            color: "bg-amber-100 text-amber-800",
+                            borderColor: "border-amber-500",
+                            progress: 33
+                          };
+                        case 'nda_signed':
+                          return {
+                            label: "NDA Assinado",
+                            color: "bg-blue-100 text-blue-800",
+                            borderColor: "border-blue-500",
+                            progress: 66
+                          };
+                        case 'meeting_scheduled':
+                          return {
+                            label: "Reunião Agendada",
+                            color: "bg-emerald-100 text-emerald-800",
+                            borderColor: "border-emerald-500",
+                            progress: 90
+                          };
+                        default:
+                          return {
+                            label: "Em Andamento",
+                            color: "bg-slate-100",
+                            borderColor: "border-slate-500",
+                            progress: 0
+                          };
+                      }
+                    };
+
+                    const config = getStageConfig(process.stage);
+                    
+                    return (
+                      <motion.div
+                        key={process.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 rounded-xl`}>
+                          <CardContent className="p-5">
+                            <div className="flex gap-2 items-start mb-2">
+                              {renderLogo(process)}
+                              <h3 className="text-lg font-bold text-slate-900 dark:text-white flex-1">{getDisplayName(process)}</h3>
+                              <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap flex-shrink-0`}>
+                                {config.label}
+                              </Badge>
+                            </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
+
+                            <div className="mb-4">
+                              <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
+                                <span>Progresso</span>
+                                <span>{config.progress}%</span>
+                              </div>
+                              <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-primary transition-all duration-500"
+                                  style={{ width: `${config.progress}%` }}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-2 mb-4">
+                              <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Valor</p>
+                                <p className="font-bold text-slate-900 dark:text-white text-sm">{process.price}</p>
+                              </div>
+                              <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                                <p className="font-bold text-slate-900 dark:text-white text-sm">{process.revenue}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2 pt-4">
+                              <Button 
+                                className="flex-1 bg-primary hover:bg-primary/90 text-white font-semibold h-10 text-sm"
+                                onClick={() => setSelectedMatchId(process.id)}
+                              >
+                                <Eye className="h-4 w-4 mr-1" /> Ver
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    );
+                  })
+                )}
+              </>
+            )}
+
+            {/* Aba Outras Empresas */}
+            {activeTab === "others" && (
+              <>
+                {otherCompanies.length === 0 ? (
+                  <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+                    <CardContent className="flex flex-col items-center justify-center py-12">
+                      <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                        <Building2 className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+                      </div>
+                      <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhuma empresa disponível</h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
+                        Não há outras empresas no momento.
+                      </p>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  otherCompanies.map((company) => (
+                    <motion.div
+                      key={company.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
+                      <Card className="border-slate-200 dark:border-slate-800 dark:bg-slate-900 rounded-xl">
+                        <CardContent className="p-5">
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className={`h-12 w-12 rounded-lg ${company.logoColor} flex items-center justify-center flex-shrink-0`}>
+                              <span className="text-white font-bold text-sm">{company.logo}</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
+                            </div>
+                          </div>
+
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 line-clamp-2">{company.description}</p>
+
+                          <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 dark:border-slate-700 mb-4">
+                            <div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.revenue}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
+                              <p className="text-sm font-semibold text-slate-900 dark:text-white">{company.employees}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Local</p>
+                              <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">{company.location.split(',')[1]?.trim() || 'N/A'}</p>
+                            </div>
+                          </div>
+
+                          <Button 
+                            variant="outline" 
+                            className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 h-10"
+                          >
+                            <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))
+                )}
+              </>
             )}
           </div>
         )}

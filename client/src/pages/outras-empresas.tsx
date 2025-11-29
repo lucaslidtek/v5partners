@@ -33,6 +33,7 @@ interface Company {
   employees: string;
   location: string;
   description: string;
+  matchScore: number;
   logo: string;
   logoColor: string;
 }
@@ -46,6 +47,7 @@ const otherCompanies: Company[] = [
     employees: "45",
     location: "São Paulo, SP",
     description: "Plataforma SaaS focada em automação de processos empresariais com crescimento de 25% ao ano.",
+    matchScore: 76,
     logo: "TC",
     logoColor: "bg-blue-500"
   },
@@ -57,6 +59,7 @@ const otherCompanies: Company[] = [
     employees: "28",
     location: "Rio de Janeiro, RJ",
     description: "Rede de lojas de moda com presença em shopping centers e loja online consolidada.",
+    matchScore: 52,
     logo: "VR",
     logoColor: "bg-pink-500"
   },
@@ -68,6 +71,7 @@ const otherCompanies: Company[] = [
     employees: "67",
     location: "Belo Horizonte, MG",
     description: "Empresa de logística e distribuição com frota própria e parcerias estratégicas.",
+    matchScore: 38,
     logo: "LG",
     logoColor: "bg-amber-500"
   },
@@ -79,6 +83,7 @@ const otherCompanies: Company[] = [
     employees: "35",
     location: "Brasília, DF",
     description: "Produção e distribuição de alimentos processados com marca conhecida no mercado.",
+    matchScore: 68,
     logo: "AL",
     logoColor: "bg-green-500"
   },
@@ -90,6 +95,7 @@ const otherCompanies: Company[] = [
     employees: "52",
     location: "Curitiba, PR",
     description: "Plataforma de educação online com mais de 50 mil alunos ativos mensalmente.",
+    matchScore: 82,
     logo: "ED",
     logoColor: "bg-purple-500"
   },
@@ -101,6 +107,7 @@ const otherCompanies: Company[] = [
     employees: "38",
     location: "Recife, PE",
     description: "Consultoria especializada em transformação digital para empresas de médio porte.",
+    matchScore: 45,
     logo: "CS",
     logoColor: "bg-cyan-500"
   }
@@ -111,6 +118,31 @@ export default function OutrasEmpresasPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [sliderValue, setSliderValue] = useState([50]);
+
+  const getCompatibilityColor = (score: number) => {
+    if (score >= 70) {
+      return {
+        barColor: 'bg-emerald-500',
+        bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
+        borderColor: 'border-emerald-200 dark:border-emerald-800',
+        textColor: 'text-emerald-600 dark:text-emerald-400'
+      };
+    } else if (score >= 40) {
+      return {
+        barColor: 'bg-amber-500',
+        bgColor: 'bg-amber-50 dark:bg-amber-950/30',
+        borderColor: 'border-amber-200 dark:border-amber-800',
+        textColor: 'text-amber-600 dark:text-amber-400'
+      };
+    } else {
+      return {
+        barColor: 'bg-red-500',
+        bgColor: 'bg-red-50 dark:bg-red-950/30',
+        borderColor: 'border-red-200 dark:border-red-800',
+        textColor: 'text-red-600 dark:text-red-400'
+      };
+    }
+  };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -266,6 +298,24 @@ export default function OutrasEmpresasPage() {
                     </div>
 
                     <p className="text-xs text-slate-600 dark:text-slate-300 mb-5 line-clamp-1 flex-1 leading-relaxed">{company.description}</p>
+
+                    {(() => {
+                      const colors = getCompatibilityColor(company.matchScore);
+                      return (
+                        <div className={`${colors.bgColor} p-3 rounded-lg border ${colors.borderColor} mb-5`}>
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">Compatibilidade</span>
+                            <span className={`text-sm font-bold ${colors.textColor}`}>{company.matchScore}%</span>
+                          </div>
+                          <div className="h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                              style={{ width: `${company.matchScore}%` }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })()}
 
                     <div className="grid grid-cols-3 gap-3 pt-5 border-t border-slate-100 dark:border-slate-700 mb-5">
                       <div>

@@ -11,7 +11,7 @@ import { useContext } from "react";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
   const { user, logout, settings, switchProfile } = useAuth();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
 
   const getProfileInfo = () => {
     switch(user?.role) {
@@ -58,7 +58,11 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                   <Link href="/dashboard">
                     <Button 
                       variant="ghost" 
-                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                      className={`transition-colors font-medium ${
+                        location === "/dashboard"
+                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+                      }`}
                       data-testid="nav-dashboard"
                     >
                       Dashboard
@@ -67,7 +71,11 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                   <Link href="/outras-empresas">
                     <Button 
                       variant="ghost" 
-                      className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2"
+                      className={`transition-colors font-medium flex items-center gap-2 ${
+                        location === "/outras-empresas"
+                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+                      }`}
                       data-testid="nav-outras-empresas"
                     >
                       <Building2 className="h-4 w-4" />

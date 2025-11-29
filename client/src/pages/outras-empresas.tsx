@@ -6,6 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { Building2, Lock, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 interface Company {
   id: number;
@@ -91,6 +105,7 @@ const otherCompanies: Company[] = [
 export default function OutrasEmpresasPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -195,6 +210,7 @@ export default function OutrasEmpresasPage() {
                       variant="outline" 
                       className="w-full text-sm border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
                       data-testid={`button-view-company-${company.id}`}
+                      onClick={() => setSelectedCompany(company)}
                     >
                       <Lock className="h-3.5 w-3.5 mr-2" /> Mais Informações
                     </Button>
@@ -204,6 +220,115 @@ export default function OutrasEmpresasPage() {
             ))
           )}
         </div>
+
+        {/* Company Details - Sheet for Mobile, Dialog for Desktop */}
+        {isMobile ? (
+          <Sheet open={!!selectedCompany} onOpenChange={(open) => !open && setSelectedCompany(null)}>
+            <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-[85vh]">
+              <SheetHeader className="flex-shrink-0 pt-[0px] pb-[0px]">
+                <div className="flex items-center gap-2 min-w-0">
+                  {selectedCompany && (
+                    <div className={`h-12 w-12 rounded-lg ${selectedCompany.logoColor} flex items-center justify-center flex-shrink-0`}>
+                      <span className="text-white font-bold text-sm">{selectedCompany.logo}</span>
+                    </div>
+                  )}
+                  <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedCompany?.name}</SheetTitle>
+                </div>
+              </SheetHeader>
+              {selectedCompany && (
+                <div className="flex-1 overflow-y-auto pr-4 space-y-6">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Informações</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Setor</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.sector}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.revenue}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.employees}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Localização</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.location}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <p className="text-sm text-blue-700 dark:text-blue-300">
+                      <Lock className="h-4 w-4 inline mr-2" />
+                      Os dados desta empresa estão protegidos por NDA. Entre em contato com o vendedor para mais informações.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </SheetContent>
+          </Sheet>
+        ) : (
+          <Dialog open={!!selectedCompany} onOpenChange={(open) => !open && setSelectedCompany(null)}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  {selectedCompany && (
+                    <div className={`h-12 w-12 rounded-lg ${selectedCompany.logoColor} flex items-center justify-center flex-shrink-0`}>
+                      <span className="text-white font-bold text-sm">{selectedCompany.logo}</span>
+                    </div>
+                  )}
+                  <DialogTitle className="text-2xl">{selectedCompany?.name}</DialogTitle>
+                </div>
+                <DialogDescription>{selectedCompany?.sector}</DialogDescription>
+              </DialogHeader>
+
+              {selectedCompany && (
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Descrição</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{selectedCompany.description}</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Informações</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Setor</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.sector}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.revenue}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Equipe</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.employees}</p>
+                      </div>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Localização</p>
+                        <p className="font-bold text-slate-900 dark:text-white">{selectedCompany.location}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <p className="text-sm text-blue-700 dark:text-blue-300">
+                      <Lock className="h-4 w-4 inline mr-2" />
+                      Os dados desta empresa estão protegidos por NDA. Entre em contato com o vendedor para mais informações.
+                    </p>
+                  </div>
+                </div>
+              )}
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </Layout>
   );

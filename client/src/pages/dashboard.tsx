@@ -354,7 +354,7 @@ export default function DashboardPage() {
 
   return (
     <Layout>
-      <div className={`${isMobile ? 'pb-16' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
+      <div className={`${isMobile ? 'pb-20' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-3' : 'py-8'}`}>
         {/* Welcome Section */}
         <div className={`${isMobile ? 'mb-3' : 'mb-8'} flex items-center justify-between`}>
           <div>
@@ -1208,6 +1208,50 @@ export default function DashboardPage() {
               )}
             </DialogContent>
           </Dialog>
+        )}
+
+        {/* Mobile Tab Bar */}
+        {isMobile && (
+          <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-lg dark:shadow-slate-950/50">
+            <div className="flex items-center justify-around h-16 px-2">
+              <button
+                onClick={() => setActiveTab("new")}
+                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all ${
+                  activeTab === "new"
+                    ? "text-primary"
+                    : "text-slate-600 dark:text-slate-400"
+                }`}
+                data-testid="tab-bar-button-new"
+              >
+                <Heart className="h-5 w-5 mb-0.5" />
+                <span className="text-xs font-medium text-center">Novos</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("active")}
+                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all ${
+                  activeTab === "active"
+                    ? "text-primary"
+                    : "text-slate-600 dark:text-slate-400"
+                }`}
+                data-testid="tab-bar-button-active"
+              >
+                <Clock className="h-5 w-5 mb-0.5" />
+                <span className="text-xs font-medium text-center">Ativos</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("others")}
+                className={`flex-1 flex flex-col items-center justify-center py-2 px-2 rounded-lg transition-all ${
+                  activeTab === "others"
+                    ? "text-primary"
+                    : "text-slate-600 dark:text-slate-400"
+                }`}
+                data-testid="tab-bar-button-others"
+              >
+                <Building2 className="h-5 w-5 mb-0.5" />
+                <span className="text-xs font-medium text-center">Outras</span>
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </Layout>

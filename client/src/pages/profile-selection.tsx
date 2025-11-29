@@ -40,7 +40,7 @@ export default function ProfileSelectionPage() {
       ],
       color: "bg-secondary",
       buttonColor: "bg-secondary hover:bg-secondary/90",
-      textColor: "text-blue-900"
+      textColor: "text-white"
     },
     {
       id: "franchise",

@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth } from "@/lib/context";
 import { Button } from "@/components/ui/button";
-import { Bell, User, LogOut, Settings } from "lucide-react";
+import { Bell, User, LogOut, Settings, Target, Briefcase, Store } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -12,6 +12,34 @@ import { useContext } from "react";
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
   const { user, logout, settings } = useAuth();
   const [, setLocation] = useLocation();
+
+  const getProfileInfo = () => {
+    switch(user?.role) {
+      case "investor":
+        return {
+          title: "Investidor",
+          icon: Target,
+          badgeColor: "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400"
+        };
+      case "seller":
+        return {
+          title: "Vendedor",
+          icon: Briefcase,
+          badgeColor: "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400"
+        };
+      case "franchise":
+        return {
+          title: "Franqueadora",
+          icon: Store,
+          badgeColor: "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400"
+        };
+      default:
+        return null;
+    }
+  };
+
+  const profileInfo = getProfileInfo();
+  const ProfileIcon = profileInfo?.icon;
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans text-foreground dark:bg-slate-950">
@@ -34,17 +62,12 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
                 <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
                   <div className="text-right hidden sm:block">
                     <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 capitalize mt-1">
-                      {(() => {
-                        const roleMap: Record<string, string> = {
-                          'investor': 'Investidor',
-                          'seller': 'Vendedor',
-                          'admin': 'Administrador',
-                          'user': 'Usuário'
-                        };
-                        return roleMap[user.role as string] || user.role;
-                      })()}
-                    </p>
+                    {profileInfo && ProfileIcon && (
+                      <div className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-2 justify-end w-fit ml-auto`} data-testid="badge-profile-type-header">
+                        <ProfileIcon className="w-3 h-3" />
+                        <span>{profileInfo.title}</span>
+                      </div>
+                    )}
                   </div>
                   
                   <DropdownMenu>

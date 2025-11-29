@@ -546,18 +546,33 @@ export default function DashboardPage() {
               <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
                 <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
                   {/* Header com logo, título e status */}
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    <div className="flex gap-3 flex-1 items-start">
-                      {renderLogo(match)}
-                      <div className="flex-1 min-w-0">
-                        <h3 className={`${isMobile ? 'text-lg font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white leading-tight`}>{getDisplayName(match)}</h3>
-                        <p className={`${isMobile ? 'text-xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-1`}>{match.sector} • {match.location}</p>
+                  {isMobile ? (
+                    <>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="flex gap-2 flex-1 items-center min-w-0">
+                          {renderLogo(match)}
+                          <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(match)}</h3>
+                        </div>
+                        {match.isNew && (
+                          <span className="text-xs px-2.5 py-1.5 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
+                        )}
                       </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{match.sector} • {match.location}</p>
+                    </>
+                  ) : (
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <div className="flex gap-4 flex-1 items-start">
+                        {renderLogo(match)}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                          <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{match.sector} • {match.location}</p>
+                        </div>
+                      </div>
+                      {match.isNew && (
+                        <span className="text-xs px-3 py-1 bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap">Novo</span>
+                      )}
                     </div>
-                    {match.isNew && (
-                      <span className={`${isMobile ? 'text-2xs px-2 py-1' : 'text-xs px-3 py-1'} bg-emerald-600 text-white rounded-full font-semibold whitespace-nowrap`}>Novo</span>
-                    )}
-                  </div>
+                  )}
 
                   {/* Match Score Bar */}
                   <div className={`${isMobile ? 'mb-4' : 'mb-6'}`}>
@@ -738,18 +753,33 @@ export default function DashboardPage() {
                   >
                     <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
                       <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                          <div className="flex gap-3 flex-1 items-start min-w-0">
-                            {renderLogo(process)}
-                            <div className="flex-1 min-w-0">
-                              <h3 className={`${isMobile ? 'text-lg font-bold' : 'text-2xl font-bold'} text-slate-900 dark:text-white`}>{getDisplayName(process)}</h3>
-                              <p className={`${isMobile ? 'text-xs' : 'text-base'} text-slate-500 dark:text-slate-400 mt-1`}>{process.sector} • {process.location}</p>
+                        {isMobile ? (
+                          <>
+                            <div className="flex items-center justify-between gap-2 mb-3">
+                              <div className="flex gap-2 flex-1 items-center min-w-0">
+                                {renderLogo(process)}
+                                <h3 className="text-lg font-bold text-slate-900 dark:text-white truncate">{getDisplayName(process)}</h3>
+                              </div>
+                              <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap flex-shrink-0`}>
+                                {config.label}
+                              </Badge>
                             </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
+                          </>
+                        ) : (
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <div className="flex gap-4 flex-1 items-start min-w-0">
+                              {renderLogo(process)}
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{process.sector} • {process.location}</p>
+                              </div>
+                            </div>
+                            <Badge className={`${config.color} text-sm py-1.5 px-3`}>
+                              {config.label}
+                            </Badge>
                           </div>
-                          <Badge className={`${config.color} ${isMobile ? 'text-2xs py-1 px-2 whitespace-nowrap' : 'text-sm py-1.5 px-3'}`}>
-                            {isMobile ? config.label.split(' ')[0] : config.label}
-                          </Badge>
-                        </div>
+                        )}
 
                         {/* Next Step Hint */}
                         {nextStep && (

@@ -342,7 +342,7 @@ export default function DashboardPage() {
     if (match.stage === 'nda_signed' || match.stage === 'meeting_scheduled') {
       return match.name;
     }
-    return `Empresa Confidencial #${match.id}`;
+    return `Confidencial #${match.id}`;
   };
 
   const renderLogo = (match: Match, matchScore?: number) => {

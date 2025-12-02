@@ -539,7 +539,6 @@ export default function DashboardPage() {
                                   }`}
                                 >
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
-                                  {selectedTypesOthers.has(type) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -589,7 +588,7 @@ export default function DashboardPage() {
                                   }`}
                                 >
                                   {sector.label}
-                                  {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
+
                                 </Button>
                               ))}
                             </div>
@@ -617,7 +616,6 @@ export default function DashboardPage() {
                                   }`}
                                 >
                                   {metric.label}
-                                  {selectedMetrics.has(metric.id) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -667,6 +665,7 @@ export default function DashboardPage() {
                                 }`}
                               >
                                 {sector.label}
+
                                 {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}
@@ -752,7 +751,6 @@ export default function DashboardPage() {
                                   }`}
                                 >
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
-                                  {selectedTypesOthers.has(type) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -822,6 +820,7 @@ export default function DashboardPage() {
                                 }`}
                               >
                                 {sector.label}
+
                                 {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}

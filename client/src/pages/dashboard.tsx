@@ -226,6 +226,8 @@ export default function DashboardPage() {
   const [sliderValue, setSliderValue] = useState([50]);
   const [selectedTypesOthers, setSelectedTypesOthers] = useState<Set<string>>(new Set());
   const [compatibilityRangeOthers, setCompatibilityRangeOthers] = useState([0, 100]);
+  const [selectedSectors, setSelectedSectors] = useState<Set<string>>(new Set());
+  const [selectedMetrics, setSelectedMetrics] = useState<Set<string>>(new Set());
   
   const getValuationLabel = (value: number) => {
     if (value <= 25) return "R$ 1M - R$ 10M";
@@ -574,10 +576,20 @@ export default function DashboardPage() {
                               ].map((sector) => (
                                 <Button
                                   key={sector.id}
-                                  onClick={() => {}}
-                                  className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                  onClick={() => {
+                                    const newSectors = new Set(selectedSectors);
+                                    if (newSectors.has(sector.id)) newSectors.delete(sector.id);
+                                    else newSectors.add(sector.id);
+                                    setSelectedSectors(newSectors);
+                                  }}
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                    selectedSectors.has(sector.id)
+                                      ? 'bg-primary text-white shadow-lg'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                  }`}
                                 >
                                   {sector.label}
+                                  {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -592,10 +604,20 @@ export default function DashboardPage() {
                               ].map((metric) => (
                                 <Button
                                   key={metric.id}
-                                  onClick={() => {}}
-                                  className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                  onClick={() => {
+                                    const newMetrics = new Set(selectedMetrics);
+                                    if (newMetrics.has(metric.id)) newMetrics.delete(metric.id);
+                                    else newMetrics.add(metric.id);
+                                    setSelectedMetrics(newMetrics);
+                                  }}
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                    selectedMetrics.has(metric.id)
+                                      ? 'bg-primary text-white shadow-lg'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                  }`}
                                 >
                                   {metric.label}
+                                  {selectedMetrics.has(metric.id) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -632,10 +654,20 @@ export default function DashboardPage() {
                             ].map((sector) => (
                               <Button
                                 key={sector.id}
-                                onClick={() => {}}
-                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                onClick={() => {
+                                  const newSectors = new Set(selectedSectors);
+                                  if (newSectors.has(sector.id)) newSectors.delete(sector.id);
+                                  else newSectors.add(sector.id);
+                                  setSelectedSectors(newSectors);
+                                }}
+                                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                  selectedSectors.has(sector.id)
+                                    ? 'bg-primary text-white shadow-lg'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                }`}
                               >
                                 {sector.label}
+                                {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}
                           </div>
@@ -650,10 +682,20 @@ export default function DashboardPage() {
                             ].map((metric) => (
                               <Button
                                 key={metric.id}
-                                onClick={() => {}}
-                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                onClick={() => {
+                                  const newMetrics = new Set(selectedMetrics);
+                                  if (newMetrics.has(metric.id)) newMetrics.delete(metric.id);
+                                  else newMetrics.add(metric.id);
+                                  setSelectedMetrics(newMetrics);
+                                }}
+                                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                  selectedMetrics.has(metric.id)
+                                    ? 'bg-primary text-white shadow-lg'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                }`}
                               >
                                 {metric.label}
+                                {selectedMetrics.has(metric.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}
                           </div>
@@ -767,10 +809,20 @@ export default function DashboardPage() {
                             ].map((sector) => (
                               <Button
                                 key={sector.id}
-                                onClick={() => {}}
-                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                onClick={() => {
+                                  const newSectors = new Set(selectedSectors);
+                                  if (newSectors.has(sector.id)) newSectors.delete(sector.id);
+                                  else newSectors.add(sector.id);
+                                  setSelectedSectors(newSectors);
+                                }}
+                                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                  selectedSectors.has(sector.id)
+                                    ? 'bg-primary text-white shadow-lg'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                }`}
                               >
                                 {sector.label}
+                                {selectedSectors.has(sector.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}
                           </div>
@@ -785,10 +837,20 @@ export default function DashboardPage() {
                             ].map((metric) => (
                               <Button
                                 key={metric.id}
-                                onClick={() => {}}
-                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                onClick={() => {
+                                  const newMetrics = new Set(selectedMetrics);
+                                  if (newMetrics.has(metric.id)) newMetrics.delete(metric.id);
+                                  else newMetrics.add(metric.id);
+                                  setSelectedMetrics(newMetrics);
+                                }}
+                                className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
+                                  selectedMetrics.has(metric.id)
+                                    ? 'bg-primary text-white shadow-lg'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                }`}
                               >
                                 {metric.label}
+                                {selectedMetrics.has(metric.id) && <Check className="h-4 w-4" />}
                               </Button>
                             ))}
                           </div>

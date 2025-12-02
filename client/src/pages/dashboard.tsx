@@ -602,41 +602,43 @@ export default function DashboardPage() {
                         )}
                     
                     {activeTab !== 'others' && (
-                    <div className="space-y-2">
-                      <Label>Setores de Interesse</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="tech" />
-                          <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                      <>
+                        <div className="space-y-2">
+                          <Label>Setores de Interesse</Label>
+                          <div className="space-y-2 mt-2">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="tech" />
+                              <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="retail" />
+                              <Label htmlFor="retail" className="font-normal">Varejo</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="health" />
+                              <Label htmlFor="health" className="font-normal">Saúde</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="fintech" />
+                              <Label htmlFor="fintech" className="font-normal">Fintech</Label>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="retail" />
-                          <Label htmlFor="retail" className="font-normal">Varejo</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="health" />
-                          <Label htmlFor="health" className="font-normal">Saúde</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="fintech" />
-                          <Label htmlFor="fintech" className="font-normal">Fintech</Label>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <Label>Métricas Financeiras</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="ebitda" defaultChecked />
-                          <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                        <div className="space-y-2">
+                          <Label>Métricas Financeiras</Label>
+                          <div className="space-y-2 mt-2">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="ebitda" defaultChecked />
+                              <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="growth" />
+                              <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="growth" />
-                          <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
-                        </div>
-                      </div>
-                    </div>
+                      </>
                     )}
 
                     <div className="pt-4 pb-4">
@@ -753,41 +755,43 @@ export default function DashboardPage() {
                         )}
                     
                     {activeTab !== 'others' && (
-                    <div className="space-y-2">
-                      <Label>Setores de Interesse</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="tech" />
-                          <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                      <>
+                        <div className="space-y-2">
+                          <Label>Setores de Interesse</Label>
+                          <div className="space-y-2 mt-2">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="tech" />
+                              <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="retail" />
+                              <Label htmlFor="retail" className="font-normal">Varejo</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="health" />
+                              <Label htmlFor="health" className="font-normal">Saúde</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="fintech" />
+                              <Label htmlFor="fintech" className="font-normal">Fintech</Label>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="retail" />
-                          <Label htmlFor="retail" className="font-normal">Varejo</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="health" />
-                          <Label htmlFor="health" className="font-normal">Saúde</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="fintech" />
-                          <Label htmlFor="fintech" className="font-normal">Fintech</Label>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <Label>Métricas Financeiras</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="ebitda" defaultChecked />
-                          <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                        <div className="space-y-2">
+                          <Label>Métricas Financeiras</Label>
+                          <div className="space-y-2 mt-2">
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="ebitda" defaultChecked />
+                              <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox id="growth" />
+                              <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="growth" />
-                          <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
-                        </div>
-                      </div>
-                    </div>
+                      </>
                     )}
 
                     <div className="pt-4 pb-4">

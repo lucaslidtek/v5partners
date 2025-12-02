@@ -29,7 +29,7 @@ export default function ProfileSelectionPage() {
     },
     {
       id: "seller",
-      title: "Vendedor / Empresa",
+      title: "Empresa",
       icon: Briefcase,
       description: "Quero vender minha empresa ou negócio",
       features: [

@@ -582,6 +582,42 @@ export default function DashboardPage() {
                               <span>100%</span>
                             </div>
                           </div>
+
+                          <div className="space-y-2">
+                            <Label>Setores de Interesse</Label>
+                            <div className="space-y-2 mt-2">
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-tech" />
+                                <Label htmlFor="m-tech" className="font-normal">Tecnologia / SaaS</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-retail" />
+                                <Label htmlFor="m-retail" className="font-normal">Varejo</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-health" />
+                                <Label htmlFor="m-health" className="font-normal">Saúde</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-fintech" />
+                                <Label htmlFor="m-fintech" className="font-normal">Fintech</Label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>Métricas Financeiras</Label>
+                            <div className="space-y-2 mt-2">
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-ebitda" defaultChecked />
+                                <Label htmlFor="m-ebitda" className="font-normal">EBITDA Positivo</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox id="m-growth" />
+                                <Label htmlFor="m-growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
+                              </div>
+                            </div>
+                          </div>
                         </>
                       )}
                       {activeTab !== 'others' && (

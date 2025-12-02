@@ -224,11 +224,13 @@ export default function DashboardPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [sliderValue, setSliderValue] = useState([50]);
+  const [selectedTypesOthers, setSelectedTypesOthers] = useState<Set<string>>(new Set());
+  const [compatibilityRangeOthers, setCompatibilityRangeOthers] = useState([0, 100]);
   
   // Create a combined list for selecting both matches and other companies
   const allCompanies = [
     ...matches,
-    ...otherCompanies.map(oc => ({
+    ...filteredOtherCompanies.map(oc => ({
       ...oc,
       description: oc.description || '',
       matchScore: oc.matchScore,
@@ -257,6 +259,17 @@ export default function DashboardPage() {
       match.location.toLowerCase().includes(searchLower) ||
       match.description.toLowerCase().includes(searchLower)
     );
+  });
+
+  const filteredOtherCompanies = otherCompanies.filter(company => {
+    const matchesSearch = company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.location.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesType = selectedTypesOthers.size === 0 || selectedTypesOthers.has(company.type);
+    const matchesCompatibility = company.matchScore >= compatibilityRangeOthers[0] && company.matchScore <= compatibilityRangeOthers[1];
+    
+    return matchesSearch && matchesType && matchesCompatibility;
   });
 
   useEffect(() => {
@@ -503,8 +516,77 @@ export default function DashboardPage() {
                   </SheetHeader>
                   <div className="flex-1 overflow-y-auto pr-4">
                     <div className="py-6 space-y-6">
-                      <div className="space-y-2">
-                        <Label>Faixa de Valor (Valuation)</Label>
+                      {activeTab === 'others' && (
+                        <>
+                          <div className="space-y-2">
+                            <Label>Tipo de Perfil</Label>
+                            <div className="space-y-2 mt-2">
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="m-empresa"
+                                  checked={selectedTypesOthers.has('empresa')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('empresa');
+                                    else newTypes.delete('empresa');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="m-empresa" className="font-normal">Empresa</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="m-investidor"
+                                  checked={selectedTypesOthers.has('investidor')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('investidor');
+                                    else newTypes.delete('investidor');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="m-investidor" className="font-normal">Investidor</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="m-franqueadora"
+                                  checked={selectedTypesOthers.has('franqueadora')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('franqueadora');
+                                    else newTypes.delete('franqueadora');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="m-franqueadora" className="font-normal">Franqueadora</Label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>Faixa de Compatibilidade</Label>
+                            <div className="mb-3 flex justify-between items-center bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-800">
+                              <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                                {compatibilityRangeOthers[0]}% - {compatibilityRangeOthers[1]}%
+                              </span>
+                            </div>
+                            <Slider 
+                              value={compatibilityRangeOthers} 
+                              onValueChange={setCompatibilityRangeOthers} 
+                              max={100} 
+                              step={1} 
+                              className="py-4"
+                            />
+                            <div className="flex justify-between text-xs text-slate-500">
+                              <span>0%</span>
+                              <span>100%</span>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {activeTab !== 'others' && (
+                        <div className="space-y-2">
+                          <Label>Faixa de Valor (Valuation)</Label>
                       <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
                           {getValuationLabel(sliderValue[0])}
@@ -517,7 +599,9 @@ export default function DashboardPage() {
                         <span>R$ 100M+</span>
                       </div>
                     </div>
+                        )}
                     
+                    {activeTab !== 'others' && (
                     <div className="space-y-2">
                       <Label>Setores de Interesse</Label>
                       <div className="space-y-2 mt-2">
@@ -553,6 +637,7 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </div>
+                    )}
 
                     <div className="pt-4 pb-4">
                       <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
@@ -577,13 +662,82 @@ export default function DashboardPage() {
                   <DialogHeader>
                     <DialogTitle>Filtros Avançados</DialogTitle>
                     <DialogDescription>
-                      Refine sua busca por oportunidades de investimento.
+                      {activeTab === 'others' ? 'Refine sua busca por perfis.' : 'Refine sua busca por oportunidades de investimento.'}
                     </DialogDescription>
                   </DialogHeader>
                   <div className="overflow-y-auto max-h-[70vh] pr-4">
                     <div className="py-6 space-y-6">
-                      <div className="space-y-2">
-                        <Label>Faixa de Valor (Valuation)</Label>
+                      {activeTab === 'others' && (
+                        <>
+                          <div className="space-y-2">
+                            <Label>Tipo de Perfil</Label>
+                            <div className="space-y-2 mt-2">
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="d-empresa"
+                                  checked={selectedTypesOthers.has('empresa')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('empresa');
+                                    else newTypes.delete('empresa');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="d-empresa" className="font-normal">Empresa</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="d-investidor"
+                                  checked={selectedTypesOthers.has('investidor')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('investidor');
+                                    else newTypes.delete('investidor');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="d-investidor" className="font-normal">Investidor</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id="d-franqueadora"
+                                  checked={selectedTypesOthers.has('franqueadora')}
+                                  onCheckedChange={(checked) => {
+                                    const newTypes = new Set(selectedTypesOthers);
+                                    if (checked) newTypes.add('franqueadora');
+                                    else newTypes.delete('franqueadora');
+                                    setSelectedTypesOthers(newTypes);
+                                  }}
+                                />
+                                <Label htmlFor="d-franqueadora" className="font-normal">Franqueadora</Label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>Faixa de Compatibilidade</Label>
+                            <div className="mb-3 flex justify-between items-center bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-800">
+                              <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                                {compatibilityRangeOthers[0]}% - {compatibilityRangeOthers[1]}%
+                              </span>
+                            </div>
+                            <Slider 
+                              value={compatibilityRangeOthers} 
+                              onValueChange={setCompatibilityRangeOthers} 
+                              max={100} 
+                              step={1} 
+                              className="py-4"
+                            />
+                            <div className="flex justify-between text-xs text-slate-500">
+                              <span>0%</span>
+                              <span>100%</span>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {activeTab !== 'others' && (
+                        <div className="space-y-2">
+                          <Label>Faixa de Valor (Valuation)</Label>
                       <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
                           {getValuationLabel(sliderValue[0])}
@@ -596,7 +750,9 @@ export default function DashboardPage() {
                         <span>R$ 100M+</span>
                       </div>
                     </div>
+                        )}
                     
+                    {activeTab !== 'others' && (
                     <div className="space-y-2">
                       <Label>Setores de Interesse</Label>
                       <div className="space-y-2 mt-2">
@@ -632,6 +788,7 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </div>
+                    )}
 
                     <div className="pt-4 pb-4">
                       <Button className="w-full" onClick={() => document.querySelector('[data-radix-collection-item]')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))}>
@@ -1363,7 +1520,7 @@ export default function DashboardPage() {
                     </CardContent>
                   </Card>
                 ) : (
-                  otherCompanies.map((company) => (
+                  filteredOtherCompanies.map((company) => (
                     <motion.div
                       key={company.id}
                       initial={{ opacity: 0, y: 20 }}

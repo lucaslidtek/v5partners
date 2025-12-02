@@ -275,10 +275,10 @@ export default function OutrasEmpresasPage() {
                       <div className="flex flex-wrap gap-2 mt-3">
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedTypes.has('empresa')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newTypes = new Set(selectedTypes);
@@ -292,10 +292,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedTypes.has('investidor')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newTypes = new Set(selectedTypes);
@@ -309,10 +309,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedTypes.has('franqueadora')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newTypes = new Set(selectedTypes);
@@ -368,10 +368,10 @@ export default function OutrasEmpresasPage() {
                       <div className="flex flex-wrap gap-2 mt-3">
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('tech')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -385,10 +385,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('retail')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -402,10 +402,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('logistica')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -419,10 +419,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('alimentacao')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -436,10 +436,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('educacao')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -453,10 +453,10 @@ export default function OutrasEmpresasPage() {
                         </Button>
                         <Button
                           variant="outline"
-                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                             selectedSectors.has('consultoria')
-                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                              ? 'bg-primary text-white shadow-lg'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                           }`}
                           onClick={() => {
                             const newSectors = new Set(selectedSectors);
@@ -499,10 +499,10 @@ export default function OutrasEmpresasPage() {
                     <div className="flex flex-wrap gap-2 mt-3">
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedTypes.has('empresa')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newTypes = new Set(selectedTypes);
@@ -516,10 +516,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedTypes.has('investidor')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newTypes = new Set(selectedTypes);
@@ -533,10 +533,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedTypes.has('franqueadora')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newTypes = new Set(selectedTypes);
@@ -592,10 +592,10 @@ export default function OutrasEmpresasPage() {
                     <div className="flex flex-wrap gap-2 mt-3">
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('tech')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);
@@ -609,10 +609,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('retail')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);
@@ -626,10 +626,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('logistica')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);
@@ -643,10 +643,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('alimentacao')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);
@@ -660,10 +660,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('educacao')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);
@@ -677,10 +677,10 @@ export default function OutrasEmpresasPage() {
                       </Button>
                       <Button
                         variant="outline"
-                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
                           selectedSectors.has('consultoria')
-                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
-                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-primary text-white shadow-lg'
+                            : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                         }`}
                         onClick={() => {
                           const newSectors = new Set(selectedSectors);

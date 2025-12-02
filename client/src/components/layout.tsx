@@ -27,6 +27,12 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
           icon: Briefcase,
           badgeColor: "bg-secondary/10 text-secondary"
         };
+      case "company":
+        return {
+          title: "Empresa",
+          icon: Building2,
+          badgeColor: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+        };
       case "franchise":
         return {
           title: "Franqueadora",

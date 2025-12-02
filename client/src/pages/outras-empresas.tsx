@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
+import { useAuth } from "@/lib/context";
 import {
   Dialog,
   DialogContent,
@@ -122,6 +123,7 @@ const otherCompanies: Company[] = [
 ];
 
 export default function OutrasEmpresasPage() {
+  const { activeProfile } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobile, setIsMobile] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
@@ -130,6 +132,19 @@ export default function OutrasEmpresasPage() {
   const [selectedSectors, setSelectedSectors] = useState<Set<string>>(new Set());
   const [compatibilityRange, setCompatibilityRange] = useState([0, 100]);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
+
+  // Get allowed profile types based on user's current profile type
+  const getAllowedProfileTypes = () => {
+    if (!activeProfile?.type) return null;
+    
+    if (activeProfile.type === 'investor') {
+      return ['seller', 'franchise'];
+    }
+    // For seller and franchise profiles, only show investors
+    return ['investor'];
+  };
+
+  const allowedTypes = getAllowedProfileTypes();
 
   const getCompatibilityColor = (score: number) => {
     if (score >= 70) {
@@ -201,13 +216,16 @@ export default function OutrasEmpresasPage() {
       company.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
       company.location.toLowerCase().includes(searchTerm.toLowerCase());
     
+    // Filter by profile type matching logic
+    const matchesProfileType = !allowedTypes || allowedTypes.includes(company.type);
+    
     // Profile type filter
     const matchesType = selectedTypes.size === 0 || selectedTypes.has(company.type);
     
     // Compatibility range filter
     const matchesCompatibility = company.matchScore >= compatibilityRange[0] && company.matchScore <= compatibilityRange[1];
     
-    return matchesSearch && matchesType && matchesCompatibility;
+    return matchesSearch && matchesProfileType && matchesType && matchesCompatibility;
   });
 
   return (

@@ -215,7 +215,7 @@ const initialMatches: Match[] = [
 ];
 
 export default function DashboardPage() {
-  const { user } = useAuth();
+  const { user, activeProfile } = useAuth();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [matches, setMatches] = useState<Match[]>([]);
@@ -237,14 +237,32 @@ export default function DashboardPage() {
     return "R$ 60M - R$ 100M+";
   };
 
+  // Get allowed profile types based on user's current profile type
+  const getAllowedProfileTypes = () => {
+    if (!activeProfile?.type) return null;
+    
+    if (activeProfile.type === 'investor') {
+      return ['seller', 'franchise'];
+    }
+    // For seller and franchise profiles, only show investors
+    return ['investor'];
+  };
+
+  const allowedTypes = getAllowedProfileTypes();
+
   const filteredMatches = matches.filter(match => {
     const searchLower = searchTerm.toLowerCase();
-    return (
+    const matchesSearch = (
       match.name.toLowerCase().includes(searchLower) ||
       match.sector.toLowerCase().includes(searchLower) ||
       match.location.toLowerCase().includes(searchLower) ||
       match.description.toLowerCase().includes(searchLower)
     );
+    
+    // Filter by profile type matching logic
+    const matchesProfileType = !allowedTypes || allowedTypes.includes(match.type);
+    
+    return matchesSearch && matchesProfileType;
   });
 
   const filteredOtherCompanies = otherCompanies.filter(company => {
@@ -252,10 +270,13 @@ export default function DashboardPage() {
       company.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
       company.location.toLowerCase().includes(searchTerm.toLowerCase());
     
+    // Filter by profile type matching logic
+    const matchesProfileType = !allowedTypes || allowedTypes.includes(company.type);
+    
     const matchesType = selectedTypesOthers.size === 0 || selectedTypesOthers.has(company.type);
     const matchesCompatibility = company.matchScore >= compatibilityRangeOthers[0] && company.matchScore <= compatibilityRangeOthers[1];
     
-    return matchesSearch && matchesType && matchesCompatibility;
+    return matchesSearch && matchesProfileType && matchesType && matchesCompatibility;
   });
   
   // Create a combined list for selecting both matches and other companies

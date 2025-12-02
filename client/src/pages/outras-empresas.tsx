@@ -128,6 +128,7 @@ export default function OutrasEmpresasPage() {
   const [sliderValue, setSliderValue] = useState([50]);
   const [selectedTypes, setSelectedTypes] = useState<Set<string>>(new Set());
   const [compatibilityRange, setCompatibilityRange] = useState([0, 100]);
+  const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 
   const getCompatibilityColor = (score: number) => {
     if (score >= 70) {
@@ -231,15 +232,26 @@ export default function OutrasEmpresasPage() {
 
         {/* Search Bar */}
         <div className={`flex gap-2 mb-6 ${isMobile ? 'flex-col' : 'flex-row'}`}>
-          <div className="relative flex-grow flex items-center gap-2">
-            <Search className={`absolute ${isMobile ? 'left-3' : 'left-3'} top-3.5 h-4 w-4 text-slate-400`} />
-            <Input 
-              placeholder={isMobile ? "Buscar..." : "Buscar por setor, localização ou nome..."} 
-              className={`pl-10 h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/30 focus:ring-2 focus:ring-primary/20 transition-all`}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              data-testid="input-search-other-companies"
-            />
+          <div className={`flex gap-2 ${isMobile ? 'w-full' : 'flex-grow'}`}>
+            <div className="relative flex-grow flex items-center gap-2">
+              <Search className={`absolute ${isMobile ? 'left-3' : 'left-3'} top-3.5 h-4 w-4 text-slate-400`} />
+              <Input 
+                placeholder={isMobile ? "Buscar..." : "Buscar por setor, localização ou nome..."} 
+                className={`pl-10 h-11 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-slate-900/30 focus:ring-2 focus:ring-primary/20 transition-all`}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                data-testid="input-search-other-companies"
+              />
+            </div>
+            {isMobile && (
+              <Button 
+                onClick={() => setFilterSheetOpen(true)}
+                className="h-11 bg-white text-slate-900 border-slate-200 whitespace-nowrap font-medium transition-colors hover:bg-slate-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 shadow-sm px-3"
+                data-testid="button-open-filters-mobile"
+              >
+                <Filter className="h-4 w-4" />
+              </Button>
+            )}
           </div>
           {!isMobile && (
             <Dialog>
@@ -381,6 +393,147 @@ export default function OutrasEmpresasPage() {
               </DialogContent>
             </Dialog>
           )}
+
+        {/* Mobile Filters Sheet */}
+        {isMobile && (
+          <Sheet open={filterSheetOpen} onOpenChange={setFilterSheetOpen}>
+            <SheetContent side="bottom" className="rounded-t-3xl flex flex-col h-auto max-h-[90vh]">
+              <SheetHeader>
+                <SheetTitle>Filtros</SheetTitle>
+                <SheetDescription>
+                  Refine sua busca por empresas.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="overflow-y-auto flex-1 pr-4">
+                <div className="py-6 space-y-6">
+                  <div className="space-y-2">
+                    <Label>Tipo de Perfil</Label>
+                    <div className="space-y-2 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="m-empresa"
+                          checked={selectedTypes.has('empresa')}
+                          onCheckedChange={(checked) => {
+                            const newTypes = new Set(selectedTypes);
+                            if (checked) newTypes.add('empresa');
+                            else newTypes.delete('empresa');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="checkbox-type-empresa-mobile"
+                        />
+                        <Label htmlFor="m-empresa" className="font-normal">Empresa</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="m-investidor"
+                          checked={selectedTypes.has('investidor')}
+                          onCheckedChange={(checked) => {
+                            const newTypes = new Set(selectedTypes);
+                            if (checked) newTypes.add('investidor');
+                            else newTypes.delete('investidor');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="checkbox-type-investidor-mobile"
+                        />
+                        <Label htmlFor="m-investidor" className="font-normal">Investidor</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="m-franqueadora"
+                          checked={selectedTypes.has('franqueadora')}
+                          onCheckedChange={(checked) => {
+                            const newTypes = new Set(selectedTypes);
+                            if (checked) newTypes.add('franqueadora');
+                            else newTypes.delete('franqueadora');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="checkbox-type-franqueadora-mobile"
+                        />
+                        <Label htmlFor="m-franqueadora" className="font-normal">Franqueadora</Label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Faixa de Compatibilidade</Label>
+                    <div className="mb-3 flex justify-between items-center bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-800">
+                      <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        {compatibilityRange[0]}% - {compatibilityRange[1]}%
+                      </span>
+                    </div>
+                    <Slider 
+                      value={compatibilityRange} 
+                      onValueChange={setCompatibilityRange} 
+                      max={100} 
+                      step={1} 
+                      className="py-4"
+                      data-testid="slider-compatibility-mobile"
+                    />
+                    <div className="flex justify-between text-xs text-slate-500">
+                      <span>0%</span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Faixa de Receita</Label>
+                    <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
+                      <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        R$ {Math.round(sliderValue[0] / 10)}M
+                      </span>
+                      <span className="text-xs text-blue-600 dark:text-blue-400 font-bold">{sliderValue[0]}%</span>
+                    </div>
+                    <Slider value={sliderValue} onValueChange={setSliderValue} max={100} step={1} className="py-4" />
+                    <div className="flex justify-between text-xs text-slate-500">
+                      <span>R$ 1M</span>
+                      <span>R$ 30M+</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>Setores de Interesse</Label>
+                    <div className="space-y-2 mt-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-tech" />
+                        <Label htmlFor="m-tech" className="font-normal">Tecnologia</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-retail" />
+                        <Label htmlFor="m-retail" className="font-normal">Varejo</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-logistica" />
+                        <Label htmlFor="m-logistica" className="font-normal">Logística</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-alimentacao" />
+                        <Label htmlFor="m-alimentacao" className="font-normal">Alimentação</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-educacao" />
+                        <Label htmlFor="m-educacao" className="font-normal">Educação</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox id="m-consultoria" />
+                        <Label htmlFor="m-consultoria" className="font-normal">Consultoria</Label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 pb-4">
+                    <Button 
+                      className="w-full" 
+                      data-testid="button-apply-filters-mobile"
+                      onClick={() => setFilterSheetOpen(false)}
+                    >
+                      Aplicar Filtros
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        )}
         </div>
 
         {/* Companies Grid */}

@@ -36,7 +36,7 @@ import { motion } from "framer-motion";
 import { 
   Search, Filter, Heart, FileText, MessageSquare, 
   MapPin, DollarSign, Users, TrendingUp, Building2, 
-  Eye, Calendar, Lock, Clock, ArrowRight, Undo2
+  Eye, Calendar, Lock, Clock, ArrowRight, Undo2, Check
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -530,13 +530,14 @@ export default function DashboardPage() {
                                     else newTypes.add(type);
                                     setSelectedTypesOthers(newTypes);
                                   }}
-                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                                     selectedTypesOthers.has(type)
                                       ? 'bg-primary text-white shadow-lg'
                                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                                   }`}
                                 >
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
+                                  {selectedTypesOthers.has(type) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>
@@ -702,13 +703,14 @@ export default function DashboardPage() {
                                     else newTypes.add(type);
                                     setSelectedTypesOthers(newTypes);
                                   }}
-                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                                     selectedTypesOthers.has(type)
                                       ? 'bg-primary text-white shadow-lg'
                                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                                   }`}
                                 >
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
+                                  {selectedTypesOthers.has(type) && <Check className="h-4 w-4" />}
                                 </Button>
                               ))}
                             </div>

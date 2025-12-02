@@ -523,9 +523,12 @@ export default function DashboardPage() {
   const selectedMatch = allCompanies.find(m => m.id === selectedMatchId);
 
   useEffect(() => {
-    localStorage.removeItem('matches');
+    // Force clear cache and reload with new data
+    localStorage.clear();
+    sessionStorage.clear();
     setMatches(initialMatches);
     localStorage.setItem('matches', JSON.stringify(initialMatches));
+    localStorage.setItem('dataVersion', 'v2');
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();

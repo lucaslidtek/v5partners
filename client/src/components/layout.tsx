@@ -23,7 +23,7 @@ export function Layout({ children, showHeader = true }: { children: React.ReactN
         };
       case "seller":
         return {
-          title: "Vendedor",
+          title: "Empresa",
           icon: Briefcase,
           badgeColor: "bg-secondary/10 text-secondary"
         };

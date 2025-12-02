@@ -17,7 +17,7 @@ const profileTypeConfig = {
     hoverColor: "hover:bg-primary/5",
   },
   seller: {
-    title: "Vendedor / Empresa",
+    title: "Empresa",
     icon: Briefcase,
     description: "Vendendo sua empresa ou negócio",
     color: "bg-secondary",
@@ -45,7 +45,7 @@ const newProfileOptions = [
   },
   {
     id: "seller",
-    title: "Vendedor / Empresa",
+    title: "Empresa",
     icon: Briefcase,
     description: "Quero vender minha empresa ou negócio",
     color: "bg-secondary",

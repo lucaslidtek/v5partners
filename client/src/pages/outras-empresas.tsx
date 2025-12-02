@@ -126,6 +126,8 @@ export default function OutrasEmpresasPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [sliderValue, setSliderValue] = useState([50]);
+  const [selectedTypes, setSelectedTypes] = useState<Set<string>>(new Set());
+  const [compatibilityRange, setCompatibilityRange] = useState([0, 100]);
 
   const getCompatibilityColor = (score: number) => {
     if (score >= 70) {
@@ -191,11 +193,20 @@ export default function OutrasEmpresasPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const filteredCompanies = otherCompanies.filter(company =>
-    company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    company.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    company.location.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCompanies = otherCompanies.filter(company => {
+    // Search term filter
+    const matchesSearch = company.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.sector.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      company.location.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Profile type filter
+    const matchesType = selectedTypes.size === 0 || selectedTypes.has(company.type);
+    
+    // Compatibility range filter
+    const matchesCompatibility = company.matchScore >= compatibilityRange[0] && company.matchScore <= compatibilityRange[1];
+    
+    return matchesSearch && matchesType && matchesCompatibility;
+  });
 
   return (
     <Layout>
@@ -247,6 +258,75 @@ export default function OutrasEmpresasPage() {
                 <div className="overflow-y-auto max-h-[70vh] pr-4">
                   <div className="py-6 space-y-6">
                     <div className="space-y-2">
+                      <Label>Tipo de Perfil</Label>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="empresa"
+                            checked={selectedTypes.has('empresa')}
+                            onCheckedChange={(checked) => {
+                              const newTypes = new Set(selectedTypes);
+                              if (checked) newTypes.add('empresa');
+                              else newTypes.delete('empresa');
+                              setSelectedTypes(newTypes);
+                            }}
+                            data-testid="checkbox-type-empresa"
+                          />
+                          <Label htmlFor="empresa" className="font-normal">Empresa</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="investidor"
+                            checked={selectedTypes.has('investidor')}
+                            onCheckedChange={(checked) => {
+                              const newTypes = new Set(selectedTypes);
+                              if (checked) newTypes.add('investidor');
+                              else newTypes.delete('investidor');
+                              setSelectedTypes(newTypes);
+                            }}
+                            data-testid="checkbox-type-investidor"
+                          />
+                          <Label htmlFor="investidor" className="font-normal">Investidor</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="franqueadora"
+                            checked={selectedTypes.has('franqueadora')}
+                            onCheckedChange={(checked) => {
+                              const newTypes = new Set(selectedTypes);
+                              if (checked) newTypes.add('franqueadora');
+                              else newTypes.delete('franqueadora');
+                              setSelectedTypes(newTypes);
+                            }}
+                            data-testid="checkbox-type-franqueadora"
+                          />
+                          <Label htmlFor="franqueadora" className="font-normal">Franqueadora</Label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Faixa de Compatibilidade</Label>
+                      <div className="mb-3 flex justify-between items-center bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg border border-green-100 dark:border-green-800">
+                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {compatibilityRange[0]}% - {compatibilityRange[1]}%
+                        </span>
+                      </div>
+                      <Slider 
+                        value={compatibilityRange} 
+                        onValueChange={setCompatibilityRange} 
+                        max={100} 
+                        step={1} 
+                        className="py-4"
+                        data-testid="slider-compatibility"
+                      />
+                      <div className="flex justify-between text-xs text-slate-500">
+                        <span>0%</span>
+                        <span>100%</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
                       <Label>Faixa de Receita</Label>
                       <div className="mb-3 flex justify-between items-center bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-100 dark:border-blue-800">
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">
@@ -292,7 +372,7 @@ export default function OutrasEmpresasPage() {
                     </div>
 
                     <div className="pt-4 pb-4">
-                      <Button className="w-full">
+                      <Button className="w-full" data-testid="button-apply-filters">
                         Aplicar Filtros
                       </Button>
                     </div>

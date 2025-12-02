@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const profileTypeConfig = {
   investor: {
-    title: "Investidor / Comprador",
+    title: "Sou Investidor",
     icon: Target,
     description: "Procurando empresas para comprar ou investir",
     color: "bg-primary",
@@ -17,7 +17,7 @@ const profileTypeConfig = {
     hoverColor: "hover:bg-primary/5",
   },
   seller: {
-    title: "Empresa",
+    title: "Sou Empresa",
     icon: Briefcase,
     description: "Vendendo sua empresa ou negócio",
     color: "bg-secondary",
@@ -25,7 +25,7 @@ const profileTypeConfig = {
     hoverColor: "hover:bg-secondary/5",
   },
   franchise: {
-    title: "Franqueadora",
+    title: "Sou Franqueadora",
     icon: Store,
     description: "Expandir franquia encontrando franqueados",
     color: "bg-accent",
@@ -37,7 +37,7 @@ const profileTypeConfig = {
 const newProfileOptions = [
   {
     id: "investor",
-    title: "Investidor / Comprador",
+    title: "Sou Investidor",
     icon: Target,
     description: "Quero encontrar empresas para comprar ou investir",
     color: "bg-primary",
@@ -45,7 +45,7 @@ const newProfileOptions = [
   },
   {
     id: "seller",
-    title: "Empresa",
+    title: "Sou Empresa",
     icon: Briefcase,
     description: "Quero vender minha empresa ou negócio",
     color: "bg-secondary",
@@ -53,7 +53,7 @@ const newProfileOptions = [
   },
   {
     id: "franchise",
-    title: "Franqueadora",
+    title: "Sou Franqueadora",
     icon: Store,
     description: "Quero expandir minha franquia encontrando franqueados",
     color: "bg-accent",

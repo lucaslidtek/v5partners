@@ -14,7 +14,7 @@ export default function ProfileSelectionPage() {
   const profiles = [
     {
       id: "investor",
-      title: "Investidor / Comprador",
+      title: "Sou Investidor",
       icon: Target,
       description: "Quero encontrar empresas para comprar ou investir",
       features: [
@@ -29,7 +29,7 @@ export default function ProfileSelectionPage() {
     },
     {
       id: "seller",
-      title: "Empresa",
+      title: "Sou Empresa",
       icon: Briefcase,
       description: "Quero vender minha empresa ou negócio",
       features: [
@@ -44,7 +44,7 @@ export default function ProfileSelectionPage() {
     },
     {
       id: "franchise",
-      title: "Franqueadora",
+      title: "Sou Franqueadora",
       icon: Store,
       description: "Quero expandir minha franquia encontrando franqueados",
       features: [
@@ -110,7 +110,7 @@ export default function ProfileSelectionPage() {
                     onClick={() => setProfileType(profile.id as any)}
                     data-testid={`button-select-${profile.id}`}
                   >
-                    Continuar como {profile.title.split(' / ')[0]}
+                    Continuar como {profile.title.replace('Sou ', '')}
                   </Button>
                 </CardFooter>
               </Card>

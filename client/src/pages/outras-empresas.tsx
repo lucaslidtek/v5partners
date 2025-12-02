@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CompatibilityLogo } from "@/components/compatibility-logo";
 import { Badge } from "@/components/ui/badge";
-import { Building2, Lock, Search, ChevronRight, Filter } from "lucide-react";
+import { Building2, Lock, Search, ChevronRight, Filter, Target, Briefcase, Store } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -275,7 +275,7 @@ export default function OutrasEmpresasPage() {
                       <div className="flex flex-wrap gap-2 mt-3">
                         <Button
                           variant="outline"
-                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                             selectedTypes.has('empresa')
                               ? 'bg-primary text-white shadow-lg'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -288,11 +288,12 @@ export default function OutrasEmpresasPage() {
                           }}
                           data-testid="pill-type-empresa"
                         >
+                          <Briefcase className="h-4 w-4" />
                           Empresa
                         </Button>
                         <Button
                           variant="outline"
-                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                             selectedTypes.has('investidor')
                               ? 'bg-primary text-white shadow-lg'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -305,11 +306,12 @@ export default function OutrasEmpresasPage() {
                           }}
                           data-testid="pill-type-investidor"
                         >
+                          <Target className="h-4 w-4" />
                           Investidor
                         </Button>
                         <Button
                           variant="outline"
-                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                             selectedTypes.has('franqueadora')
                               ? 'bg-primary text-white shadow-lg'
                               : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -322,6 +324,7 @@ export default function OutrasEmpresasPage() {
                           }}
                           data-testid="pill-type-franqueadora"
                         >
+                          <Store className="h-4 w-4" />
                           Franqueadora
                         </Button>
                       </div>
@@ -499,7 +502,7 @@ export default function OutrasEmpresasPage() {
                     <div className="flex flex-wrap gap-2 mt-3">
                       <Button
                         variant="outline"
-                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                           selectedTypes.has('empresa')
                             ? 'bg-primary text-white shadow-lg'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -512,11 +515,12 @@ export default function OutrasEmpresasPage() {
                         }}
                         data-testid="pill-type-empresa-mobile"
                       >
+                        <Briefcase className="h-4 w-4" />
                         Empresa
                       </Button>
                       <Button
                         variant="outline"
-                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                           selectedTypes.has('investidor')
                             ? 'bg-primary text-white shadow-lg'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -529,11 +533,12 @@ export default function OutrasEmpresasPage() {
                         }}
                         data-testid="pill-type-investidor-mobile"
                       >
+                        <Target className="h-4 w-4" />
                         Investidor
                       </Button>
                       <Button
                         variant="outline"
-                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                        className={`px-4 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${
                           selectedTypes.has('franqueadora')
                             ? 'bg-primary text-white shadow-lg'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -546,6 +551,7 @@ export default function OutrasEmpresasPage() {
                         }}
                         data-testid="pill-type-franqueadora-mobile"
                       >
+                        <Store className="h-4 w-4" />
                         Franqueadora
                       </Button>
                     </div>

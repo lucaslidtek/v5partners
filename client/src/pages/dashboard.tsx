@@ -36,7 +36,8 @@ import { motion } from "framer-motion";
 import { 
   Search, Filter, Heart, FileText, MessageSquare, 
   MapPin, DollarSign, Users, TrendingUp, Building2, 
-  Eye, Calendar, Lock, Clock, ArrowRight, Undo2, Check
+  Eye, Calendar, Lock, Clock, ArrowRight, Undo2, Check,
+  Target, Briefcase, Store
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -523,7 +524,14 @@ export default function DashboardPage() {
                           <div className="space-y-3">
                             <Label>Tipo de Perfil</Label>
                             <div className="flex flex-wrap gap-2 mt-2">
-                              {['empresa', 'investidor', 'franqueadora'].map((type) => (
+                              {['empresa', 'investidor', 'franqueadora'].map((type) => {
+                                const getIcon = (typeVal: string) => {
+                                  if (typeVal === 'investidor') return Target;
+                                  if (typeVal === 'empresa') return Briefcase;
+                                  return Store;
+                                };
+                                const IconComponent = getIcon(type);
+                                return (
                                 <Button
                                   key={type}
                                   onClick={() => {
@@ -538,9 +546,11 @@ export default function DashboardPage() {
                                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                                   }`}
                                 >
+                                  <IconComponent className="h-4 w-4" />
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
                                 </Button>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
 
@@ -732,7 +742,14 @@ export default function DashboardPage() {
                           <div className="space-y-3">
                             <Label>Tipo de Perfil</Label>
                             <div className="flex flex-wrap gap-2 mt-2">
-                              {['empresa', 'investidor', 'franqueadora'].map((type) => (
+                              {['empresa', 'investidor', 'franqueadora'].map((type) => {
+                                const getIcon = (typeVal: string) => {
+                                  if (typeVal === 'investidor') return Target;
+                                  if (typeVal === 'empresa') return Briefcase;
+                                  return Store;
+                                };
+                                const IconComponent = getIcon(type);
+                                return (
                                 <Button
                                   key={type}
                                   onClick={() => {
@@ -747,9 +764,11 @@ export default function DashboardPage() {
                                       : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
                                   }`}
                                 >
+                                  <IconComponent className="h-4 w-4" />
                                   {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
                                 </Button>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
 

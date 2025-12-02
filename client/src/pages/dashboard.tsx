@@ -227,23 +227,6 @@ export default function DashboardPage() {
   const [selectedTypesOthers, setSelectedTypesOthers] = useState<Set<string>>(new Set());
   const [compatibilityRangeOthers, setCompatibilityRangeOthers] = useState([0, 100]);
   
-  // Create a combined list for selecting both matches and other companies
-  const allCompanies = [
-    ...matches,
-    ...filteredOtherCompanies.map(oc => ({
-      ...oc,
-      description: oc.description || '',
-      matchScore: oc.matchScore,
-      ebitda: 'N/A',
-      price: 'N/A',
-      tags: [],
-      isNew: false,
-      stage: 'new' as const
-    }))
-  ];
-  
-  const selectedMatch = allCompanies.find(m => m.id === selectedMatchId);
-
   const getValuationLabel = (value: number) => {
     if (value <= 25) return "R$ 1M - R$ 10M";
     if (value <= 50) return "R$ 10M - R$ 30M";
@@ -271,6 +254,23 @@ export default function DashboardPage() {
     
     return matchesSearch && matchesType && matchesCompatibility;
   });
+  
+  // Create a combined list for selecting both matches and other companies
+  const allCompanies = [
+    ...matches,
+    ...filteredOtherCompanies.map(oc => ({
+      ...oc,
+      description: oc.description || '',
+      matchScore: oc.matchScore,
+      ebitda: 'N/A',
+      price: 'N/A',
+      tags: [],
+      isNew: false,
+      stage: 'new' as const
+    }))
+  ];
+  
+  const selectedMatch = allCompanies.find(m => m.id === selectedMatchId);
 
   useEffect(() => {
     localStorage.removeItem('matches');

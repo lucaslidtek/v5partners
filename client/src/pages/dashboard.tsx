@@ -518,48 +518,27 @@ export default function DashboardPage() {
                     <div className="py-6 space-y-6">
                       {activeTab === 'others' && (
                         <>
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <Label>Tipo de Perfil</Label>
-                            <div className="space-y-2 mt-2">
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="m-empresa"
-                                  checked={selectedTypesOthers.has('empresa')}
-                                  onCheckedChange={(checked) => {
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {['empresa', 'investidor', 'franqueadora'].map((type) => (
+                                <Button
+                                  key={type}
+                                  onClick={() => {
                                     const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('empresa');
-                                    else newTypes.delete('empresa');
+                                    if (newTypes.has(type)) newTypes.delete(type);
+                                    else newTypes.add(type);
                                     setSelectedTypesOthers(newTypes);
                                   }}
-                                />
-                                <Label htmlFor="m-empresa" className="font-normal">Empresa</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="m-investidor"
-                                  checked={selectedTypesOthers.has('investidor')}
-                                  onCheckedChange={(checked) => {
-                                    const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('investidor');
-                                    else newTypes.delete('investidor');
-                                    setSelectedTypesOthers(newTypes);
-                                  }}
-                                />
-                                <Label htmlFor="m-investidor" className="font-normal">Investidor</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="m-franqueadora"
-                                  checked={selectedTypesOthers.has('franqueadora')}
-                                  onCheckedChange={(checked) => {
-                                    const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('franqueadora');
-                                    else newTypes.delete('franqueadora');
-                                    setSelectedTypesOthers(newTypes);
-                                  }}
-                                />
-                                <Label htmlFor="m-franqueadora" className="font-normal">Franqueadora</Label>
-                              </div>
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                                    selectedTypesOthers.has(type)
+                                      ? 'bg-primary text-white shadow-lg'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                  }`}
+                                >
+                                  {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
+                                </Button>
+                              ))}
                             </div>
                           </div>
 
@@ -583,39 +562,41 @@ export default function DashboardPage() {
                             </div>
                           </div>
 
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <Label>Setores de Interesse</Label>
-                            <div className="space-y-2 mt-2">
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-tech" />
-                                <Label htmlFor="m-tech" className="font-normal">Tecnologia / SaaS</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-retail" />
-                                <Label htmlFor="m-retail" className="font-normal">Varejo</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-health" />
-                                <Label htmlFor="m-health" className="font-normal">Saúde</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-fintech" />
-                                <Label htmlFor="m-fintech" className="font-normal">Fintech</Label>
-                              </div>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {[
+                                { id: 'tech', label: 'Tecnologia / SaaS' },
+                                { id: 'retail', label: 'Varejo' },
+                                { id: 'health', label: 'Saúde' },
+                                { id: 'fintech', label: 'Fintech' }
+                              ].map((sector) => (
+                                <Button
+                                  key={sector.id}
+                                  onClick={() => {}}
+                                  className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                >
+                                  {sector.label}
+                                </Button>
+                              ))}
                             </div>
                           </div>
 
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <Label>Métricas Financeiras</Label>
-                            <div className="space-y-2 mt-2">
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-ebitda" defaultChecked />
-                                <Label htmlFor="m-ebitda" className="font-normal">EBITDA Positivo</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox id="m-growth" />
-                                <Label htmlFor="m-growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
-                              </div>
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {[
+                                { id: 'ebitda', label: 'EBITDA Positivo' },
+                                { id: 'growth', label: `Crescimento > 20% a.a.` }
+                              ].map((metric) => (
+                                <Button
+                                  key={metric.id}
+                                  onClick={() => {}}
+                                  className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                                >
+                                  {metric.label}
+                                </Button>
+                              ))}
                             </div>
                           </div>
                         </>
@@ -639,39 +620,41 @@ export default function DashboardPage() {
                     
                     {activeTab !== 'others' && (
                       <>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label>Setores de Interesse</Label>
-                          <div className="space-y-2 mt-2">
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="tech" />
-                              <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="retail" />
-                              <Label htmlFor="retail" className="font-normal">Varejo</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="health" />
-                              <Label htmlFor="health" className="font-normal">Saúde</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="fintech" />
-                              <Label htmlFor="fintech" className="font-normal">Fintech</Label>
-                            </div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {[
+                              { id: 'tech', label: 'Tecnologia / SaaS' },
+                              { id: 'retail', label: 'Varejo' },
+                              { id: 'health', label: 'Saúde' },
+                              { id: 'fintech', label: 'Fintech' }
+                            ].map((sector) => (
+                              <Button
+                                key={sector.id}
+                                onClick={() => {}}
+                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                              >
+                                {sector.label}
+                              </Button>
+                            ))}
                           </div>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label>Métricas Financeiras</Label>
-                          <div className="space-y-2 mt-2">
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="ebitda" defaultChecked />
-                              <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="growth" />
-                              <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
-                            </div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {[
+                              { id: 'ebitda', label: 'EBITDA Positivo' },
+                              { id: 'growth', label: `Crescimento > 20% a.a.` }
+                            ].map((metric) => (
+                              <Button
+                                key={metric.id}
+                                onClick={() => {}}
+                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                              >
+                                {metric.label}
+                              </Button>
+                            ))}
                           </div>
                         </div>
                       </>
@@ -707,48 +690,27 @@ export default function DashboardPage() {
                     <div className="py-6 space-y-6">
                       {activeTab === 'others' && (
                         <>
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <Label>Tipo de Perfil</Label>
-                            <div className="space-y-2 mt-2">
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="d-empresa"
-                                  checked={selectedTypesOthers.has('empresa')}
-                                  onCheckedChange={(checked) => {
+                            <div className="flex flex-wrap gap-2 mt-2">
+                              {['empresa', 'investidor', 'franqueadora'].map((type) => (
+                                <Button
+                                  key={type}
+                                  onClick={() => {
                                     const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('empresa');
-                                    else newTypes.delete('empresa');
+                                    if (newTypes.has(type)) newTypes.delete(type);
+                                    else newTypes.add(type);
                                     setSelectedTypesOthers(newTypes);
                                   }}
-                                />
-                                <Label htmlFor="d-empresa" className="font-normal">Empresa</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="d-investidor"
-                                  checked={selectedTypesOthers.has('investidor')}
-                                  onCheckedChange={(checked) => {
-                                    const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('investidor');
-                                    else newTypes.delete('investidor');
-                                    setSelectedTypesOthers(newTypes);
-                                  }}
-                                />
-                                <Label htmlFor="d-investidor" className="font-normal">Investidor</Label>
-                              </div>
-                              <div className="flex items-center space-x-2">
-                                <Checkbox 
-                                  id="d-franqueadora"
-                                  checked={selectedTypesOthers.has('franqueadora')}
-                                  onCheckedChange={(checked) => {
-                                    const newTypes = new Set(selectedTypesOthers);
-                                    if (checked) newTypes.add('franqueadora');
-                                    else newTypes.delete('franqueadora');
-                                    setSelectedTypesOthers(newTypes);
-                                  }}
-                                />
-                                <Label htmlFor="d-franqueadora" className="font-normal">Franqueadora</Label>
-                              </div>
+                                  className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
+                                    selectedTypesOthers.has(type)
+                                      ? 'bg-primary text-white shadow-lg'
+                                      : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                  }`}
+                                >
+                                  {type === 'empresa' ? 'Empresa' : type === 'investidor' ? 'Investidor' : 'Franqueadora'}
+                                </Button>
+                              ))}
                             </div>
                           </div>
 
@@ -792,39 +754,41 @@ export default function DashboardPage() {
                     
                     {activeTab !== 'others' && (
                       <>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label>Setores de Interesse</Label>
-                          <div className="space-y-2 mt-2">
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="tech" />
-                              <Label htmlFor="tech" className="font-normal">Tecnologia / SaaS</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="retail" />
-                              <Label htmlFor="retail" className="font-normal">Varejo</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="health" />
-                              <Label htmlFor="health" className="font-normal">Saúde</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="fintech" />
-                              <Label htmlFor="fintech" className="font-normal">Fintech</Label>
-                            </div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {[
+                              { id: 'tech', label: 'Tecnologia / SaaS' },
+                              { id: 'retail', label: 'Varejo' },
+                              { id: 'health', label: 'Saúde' },
+                              { id: 'fintech', label: 'Fintech' }
+                            ].map((sector) => (
+                              <Button
+                                key={sector.id}
+                                onClick={() => {}}
+                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                              >
+                                {sector.label}
+                              </Button>
+                            ))}
                           </div>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label>Métricas Financeiras</Label>
-                          <div className="space-y-2 mt-2">
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="ebitda" defaultChecked />
-                              <Label htmlFor="ebitda" className="font-normal">EBITDA Positivo</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Checkbox id="growth" />
-                              <Label htmlFor="growth" className="font-normal">Crescimento {'>'} 20% a.a.</Label>
-                            </div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {[
+                              { id: 'ebitda', label: 'EBITDA Positivo' },
+                              { id: 'growth', label: `Crescimento > 20% a.a.` }
+                            ].map((metric) => (
+                              <Button
+                                key={metric.id}
+                                onClick={() => {}}
+                                className="px-4 py-2 rounded-full font-semibold text-sm transition-all bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700"
+                              >
+                                {metric.label}
+                              </Button>
+                            ))}
                           </div>
                         </div>
                       </>

@@ -127,6 +127,7 @@ export default function OutrasEmpresasPage() {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [sliderValue, setSliderValue] = useState([50]);
   const [selectedTypes, setSelectedTypes] = useState<Set<string>>(new Set());
+  const [selectedSectors, setSelectedSectors] = useState<Set<string>>(new Set());
   const [compatibilityRange, setCompatibilityRange] = useState([0, 100]);
   const [filterSheetOpen, setFilterSheetOpen] = useState(false);
 
@@ -364,31 +365,109 @@ export default function OutrasEmpresasPage() {
                     
                     <div className="space-y-2">
                       <Label>Setores de Interesse</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="tech" />
-                          <Label htmlFor="tech" className="font-normal">Tecnologia</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="retail" />
-                          <Label htmlFor="retail" className="font-normal">Varejo</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="logistica" />
-                          <Label htmlFor="logistica" className="font-normal">Logística</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="alimentacao" />
-                          <Label htmlFor="alimentacao" className="font-normal">Alimentação</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="educacao" />
-                          <Label htmlFor="educacao" className="font-normal">Educação</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox id="consultoria" />
-                          <Label htmlFor="consultoria" className="font-normal">Consultoria</Label>
-                        </div>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('tech')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('tech')) newSectors.delete('tech');
+                            else newSectors.add('tech');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-tech"
+                        >
+                          Tecnologia
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('retail')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('retail')) newSectors.delete('retail');
+                            else newSectors.add('retail');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-retail"
+                        >
+                          Varejo
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('logistica')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('logistica')) newSectors.delete('logistica');
+                            else newSectors.add('logistica');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-logistica"
+                        >
+                          Logística
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('alimentacao')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('alimentacao')) newSectors.delete('alimentacao');
+                            else newSectors.add('alimentacao');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-alimentacao"
+                        >
+                          Alimentação
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('educacao')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('educacao')) newSectors.delete('educacao');
+                            else newSectors.add('educacao');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-educacao"
+                        >
+                          Educação
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedSectors.has('consultoria')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newSectors = new Set(selectedSectors);
+                            if (newSectors.has('consultoria')) newSectors.delete('consultoria');
+                            else newSectors.add('consultoria');
+                            setSelectedSectors(newSectors);
+                          }}
+                          data-testid="pill-sector-consultoria"
+                        >
+                          Consultoria
+                        </Button>
                       </div>
                     </div>
 
@@ -510,31 +589,109 @@ export default function OutrasEmpresasPage() {
                   
                   <div className="space-y-2">
                     <Label>Setores de Interesse</Label>
-                    <div className="space-y-2 mt-2">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-tech" />
-                        <Label htmlFor="m-tech" className="font-normal">Tecnologia</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-retail" />
-                        <Label htmlFor="m-retail" className="font-normal">Varejo</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-logistica" />
-                        <Label htmlFor="m-logistica" className="font-normal">Logística</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-alimentacao" />
-                        <Label htmlFor="m-alimentacao" className="font-normal">Alimentação</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-educacao" />
-                        <Label htmlFor="m-educacao" className="font-normal">Educação</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox id="m-consultoria" />
-                        <Label htmlFor="m-consultoria" className="font-normal">Consultoria</Label>
-                      </div>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('tech')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('tech')) newSectors.delete('tech');
+                          else newSectors.add('tech');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-tech-mobile"
+                      >
+                        Tecnologia
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('retail')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('retail')) newSectors.delete('retail');
+                          else newSectors.add('retail');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-retail-mobile"
+                      >
+                        Varejo
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('logistica')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('logistica')) newSectors.delete('logistica');
+                          else newSectors.add('logistica');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-logistica-mobile"
+                      >
+                        Logística
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('alimentacao')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('alimentacao')) newSectors.delete('alimentacao');
+                          else newSectors.add('alimentacao');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-alimentacao-mobile"
+                      >
+                        Alimentação
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('educacao')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('educacao')) newSectors.delete('educacao');
+                          else newSectors.add('educacao');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-educacao-mobile"
+                      >
+                        Educação
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedSectors.has('consultoria')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newSectors = new Set(selectedSectors);
+                          if (newSectors.has('consultoria')) newSectors.delete('consultoria');
+                          else newSectors.add('consultoria');
+                          setSelectedSectors(newSectors);
+                        }}
+                        data-testid="pill-sector-consultoria-mobile"
+                      >
+                        Consultoria
+                      </Button>
                     </div>
                   </div>
 

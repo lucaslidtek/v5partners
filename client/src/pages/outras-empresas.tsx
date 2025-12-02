@@ -271,49 +271,58 @@ export default function OutrasEmpresasPage() {
                   <div className="py-6 space-y-6">
                     <div className="space-y-2">
                       <Label>Tipo de Perfil</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox 
-                            id="empresa"
-                            checked={selectedTypes.has('empresa')}
-                            onCheckedChange={(checked) => {
-                              const newTypes = new Set(selectedTypes);
-                              if (checked) newTypes.add('empresa');
-                              else newTypes.delete('empresa');
-                              setSelectedTypes(newTypes);
-                            }}
-                            data-testid="checkbox-type-empresa"
-                          />
-                          <Label htmlFor="empresa" className="font-normal">Empresa</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox 
-                            id="investidor"
-                            checked={selectedTypes.has('investidor')}
-                            onCheckedChange={(checked) => {
-                              const newTypes = new Set(selectedTypes);
-                              if (checked) newTypes.add('investidor');
-                              else newTypes.delete('investidor');
-                              setSelectedTypes(newTypes);
-                            }}
-                            data-testid="checkbox-type-investidor"
-                          />
-                          <Label htmlFor="investidor" className="font-normal">Investidor</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox 
-                            id="franqueadora"
-                            checked={selectedTypes.has('franqueadora')}
-                            onCheckedChange={(checked) => {
-                              const newTypes = new Set(selectedTypes);
-                              if (checked) newTypes.add('franqueadora');
-                              else newTypes.delete('franqueadora');
-                              setSelectedTypes(newTypes);
-                            }}
-                            data-testid="checkbox-type-franqueadora"
-                          />
-                          <Label htmlFor="franqueadora" className="font-normal">Franqueadora</Label>
-                        </div>
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedTypes.has('empresa')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newTypes = new Set(selectedTypes);
+                            if (newTypes.has('empresa')) newTypes.delete('empresa');
+                            else newTypes.add('empresa');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="pill-type-empresa"
+                        >
+                          Empresa
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedTypes.has('investidor')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newTypes = new Set(selectedTypes);
+                            if (newTypes.has('investidor')) newTypes.delete('investidor');
+                            else newTypes.add('investidor');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="pill-type-investidor"
+                        >
+                          Investidor
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className={`rounded-full px-4 py-2 font-medium transition-all ${
+                            selectedTypes.has('franqueadora')
+                              ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                              : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          }`}
+                          onClick={() => {
+                            const newTypes = new Set(selectedTypes);
+                            if (newTypes.has('franqueadora')) newTypes.delete('franqueadora');
+                            else newTypes.add('franqueadora');
+                            setSelectedTypes(newTypes);
+                          }}
+                          data-testid="pill-type-franqueadora"
+                        >
+                          Franqueadora
+                        </Button>
                       </div>
                     </div>
 
@@ -408,49 +417,58 @@ export default function OutrasEmpresasPage() {
                 <div className="py-6 space-y-6">
                   <div className="space-y-2">
                     <Label>Tipo de Perfil</Label>
-                    <div className="space-y-2 mt-2">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox 
-                          id="m-empresa"
-                          checked={selectedTypes.has('empresa')}
-                          onCheckedChange={(checked) => {
-                            const newTypes = new Set(selectedTypes);
-                            if (checked) newTypes.add('empresa');
-                            else newTypes.delete('empresa');
-                            setSelectedTypes(newTypes);
-                          }}
-                          data-testid="checkbox-type-empresa-mobile"
-                        />
-                        <Label htmlFor="m-empresa" className="font-normal">Empresa</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox 
-                          id="m-investidor"
-                          checked={selectedTypes.has('investidor')}
-                          onCheckedChange={(checked) => {
-                            const newTypes = new Set(selectedTypes);
-                            if (checked) newTypes.add('investidor');
-                            else newTypes.delete('investidor');
-                            setSelectedTypes(newTypes);
-                          }}
-                          data-testid="checkbox-type-investidor-mobile"
-                        />
-                        <Label htmlFor="m-investidor" className="font-normal">Investidor</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox 
-                          id="m-franqueadora"
-                          checked={selectedTypes.has('franqueadora')}
-                          onCheckedChange={(checked) => {
-                            const newTypes = new Set(selectedTypes);
-                            if (checked) newTypes.add('franqueadora');
-                            else newTypes.delete('franqueadora');
-                            setSelectedTypes(newTypes);
-                          }}
-                          data-testid="checkbox-type-franqueadora-mobile"
-                        />
-                        <Label htmlFor="m-franqueadora" className="font-normal">Franqueadora</Label>
-                      </div>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedTypes.has('empresa')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newTypes = new Set(selectedTypes);
+                          if (newTypes.has('empresa')) newTypes.delete('empresa');
+                          else newTypes.add('empresa');
+                          setSelectedTypes(newTypes);
+                        }}
+                        data-testid="pill-type-empresa-mobile"
+                      >
+                        Empresa
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedTypes.has('investidor')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newTypes = new Set(selectedTypes);
+                          if (newTypes.has('investidor')) newTypes.delete('investidor');
+                          else newTypes.add('investidor');
+                          setSelectedTypes(newTypes);
+                        }}
+                        data-testid="pill-type-investidor-mobile"
+                      >
+                        Investidor
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className={`rounded-full px-4 py-2 font-medium transition-all ${
+                          selectedTypes.has('franqueadora')
+                            ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100'
+                            : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        }`}
+                        onClick={() => {
+                          const newTypes = new Set(selectedTypes);
+                          if (newTypes.has('franqueadora')) newTypes.delete('franqueadora');
+                          else newTypes.add('franqueadora');
+                          setSelectedTypes(newTypes);
+                        }}
+                        data-testid="pill-type-franqueadora-mobile"
+                      >
+                        Franqueadora
+                      </Button>
                     </div>
                   </div>
 

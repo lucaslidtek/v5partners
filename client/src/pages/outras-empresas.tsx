@@ -320,10 +320,10 @@ export default function OutrasEmpresasPage() {
     if (!activeProfile?.type) return null;
     
     if (activeProfile.type === 'investor') {
-      return ['seller', 'franchise'];
+      return ['empresa', 'franqueadora'];
     }
     // For seller and franchise profiles, only show investors
-    return ['investor'];
+    return ['investidor'];
   };
 
   const allowedTypes = getAllowedProfileTypes();

@@ -626,7 +626,7 @@ export default function ProfilePage() {
                 </div>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </Layout>

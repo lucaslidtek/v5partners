@@ -613,38 +613,34 @@ export default function OnboardingPage() {
 
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-sm font-medium text-slate-500 dark:text-slate-400">Passo {step} de {totalSteps}</h2>
-            <span className="text-sm font-bold text-primary">{Math.round((step / totalSteps) * 100)}%</span>
-          </div>
-          <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-            <motion.div 
-              className="h-full bg-primary"
-              initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
-              animate={{ width: `${(step / totalSteps) * 100}%` }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-            />
-          </div>
-        </div>
-
-        <Card className="border-slate-200 dark:border-slate-700 shadow-xl dark:bg-slate-900 overflow-hidden">
-          <CardHeader className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 pb-8 pt-8 relative">
-             <div className="absolute top-4 left-4">
-                <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-white dark:hover:bg-slate-800">
-                  <ChevronLeft className="h-5 w-5 text-slate-400" />
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        <Card className="border-slate-200 dark:border-slate-700 shadow-md dark:bg-slate-900">
+          <CardHeader>
+             <div className="flex items-center justify-between mb-4">
+                <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user}>
+                  <ChevronLeft className="h-5 w-5" />
                 </Button>
-             </div>
-             <div className="text-center">
-                <span className="text-xs font-bold text-primary uppercase tracking-widest mb-2 block">
-                   {role === 'investor' ? 'Perfil Investidor' : role === 'seller' ? 'Perfil Vendedor' : 'Perfil Franqueadora'}
+                <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                   {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
                 </span>
-                <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">{getStepTitle()}</CardTitle>
+                <div className="w-10" /> {/* Spacer */}
              </div>
+             <CardTitle className="text-2xl font-bold text-center dark:text-white">{getStepTitle()}</CardTitle>
           </CardHeader>
-          
-          <CardContent className="p-8 min-h-[400px]">
+          <CardContent>
+           <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
+             <span>Passo {step} de {totalSteps}</span>
+             <span>{Math.round((step / totalSteps) * 100)}% Completo</span>
+           </div>
+           <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-8">
+             <motion.div 
+               className="h-full bg-primary rounded-full"
+               initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
+               animate={{ width: `${(step / totalSteps) * 100}%` }}
+               transition={{ duration: 0.5 }}
+             />
+           </div>
+
            <AnimatePresence mode="wait">
              <motion.div
                key={step}
@@ -657,26 +653,12 @@ export default function OnboardingPage() {
              </motion.div>
            </AnimatePresence>
           </CardContent>
-          
-          <CardFooter className="bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 p-6 flex justify-between">
-            <Button 
-              variant="ghost" 
-              onClick={handleBack} 
-              disabled={step === 1 && !user} 
-              className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800"
-            >
+          <CardFooter className="flex justify-between border-t border-slate-200 dark:border-slate-700 p-6">
+            <Button variant="ghost" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary">
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
-            
-            <Button 
-              onClick={handleNext} 
-              className="bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-lg shadow-primary/20 transition-all hover:shadow-primary/30 hover:-translate-y-0.5"
-            >
-              {step === totalSteps ? (
-                <>Concluir <Check className="ml-2 h-4 w-4" /></>
-              ) : (
-                <>Próximo <ChevronRight className="ml-2 h-4 w-4" /></>
-              )}
+            <Button onClick={handleNext} className="bg-primary hover:bg-primary/90">
+              {step === totalSteps ? "Finalizar" : "Próximo"} <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </CardFooter>
         </Card>

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Target, Briefcase, Store } from "lucide-react";
 import { useLocation } from "wouter";
-import { motion } from "framer-motion";
 
 export default function ProfilePage() {
   const { user, activeProfile } = useAuth();
@@ -313,86 +312,59 @@ export default function ProfilePage() {
           </div>
 
           {/* Profile Header Card */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-white dark:bg-slate-900 rounded-3xl shadow-xl dark:shadow-slate-950/50 overflow-hidden mb-8 border border-slate-100 dark:border-slate-800"
-          >
-            {/* Hero Background */}
-            <div className={`h-32 sm:h-48 w-full relative overflow-hidden`}>
-               <div className={`absolute inset-0 ${profileInfo?.bgColor || 'bg-slate-200'} opacity-10`} />
-               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90 dark:to-slate-900/90" />
-               {/* Decorative circles */}
-               <div className={`absolute -top-20 -right-20 w-64 h-64 rounded-full ${profileInfo?.bgColor || 'bg-slate-200'} opacity-20 blur-3xl`} />
-               <div className={`absolute top-10 -left-10 w-40 h-40 rounded-full ${profileInfo?.bgColor || 'bg-slate-200'} opacity-20 blur-2xl`} />
-            </div>
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg dark:shadow-slate-950/50 overflow-hidden mb-8">
+            {/* Hero Background (Comentado para uso futuro) */}
+            {/* <div className="h-32 sm:h-40 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent dark:from-primary/20" /> */}
             
-            <div className="px-6 sm:px-10 pb-8 -mt-16 sm:-mt-20 relative z-10">
+            <div className="px-6 sm:px-8 py-6 sm:py-8">
               {/* Profile Photo and Title */}
-              <div className="flex flex-col sm:flex-row sm:items-end gap-6 mb-8">
-                <div className="flex-shrink-0 relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-br from-white to-slate-200 dark:from-slate-800 dark:to-slate-900 rounded-[2rem] opacity-50 blur group-hover:opacity-75 transition duration-500" />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                <div className="flex-shrink-0">
                   {user?.profilePhoto ? (
                     <img 
                       src={user.profilePhoto} 
                       alt={user.name} 
-                      className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[1.8rem] object-cover border-4 border-white dark:border-slate-900 shadow-2xl"
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border border-primary shadow-md"
                       data-testid="img-profile-photo"
                     />
                   ) : (
-                    <div className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-[1.8rem] ${profileInfo?.bgColor || 'bg-slate-200'} border-4 border-white dark:border-slate-900 shadow-2xl flex items-center justify-center`}>
-                      <span className={`text-4xl sm:text-5xl font-bold ${profileInfo?.textColor || 'text-slate-500'}`}>{user?.name?.substring(0, 1)}</span>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-primary/60 border border-primary shadow-md flex items-center justify-center">
+                      <span className="text-2xl sm:text-3xl font-bold text-white">{user?.name?.substring(0, 1)}</span>
                     </div>
                   )}
-                  <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white dark:border-slate-900 rounded-full" title="Online" />
                 </div>
                 
-                <div className="flex-1 mb-2">
-                  <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight" data-testid="text-profile-title">{user?.name || "Usuário"}</h1>
-                  <div className="flex flex-wrap gap-3 items-center">
-                    {profileInfo && ProfileIcon && (
-                      <div className={`${profileInfo.badgeColor} px-3 py-1 rounded-full flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider shadow-sm border border-white/20`} data-testid="badge-profile-type">
-                        <ProfileIcon className="w-3.5 h-3.5" />
-                        <span>{profileInfo.title}</span>
-                      </div>
-                    )}
-                    <div className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
-                       <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                       {user?.location || "Localização não definida"}
+                <div className="flex-1">
+                  <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-2" data-testid="text-profile-title">{user?.name || "Usuário"}</h1>
+                  {profileInfo && ProfileIcon && (
+                    <div className={`${profileInfo.badgeColor} px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold w-fit`} data-testid="badge-profile-type">
+                      <ProfileIcon className="w-5 h-5" />
+                      <span>{profileInfo.title}</span>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
               {/* Quick Info Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 pt-6 border-t border-slate-100 dark:border-slate-800/50">
-                <div className="flex flex-col p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Email</p>
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{user?.email || "-"}</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Email</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.email || "-"}</p>
                 </div>
-                <div className="flex flex-col p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Membro desde</p>
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">Dezembro 2023</p>
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Localização</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.location || "-"}</p>
                 </div>
-                <div className="flex flex-col p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                  <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5">Status da Conta</p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">Ativo</p>
-                  </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Tipo</p>
+                  <p className="text-sm font-medium text-slate-900 dark:text-white capitalize">{user?.role || "-"}</p>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Profile Details Sections */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-8"
-          >
+          <div className="space-y-6">
             {/* Render sections grouped by category */}
             {user?.role === "investor" && (
               <>
@@ -626,7 +598,7 @@ export default function ProfilePage() {
                 </div>
               </>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </Layout>

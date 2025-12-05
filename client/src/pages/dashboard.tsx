@@ -440,42 +440,6 @@ const initialMatches: Match[] = [
 ];
 
 
-
-const CircularProgress = ({ value, size = 50, strokeWidth = 4, color = "text-primary" }: any) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (value / 100) * circumference;
-
-  return (
-    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg className="transform -rotate-90 w-full h-full">
-        <circle
-          className="text-slate-200 dark:text-slate-800"
-          strokeWidth={strokeWidth}
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx={size / 2}
-          cy={size / 2}
-        />
-        <circle
-          className={`${color} transition-all duration-1000 ease-out`}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          stroke="currentColor"
-          fill="transparent"
-          r={radius}
-          cx={size / 2}
-          cy={size / 2}
-        />
-      </svg>
-      <span className="absolute text-xs font-bold text-slate-900 dark:text-white">{value}%</span>
-    </div>
-  );
-};
-
 export default function DashboardPage() {
   const { user, activeProfile } = useAuth();
   const [, setLocation] = useLocation();
@@ -1209,7 +1173,7 @@ export default function DashboardPage() {
           {/* New Matches Tab - Desktop */}
           <TabsContent value="new" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30 col-span-full">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
                     <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
@@ -1221,90 +1185,152 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredMatches.filter(m => m.stage === 'new').map((match, index) => (
+              filteredMatches.filter(m => m.stage === 'new').map((match) => (
             <motion.div 
               key={match.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <Card className={`h-full border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-xl dark:hover:shadow-primary/5 transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
-                <div className={`${isMobile ? 'p-5' : 'p-6'}`}>
-                  {/* Header redesigned */}
-                  <div className="flex justify-between items-start mb-6">
-                    <div className="flex gap-4 flex-1">
-                       {renderLogo(match, match.matchScore)}
-                       <div>
+              <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
+                <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
+                  {/* Header com logo, título e status */}
+                  {isMobile ? (
+                    <>
+                      <div className="flex gap-3 items-start mb-3">
+                        {renderLogo(match, match.matchScore)}
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                             <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                             {match.isNew && (
-                               <span className="text-[10px] px-2 py-0.5 bg-sky-100 text-sky-700 rounded-full font-bold uppercase tracking-wider">Novo</span>
-                             )}
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(match)}</h3>
+                            <Badge className={`${getTypeColor(match.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
                           </div>
-                          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium flex items-center gap-2">
-                            {match.sector} 
-                            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-                            {match.location}
-                          </p>
-                       </div>
+                          {match.isNew && (
+                            <span className="text-xs px-2.5 py-1.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
+                    </>
+                  ) : (
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                      <div className="flex gap-4 flex-1 items-start">
+                        {renderLogo(match, match.matchScore)}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                            <Badge className={`${getTypeColor(match.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                          </div>
+                          <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
+                        </div>
+                      </div>
+                      {match.isNew && (
+                        <span className="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap">Novo</span>
+                      )}
                     </div>
-                    
-                    {/* Circular Score */}
-                    <div className="flex flex-col items-center">
-                       <CircularProgress value={match.matchScore} size={48} strokeWidth={4} color={getCompatibilityColor(match.matchScore).textColor.split(' ')[0]} />
-                       <span className="text-[10px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Match</span>
+                  )}
+
+                  {/* Match Score Bar - More Prominent */}
+                  {(() => {
+                    const colors = getCompatibilityColor(match.matchScore);
+                    return (
+                      <div className={`${isMobile ? 'mb-5' : 'mb-7'} ${colors.bgColor} p-4 rounded-lg border ${colors.borderColor}`}>
+                        <div className="flex justify-between items-center mb-2.5">
+                          <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
+                          <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} ${colors.textColor}`}>{match.matchScore}%</span>
+                        </div>
+                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                            style={{ width: `${match.matchScore}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Description Preview */}
+                  <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-5`}>{match.description}</p>
+
+                  {/* Key Metrics Grid - Mobile Optimized */}
+                  {isMobile ? (
+                    <div className="grid grid-cols-3 gap-3 mb-5">
+                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Preço</p>
+                        <p className="font-bold text-primary text-sm">{match.price}</p>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">EBITDA</p>
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-6 min-h-[40px] leading-relaxed">
-                    {match.description}
-                  </p>
-
-                  {/* Metrics - Cleaner */}
-                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">Preço</p>
-                        <p className="font-bold text-slate-900 dark:text-white text-base">{match.price}</p>
+                  ) : (
+                    <div className={`grid grid-cols-3 gap-4 mb-7`}>
+                      <div className="p-4 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Preço</p>
+                        <p className="font-bold text-primary text-2xl">{match.price}</p>
                       </div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">Receita</p>
-                        <p className="font-bold text-slate-900 dark:text-white text-base">{match.revenue}</p>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-xl">{match.revenue}</p>
                       </div>
-                      <div>
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">EBITDA</p>
-                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-base">{match.ebitda}</p>
+                      <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">EBITDA</p>
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-xl">{match.ebitda}</p>
                       </div>
-                  </div>
+                    </div>
+                  )}
 
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className={`flex flex-wrap ${isMobile ? 'gap-2 mb-5' : 'gap-2 mb-7'}`}>
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                      <Badge key={tag} variant="outline" className={`border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-medium ${isMobile ? 'text-xs px-2.5 py-1' : 'text-sm'}`}>
                         {tag}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Actions */}
-                  <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <Button 
-                      variant="ghost" 
-                      className="h-10 text-slate-600 hover:text-primary hover:bg-primary/5 font-semibold transition-colors"
-                      onClick={() => setSelectedMatchId(match.id)}
-                    >
-                      <Eye className="h-4 w-4 mr-2" /> Detalhes
-                    </Button>
-
+                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-3 pt-5' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-7 border-t border-slate-100 dark:border-slate-800'}`}>
+                    {/* Primary Action Button */}
                     {match.stage === 'new' && (
                       <Button 
-                        className="h-10 bg-primary hover:bg-primary/90 text-white font-bold shadow-md hover:shadow-primary/20 transition-all"
+                        className={`bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/30 text-white font-bold group transition-all ${isMobile ? 'h-10 text-sm' : 'h-11'}`}
                         onClick={() => updateMatchStage(match.id, 'interested')}
                       >
-                        <Heart className="h-4 w-4 mr-2" /> Tenho Interesse
+                        <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}
                       </Button>
                     )}
+
+                    {match.stage === 'interested' && (
+                      <Button 
+                        className={`bg-amber-600 hover:bg-amber-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
+                        onClick={() => updateMatchStage(match.id, 'nda_signed')}
+                      >
+                        <Lock className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'NDA' : 'Solicitar NDA'}
+                      </Button>
+                    )}
+
+                    {match.stage === 'nda_signed' && (
+                      <Button 
+                        className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
+                        onClick={() => updateMatchStage(match.id, 'meeting_scheduled')}
+                      >
+                        <Calendar className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Reunião' : 'Agendar Reunião'}
+                      </Button>
+                    )}
+
+                    {/* Secondary Action - Details */}
+                    <Button 
+                      variant="outline" 
+                      className={`border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
+                      onClick={() => setSelectedMatchId(match.id)}
+                      data-testid={`button-details-${match.id}`}
+                    >
+                      <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Ver Detalhes'}
+                    </Button>
                   </div>
                 </div>
               </Card>
@@ -1316,7 +1342,7 @@ export default function DashboardPage() {
           {/* Active Processes Tab - Desktop */}
           <TabsContent value="active" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30 col-span-full">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
                     <Clock className="h-6 w-6 text-slate-400 dark:text-slate-600" />
@@ -1328,7 +1354,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredMatches.filter(m => m.stage !== 'new').map((process, index) => {
+              filteredMatches.filter(m => m.stage !== 'new').map((process) => {
                 const getStageConfig = (stage: Match['stage']) => {
                   switch(stage) {
                     case 'interested':
@@ -1383,132 +1409,95 @@ export default function DashboardPage() {
                     key={process.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   >
-                    <Card className={`h-full border-l-4 ${config.borderColor} dark:bg-slate-900 hover:shadow-xl transition-all duration-300 ${isMobile ? 'rounded-xl' : ''}`}>
+                    <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
                       <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
                         {isMobile ? (
-                          // Mobile View - Keeping it compact but polished
                           <>
-                            <div className="flex gap-3 items-start mb-3">
+                            <div className="flex gap-2 items-start mb-2">
                               {renderLogo(process)}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <h3 className="text-base font-bold text-slate-900 dark:text-white truncate">{getDisplayName(process)}</h3>
-                                  <Badge className={`${getTypeColor(process.type)} border-0 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider`}>{getTypeLabel(process.type)}</Badge>
+                                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                  <Badge className={`${getTypeColor(process.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <Badge className={`${config.color} border-0 text-[10px] py-0.5 px-2 font-bold`}>
-                                    {config.label}
-                                  </Badge>
-                                  <span className="text-xs text-slate-400">•</span>
-                                  <span className="text-xs text-slate-500 dark:text-slate-400 truncate">{process.location}</span>
-                                </div>
+                                <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap`}>
+                                  {config.label}
+                                </Badge>
                               </div>
                             </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
                           </>
                         ) : (
-                          // Desktop View - Expanded and Premium
-                          <div className="flex items-start justify-between gap-6 mb-6">
-                            <div className="flex gap-5 flex-1 items-start min-w-0">
+                          <div className="flex items-start justify-between gap-4 mb-4">
+                            <div className="flex gap-4 flex-1 items-start min-w-0">
                               {renderLogo(process)}
-                              <div className="flex-1 min-w-0 pt-1">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{getDisplayName(process)}</h3>
-                                  <Badge className={`${getTypeColor(process.type)} border-0 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider`}>{getTypeLabel(process.type)}</Badge>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
+                                  <Badge className={`${getTypeColor(process.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
                                 </div>
-                                <div className="flex items-center text-sm text-slate-500 dark:text-slate-400 gap-3 font-medium">
-                                  <span>{process.sector}</span>
-                                  <span className="h-1 w-1 rounded-full bg-slate-300 dark:bg-slate-600" />
-                                  <span>{process.location}</span>
-                                </div>
+                                <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{process.sector} • {process.location}</p>
                               </div>
                             </div>
-                            <Badge className={`${config.color} border-0 text-sm py-1.5 px-4 font-bold shadow-sm`}>
+                            <Badge className={`${config.color} text-sm py-1.5 px-3`}>
                               {config.label}
                             </Badge>
                           </div>
                         )}
 
-                        {/* Next Step Hint - Premium Card */}
+                        {/* Next Step Hint */}
                         {nextStep && (
-                          <div className={`${isMobile ? 'mb-4 p-3' : 'mb-8 p-4'} bg-gradient-to-r from-sky-50 to-white dark:from-sky-900/20 dark:to-slate-900 border border-sky-100 dark:border-sky-800/50 rounded-xl shadow-sm flex items-center gap-4`}>
-                            <div className={`rounded-full bg-sky-100 dark:bg-sky-900/50 flex items-center justify-center text-sky-600 dark:text-sky-400 flex-shrink-0 ${isMobile ? 'h-8 w-8' : 'h-12 w-12'}`}>
-                              <nextStep.icon className={`${isMobile ? 'h-4 w-4' : 'h-6 w-6'}`} />
-                            </div>
-                            <div className="flex-1">
-                              <p className={`font-bold text-sky-700 dark:text-sky-300 uppercase tracking-wider ${isMobile ? 'text-[10px] mb-0.5' : 'text-xs mb-1'}`}>
-                                Próximo Passo
-                              </p>
-                              <p className={`font-bold text-slate-900 dark:text-white ${isMobile ? 'text-sm' : 'text-base'}`}>
-                                {nextStep.label}
-                              </p>
-                            </div>
-                            {!isMobile && (
-                              <Button 
-                                size="sm" 
-                                className="bg-sky-600 hover:bg-sky-700 text-white shadow-sm font-semibold"
-                                onClick={() => updateMatchStage(process.id, nextStep.action as Match['stage'])}
-                              >
-                                Realizar Agora
-                              </Button>
-                            )}
+                          <div className={`${isMobile ? 'mb-4 p-3' : 'mb-6 p-4'} bg-sky-50 dark:bg-sky-900/20 border border-sky-100 dark:border-sky-800 rounded-lg`}>
+                            <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-sky-700 dark:text-sky-300`}>
+                              Próximo passo: {nextStep.label}
+                            </p>
                           </div>
                         )}
 
+                        {/* Progress Bar */}
+                        <div className={`${isMobile ? 'mb-4' : 'mb-6'}`}>
+                          <div className={`flex justify-between ${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-400 mb-1.5`}>
+                            <span>Progresso</span>
+                            <span>{config.progress}%</span>
+                          </div>
+                          <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-primary transition-all duration-500"
+                              style={{ width: `${config.progress}%` }}
+                            />
+                          </div>
+                        </div>
+
                         {isMobile ? (
-                          // Mobile Metrics
-                          <div className="space-y-4 mb-4">
-                            <div>
-                                <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
-                                  <span>Progresso</span>
-                                  <span className="text-primary">{config.progress}%</span>
-                                </div>
-                                <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                                  <div className="h-full bg-primary transition-all duration-500" style={{ width: `${config.progress}%` }} />
-                                </div>
+                          <div className="grid grid-cols-2 gap-2 mb-4">
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Valor</p>
+                              <p className="font-bold text-slate-900 dark:text-white text-sm">{process.price}</p>
                             </div>
-                            <div className="grid grid-cols-2 gap-3">
-                              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700/50">
-                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Valor</p>
-                                <p className="font-bold text-slate-900 dark:text-white text-sm">{process.price}</p>
-                              </div>
-                              <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700/50">
-                                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Receita</p>
-                                <p className="font-bold text-slate-900 dark:text-white text-sm">{process.revenue}</p>
-                              </div>
+                            <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1">Receita</p>
+                              <p className="font-bold text-slate-900 dark:text-white text-sm">{process.revenue}</p>
                             </div>
                           </div>
                         ) : (
-                          // Desktop Metrics Grid
-                          <div className="grid grid-cols-3 gap-4 mb-8">
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 hover:border-slate-200 dark:hover:border-slate-600 transition-colors">
-                              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Valor Pedido</p>
+                          <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Valor</p>
                               <p className="font-bold text-slate-900 dark:text-white text-xl">{process.price}</p>
                             </div>
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 hover:border-slate-200 dark:hover:border-slate-600 transition-colors">
-                              <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">Receita Anual</p>
+                            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                              <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Receita</p>
                               <p className="font-bold text-slate-900 dark:text-white text-xl">{process.revenue}</p>
-                            </div>
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50 hover:border-slate-200 dark:hover:border-slate-600 transition-colors">
-                               <div className="flex justify-between items-center mb-2">
-                                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Progresso</p>
-                                  <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{config.progress}%</span>
-                               </div>
-                               <div className="h-2.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mt-2">
-                                  <div className="h-full bg-primary transition-all duration-1000 ease-out" style={{ width: `${config.progress}%` }} />
-                               </div>
                             </div>
                           </div>
                         )}
 
-                        <div className={`flex gap-3 ${isMobile ? 'flex-col' : 'pt-6 border-t border-slate-100 dark:border-slate-800'}`}>
+                        <div className={`flex gap-2 ${isMobile ? 'pt-3 flex-col' : 'pt-6 border-t border-slate-100 dark:border-slate-800'}`}>
                           {nextStep ? (
                             <>
                               <Button 
-                                size={isMobile ? "sm" : "lg"}
-                                className={`${isMobile ? 'flex-1 h-10' : 'flex-1 h-12'} bg-primary hover:bg-primary/90 text-white font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5`}
+                                className={`${isMobile ? 'flex-1 h-10 text-sm' : 'flex-1'} bg-primary hover:bg-primary/90 text-white font-semibold`}
                                 onClick={() => updateMatchStage(process.id, nextStep.action as Match['stage'])}
                                 data-testid={`button-next-step-${process.id}`}
                               >
@@ -1516,20 +1505,18 @@ export default function DashboardPage() {
                               </Button>
                               <Button 
                                 variant="outline" 
-                                size={isMobile ? "sm" : "lg"}
-                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10' : 'h-12'}`}
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => setSelectedMatchId(process.id)}
                                 data-testid={`button-details-${process.id}`}
                               >
-                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Ver Detalhes'}
+                                <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Detalhes'}
                               </Button>
                             </>
                           ) : (
                             <>
                               <Button 
                                 variant="outline" 
-                                size={isMobile ? "sm" : "lg"}
-                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10' : 'h-12'}`}
+                                className={`flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => setSelectedMatchId(process.id)}
                                 data-testid={`button-details-${process.id}`}
                               >
@@ -1537,8 +1524,7 @@ export default function DashboardPage() {
                               </Button>
                               <Button 
                                 variant="ghost" 
-                                size={isMobile ? "sm" : "lg"}
-                                className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10' : 'h-12'}`}
+                                className={`flex-1 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
                                 onClick={() => updateMatchStage(process.id, 'new')}
                                 data-testid={`button-revert-${process.id}`}
                               >

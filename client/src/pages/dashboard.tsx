@@ -713,35 +713,33 @@ export default function DashboardPage() {
     <Layout>
       <div className={`${isMobile ? 'pb-40' : ''} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMobile ? 'py-4' : 'py-8'}`}>
         {/* Welcome Section */}
-        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
+        <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
           <div>
-            <h1 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white`}>
+            <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
               {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Processos Ativos" : "Outros Perfis"}
             </h1>
-            <p className="text-slate-600 dark:text-slate-300 mt-2 text-sm md:text-base font-medium">
+            <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base">
               {activeTab === "new" ? "Explore novos matches recomendados para você" : activeTab === "active" ? "Acompanhe seus processos em andamento" : "Oportunidades adicionais de investimento"}
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Stats Grid - Desktop & Mobile Carousel - Only show on New and Active tabs */}
         {activeTab !== 'others' && (
         <div className={`${isMobile ? 'mb-6' : 'mb-8'}`}>
           <div className={`${isMobile ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-1 md:grid-cols-2 gap-4'}`}>
             {stats.map((stat, index) => (
-              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }}>
-                <Card className={`card-premium ${stat.color} bg-gradient-to-br from-white/90 to-slate-50/90 dark:from-slate-800/80 dark:to-slate-900/80 backdrop-blur-xl border-slate-200/60 dark:border-slate-700/60 shadow-sm hover:shadow-xl hover:-translate-y-1`}>
-                  <CardContent className="p-4 md:p-6 flex items-center justify-between">
-                    <div>
-                      <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-semibold text-slate-600 dark:text-slate-300 mb-1`}>{stat.label}</p>
-                      <p className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-blue-200`}>{stat.value}</p>
-                    </div>
-                    <div className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'} rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center ${stat.color} shadow-sm`}>
-                      <stat.icon className={`${isMobile ? 'h-5 w-5' : 'h-6 w-6'}`} />
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <Card key={index} className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow`}>
+                <CardContent className="p-4 md:p-6 flex items-center justify-between">
+                  <div>
+                    <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-slate-500 dark:text-slate-400 mb-1`}>{stat.label}</p>
+                    <p className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-slate-900 dark:text-white`}>{stat.value}</p>
+                  </div>
+                  <div className={`${isMobile ? 'h-10 w-10' : 'h-12 w-12'} rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center ${stat.color}`}>
+                    <stat.icon className={`${isMobile ? 'h-5 w-5' : 'h-6 w-6'}`} />
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -1193,7 +1191,7 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <Card className={`card-premium-dark border-slate-200/50 dark:border-slate-700/50 dark:bg-slate-900/40 backdrop-blur-xl ${!isMobile && 'hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-2xl hover:glow-effect'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary' : ''}`}>
+              <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
                 <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
                   {/* Header com logo, título e status */}
                   {isMobile ? (
@@ -1218,8 +1216,8 @@ export default function DashboardPage() {
                         {renderLogo(match, match.matchScore)}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 dark:from-white dark:via-blue-100 dark:to-white leading-tight">{getDisplayName(match)}</h3>
-                            <Badge className={`${getTypeColor(match.type)} text-sm px-2.5 py-1 font-bold rounded-lg`}>{getTypeLabel(match.type)}</Badge>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                            <Badge className={`${getTypeColor(match.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
                           </div>
                           <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
                         </div>
@@ -1230,19 +1228,22 @@ export default function DashboardPage() {
                     </div>
                   )}
 
-                  {/* Match Score Bar - Premium & Animated */}
+                  {/* Match Score Bar - More Prominent */}
                   {(() => {
                     const colors = getCompatibilityColor(match.matchScore);
                     return (
-                      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`${isMobile ? 'mb-5' : 'mb-7'} ${colors.bgColor} p-4 rounded-xl border ${colors.borderColor} backdrop-blur-sm shadow-sm glow-effect`}>
-                        <div className="flex justify-between items-center mb-3">
+                      <div className={`${isMobile ? 'mb-5' : 'mb-7'} ${colors.bgColor} p-4 rounded-lg border ${colors.borderColor}`}>
+                        <div className="flex justify-between items-center mb-2.5">
                           <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
-                          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring" }} className={`${isMobile ? 'text-lg font-bold' : 'text-2xl font-display font-bold'} ${colors.textColor}`}>{match.matchScore}%</motion.span>
+                          <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} ${colors.textColor}`}>{match.matchScore}%</span>
                         </div>
-                        <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
-                          <motion.div initial={{ width: 0 }} animate={{ width: `${match.matchScore}%` }} transition={{ duration: 1, ease: "easeOut" }} className={`h-full ${colors.barColor} rounded-full shadow-lg shadow-${colors.barColor.split('-')[1]}-500/30`} />
+                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div 
+                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
+                            style={{ width: `${match.matchScore}%` }}
+                          />
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })()}
 
@@ -1295,14 +1296,12 @@ export default function DashboardPage() {
                   <div className={`grid ${isMobile ? 'grid-cols-2 gap-3 pt-5' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-7 border-t border-slate-100 dark:border-slate-800'}`}>
                     {/* Primary Action Button */}
                     {match.stage === 'new' && (
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button 
-                          className={`bg-gradient-to-r from-primary to-blue-600 hover:shadow-xl hover:shadow-primary/40 text-white font-bold group transition-all duration-300 ${isMobile ? 'h-10 text-sm' : 'h-11'}`}
-                          onClick={() => updateMatchStage(match.id, 'interested')}
-                        >
-                          <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-125 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}
-                        </Button>
-                      </motion.div>
+                      <Button 
+                        className={`bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/30 text-white font-bold group transition-all ${isMobile ? 'h-10 text-sm' : 'h-11'}`}
+                        onClick={() => updateMatchStage(match.id, 'interested')}
+                      >
+                        <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}
+                      </Button>
                     )}
 
                     {match.stage === 'interested' && (

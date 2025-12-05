@@ -97,34 +97,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   
-  --font-sans: "Manrope", "Elza", "Plus Jakarta Sans", "Inter", sans-serif;
-  --font-display: "Playfair Display", "Elza", serif;
-}
-
-@layer utilities {
-  .font-display {
-    @apply font-display;
-  }
-  
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500;
-  }
-
-  .card-premium {
-    @apply rounded-xl border border-slate-200/60 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1;
-  }
-
-  .card-premium-dark {
-    @apply rounded-xl border border-slate-200/40 dark:border-slate-700/40 bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-800/50 dark:to-slate-900/50 backdrop-blur-md;
-  }
-
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-  }
-
-  .glow-effect {
-    @apply shadow-lg shadow-blue-500/10 dark:shadow-blue-500/20;
-  }
+  --font-sans: "Elza", "Plus Jakarta Sans", "Inter", sans-serif;
 }
 
 :root {

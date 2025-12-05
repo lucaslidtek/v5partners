@@ -82,37 +82,40 @@ export default function ProfileSelectionPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full border-slate-200 dark:border-slate-700 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden group">
-                <div className={`absolute top-0 left-0 w-full h-1 ${profile.color}`} />
+              <Card className="h-full border-slate-200 dark:border-slate-700 hover:border-primary/30 hover:shadow-2xl dark:hover:shadow-primary/10 transition-all duration-300 flex flex-col relative overflow-hidden group cursor-pointer">
+                <div className={`absolute top-0 left-0 w-full h-1.5 ${profile.color}`} />
                 
-                <CardHeader className="text-center pt-10 pb-2">
-                  <div className={`mx-auto w-16 h-16 rounded-full ${profile.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <profile.icon className={`w-8 h-8 ${profile.id === 'franchise' ? 'text-accent' : profile.id === 'seller' ? 'text-secondary' : 'text-primary'}`} />
+                <CardHeader className="text-center pt-12 pb-4 relative z-10">
+                  <div className={`mx-auto w-20 h-20 rounded-2xl ${profile.color}/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 ease-out`}>
+                    <profile.icon className={`w-10 h-10 ${profile.id === 'franchise' ? 'text-accent' : profile.id === 'seller' ? 'text-secondary' : 'text-primary'}`} />
                   </div>
-                  <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">{profile.title}</CardTitle>
-                  <CardDescription className="mt-2 text-base">{profile.description}</CardDescription>
+                  <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{profile.title}</CardTitle>
+                  <CardDescription className="text-base leading-relaxed px-4">{profile.description}</CardDescription>
                 </CardHeader>
                 
-                <CardContent className="flex-grow py-6">
-                  <ul className="space-y-3">
+                <CardContent className="flex-grow py-6 px-8 relative z-10">
+                  <ul className="space-y-4">
                     {profile.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                        <div className={`mt-0.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
+                      <li key={i} className="flex items-start gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
+                        <div className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
                 
-                <CardFooter className="pb-8 pt-2">
+                <CardFooter className="pb-8 pt-4 px-8 relative z-10">
                   <Button 
-                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
+                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-bold h-12 text-base shadow-lg shadow-black/5 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300`}
                     onClick={() => setProfileType(profile.id as any)}
                     data-testid={`button-select-${profile.id}`}
                   >
                     Continuar como {profile.title.replace('Sou ', '')}
                   </Button>
                 </CardFooter>
+                
+                {/* Decorative gradient background opacity on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-b ${profile.id === 'franchise' ? 'from-accent/5' : profile.id === 'seller' ? 'from-secondary/5' : 'from-primary/5'} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
               </Card>
             </motion.div>
           ))}

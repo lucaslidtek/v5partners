@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Upload, X, Lock } from "lucide-react";
+import { ChevronRight, ChevronLeft, Upload, X, Lock, Check } from "lucide-react";
 import React from "react";
 
 export default function EditProfilePage() {
@@ -599,34 +599,38 @@ export default function EditProfilePage() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto px-4 py-12">
-        <Card className="border-slate-200 dark:border-slate-700 shadow-md dark:bg-slate-900">
-          <CardHeader>
-            <div className="flex items-center justify-between mb-4">
-              <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user} data-testid="button-back-header">
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-              <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider" data-testid="text-role">
-                {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
-              </span>
-              <div className="w-10" />
-            </div>
-            <CardTitle className="text-2xl font-bold text-center dark:text-white" data-testid="text-step-title">{getStepTitle()}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
-              <span data-testid="text-step-counter">Passo {step} de {totalSteps}</span>
-              <span data-testid="text-step-percent">{Math.round((step / totalSteps) * 100)}% Completo</span>
-            </div>
-            <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full mb-8">
-              <motion.div 
-                className="h-full bg-primary rounded-full"
-                initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
-                animate={{ width: `${(step / totalSteps) * 100}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
+      <div className="max-w-3xl mx-auto px-4 py-12">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-sm font-medium text-slate-500 dark:text-slate-400">Passo {step} de {totalSteps}</h2>
+            <span className="text-sm font-bold text-primary">{Math.round((step / totalSteps) * 100)}%</span>
+          </div>
+          <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <motion.div 
+              className="h-full bg-primary"
+              initial={{ width: `${((step - 1) / totalSteps) * 100}%` }}
+              animate={{ width: `${(step / totalSteps) * 100}%` }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            />
+          </div>
+        </div>
 
+        <Card className="border-slate-200 dark:border-slate-700 shadow-xl dark:bg-slate-900 overflow-hidden">
+          <CardHeader className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800 pb-8 pt-8 relative">
+             <div className="absolute top-4 left-4">
+                <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user} className="hover:bg-white dark:hover:bg-slate-800">
+                  <ChevronLeft className="h-5 w-5 text-slate-400" />
+                </Button>
+             </div>
+             <div className="text-center">
+                <span className="text-xs font-bold text-primary uppercase tracking-widest mb-2 block">
+                   {role === 'investor' ? 'Editar Perfil Investidor' : role === 'seller' ? 'Editar Perfil Vendedor' : 'Editar Perfil Franqueadora'}
+                </span>
+                <CardTitle className="text-3xl font-bold text-slate-900 dark:text-white">{getStepTitle()}</CardTitle>
+             </div>
+          </CardHeader>
+          
+          <CardContent className="p-8 min-h-[400px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -639,33 +643,41 @@ export default function EditProfilePage() {
               </motion.div>
             </AnimatePresence>
           </CardContent>
-          <CardFooter className="flex justify-between gap-2 border-t border-slate-200 dark:border-slate-700 p-6">
+          
+          <CardFooter className="bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 p-6 flex justify-between">
             <Button 
               variant="ghost" 
               onClick={handleBack} 
               disabled={step === 1 && !user}
-              className="hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary"
-              data-testid="button-back-footer"
+              className="text-slate-500 hover:text-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800"
             >
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline"
-                onClick={handleNext}
-                className="border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
-                data-testid="button-next-footer"
-              >
-                {step === totalSteps ? "Finalizar" : "Próximo"} 
-                {step !== totalSteps && <ChevronRight className="ml-2 h-4 w-4" />}
-              </Button>
-              <Button 
-                onClick={handleSave}
-                className="bg-primary hover:bg-primary/90"
-                data-testid="button-save-footer"
-              >
-                Salvar
-              </Button>
+            <div className="flex gap-3">
+              {step === totalSteps ? (
+                 <Button 
+                   onClick={handleNext}
+                   className="bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-lg shadow-primary/20 transition-all hover:shadow-primary/30 hover:-translate-y-0.5"
+                 >
+                   Finalizar <Check className="ml-2 h-4 w-4" />
+                 </Button>
+              ) : (
+                 <>
+                   <Button 
+                     variant="outline"
+                     onClick={handleSave}
+                     className="border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800"
+                   >
+                     Salvar e Sair
+                   </Button>
+                   <Button 
+                     onClick={handleNext}
+                     className="bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-lg shadow-primary/20 transition-all hover:shadow-primary/30 hover:-translate-y-0.5"
+                   >
+                     Próximo <ChevronRight className="ml-2 h-4 w-4" />
+                   </Button>
+                 </>
+              )}
             </div>
           </CardFooter>
         </Card>

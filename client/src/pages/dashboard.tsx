@@ -440,6 +440,42 @@ const initialMatches: Match[] = [
 ];
 
 
+
+const CircularProgress = ({ value, size = 50, strokeWidth = 4, color = "text-primary" }: any) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (value / 100) * circumference;
+
+  return (
+    <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <svg className="transform -rotate-90 w-full h-full">
+        <circle
+          className="text-slate-200 dark:text-slate-800"
+          strokeWidth={strokeWidth}
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx={size / 2}
+          cy={size / 2}
+        />
+        <circle
+          className={`${color} transition-all duration-1000 ease-out`}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          stroke="currentColor"
+          fill="transparent"
+          r={radius}
+          cx={size / 2}
+          cy={size / 2}
+        />
+      </svg>
+      <span className="absolute text-xs font-bold text-slate-900 dark:text-white">{value}%</span>
+    </div>
+  );
+};
+
 export default function DashboardPage() {
   const { user, activeProfile } = useAuth();
   const [, setLocation] = useLocation();
@@ -1173,7 +1209,7 @@ export default function DashboardPage() {
           {/* New Matches Tab - Desktop */}
           <TabsContent value="new" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage === 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30 col-span-full">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
                     <Heart className="h-6 w-6 text-slate-400 dark:text-slate-600" />
@@ -1185,152 +1221,90 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredMatches.filter(m => m.stage === 'new').map((match) => (
+              filteredMatches.filter(m => m.stage === 'new').map((match, index) => (
             <motion.div 
               key={match.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-lg dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
-                <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
-                  {/* Header com logo, título e status */}
-                  {isMobile ? (
-                    <>
-                      <div className="flex gap-3 items-start mb-3">
-                        {renderLogo(match, match.matchScore)}
-                        <div className="flex-1 min-w-0">
+              <Card className={`h-full border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-xl dark:hover:shadow-primary/5 transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
+                <div className={`${isMobile ? 'p-5' : 'p-6'}`}>
+                  {/* Header redesigned */}
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex gap-4 flex-1">
+                       {renderLogo(match, match.matchScore)}
+                       <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(match)}</h3>
-                            <Badge className={`${getTypeColor(match.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                             <h3 className="text-xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+                             {match.isNew && (
+                               <span className="text-[10px] px-2 py-0.5 bg-sky-100 text-sky-700 rounded-full font-bold uppercase tracking-wider">Novo</span>
+                             )}
                           </div>
-                          {match.isNew && (
-                            <span className="text-xs px-2.5 py-1.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
-                          )}
-                        </div>
-                      </div>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
-                    </>
-                  ) : (
-                    <div className="flex items-start justify-between gap-4 mb-6">
-                      <div className="flex gap-4 flex-1 items-start">
-                        {renderLogo(match, match.matchScore)}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                            <Badge className={`${getTypeColor(match.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
-                          </div>
-                          <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
-                        </div>
-                      </div>
-                      {match.isNew && (
-                        <span className="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap">Novo</span>
-                      )}
+                          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium flex items-center gap-2">
+                            {match.sector} 
+                            <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+                            {match.location}
+                          </p>
+                       </div>
                     </div>
-                  )}
-
-                  {/* Match Score Bar - More Prominent */}
-                  {(() => {
-                    const colors = getCompatibilityColor(match.matchScore);
-                    return (
-                      <div className={`${isMobile ? 'mb-5' : 'mb-7'} ${colors.bgColor} p-4 rounded-lg border ${colors.borderColor}`}>
-                        <div className="flex justify-between items-center mb-2.5">
-                          <span className={`${isMobile ? 'text-xs' : 'text-sm'} font-bold text-slate-700 dark:text-slate-300`}>Compatibilidade com seu Perfil</span>
-                          <span className={`${isMobile ? 'text-lg font-bold' : 'text-xl font-bold'} ${colors.textColor}`}>{match.matchScore}%</span>
-                        </div>
-                        <div className="h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full ${colors.barColor} rounded-full transition-all duration-500`} 
-                            style={{ width: `${match.matchScore}%` }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  {/* Description Preview */}
-                  <p className={`${isMobile ? 'text-sm' : 'text-base'} text-slate-600 dark:text-slate-400 line-clamp-2 mb-5`}>{match.description}</p>
-
-                  {/* Key Metrics Grid - Mobile Optimized */}
-                  {isMobile ? (
-                    <div className="grid grid-cols-3 gap-3 mb-5">
-                      <div className="p-3 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Preço</p>
-                        <p className="font-bold text-primary text-sm">{match.price}</p>
-                      </div>
-                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">Receita</p>
-                        <p className="font-bold text-slate-900 dark:text-white text-sm">{match.revenue}</p>
-                      </div>
-                      <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-2xs text-slate-500 dark:text-slate-400 mb-1.5 font-medium">EBITDA</p>
-                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{match.ebitda}</p>
-                      </div>
+                    
+                    {/* Circular Score */}
+                    <div className="flex flex-col items-center">
+                       <CircularProgress value={match.matchScore} size={48} strokeWidth={4} color={getCompatibilityColor(match.matchScore).textColor.split(' ')[0]} />
+                       <span className="text-[10px] font-semibold text-slate-400 mt-1 uppercase tracking-wider">Match</span>
                     </div>
-                  ) : (
-                    <div className={`grid grid-cols-3 gap-4 mb-7`}>
-                      <div className="p-4 bg-primary/5 dark:bg-primary/10 rounded-lg border border-primary/10 dark:border-primary/20">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Preço</p>
-                        <p className="font-bold text-primary text-2xl">{match.price}</p>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-6 min-h-[40px] leading-relaxed">
+                    {match.description}
+                  </p>
+
+                  {/* Metrics - Cleaner */}
+                  <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">Preço</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-base">{match.price}</p>
                       </div>
-                      <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">Receita</p>
-                        <p className="font-bold text-slate-900 dark:text-white text-xl">{match.revenue}</p>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">Receita</p>
+                        <p className="font-bold text-slate-900 dark:text-white text-base">{match.revenue}</p>
                       </div>
-                      <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
-                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-2 font-medium">EBITDA</p>
-                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-xl">{match.ebitda}</p>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1 font-semibold">EBITDA</p>
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-base">{match.ebitda}</p>
                       </div>
-                    </div>
-                  )}
+                  </div>
 
                   {/* Tags */}
-                  <div className={`flex flex-wrap ${isMobile ? 'gap-2 mb-5' : 'gap-2 mb-7'}`}>
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {match.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className={`border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-medium ${isMobile ? 'text-xs px-2.5 py-1' : 'text-sm'}`}>
+                      <Badge key={tag} variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                         {tag}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Actions */}
-                  <div className={`grid ${isMobile ? 'grid-cols-2 gap-3 pt-5' : 'grid-cols-1 md:grid-cols-2 gap-3 pt-7 border-t border-slate-100 dark:border-slate-800'}`}>
-                    {/* Primary Action Button */}
+                  <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <Button 
+                      variant="ghost" 
+                      className="h-10 text-slate-600 hover:text-primary hover:bg-primary/5 font-semibold transition-colors"
+                      onClick={() => setSelectedMatchId(match.id)}
+                    >
+                      <Eye className="h-4 w-4 mr-2" /> Detalhes
+                    </Button>
+
                     {match.stage === 'new' && (
                       <Button 
-                        className={`bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/30 text-white font-bold group transition-all ${isMobile ? 'h-10 text-sm' : 'h-11'}`}
+                        className="h-10 bg-primary hover:bg-primary/90 text-white font-bold shadow-md hover:shadow-primary/20 transition-all"
                         onClick={() => updateMatchStage(match.id, 'interested')}
                       >
-                        <Heart className={`h-4 w-4 ${!isMobile && 'mr-2'} group-hover:scale-110 transition-transform`} /> {isMobile ? 'Interesse' : 'Tenho Interesse'}
+                        <Heart className="h-4 w-4 mr-2" /> Tenho Interesse
                       </Button>
                     )}
-
-                    {match.stage === 'interested' && (
-                      <Button 
-                        className={`bg-amber-600 hover:bg-amber-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
-                        onClick={() => updateMatchStage(match.id, 'nda_signed')}
-                      >
-                        <Lock className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'NDA' : 'Solicitar NDA'}
-                      </Button>
-                    )}
-
-                    {match.stage === 'nda_signed' && (
-                      <Button 
-                        className={`bg-emerald-600 hover:bg-emerald-700 text-white shadow-md font-semibold ${isMobile ? 'h-10 text-sm' : ''}`}
-                        onClick={() => updateMatchStage(match.id, 'meeting_scheduled')}
-                      >
-                        <Calendar className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Reunião' : 'Agendar Reunião'}
-                      </Button>
-                    )}
-
-                    {/* Secondary Action - Details */}
-                    <Button 
-                      variant="outline" 
-                      className={`border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors ${isMobile ? 'h-10 text-sm' : ''}`}
-                      onClick={() => setSelectedMatchId(match.id)}
-                      data-testid={`button-details-${match.id}`}
-                    >
-                      <Eye className={`h-4 w-4 ${!isMobile && 'mr-2'}`} /> {isMobile ? 'Ver' : 'Ver Detalhes'}
-                    </Button>
                   </div>
                 </div>
               </Card>
@@ -1342,7 +1316,7 @@ export default function DashboardPage() {
           {/* Active Processes Tab - Desktop */}
           <TabsContent value="active" className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
-              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
+              <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30 col-span-full">
                 <CardContent className="flex flex-col items-center justify-center py-12">
                   <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
                     <Clock className="h-6 w-6 text-slate-400 dark:text-slate-600" />
@@ -1354,7 +1328,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredMatches.filter(m => m.stage !== 'new').map((process) => {
+              filteredMatches.filter(m => m.stage !== 'new').map((process, index) => {
                 const getStageConfig = (stage: Match['stage']) => {
                   switch(stage) {
                     case 'interested':
@@ -1409,8 +1383,10 @@ export default function DashboardPage() {
                     key={process.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   >
-                    <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
+                    <Card className={`h-full border-l-4 ${config.borderColor} dark:bg-slate-900 hover:shadow-xl transition-all duration-300 ${isMobile ? 'rounded-xl' : ''}`}>
                       <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
                         {isMobile ? (
                           <>

@@ -28,8 +28,25 @@ export default function OnboardingPage() {
     if (step < totalSteps) {
       setStep(step + 1);
     } else {
-      updateUserData(formData);
-      setLocation("/resumo");
+      // Logic for Seller Business Score simulation
+      if (role === 'seller') {
+        // Simulate a score calculation
+        const score = Math.floor(Math.random() * 40) + 50; // Random score between 50 and 90
+        
+        if (score >= 60) {
+           updateUserData({...formData, businessScore: score, status: 'active'});
+           setLocation("/resumo"); // Or a success page showing the score
+        } else {
+           // In a real app, we would show a "Checklist" page. 
+           // For now, let's just proceed but maybe we could show a toast or alert?
+           // Let's assume for this mockup we just proceed to summary but with a "Preparation" status
+           updateUserData({...formData, businessScore: score, status: 'preparation'});
+           setLocation("/resumo"); 
+        }
+      } else {
+        updateUserData(formData);
+        setLocation("/resumo");
+      }
     }
   };
 
@@ -231,9 +248,13 @@ export default function OnboardingPage() {
     // SELLER FLOW (Empresa à Venda)
     if (role === "seller") {
       switch (step) {
-        case 1: // Identificação e Setor
+        case 1: // Perfil do Negócio
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Perfil do Negócio</h3>
+                <p className="text-sm text-muted-foreground">Identifique sua empresa para iniciarmos a validação.</p>
+              </div>
               <Alert className="border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
                 <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <AlertDescription className="text-amber-800 dark:text-amber-200">
@@ -288,9 +309,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 2: // Tamanho da Operação
+        case 2: // Performance Financeira
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Performance Financeira</h3>
+                <p className="text-sm text-muted-foreground">Números claros aumentam seu Business Score e atraem investidores sérios.</p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Faturamento Mensal Médio</Label>
@@ -321,9 +346,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 3: // Estrutura e Momento
+        case 3: // Maturidade e Estrutura
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Maturidade e Estrutura</h3>
+                <p className="text-sm text-muted-foreground">Avaliamos a dependência do dono e o momento do negócio.</p>
+              </div>
               <div className="space-y-2">
                 <Label>Motivo da Venda</Label>
                 <Select onValueChange={(v) => setFormData({...formData, sellReason: v})}>
@@ -374,9 +403,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 4: // Informações do Deal
+        case 4: // Condições da Venda
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Condições da Venda</h3>
+                <p className="text-sm text-muted-foreground">Defina o valor e o modelo de transação desejado.</p>
+              </div>
               <div className="space-y-2">
                 <Label>Valor Pedido (Valuation)</Label>
                 <Input placeholder="R$ 0,00" className="text-lg font-semibold text-primary" />

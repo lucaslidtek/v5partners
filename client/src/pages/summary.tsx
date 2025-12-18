@@ -10,6 +10,93 @@ export default function SummaryPage() {
   const { user } = useAuth();
   const [, setLocation] = useLocation();
 
+  // SELLER SUMMARY (Business Score Logic)
+  if (user?.role === 'seller') {
+    const score = user.businessScore || 55; // Fallback default
+    const isApproved = score >= 60;
+
+    return (
+      <Layout>
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className={`w-24 h-24 ${isApproved ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'} rounded-full flex items-center justify-center mx-auto mb-6`}
+            >
+              <div className="text-3xl font-bold">{score}</div>
+            </motion.div>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+              {isApproved ? "Negócio Aprovado para Publicação!" : "Seu Negócio Precisa de Ajustes"}
+            </h1>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              {isApproved 
+                ? "Sua empresa atingiu o Business Score necessário e está elegível para o matching automático." 
+                : "Seu Business Score atual indica que alguns pontos precisam ser melhorados antes da publicação."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <Card className="border-slate-200">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-lg mb-4">Análise do Business Score</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-600">Performance Financeira</span>
+                    <span className={`text-sm font-bold ${isApproved ? 'text-emerald-600' : 'text-amber-600'}`}>
+                      {isApproved ? 'Forte' : 'Moderada'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div className={`h-full ${isApproved ? 'bg-emerald-500' : 'bg-amber-500'}`} style={{ width: `${score}%` }} />
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    {isApproved 
+                      ? "Seus números demonstram consistência e atraem investidores." 
+                      : "A clareza dos dados financeiros pode ser melhorada para aumentar a confiança."}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-lg mb-4">
+                  {isApproved ? "Próximos Passos (Publicação)" : "Checklist de Melhorias"}
+                </h3>
+                <ul className="space-y-3">
+                  {isApproved ? (
+                    <>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-emerald-500 w-5 h-5" /> Definir nível de confidencialidade</li>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-emerald-500 w-5 h-5" /> Revisar teaser automático</li>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-emerald-500 w-5 h-5" /> Ativar matching de investidores</li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex gap-2 text-sm"><FileText className="text-amber-500 w-5 h-5" /> Detalhar melhor o EBITDA</li>
+                      <li className="flex gap-2 text-sm"><FileText className="text-amber-500 w-5 h-5" /> Anexar DRE dos últimos 12 meses</li>
+                      <li className="flex gap-2 text-sm"><FileText className="text-amber-500 w-5 h-5" /> Esclarecer dependência do proprietário</li>
+                    </>
+                  )}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="flex justify-center gap-4">
+            <Button 
+              className={`h-12 px-8 text-base ${isApproved ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-slate-900 hover:bg-slate-800'}`}
+              onClick={() => setLocation("/dashboard")}
+            >
+              {isApproved ? "Ativar e Ir para Dashboard" : "Voltar e Editar Informações"}
+            </Button>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // INVESTOR SUMMARY (Default)
   return (
     <Layout>
       <div className="max-w-4xl mx-auto px-4 py-12">

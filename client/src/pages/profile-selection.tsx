@@ -14,14 +14,14 @@ export default function ProfileSelectionPage() {
   const profiles = [
     {
       id: "investor",
-      title: "Sou Investidor",
+      title: "Quero Comprar um Negócio",
       icon: Target,
-      description: "Quero encontrar empresas para comprar ou investir",
+      description: "Investidor ou empresário interessado em adquirir um negócio em operação",
       features: [
-        "Acesso a empresas pré-validadas",
-        "Matches personalizados com IA",
-        "Relatórios exclusivos do mercado",
-        "Networking com outros investidores"
+        "Filtragem inteligente de oportunidades",
+        "Clareza sobre números e riscos",
+        "Acesso a negócios compatíveis",
+        "Apoio na análise e decisão"
       ],
       color: "bg-primary",
       buttonColor: "bg-primary hover:bg-primary/90",
@@ -29,14 +29,14 @@ export default function ProfileSelectionPage() {
     },
     {
       id: "seller",
-      title: "Sou Empresa",
+      title: "Quero Vender minha Empresa",
       icon: Briefcase,
-      description: "Quero vender minha empresa ou negócio",
+      description: "Empresário ou sócio que deseja vender total ou parcialmente",
       features: [
-        "Valuation profissional gratuito",
-        "Exposição para investidores qualificados",
-        "Processo confidencial e seguro",
-        "Suporte durante toda negociação"
+        "Valuation justo e de mercado",
+        "Confidencialidade e controle",
+        "Acesso a compradores qualificados",
+        "Processo organizado e profissional"
       ],
       color: "bg-secondary",
       buttonColor: "bg-secondary hover:bg-secondary/90",
@@ -46,12 +46,12 @@ export default function ProfileSelectionPage() {
       id: "franchise",
       title: "Sou Franqueadora",
       icon: Store,
-      description: "Quero expandir minha franquia encontrando franqueados",
+      description: "Marca que busca expandir rede com novos franqueados qualificados",
       features: [
-        "Perfis pré-qualificados de franqueados",
-        "Análise de potencial por região",
-        "Gestão de pipeline de expansão",
-        "Relatórios de performance territorial"
+        "Filtragem forte de perfil e capital",
+        "Investidores alinhados à cultura",
+        "Escala com qualidade e padrão",
+        "Menos curiosos, mais leads reais"
       ],
       color: "bg-accent",
       buttonColor: "bg-accent hover:bg-accent/90",

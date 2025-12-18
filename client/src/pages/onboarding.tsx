@@ -45,9 +45,13 @@ export default function OnboardingPage() {
     // INVESTOR FLOW
     if (role === "investor") {
       switch (step) {
-        case 1: // Dados Básicos
+        case 1: // Perfil do Investidor (Dados Básicos)
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Perfil do Investidor</h3>
+                <p className="text-sm text-muted-foreground">Conte-nos sobre você para personalizarmos sua experiência.</p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Nome Completo</Label>
@@ -82,9 +86,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 2: // Capacidade Financeira
+        case 2: // Tese de Investimento (Capacidade e Modalidade)
           return (
             <div className="space-y-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Tese de Investimento</h3>
+                <p className="text-sm text-muted-foreground">Defina o perfil financeiro e estratégico do negócio que busca.</p>
+              </div>
               <div className="space-y-2">
                 <Label>Faixa de Investimento Disponível</Label>
                 <Select onValueChange={(v) => setFormData({...formData, investmentRange: v})}>
@@ -127,9 +135,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 3: // Experiência
+        case 3: // Experiência e Background
           return (
              <div className="space-y-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Experiência e Background</h3>
+                <p className="text-sm text-muted-foreground">Sua experiência ajuda a filtrar negócios onde você pode agregar valor.</p>
+              </div>
               <div className="space-y-2">
                 <Label>Já teve empresa anteriormente?</Label>
                  <div className="flex gap-4">
@@ -166,9 +178,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 4: // Preferências
+        case 4: // Preferências e Critérios
            return (
              <div className="space-y-6">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Preferências e Critérios</h3>
+                <p className="text-sm text-muted-foreground">Refine sua busca com critérios de setor e envolvimento.</p>
+              </div>
               <div className="space-y-2">
                 <Label>Setores de Interesse</Label>
                  <div className="grid grid-cols-2 gap-2">

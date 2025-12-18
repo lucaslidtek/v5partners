@@ -48,12 +48,12 @@ export function CompatibilityLogo({
 
   // Get background and text colors based on compatibility score
   const getColors = (score: number) => {
-    if (score >= 70) {
+    if (score >= 60) {
       return {
         background: 'bg-emerald-100 dark:bg-emerald-900/30',
         text: 'text-emerald-600 dark:text-emerald-400',
       };
-    } else if (score >= 40) {
+    } else if (score >= 45) {
       return {
         background: 'bg-amber-100 dark:bg-amber-900/30',
         text: 'text-amber-600 dark:text-amber-400',

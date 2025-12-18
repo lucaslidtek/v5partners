@@ -296,7 +296,7 @@ const initialMatches: Match[] = [
     id: 2,
     name: "PetPremium Brasil",
     description: "E-commerce especializado em produtos premium para pets com marca própria consolidada.",
-    matchScore: 89,
+    matchScore: 58,
     revenue: "R$ 12.5M",
     ebitda: "15%",
     employees: 45,
@@ -333,7 +333,7 @@ const initialMatches: Match[] = [
     id: 4,
     name: "GourmetBox Delivery",
     description: "Serviço de entrega de refeições gourmet com ingredientes premium para corporate.",
-    matchScore: 87,
+    matchScore: 48,
     revenue: "R$ 4.1M",
     ebitda: "22%",
     employees: 35,
@@ -351,7 +351,7 @@ const initialMatches: Match[] = [
     id: 5,
     name: "FitLife Franquias",
     description: "Rede de academias de fitness com tecnologia de inteligência artificial para treinos personalizados.",
-    matchScore: 92,
+    matchScore: 62,
     revenue: "R$ 8.7M",
     ebitda: "32%",
     employees: 52,
@@ -369,7 +369,7 @@ const initialMatches: Match[] = [
     id: 6,
     name: "CloudStore Analytics",
     description: "Plataforma de analytics em tempo real para e-commerce e varejo omnichannel.",
-    matchScore: 88,
+    matchScore: 55,
     revenue: "R$ 5.5M",
     ebitda: "35%",
     employees: 28,
@@ -405,7 +405,7 @@ const initialMatches: Match[] = [
     id: 8,
     name: "EduCorp Training",
     description: "Plataforma de treinamento corporativo com cursos personalizados e certificações reconhecidas.",
-    matchScore: 86,
+    matchScore: 45,
     revenue: "R$ 6.9M",
     ebitda: "25%",
     employees: 38,
@@ -646,14 +646,14 @@ export default function DashboardPage() {
 
 
   const getCompatibilityColor = (score: number) => {
-    if (score >= 70) {
+    if (score >= 60) {
       return {
         barColor: 'bg-emerald-500',
         bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
         borderColor: 'border-emerald-200 dark:border-emerald-800',
         textColor: 'text-emerald-600 dark:text-emerald-400'
       };
-    } else if (score >= 40) {
+    } else if (score >= 45) {
       return {
         barColor: 'bg-amber-500',
         bgColor: 'bg-amber-50 dark:bg-amber-950/30',

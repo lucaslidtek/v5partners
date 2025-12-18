@@ -16,12 +16,12 @@ export default function ProfileSelectionPage() {
       id: "investor",
       title: "Quero Comprar um Negócio",
       icon: Target,
-      description: "Investidor ou empresário interessado em adquirir um negócio em operação",
+      description: "Investidor ou empresário interessado em adquirir um negócio já em operação",
       features: [
         "Filtragem inteligente de oportunidades",
-        "Clareza sobre números e riscos",
-        "Acesso a negócios compatíveis",
-        "Apoio na análise e decisão"
+        "Clareza sobre números, riscos e estágio",
+        "Acesso a negócios compatíveis com perfil",
+        "Apoio na análise e tomada de decisão"
       ],
       color: "bg-primary",
       buttonColor: "bg-primary hover:bg-primary/90",
@@ -31,12 +31,12 @@ export default function ProfileSelectionPage() {
       id: "seller",
       title: "Quero Vender minha Empresa",
       icon: Briefcase,
-      description: "Empresário ou sócio que deseja vender total ou parcialmente",
+      description: "Empresário ou sócio que deseja vender total ou parcialmente sua empresa",
       features: [
-        "Valuation justo e de mercado",
-        "Confidencialidade e controle",
+        "Ajuda para estruturar e apresentar o negócio",
+        "Confidencialidade e controle das informações",
         "Acesso a compradores qualificados",
-        "Processo organizado e profissional"
+        "Processo claro, previsível e profissional"
       ],
       color: "bg-secondary",
       buttonColor: "bg-secondary hover:bg-secondary/90",
@@ -46,12 +46,12 @@ export default function ProfileSelectionPage() {
       id: "franchise",
       title: "Sou Franqueadora",
       icon: Store,
-      description: "Marca que busca expandir rede com novos franqueados qualificados",
+      description: "Empresa ou grupo que opera um modelo de franquia e busca expandir a rede",
       features: [
-        "Filtragem forte de perfil e capital",
-        "Investidores alinhados à cultura",
-        "Escala com qualidade e padrão",
-        "Menos curiosos, mais leads reais"
+        "Filtragem forte de perfil e capacidade financeira",
+        "Ambiente que educa o potencial franqueado",
+        "Processo que gera confiança institucional",
+        "Menos volume e mais aderência ao modelo"
       ],
       color: "bg-accent",
       buttonColor: "bg-accent hover:bg-accent/90",

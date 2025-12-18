@@ -97,8 +97,8 @@ export default function ProfileSelectionPage() {
                   <ul className="space-y-3">
                     {profile.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                        <div className={`mt-0.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
-                        <span>{feature}</span>
+                        <div className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
+                        <span className="leading-relaxed">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -106,11 +106,12 @@ export default function ProfileSelectionPage() {
                 
                 <CardFooter className="pb-8 pt-2">
                   <Button 
-                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
+                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold min-h-[3rem] h-auto py-3 whitespace-normal text-center shadow-lg shadow-black/5`}
                     onClick={() => setProfileType(profile.id as any)}
                     data-testid={`button-select-${profile.id}`}
                   >
-                    Continuar como {profile.title.replace('Sou ', '')}
+                    <span className="block sm:hidden">Começar</span>
+                    <span className="hidden sm:block">Continuar como {profile.title.replace('Sou ', '')}</span>
                   </Button>
                 </CardFooter>
               </Card>

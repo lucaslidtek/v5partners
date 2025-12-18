@@ -106,12 +106,11 @@ export default function ProfileSelectionPage() {
                 
                 <CardFooter className="pb-8 pt-2">
                   <Button 
-                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold min-h-[3rem] h-auto py-3 whitespace-normal text-center shadow-lg shadow-black/5`}
+                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
                     onClick={() => setProfileType(profile.id as any)}
                     data-testid={`button-select-${profile.id}`}
                   >
-                    <span className="block sm:hidden">Começar</span>
-                    <span className="hidden sm:block">Continuar como {profile.title.replace('Sou ', '')}</span>
+                    Começar
                   </Button>
                 </CardFooter>
               </Card>

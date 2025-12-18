@@ -96,6 +96,86 @@ export default function SummaryPage() {
     );
   }
 
+  // FRANCHISOR SUMMARY
+  if (user?.role === 'franchise') {
+    const score = user.franchiseScore || 55;
+    const isActive = score >= 60;
+
+    return (
+      <Layout>
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className={`w-24 h-24 ${isActive ? 'bg-purple-100 text-purple-600' : 'bg-amber-100 text-amber-600'} rounded-full flex items-center justify-center mx-auto mb-6`}
+            >
+              <div className="text-3xl font-bold">{score}</div>
+            </motion.div>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">
+              {isActive ? "Franquia Pronta para Expansão!" : "Modelo em Ajuste"}
+            </h1>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              {isActive 
+                ? "Seu Franchise Fit Score está excelente. O matching automático foi iniciado." 
+                : "Precisamos ajustar alguns pontos do seu modelo antes de liberar para investidores."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <Card className="border-slate-200">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-lg mb-4">Análise de Franqueabilidade</h3>
+                <div className="space-y-4">
+                   <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-600">Atratividade do Modelo</span>
+                    <span className={`text-sm font-bold ${isActive ? 'text-purple-600' : 'text-amber-600'}`}>
+                      {isActive ? 'Alta' : 'Média'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                    <div className={`h-full ${isActive ? 'bg-purple-500' : 'bg-amber-500'}`} style={{ width: `${score}%` }} />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-lg mb-4">
+                  {isActive ? "Matching Automático" : "Melhorias Sugeridas"}
+                </h3>
+                 <ul className="space-y-3">
+                  {isActive ? (
+                    <>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-purple-500 w-5 h-5" /> Perfil de franqueado validado</li>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-purple-500 w-5 h-5" /> Regiões de expansão mapeadas</li>
+                      <li className="flex gap-2 text-sm"><CheckCircle2 className="text-purple-500 w-5 h-5" /> 12 Investidores compatíveis encontrados</li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex gap-2 text-sm"><FileText className="text-amber-500 w-5 h-5" /> Rever taxa de franquia vs. retorno</li>
+                      <li className="flex gap-2 text-sm"><FileText className="text-amber-500 w-5 h-5" /> Detalhar suporte de marketing</li>
+                    </>
+                  )}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+           <div className="flex justify-center gap-4">
+            <Button 
+              className={`h-12 px-8 text-base ${isActive ? 'bg-purple-600 hover:bg-purple-700' : 'bg-slate-900 hover:bg-slate-800'}`}
+              onClick={() => setLocation("/dashboard")}
+            >
+              {isActive ? "Ver Investidores Compatíveis" : "Editar Modelo de Negócio"}
+            </Button>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   // INVESTOR SUMMARY (Default)
   return (
     <Layout>

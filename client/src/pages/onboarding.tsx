@@ -43,6 +43,11 @@ export default function OnboardingPage() {
            updateUserData({...formData, businessScore: score, status: 'preparation'});
            setLocation("/resumo"); 
         }
+      } else if (role === 'franchise') {
+        // Simulate Franchise Fit Score
+        const score = Math.floor(Math.random() * 40) + 50; // Random score between 50 and 90
+        updateUserData({...formData, franchiseScore: score, status: score >= 60 ? 'active' : 'preparation'});
+        setLocation("/resumo");
       } else {
         updateUserData(formData);
         setLocation("/resumo");
@@ -450,6 +455,10 @@ export default function OnboardingPage() {
         case 1: // Identificação da Franquia
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Dados da Franquia</h3>
+                <p className="text-sm text-muted-foreground">Informações institucionais para validar sua marca.</p>
+              </div>
               <Alert className="border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
                 <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <AlertDescription className="text-amber-800 dark:text-amber-200">
@@ -504,9 +513,13 @@ export default function OnboardingPage() {
               </div>
             </div>
           );
-        case 2: // Investimento
+        case 2: // Modelo de Negócio
           return (
              <div className="space-y-4">
+               <div className="mb-4">
+                 <h3 className="text-lg font-medium">Modelo de Negócio</h3>
+                 <p className="text-sm text-muted-foreground">Defina os valores de investimento e retorno para o franqueado.</p>
+               </div>
                <div className="space-y-2">
                   <Label>Investimento Total Inicial (Faixa)</Label>
                   <Select>
@@ -538,9 +551,13 @@ export default function OnboardingPage() {
                </div>
              </div>
           );
-        case 3: // Perfil do Franqueado
+        case 3: // Perfil do Franqueado Ideal
           return (
             <div className="space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium">Perfil do Franqueado Ideal</h3>
+                <p className="text-sm text-muted-foreground">Quem você busca para expandir sua rede com qualidade?</p>
+              </div>
               <div className="space-y-2">
                 <Label>Perfil Ideal</Label>
                 <div className="flex gap-4">

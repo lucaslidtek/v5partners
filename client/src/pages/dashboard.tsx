@@ -2034,22 +2034,38 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Stage Information */}
-                  <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-slate-900">Status do Processo</h4>
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
-                      <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                      <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                      <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
+                      <Badge variant="outline" className="bg-white dark:bg-slate-900 capitalize">
+                        {selectedMatch.stage.replace('_', ' ')}
+                      </Badge>
                     </div>
-                    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-primary transition-all duration-500" 
-                        style={{ 
-                          width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
-                        }}
-                      />
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
+                        <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
+                        <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Análise</span>
+                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
+                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
+                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Closing</span>
+                      </div>
+                      
+                      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+                          style={{ 
+                            width: 
+                              selectedMatch.stage === 'new' ? '5%' : 
+                              selectedMatch.stage === 'interested' ? '20%' : 
+                              selectedMatch.stage === 'nda_signed' ? '40%' :
+                              selectedMatch.stage === 'data_room' ? '60%' :
+                              selectedMatch.stage === 'loi_sent' ? '80%' :
+                              selectedMatch.stage === 'due_diligence' ? '90%' : '100%' 
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -2073,10 +2089,34 @@ export default function DashboardPage() {
                     )}
                     {selectedMatch.stage === 'nda_signed' && (
                       <Button 
-                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
-                        onClick={() => updateMatchStage(selectedMatch.id, 'meeting_scheduled')}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'data_room')}
                       >
-                        <Calendar className="h-4 w-4 mr-2" /> Agendar Reunião
+                        <Eye className="h-4 w-4 mr-2" /> Acessar Data Room
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'data_room' && (
+                      <Button 
+                        className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'loi_sent')}
+                      >
+                        <FileText className="h-4 w-4 mr-2" /> Enviar LOI
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'loi_sent' && (
+                      <Button 
+                        className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'due_diligence')}
+                      >
+                        <Search className="h-4 w-4 mr-2" /> Iniciar Due Diligence
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'due_diligence' && (
+                      <Button 
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'closing')}
+                      >
+                        <Check className="h-4 w-4 mr-2" /> Ir para Fechamento
                       </Button>
                     )}
                   </div>
@@ -2167,22 +2207,38 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Stage Information */}
-                  <div className="space-y-2 bg-slate-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-slate-900">Status do Processo</h4>
-                    <div className="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
-                      <span className={selectedMatch.stage === 'new' || selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Interesse</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                      <span className={selectedMatch.stage === 'interested' || selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>NDA</span>
-                      <div className="h-px bg-slate-200 flex-1 mx-2"></div>
-                      <span className={selectedMatch.stage === 'nda_signed' ? "font-medium text-primary" : ""}>Reunião</span>
+                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
+                      <Badge variant="outline" className="bg-white dark:bg-slate-900 capitalize">
+                        {selectedMatch.stage.replace('_', ' ')}
+                      </Badge>
                     </div>
-                    <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-primary transition-all duration-500" 
-                        style={{ 
-                          width: selectedMatch.stage === 'new' ? '10%' : selectedMatch.stage === 'interested' ? '50%' : '100%' 
-                        }}
-                      />
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
+                        <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
+                        <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Análise</span>
+                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
+                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
+                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Closing</span>
+                      </div>
+                      
+                      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+                          style={{ 
+                            width: 
+                              selectedMatch.stage === 'new' ? '5%' : 
+                              selectedMatch.stage === 'interested' ? '20%' : 
+                              selectedMatch.stage === 'nda_signed' ? '40%' :
+                              selectedMatch.stage === 'data_room' ? '60%' :
+                              selectedMatch.stage === 'loi_sent' ? '80%' :
+                              selectedMatch.stage === 'due_diligence' ? '90%' : '100%' 
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -2206,10 +2262,34 @@ export default function DashboardPage() {
                     )}
                     {selectedMatch.stage === 'nda_signed' && (
                       <Button 
-                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
-                        onClick={() => updateMatchStage(selectedMatch.id, 'meeting_scheduled')}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'data_room')}
                       >
-                        <Calendar className="h-4 w-4 mr-2" /> Agendar Reunião
+                        <Eye className="h-4 w-4 mr-2" /> Acessar Data Room
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'data_room' && (
+                      <Button 
+                        className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'loi_sent')}
+                      >
+                        <FileText className="h-4 w-4 mr-2" /> Enviar LOI
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'loi_sent' && (
+                      <Button 
+                        className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'due_diligence')}
+                      >
+                        <Search className="h-4 w-4 mr-2" /> Iniciar Due Diligence
+                      </Button>
+                    )}
+                    {selectedMatch.stage === 'due_diligence' && (
+                      <Button 
+                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold"
+                        onClick={() => updateMatchStage(selectedMatch.id, 'closing')}
+                      >
+                        <Check className="h-4 w-4 mr-2" /> Ir para Fechamento
                       </Button>
                     )}
                   </div>

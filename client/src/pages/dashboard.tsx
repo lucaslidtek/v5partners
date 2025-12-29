@@ -2043,10 +2043,10 @@ export default function DashboardPage() {
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
                         <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
                         <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Análise</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Data Room</span>
                         <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
                         <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
-                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Closing</span>
+                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
                       </div>
                       
                       <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
@@ -2213,10 +2213,10 @@ export default function DashboardPage() {
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
                         <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
                         <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Análise</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Data Room</span>
                         <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
                         <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
-                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Closing</span>
+                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
                       </div>
                       
                       <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">

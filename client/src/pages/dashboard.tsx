@@ -2037,9 +2037,6 @@ export default function DashboardPage() {
                   <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-1">
                       <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
-                      <Badge variant="outline" className="bg-white dark:bg-slate-900 capitalize">
-                        {selectedMatch.stage.replace('_', ' ')}
-                      </Badge>
                     </div>
                     
                     <div className="space-y-2">
@@ -2210,9 +2207,6 @@ export default function DashboardPage() {
                   <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-1">
                       <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
-                      <Badge variant="outline" className="bg-white dark:bg-slate-900 capitalize">
-                        {selectedMatch.stage.replace('_', ' ')}
-                      </Badge>
                     </div>
                     
                     <div className="space-y-2">

@@ -561,16 +561,16 @@ export default function DashboardPage() {
         description = "Solicitação enviada. Aguarde a liberação dos documentos.";
         break;
       case 'data_room':
-        title = "Acesso ao Data Room";
-        description = "Documentos liberados para análise detalhada.";
+        title = "Documentação Liberada";
+        description = "Os documentos da empresa agora estão disponíveis para análise.";
         break;
       case 'loi_sent':
-        title = "LOI Enviada";
-        description = "Sua carta de intenção foi enviada ao vendedor.";
+        title = "Proposta Enviada";
+        description = "Sua carta de intenção e proposta foram enviadas ao vendedor.";
         break;
       case 'due_diligence':
-        title = "Due Diligence Iniciada";
-        description = "Fase de auditoria e validação de dados.";
+        title = "Auditoria Iniciada";
+        description = "Fase de auditoria e validação detalhada de dados.";
         break;
       case 'closing':
         title = "Fase de Fechamento";
@@ -2043,9 +2043,9 @@ export default function DashboardPage() {
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
                         <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
                         <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Data Room</span>
-                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
-                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Documentação</span>
+                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Proposta</span>
+                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Auditoria</span>
                         <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
                       </div>
                       
@@ -2089,7 +2089,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'data_room')}
                       >
-                        <Eye className="h-4 w-4 mr-2" /> Acessar Data Room
+                        <Eye className="h-4 w-4 mr-2" /> Acessar Documentação
                       </Button>
                     )}
                     {selectedMatch.stage === 'data_room' && (
@@ -2097,7 +2097,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'loi_sent')}
                       >
-                        <FileText className="h-4 w-4 mr-2" /> Enviar LOI
+                        <FileText className="h-4 w-4 mr-2" /> Enviar Proposta
                       </Button>
                     )}
                     {selectedMatch.stage === 'loi_sent' && (
@@ -2105,7 +2105,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'due_diligence')}
                       >
-                        <Search className="h-4 w-4 mr-2" /> Iniciar Due Diligence
+                        <Search className="h-4 w-4 mr-2" /> Iniciar Auditoria
                       </Button>
                     )}
                     {selectedMatch.stage === 'due_diligence' && (
@@ -2213,9 +2213,9 @@ export default function DashboardPage() {
                       <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
                         <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
                         <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Data Room</span>
-                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>LOI</span>
-                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Due Diligence</span>
+                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Documentação</span>
+                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Proposta</span>
+                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Auditoria</span>
                         <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
                       </div>
                       
@@ -2259,7 +2259,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'data_room')}
                       >
-                        <Eye className="h-4 w-4 mr-2" /> Acessar Data Room
+                        <Eye className="h-4 w-4 mr-2" /> Acessar Documentação
                       </Button>
                     )}
                     {selectedMatch.stage === 'data_room' && (
@@ -2267,7 +2267,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'loi_sent')}
                       >
-                        <FileText className="h-4 w-4 mr-2" /> Enviar LOI
+                        <FileText className="h-4 w-4 mr-2" /> Enviar Proposta
                       </Button>
                     )}
                     {selectedMatch.stage === 'loi_sent' && (
@@ -2275,7 +2275,7 @@ export default function DashboardPage() {
                         className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold"
                         onClick={() => updateMatchStage(selectedMatch.id, 'due_diligence')}
                       >
-                        <Search className="h-4 w-4 mr-2" /> Iniciar Due Diligence
+                        <Search className="h-4 w-4 mr-2" /> Iniciar Auditoria
                       </Button>
                     )}
                     {selectedMatch.stage === 'due_diligence' && (

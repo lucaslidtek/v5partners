@@ -1758,9 +1758,9 @@ export default function DashboardPage() {
                                 <div className="flex gap-2 items-start mb-2">
                                   {renderLogo(process, process.matchScore)}
                                   <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
-                                      <Badge className={`${getTypeColor(process.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                                    <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                                      <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight truncate max-w-[120px] sm:max-w-none">{getDisplayName(process)}</h3>
+                                      <Badge className={`${getTypeColor(process.type)} text-[10px] px-1.5 py-0.5 font-semibold whitespace-nowrap`}>{getTypeLabel(process.type)}</Badge>
                                     </div>
                                     <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
                                   </div>
@@ -1885,9 +1885,9 @@ export default function DashboardPage() {
                               <div className="flex items-start gap-2 mb-3">
                                 <CompatibilityLogo matchScore={company.matchScore} isConfidential={true} size="sm" />
                                 <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 mb-0.5">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{company.name}</h3>
-                                    <Badge className={`${getTypeColor(company.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(company.type)}</Badge>
+                                  <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
+                                    <h3 className="font-semibold text-slate-900 dark:text-white text-sm truncate max-w-[120px] sm:max-w-none">{company.name}</h3>
+                                    <Badge className={`${getTypeColor(company.type)} text-[10px] px-1.5 py-0.5 font-semibold whitespace-nowrap`}>{getTypeLabel(company.type)}</Badge>
                                   </div>
                                   <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{company.sector}</p>
                                 </div>

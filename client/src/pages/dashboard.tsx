@@ -54,7 +54,7 @@ type Match = {
   price: string;
   tags: string[];
   isNew: boolean;
-  stage: 'new' | 'interested' | 'nda_signed' | 'meeting_scheduled';
+  stage: 'new' | 'interested' | 'nda_signed' | 'data_room' | 'loi_sent' | 'due_diligence' | 'closing';
   logo?: string;
   logoColor?: string;
   logoImage?: string;
@@ -560,9 +560,21 @@ export default function DashboardPage() {
         title = "NDA Solicitado";
         description = "Solicitação enviada. Aguarde a liberação dos documentos.";
         break;
-      case 'meeting_scheduled':
-        title = "Reunião Solicitada";
-        description = "Enviamos sua disponibilidade para o vendedor.";
+      case 'data_room':
+        title = "Acesso ao Data Room";
+        description = "Documentos liberados para análise detalhada.";
+        break;
+      case 'loi_sent':
+        title = "LOI Enviada";
+        description = "Sua carta de intenção foi enviada ao vendedor.";
+        break;
+      case 'due_diligence':
+        title = "Due Diligence Iniciada";
+        description = "Fase de auditoria e validação de dados.";
+        break;
+      case 'closing':
+        title = "Fase de Fechamento";
+        description = "Preparando a assinatura final do contrato.";
         break;
       case 'new':
         title = "Devolvido para Matches";
@@ -675,9 +687,17 @@ export default function DashboardPage() {
       case 'new':
         return { label: 'Demonstrar Interesse', icon: Heart, nextStep: 'Solicitar NDA' };
       case 'interested':
-        return { label: 'Solicitar NDA', icon: Lock, nextStep: 'Agendar Reunião' };
+        return { label: 'Solicitar NDA', icon: Lock, nextStep: 'Acessar Data Room' };
       case 'nda_signed':
-        return { label: 'Agendar Reunião', icon: Calendar, nextStep: 'Finalizar' };
+        return { label: 'Acessar Data Room', icon: FileText, nextStep: 'Analisar Documentos' };
+      case 'data_room':
+        return { label: 'Enviar LOI', icon: FileText, nextStep: 'Proposta Formal' };
+      case 'loi_sent':
+        return { label: 'Iniciar Due Diligence', icon: Search, nextStep: 'Auditoria' };
+      case 'due_diligence':
+        return { label: 'Ir para Fechamento', icon: Check, nextStep: 'Assinatura de Contrato' };
+      case 'closing':
+        return { label: 'Finalizado', icon: CheckCircle2, nextStep: 'Negócio Fechado' };
       default:
         return { label: 'Demonstrar Interesse', icon: Heart, nextStep: 'Solicitar NDA' };
     }

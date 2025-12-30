@@ -1960,8 +1960,10 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-2 min-w-0">
                   {selectedMatch && renderLogo(selectedMatch, selectedMatch?.matchScore)}
                   <div className="flex-1 min-w-0">
-                    <SheetTitle className="text-lg sm:text-2xl font-bold truncate">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
-                    {selectedMatch && <Badge className={`${getTypeColor(selectedMatch.type)} text-xs px-2 py-0.5 font-semibold mt-1`}>{getTypeLabel(selectedMatch.type)}</Badge>}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <SheetTitle className="text-lg font-bold truncate max-w-[140px] leading-tight">{selectedMatch ? getDisplayName(selectedMatch) : ''}</SheetTitle>
+                      {selectedMatch && <Badge className={`${getTypeColor(selectedMatch.type)} text-[10px] px-1.5 py-0.5 font-semibold whitespace-nowrap`}>{getTypeLabel(selectedMatch.type)}</Badge>}
+                    </div>
                   </div>
                 </div>
               </SheetHeader>

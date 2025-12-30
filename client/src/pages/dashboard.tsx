@@ -2034,24 +2034,29 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Stage Information */}
-                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
-                    <div className="flex justify-between items-center mb-1">
-                      <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
+                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div className="flex justify-between items-center">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">Status do Processo</h4>
+                      <Badge variant="outline" className="bg-white dark:bg-slate-900 text-primary border-primary/20 font-bold">
+                        {(() => {
+                          switch(selectedMatch.stage) {
+                            case 'new': return 'Novo';
+                            case 'interested': return 'Interesse';
+                            case 'nda_signed': return 'NDA';
+                            case 'data_room': return 'Documentação';
+                            case 'loi_sent': return 'Proposta';
+                            case 'due_diligence': return 'Auditoria';
+                            case 'closing': return 'Fechamento';
+                            default: return 'Iniciado';
+                          }
+                        })()}
+                      </Badge>
                     </div>
                     
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
-                        <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
-                        <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Documentação</span>
-                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Proposta</span>
-                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Auditoria</span>
-                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
-                      </div>
-                      
-                      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div className="relative pt-2">
+                      <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
                         <div 
-                          className="h-full bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+                          className="h-full bg-primary transition-all duration-700 ease-out shadow-[0_0_15px_rgba(59,130,246,0.6)] relative" 
                           style={{ 
                             width: 
                               selectedMatch.stage === 'new' ? '5%' : 
@@ -2061,7 +2066,29 @@ export default function DashboardPage() {
                               selectedMatch.stage === 'loi_sent' ? '80%' :
                               selectedMatch.stage === 'due_diligence' ? '90%' : '100%' 
                           }}
-                        />
+                        >
+                          <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                        </div>
+                      </div>
+                      
+                      {/* Mobile Step Indicators (Simplified) */}
+                      <div className="flex justify-between mt-3 px-0.5">
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Início</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">NDA</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Proposta</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${selectedMatch.stage === 'closing' ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Fim</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2204,24 +2231,29 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Stage Information */}
-                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
-                    <div className="flex justify-between items-center mb-1">
-                      <h4 className="font-semibold text-slate-900 dark:text-white">Status do Processo</h4>
+                  <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div className="flex justify-between items-center">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">Status do Processo</h4>
+                      <Badge variant="outline" className="bg-white dark:bg-slate-900 text-primary border-primary/20 font-bold">
+                        {(() => {
+                          switch(selectedMatch.stage) {
+                            case 'new': return 'Novo';
+                            case 'interested': return 'Interesse';
+                            case 'nda_signed': return 'NDA';
+                            case 'data_room': return 'Documentação';
+                            case 'loi_sent': return 'Proposta';
+                            case 'due_diligence': return 'Auditoria';
+                            case 'closing': return 'Fechamento';
+                            default: return 'Iniciado';
+                          }
+                        })()}
+                      </Badge>
                     </div>
                     
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
-                        <span className={['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Interesse</span>
-                        <span className={['interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>NDA</span>
-                        <span className={['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Documentação</span>
-                        <span className={['data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Proposta</span>
-                        <span className={['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Auditoria</span>
-                        <span className={['due_diligence', 'closing'].includes(selectedMatch.stage) ? "text-primary" : ""}>Fechamento</span>
-                      </div>
-                      
-                      <div className="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div className="relative pt-2">
+                      <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden shadow-inner">
                         <div 
-                          className="h-full bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" 
+                          className="h-full bg-primary transition-all duration-700 ease-out shadow-[0_0_15px_rgba(59,130,246,0.6)] relative" 
                           style={{ 
                             width: 
                               selectedMatch.stage === 'new' ? '5%' : 
@@ -2231,7 +2263,29 @@ export default function DashboardPage() {
                               selectedMatch.stage === 'loi_sent' ? '80%' :
                               selectedMatch.stage === 'due_diligence' ? '90%' : '100%' 
                           }}
-                        />
+                        >
+                          <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                        </div>
+                      </div>
+                      
+                      {/* Mobile Step Indicators (Simplified) */}
+                      <div className="flex justify-between mt-3 px-0.5">
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['new', 'interested', 'nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Início</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['nda_signed', 'data_room', 'loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">NDA</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${['loi_sent', 'due_diligence', 'closing'].includes(selectedMatch.stage) ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Proposta</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className={`w-2 h-2 rounded-full mb-1 ${selectedMatch.stage === 'closing' ? "bg-primary" : "bg-slate-300"}`} />
+                          <span className="text-[9px] font-bold text-slate-400">Fim</span>
+                        </div>
                       </div>
                     </div>
                   </div>

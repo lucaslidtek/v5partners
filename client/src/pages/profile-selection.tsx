@@ -107,7 +107,10 @@ export default function ProfileSelectionPage() {
                 <CardFooter className="pb-8 pt-2">
                   <Button 
                     className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
-                    onClick={() => setProfileType(profile.id as any)}
+                    onClick={() => {
+                      setProfileType(profile.id as any);
+                      setLocation("/boas-vindas");
+                    }}
                     data-testid={`button-select-${profile.id}`}
                   >
                     Começar

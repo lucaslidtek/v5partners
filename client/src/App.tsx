@@ -18,6 +18,7 @@ import SettingsPage from "@/pages/settings";
 import PerfilMultiplosPage from "@/pages/perfil-multiplos";
 import NovoPerfilPage from "@/pages/novo-perfil";
 import OutrasEmpresasPage from "@/pages/outras-empresas";
+import WelcomeCarouselPage from "@/pages/welcome-carousel";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/escolha-de-perfil" component={ProfileSelectionPage} />
       <Route path="/meus-perfis" component={PerfilMultiplosPage} />
       <Route path="/novo-perfil" component={NovoPerfilPage} />
+      <Route path="/boas-vindas" component={WelcomeCarouselPage} />
       <Route path="/integracao" component={OnboardingPage} />
       <Route path="/resumo" component={SummaryPage} />
       <Route path="/dashboard" component={DashboardPage} />

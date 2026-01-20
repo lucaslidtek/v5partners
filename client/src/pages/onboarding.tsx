@@ -681,17 +681,18 @@ export default function OnboardingPage() {
     <Layout>
       <div className="max-w-2xl mx-auto px-4 py-12">
         <Card className="border-slate-200 dark:border-slate-700 shadow-md dark:bg-slate-900">
-          <CardHeader>
-             <div className="flex items-center justify-between mb-4">
-                <Button variant="ghost" size="icon" onClick={handleBack} disabled={step === 1 && !user}>
+          <CardHeader className="relative">
+             <div className="absolute left-6 top-8">
+                <Button variant="ghost" size="icon" onClick={handleBack} className="h-8 w-8 text-slate-400 hover:text-primary transition-colors">
                   <ChevronLeft className="h-5 w-5" />
                 </Button>
-                <span className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+             </div>
+             <div className="flex flex-col items-center">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">
                    {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
                 </span>
-                <div className="w-10" /> {/* Spacer */}
+                <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">{getStepTitle()}</CardTitle>
              </div>
-             <CardTitle className="text-2xl font-bold text-center dark:text-white">{getStepTitle()}</CardTitle>
           </CardHeader>
           <CardContent>
            <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Sparkles, Shield, Rocket, Target, Zap, ShieldCheck } from "lucide-react";
+import { ChevronRight, ChevronLeft, Sparkles, Shield, Rocket, Target, Zap, ShieldCheck } from "lucide-react";
 
 type Slide = {
   title: string;

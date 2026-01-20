@@ -95,21 +95,34 @@ export default function WelcomeCarouselPage() {
     }
   };
 
+  const handleBackSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(prev => prev - 1);
+    } else {
+      setLocation("/escolha-de-perfil");
+    }
+  };
+
   const handleSkip = () => setLocation("/integracao");
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center p-6">
       <div className="max-w-lg w-full">
         <div className="flex justify-between items-center mb-12">
-          <div className="flex gap-1.5">
-            {slides.map((_, i) => (
-              <div 
-                key={i} 
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? "w-8 bg-primary" : "w-2 bg-slate-200 dark:bg-slate-800"
-                }`} 
-              />
-            ))}
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" onClick={handleBackSlide} className="h-8 w-8 text-slate-400 hover:text-primary transition-colors">
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+            <div className="flex gap-1.5">
+              {slides.map((_, i) => (
+                <div 
+                  key={i} 
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentSlide ? "w-8 bg-primary" : "w-2 bg-slate-200 dark:bg-slate-800"
+                  }`} 
+                />
+              ))}
+            </div>
           </div>
           <Button variant="ghost" size="sm" onClick={handleSkip} className="text-slate-400">
             Pular

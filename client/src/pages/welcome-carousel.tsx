@@ -130,7 +130,10 @@ export default function WelcomeCarouselPage() {
               slides[currentSlide].color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' :
               'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
             }`}>
-              <slides[currentSlide].icon className="h-8 w-8" />
+              {(() => {
+                const Icon = slides[currentSlide].icon;
+                return <Icon className="h-8 w-8" />;
+              })()}
             </div>
 
             <div className="space-y-4">

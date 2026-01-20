@@ -7,9 +7,11 @@ import { Target, Briefcase, Store, CheckCircle2 } from "lucide-react";
 import logoColor from "@assets/v5partners_color1_1764265378727.png";
 import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 import { useContext } from "react";
+import { useLocation } from "wouter";
 
 export default function ProfileSelectionPage() {
   const { setProfileType, settings } = useAuth();
+  const [, setLocation] = useLocation();
 
   const profiles = [
     {

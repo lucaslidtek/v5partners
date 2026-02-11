@@ -113,7 +113,7 @@ export default function LoginPage() {
                   <Input 
                     id="email" 
                     placeholder="nome@empresa.com" 
-                    className="pl-10 h-12 bg-muted/30 dark:bg-slate-800 border-input dark:border-slate-700 focus:bg-white dark:focus:bg-slate-750 transition-all duration-200"
+                    className="pl-10 h-12 bg-white dark:bg-slate-800 border-input dark:border-slate-700 transition-all duration-200"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -135,7 +135,7 @@ export default function LoginPage() {
                     id="password" 
                     type="password" 
                     placeholder="••••••••" 
-                    className="pl-10 h-12 bg-muted/30 dark:bg-slate-800 border-input dark:border-slate-700 focus:bg-white dark:focus:bg-slate-750 transition-all duration-200"
+                    className="pl-10 h-12 bg-white dark:bg-slate-800 border-input dark:border-slate-700 transition-all duration-200"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />

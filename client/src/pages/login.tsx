@@ -73,7 +73,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right Panel - Login Form */}
-        <div className="w-full lg:w-1/2 bg-white dark:bg-slate-900 flex items-center justify-center p-8 lg:p-24 relative">
+        <div className="w-full lg:w-1/2 bg-background dark:bg-slate-900 flex items-center justify-center p-8 lg:p-24 relative">
           <div className="w-full max-w-sm space-y-8">
             <div className="text-center lg:text-left">
               <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto dark:hidden" />

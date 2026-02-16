@@ -1,0 +1,22 @@
+# Regras de Ouro do Projeto - V5 Partners
+
+## Stack Tecnológica
+- **Frontend**: React (Vite)
+- **Estilização**: Tailwind CSS + Radix UI (Shadcn/UI)
+- **Roteamento**: Wouter
+- **Gerenciamento de Estado**: React Hooks + LocalStorage para persistência mock
+- **Ícones**: Lucide React
+- **Tipografia**: Plus Jakarta Sans (Headings) e Inter (Body)
+
+## O que NÃO mexer
+- **Backend**: A pasta `server/` e `shared/` são estritamente para simulação de API e não devem ser alteradas para lógica de negócio real neste estágio de mockup.
+- **Mock Data**: Manter a estrutura de dados simulada para garantir que o protótipo funcione offline/localmente sem dependências de DB.
+
+## Padrões de Design
+- **Visual**: Design elevado, moderno, com profundidade (subtle shadows) e espaços generosos.
+- **Componentes**: Usar e estender os componentes da pasta `client/src/components/ui`.
+- **Interações**: Animações suaves de entrada e transições de página.
+- **Acessibilidade**: Manter `data-testid` em todos os elementos interativos para testes e documentação.
+
+## Estrutura de Rotas
+As rotas principais estão definidas em `client/src/App.tsx`.

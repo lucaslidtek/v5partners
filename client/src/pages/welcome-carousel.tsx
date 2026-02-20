@@ -105,7 +105,7 @@ export default function WelcomeCarouselPage() {
     }
   };
 
-  const handleSkip = () => setLocation("/escolha-de-perfil");
+  const handleSkip = () => setLocation("/onboarding");
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center p-6">

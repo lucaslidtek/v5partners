@@ -312,30 +312,45 @@ export default function OnboardingPage() {
           );
         case 2:
           return (
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Faturamento Mensal Médio</Label>
-                  <Input placeholder="R$ 0,00" />
+                  <Label className="text-sm font-medium">Faturamento Mensal Médio</Label>
+                  <Input 
+                    placeholder="R$ 0,00" 
+                    className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  />
                 </div>
                 <div className="space-y-2">
-                  <Label>Lucratividade Média (%)</Label>
-                  <Input placeholder="0%" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>ROI (Meses)</Label>
-                  <Input placeholder="0" />
-                </div>
-                <div className="space-y-2">
-                  <Label>Ticket Médio</Label>
-                  <Input placeholder="R$ 0,00" />
+                  <Label className="text-sm font-medium">Lucratividade Média (%)</Label>
+                  <Input 
+                    placeholder="0%" 
+                    className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  />
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label>Grau de dependência do dono</Label>
-                <Slider defaultValue={[70]} max={100} step={10} className="w-full" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">ROI (Meses)</Label>
+                  <Input 
+                    placeholder="0" 
+                    className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Ticket Médio</Label>
+                  <Input 
+                    placeholder="R$ 0,00" 
+                    className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  />
+                </div>
+              </div>
+              <div className="space-y-4 pt-2">
+                <div className="flex justify-between items-center">
+                  <Label className="text-sm font-medium">Grau de dependência do dono</Label>
+                  <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">70%</span>
+                </div>
+                <Slider defaultValue={[70]} max={100} step={10} className="w-full py-2" />
               </div>
             </div>
           );

@@ -10,174 +10,174 @@ import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 import { useContext } from "react";
 
 export function Layout({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
-  const { user, logout, settings, switchProfile } = useAuth();
-  const [location, setLocation] = useLocation();
+ const { user, logout, settings, switchProfile } = useAuth();
+ const [location, setLocation] = useLocation();
 
-  const getProfileInfo = () => {
-    switch(user?.role) {
-      case "investor":
-        return {
-          title: "Investidor",
-          icon: Target,
-          badgeColor: "bg-primary/10 text-primary"
-        };
-      case "seller":
-        return {
-          title: "Empresa",
-          icon: Briefcase,
-          badgeColor: "bg-secondary/10 text-secondary"
-        };
-      case "company":
-        return {
-          title: "Empresa",
-          icon: Building2,
-          badgeColor: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-        };
-      case "franchise":
-        return {
-          title: "Franqueadora",
-          icon: Store,
-          badgeColor: "bg-accent/10 text-accent"
-        };
-      default:
-        return null;
-    }
-  };
+ const getProfileInfo = () => {
+  switch(user?.role) {
+   case "investor":
+    return {
+     title: "Investidor",
+     icon: Target,
+     badgeColor: "bg-primary/10 text-primary"
+    };
+   case "seller":
+    return {
+     title: "Empresa",
+     icon: Briefcase,
+     badgeColor: "bg-secondary/10 text-secondary"
+    };
+   case "company":
+    return {
+     title: "Empresa",
+     icon: Building2,
+     badgeColor: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+    };
+   case "franchise":
+    return {
+     title: "Franqueadora",
+     icon: Store,
+     badgeColor: "bg-accent/10 text-accent"
+    };
+   default:
+    return null;
+  }
+ };
 
-  const profileInfo = getProfileInfo();
-  const ProfileIcon = profileInfo?.icon;
+ const profileInfo = getProfileInfo();
+ const ProfileIcon = profileInfo?.icon;
 
-  return (
-    <div className="min-h-screen bg-slate-100 font-sans text-foreground dark:bg-slate-950">
-      {showHeader && (
-        <header className="bg-white dark:bg-slate-900 border-b border-border dark:border-slate-800 sticky top-0 z-50 shadow-sm dark:shadow-slate-900/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-8">
-              <Link href={user ? "/dashboard" : "/"}>
-                <div className="flex items-center gap-2 cursor-pointer">
-                  <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-8 w-auto object-contain" />
-                </div>
-              </Link>
-              
-              {user && (
-                <nav className="hidden md:flex items-center gap-1">
-                  <Link href="/dashboard">
-                    <Button 
-                      variant="ghost" 
-                      className={`transition-colors font-medium ${
-                        location === "/dashboard"
-                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
-                      }`}
-                      data-testid="nav-dashboard"
-                    >
-                      Dashboard
-                    </Button>
-                  </Link>
-                  <Link href="/outras-empresas">
-                    <Button 
-                      variant="ghost" 
-                      className={`transition-colors font-medium flex items-center gap-2 ${
-                        location === "/outras-empresas"
-                          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                          : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
-                      }`}
-                      data-testid="nav-outros-perfis"
-                    >
-                      <Building2 className="h-4 w-4" />
-                      Outros Perfis
-                    </Button>
-                  </Link>
-                </nav>
-              )}
-            </div>
+ return (
+  <div className="min-h-screen bg-slate-100 font-sans text-foreground dark:bg-slate-950">
+   {showHeader && (
+    <header className="bg-white dark:bg-slate-900 border-b border-border dark:border-slate-800 sticky top-0 z-50 dark:shadow-slate-900/50">
+     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="flex items-center gap-8">
+       <Link href={user ? "/dashboard" : "/"}>
+        <div className="flex items-center gap-2 cursor-pointer">
+         <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-8 w-auto object-contain" />
+        </div>
+       </Link>
+       
+       {user && (
+        <nav className="hidden md:flex items-center gap-1">
+         <Link href="/dashboard">
+          <Button 
+           variant="ghost" 
+           className={`transition-colors font-medium ${
+            location === "/dashboard"
+             ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+             : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+           }`}
+           data-testid="nav-dashboard"
+          >
+           Dashboard
+          </Button>
+         </Link>
+         <Link href="/outras-empresas">
+          <Button 
+           variant="ghost" 
+           className={`transition-colors font-medium flex items-center gap-2 ${
+            location === "/outras-empresas"
+             ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+             : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+           }`}
+           data-testid="nav-outros-perfis"
+          >
+           <Building2 className="h-4 w-4" />
+           Outros Perfis
+          </Button>
+         </Link>
+        </nav>
+       )}
+      </div>
 
-            {user && (
-              <div className="flex items-center gap-3 sm:gap-4">
-                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200">
-                  <Bell className="h-5 w-5" />
-                </Button>
-                <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
-                    {profileInfo && ProfileIcon && (
-                      <div 
-                        className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-1 justify-end w-fit ml-auto`} 
-                        data-testid="badge-profile-type-header"
-                      >
-                        <ProfileIcon className="w-3 h-3" />
-                        <span className="hidden sm:inline">{profileInfo.title}</span>
-                        <span className="sm:hidden">{profileInfo.title.split(' ')[0]}</span>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button 
-                        className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold hover:shadow-md hover:shadow-blue-500/30 transition-all duration-200 cursor-pointer"
-                        data-testid="button-user-menu"
-                      >
-                        {user.name.substring(0, 2).toUpperCase()}
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">
-                      {/* Perfis Section */}
-                      <div className="px-2 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Meus Perfis</div>
-                      {user.profiles?.map((profile) => (
-                        <DropdownMenuItem 
-                          key={profile.id}
-                          onClick={() => switchProfile(profile.id)}
-                          className="cursor-pointer"
-                          data-testid={`menu-switch-profile-${profile.id}`}
-                        >
-                          <div className="flex items-center gap-2 w-full">
-                            <div className={`w-2 h-2 rounded-full ${user.activeProfileId === profile.id ? 'bg-primary' : 'bg-slate-300'}`} />
-                            <span>{profile.name}</span>
-                          </div>
-                        </DropdownMenuItem>
-                      ))}
-                      
-                      <DropdownMenuSeparator />
-                      
-                      {/* Main Menu Section */}
-                      <DropdownMenuItem onClick={() => setLocation("/meus-perfis")} data-testid="menu-manage-profiles">
-                        <Grid3x3 className="mr-2 h-4 w-4" />
-                        <span>Gerenciar Perfis</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setLocation("/perfil")} data-testid="menu-profile">
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Perfil</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setLocation("/configuracoes")} data-testid="menu-settings">
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Configurações</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={logout} data-testid="menu-logout" className="text-destructive focus:text-destructive">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Sair</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+      {user && (
+       <div className="flex items-center gap-3 sm:gap-4">
+        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200">
+         <Bell className="h-5 w-5" />
+        </Button>
+        <div className="flex items-center gap-3 sm:gap-4 pl-3 sm:pl-4 border-l border-slate-200 dark:border-slate-700">
+         <div className="text-right">
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-50 leading-none">{user.name}</p>
+          {profileInfo && ProfileIcon && (
+           <div 
+            className={`${profileInfo.badgeColor} px-2 py-1 rounded-full flex items-center gap-1.5 text-xs font-medium mt-1 justify-end w-fit ml-auto`} 
+            data-testid="badge-profile-type-header"
+           >
+            <ProfileIcon className="w-3 h-3" />
+            <span className="hidden sm:inline">{profileInfo.title}</span>
+            <span className="sm:hidden">{profileInfo.title.split(' ')[0]}</span>
+           </div>
+          )}
+         </div>
+         
+         <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+           <button 
+            className="h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold transition-all duration-200 cursor-pointer"
+            data-testid="button-user-menu"
+           >
+            {user.name.substring(0, 2).toUpperCase()}
+           </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+           {/* Perfis Section */}
+           <div className="px-2 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Meus Perfis</div>
+           {user.profiles?.map((profile) => (
+            <DropdownMenuItem 
+             key={profile.id}
+             onClick={() => switchProfile(profile.id)}
+             className="cursor-pointer"
+             data-testid={`menu-switch-profile-${profile.id}`}
+            >
+             <div className="flex items-center gap-2 w-full">
+              <div className={`w-2 h-2 rounded-full ${user.activeProfileId === profile.id ? 'bg-primary' : 'bg-slate-300'}`} />
+              <span>{profile.name}</span>
+             </div>
+            </DropdownMenuItem>
+           ))}
+           
+           <DropdownMenuSeparator />
+           
+           {/* Main Menu Section */}
+           <DropdownMenuItem onClick={() => setLocation("/meus-perfis")} data-testid="menu-manage-profiles">
+            <Grid3x3 className="mr-2 h-4 w-4" />
+            <span>Gerenciar Perfis</span>
+           </DropdownMenuItem>
+           <DropdownMenuItem onClick={() => setLocation("/perfil")} data-testid="menu-profile">
+            <User className="mr-2 h-4 w-4" />
+            <span>Perfil</span>
+           </DropdownMenuItem>
+           <DropdownMenuItem onClick={() => setLocation("/configuracoes")} data-testid="menu-settings">
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Configurações</span>
+           </DropdownMenuItem>
+           <DropdownMenuSeparator />
+           <DropdownMenuItem onClick={logout} data-testid="menu-logout" className="text-destructive focus:text-destructive">
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Sair</span>
+           </DropdownMenuItem>
+          </DropdownMenuContent>
+         </DropdownMenu>
 
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    onClick={logout} 
-                    title="Sair" 
-                    className="hidden sm:flex text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors duration-200"
-                    data-testid="button-logout-desktop"
-                  >
-                    <LogOut className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </header>
+         <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={logout} 
+          title="Sair" 
+          className="hidden sm:flex text-slate-500 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors duration-200"
+          data-testid="button-logout-desktop"
+         >
+          <LogOut className="h-4 w-4" />
+         </Button>
+        </div>
+       </div>
       )}
-      <main>{children}</main>
-    </div>
-  );
+     </div>
+    </header>
+   )}
+   <main>{children}</main>
+  </div>
+ );
 }

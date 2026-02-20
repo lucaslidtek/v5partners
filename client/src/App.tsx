@@ -21,37 +21,37 @@ import OutrasEmpresasPage from "@/pages/outras-empresas";
 import WelcomeCarouselPage from "@/pages/welcome-carousel";
 
 function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={LoginPage} />
-      <Route path="/registrar" component={RegisterPage} />
-      <Route path="/escolha-de-perfil" component={ProfileSelectionPage} />
-      <Route path="/meus-perfis" component={PerfilMultiplosPage} />
-      <Route path="/novo-perfil" component={NovoPerfilPage} />
-      <Route path="/boas-vindas" component={WelcomeCarouselPage} />
-      <Route path="/integracao" component={OnboardingPage} />
-      <Route path="/resumo" component={SummaryPage} />
-      <Route path="/dashboard" component={DashboardPage} />
-      <Route path="/outras-empresas" component={OutrasEmpresasPage} />
-      <Route path="/avaliacao" component={ValuationPage} />
-      <Route path="/processos" component={ProcessesPage} />
-      <Route path="/perfil" component={ProfilePage} />
-      <Route path="/editar-perfil" component={EditProfilePage} />
-      <Route path="/configuracoes" component={SettingsPage} />
-      <Route component={NotFound} />
-    </Switch>
-  );
+ return (
+  <Switch>
+   <Route path="/" component={LoginPage} />
+   <Route path="/registrar" component={RegisterPage} />
+   <Route path="/escolha-de-perfil" component={ProfileSelectionPage} />
+   <Route path="/meus-perfis" component={PerfilMultiplosPage} />
+   <Route path="/novo-perfil" component={NovoPerfilPage} />
+   <Route path="/boas-vindas" component={WelcomeCarouselPage} />
+   <Route path="/integracao" component={OnboardingPage} />
+   <Route path="/resumo" component={SummaryPage} />
+   <Route path="/dashboard" component={DashboardPage} />
+   <Route path="/outras-empresas" component={OutrasEmpresasPage} />
+   <Route path="/avaliacao" component={ValuationPage} />
+   <Route path="/processos" component={ProcessesPage} />
+   <Route path="/perfil" component={ProfilePage} />
+   <Route path="/editar-perfil" component={EditProfilePage} />
+   <Route path="/configuracoes" component={SettingsPage} />
+   <Route component={NotFound} />
+  </Switch>
+ );
 }
 
 function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Router />
-        <Toaster />
-      </AuthProvider>
-    </QueryClientProvider>
-  );
+ return (
+  <QueryClientProvider client={queryClient}>
+   <AuthProvider>
+    <Router />
+    <Toaster />
+   </AuthProvider>
+  </QueryClientProvider>
+ );
 }
 
 export default App;

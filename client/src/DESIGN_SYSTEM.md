@@ -11,9 +11,9 @@ Este documento define o guia visual e os padrões de interface da plataforma V5 
 
 ## Tipografia
 - **Títulos (Headings)**: `Plus Jakarta Sans`
-  - Pesos: 600 (Semi-bold), 700 (Bold)
+ - Pesos: 600 (Semi-bold), 700 (Bold)
 - **Corpo (Body)**: `Inter`
-  - Pesos: 400 (Regular), 500 (Medium)
+ - Pesos: 400 (Regular), 500 (Medium)
 
 ## Componentes Principais
 - **Botões**: Arredondamento padrão `md` (8px), estados de hover com leve escala ou mudança de opacidade.

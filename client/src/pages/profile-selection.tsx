@@ -10,119 +10,119 @@ import { useContext } from "react";
 import { useLocation } from "wouter";
 
 export default function ProfileSelectionPage() {
-  const { setProfileType, settings } = useAuth();
-  const [, setLocation] = useLocation();
+ const { setProfileType, settings } = useAuth();
+ const [, setLocation] = useLocation();
 
-  const profiles = [
-    {
-      id: "investor",
-      title: "Quero Comprar um Negócio",
-      icon: Target,
-      description: "Investidor ou empresário interessado em adquirir um negócio já em operação",
-      features: [
-        "Filtragem inteligente de oportunidades",
-        "Clareza sobre números, riscos e estágio",
-        "Acesso a negócios compatíveis com perfil",
-        "Apoio na análise e tomada de decisão"
-      ],
-      color: "bg-primary",
-      buttonColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-white"
-    },
-    {
-      id: "seller",
-      title: "Quero Vender minha Empresa",
-      icon: Briefcase,
-      description: "Empresário ou sócio que deseja vender total ou parcialmente sua empresa",
-      features: [
-        "Ajuda para estruturar e apresentar o negócio",
-        "Confidencialidade e controle das informações",
-        "Acesso a compradores qualificados",
-        "Processo claro, previsível e profissional"
-      ],
-      color: "bg-secondary",
-      buttonColor: "bg-secondary hover:bg-secondary/90",
-      textColor: "text-white"
-    },
-    {
-      id: "franchise",
-      title: "Sou Franqueadora",
-      icon: Store,
-      description: "Empresa ou grupo que opera um modelo de franquia e busca expandir a rede",
-      features: [
-        "Filtragem forte de perfil e capacidade financeira",
-        "Ambiente que educa o potencial franqueado",
-        "Processo que gera confiança institucional",
-        "Menos volume e mais aderência ao modelo"
-      ],
-      color: "bg-accent",
-      buttonColor: "bg-accent hover:bg-accent/90",
-      textColor: "text-white"
-    }
-  ];
+ const profiles = [
+  {
+   id: "investor",
+   title: "Quero Comprar um Negócio",
+   icon: Target,
+   description: "Investidor ou empresário interessado em adquirir um negócio já em operação",
+   features: [
+    "Filtragem inteligente de oportunidades",
+    "Clareza sobre números, riscos e estágio",
+    "Acesso a negócios compatíveis com perfil",
+    "Apoio na análise e tomada de decisão"
+   ],
+   color: "bg-primary",
+   buttonColor: "bg-primary hover:bg-primary/90",
+   textColor: "text-white"
+  },
+  {
+   id: "seller",
+   title: "Quero Vender minha Empresa",
+   icon: Briefcase,
+   description: "Empresário ou sócio que deseja vender total ou parcialmente sua empresa",
+   features: [
+    "Ajuda para estruturar e apresentar o negócio",
+    "Confidencialidade e controle das informações",
+    "Acesso a compradores qualificados",
+    "Processo claro, previsível e profissional"
+   ],
+   color: "bg-secondary",
+   buttonColor: "bg-secondary hover:bg-secondary/90",
+   textColor: "text-white"
+  },
+  {
+   id: "franchise",
+   title: "Sou Franqueadora",
+   icon: Store,
+   description: "Empresa ou grupo que opera um modelo de franquia e busca expandir a rede",
+   features: [
+    "Filtragem forte de perfil e capacidade financeira",
+    "Ambiente que educa o potencial franqueado",
+    "Processo que gera confiança institucional",
+    "Menos volume e mais aderência ao modelo"
+   ],
+   color: "bg-accent",
+   buttonColor: "bg-accent hover:bg-accent/90",
+   textColor: "text-white"
+  }
+ ];
 
-  return (
-    <Layout showHeader={false}>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-3xl mb-12"
-        >
-          <div className="flex items-center justify-center gap-2 mb-6">
-             <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-12 w-auto object-contain" />
-          </div>
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Escolha seu perfil</h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400">Selecione a opção que melhor descreve você para começar</p>
-        </motion.div>
+ return (
+  <Layout showHeader={false}>
+   <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
+    <motion.div 
+     initial={{ opacity: 0, y: -20 }}
+     animate={{ opacity: 1, y: 0 }}
+     className="text-center max-w-3xl mb-12"
+    >
+     <div className="flex items-center justify-center gap-2 mb-6">
+       <img src={settings.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-12 w-auto object-contain" />
+     </div>
+     <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Escolha seu perfil</h1>
+     <p className="text-lg text-slate-600 dark:text-slate-400">Selecione a opção que melhor descreve você para começar</p>
+    </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full">
-          {profiles.map((profile, index) => (
-            <motion.div
-              key={profile.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className="h-full border-slate-200 dark:border-slate-700 hover:border-primary/30 hover:shadow-xl transition-all duration-300 flex flex-col relative overflow-hidden group">
-                <div className={`absolute top-0 left-0 w-full h-1 ${profile.color}`} />
-                
-                <CardHeader className="text-center pt-10 pb-2">
-                  <div className={`mx-auto w-16 h-16 rounded-full ${profile.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <profile.icon className={`w-8 h-8 ${profile.id === 'franchise' ? 'text-accent' : profile.id === 'seller' ? 'text-secondary' : 'text-primary'}`} />
-                  </div>
-                  <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">{profile.title}</CardTitle>
-                  <CardDescription className="mt-2 text-base">{profile.description}</CardDescription>
-                </CardHeader>
-                
-                <CardContent className="flex-grow py-6">
-                  <ul className="space-y-3">
-                    {profile.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
-                        <div className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
-                        <span className="leading-relaxed">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                
-                <CardFooter className="pb-8 pt-2">
-                  <Button 
-                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12`}
-                    onClick={() => {
-                      setProfileType(profile.id as any);
-                      setLocation("/boas-vindas");
-                    }}
-                    data-testid={`button-select-${profile.id}`}
-                  >
-                    Começar
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full">
+     {profiles.map((profile, index) => (
+      <motion.div
+       key={profile.id}
+       initial={{ opacity: 0, y: 20 }}
+       animate={{ opacity: 1, y: 0 }}
+       transition={{ delay: index * 0.1 }}
+      >
+       <Card className="h-full border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all duration-300 flex flex-col relative overflow-hidden group">
+        <div className={`absolute top-0 left-0 w-full h-1 ${profile.color}`} />
+        
+        <CardHeader className="text-center pt-10 pb-2">
+         <div className={`mx-auto w-16 h-16 rounded-full ${profile.color}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+          <profile.icon className={`w-8 h-8 ${profile.id === 'franchise' ? 'text-accent' : profile.id === 'seller' ? 'text-secondary' : 'text-primary'}`} />
+         </div>
+         <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">{profile.title}</CardTitle>
+         <CardDescription className="mt-2 text-base">{profile.description}</CardDescription>
+        </CardHeader>
+        
+        <CardContent className="flex-grow py-6">
+         <ul className="space-y-3">
+          {profile.features.map((feature, i) => (
+           <li key={i} className="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+            <div className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${profile.id === 'franchise' ? 'bg-accent' : profile.id === 'seller' ? 'bg-secondary' : 'bg-primary'}`} />
+            <span className="leading-relaxed">{feature}</span>
+           </li>
           ))}
-        </div>
-      </div>
-    </Layout>
-  );
+         </ul>
+        </CardContent>
+        
+        <CardFooter className="pb-8 pt-2">
+         <Button 
+          className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12`}
+          onClick={() => {
+           setProfileType(profile.id as any);
+           setLocation("/boas-vindas");
+          }}
+          data-testid={`button-select-${profile.id}`}
+         >
+          Começar
+         </Button>
+        </CardFooter>
+       </Card>
+      </motion.div>
+     ))}
+    </div>
+   </div>
+  </Layout>
+ );
 }

@@ -644,23 +644,19 @@ export default function OnboardingPage() {
          className="h-10 w-auto object-contain" 
         />
        </div>
-       <div className="flex items-center justify-between mb-6">
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={() => setLocation("/escolha-de-perfil")} 
-          className="h-9 px-3 text-slate-500 hover:text-primary border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all rounded-full text-xs font-medium flex items-center gap-2"
-        >
-          <User className="h-3.5 w-3.5" />
-          Trocar Perfil
-        </Button>
-        <div className="flex flex-col items-center">
-         <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-1">
-          {role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'}
-         </span>
-         <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">{getStepTitle()}</CardTitle>
+       <div className="flex flex-col items-center mb-6 relative min-h-[64px] justify-center">
+        <div className="sm:absolute left-0 top-1/2 sm:-translate-y-1/2 mb-2 sm:mb-0">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setLocation("/escolha-de-perfil")} 
+            className="h-8 px-2 text-slate-400 hover:text-primary hover:bg-primary/5 transition-all rounded-md text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5"
+          >
+            <User className="h-3 w-3" />
+            Trocar ({role === 'investor' ? 'Investidor' : role === 'seller' ? 'Vendedor' : 'Franqueadora'})
+          </Button>
         </div>
-        <div className="w-[100px]" />
+        <CardTitle className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white text-center">{getStepTitle()}</CardTitle>
        </div>
        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 px-2">
         <span>Passo {step} de {totalSteps}</span>

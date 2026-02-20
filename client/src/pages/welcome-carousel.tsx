@@ -144,7 +144,7 @@ export default function WelcomeCarouselPage() {
             transition={{ duration: 0.3 }}
             className="space-y-8 text-center sm:text-left"
           >
-            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto sm:mx-0 ${
+            <div className={`w-16 h-16 rounded-lg flex items-center justify-center mx-auto sm:mx-0 ${
               slides[currentSlide].color === 'blue' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' :
               slides[currentSlide].color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' :
               'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -169,7 +169,7 @@ export default function WelcomeCarouselPage() {
         <div className="mt-12">
           <Button 
             onClick={handleNext} 
-            className="w-full h-14 text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
+            className="w-full h-14 text-lg font-bold rounded-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
           >
             {slides[currentSlide].cta || "Próximo"}
             {currentSlide < slides.length - 1 && <ChevronRight className="ml-2 h-5 w-5" />}

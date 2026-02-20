@@ -92,7 +92,7 @@ export default function OnboardingPage() {
                 <div className="space-y-2">
                   <Label>Idade</Label>
                   <Select onValueChange={(v) => setFormData({...formData, ageRange: v})}>
-                    <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                    <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                       <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
@@ -120,7 +120,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Faixa de Investimento Disponível</Label>
                 <Select onValueChange={(v) => setFormData({...formData, investmentRange: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione o valor" />
                   </SelectTrigger>
                   <SelectContent>
@@ -138,7 +138,7 @@ export default function OnboardingPage() {
                    {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
                      <div 
                        key={opt} 
-                       className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                       className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-4 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                        onClick={() => {
                          const checkbox = document.getElementById(opt) as HTMLInputElement;
                          if (checkbox) checkbox.click();
@@ -156,7 +156,7 @@ export default function OnboardingPage() {
                   {["Shopping centers", "Galerias", "Ruas e avenidas", "Todas"].map(loc => (
                     <div 
                       key={loc} 
-                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                       onClick={() => {
                         const checkbox = document.getElementById(`loc-${loc}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
@@ -175,7 +175,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Utilizará imóvel na negociação?</Label>
                 <Select onValueChange={(v) => setFormData({...formData, useProperty: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -196,7 +196,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.hasExperience === true ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.hasExperience === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.hasExperience === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, hasExperience: true})}
                   >
                     <Check className="mr-2 h-4 w-4" /> Sim
@@ -204,7 +204,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.hasExperience === false ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.hasExperience === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.hasExperience === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, hasExperience: false})}
                   >
                     <X className="mr-2 h-4 w-4" /> Não
@@ -217,7 +217,7 @@ export default function OnboardingPage() {
                   {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div 
                       key={skill} 
-                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                       onClick={() => {
                         const checkbox = document.getElementById(`skill-${skill}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
@@ -240,7 +240,7 @@ export default function OnboardingPage() {
                   {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação", "Indústria"].map(sector => (
                     <div 
                       key={sector} 
-                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                       onClick={() => {
                         const checkbox = document.getElementById(`sector-onb-${sector}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
@@ -279,7 +279,7 @@ export default function OnboardingPage() {
         case 1:
           return (
             <div className="space-y-4">
-              <Alert className="rounded-xl border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
+              <Alert className="rounded-md border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950">
                 <Lock className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 <AlertDescription className="text-amber-800 dark:text-amber-200">
                   <strong>Informações Confidenciais:</strong> Seu nome e logo só serão visíveis para investidores após o NDA assinado.
@@ -296,7 +296,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Segmento de Atuação (Padrão ABF)</Label>
                 <Select onValueChange={(v) => setFormData({...formData, segment: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -343,7 +343,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Motivo da Venda</Label>
                 <Select onValueChange={(v) => setFormData({...formData, sellReason: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione o motivo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -363,7 +363,7 @@ export default function OnboardingPage() {
                       key={stage} 
                       type="button"
                       variant={formData.stage === stage ? "default" : "outline"} 
-                      className={`flex-1 h-11 rounded-xl text-sm ${formData.stage === stage ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                      className={`flex-1 h-11 rounded-md text-sm ${formData.stage === stage ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                       onClick={() => setFormData({...formData, stage})}
                     >
                       {stage}
@@ -377,7 +377,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.liabilities === true ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.liabilities === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.liabilities === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, liabilities: true})}
                   >
                     <Check className="mr-2 h-4 w-4" /> Sim
@@ -385,7 +385,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.liabilities === false ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.liabilities === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.liabilities === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, liabilities: false})}
                   >
                     <X className="mr-2 h-4 w-4" /> Não
@@ -399,12 +399,12 @@ export default function OnboardingPage() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Valor Pedido (Valuation)</Label>
-                <Input placeholder="R$ 0,00" className="text-lg font-semibold text-primary h-12 rounded-xl" />
+                <Input placeholder="R$ 0,00" className="text-lg font-semibold text-primary h-12 rounded-md" />
               </div>
               <div className="space-y-2">
                 <Label>Aceita Imóvel na Negociação?</Label>
                 <Select onValueChange={(v) => setFormData({...formData, acceptsProperty: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -417,7 +417,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Imóvel Próprio incluído?</Label>
                 <Select>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -446,7 +446,7 @@ export default function OnboardingPage() {
                 <div className="space-y-2">
                   <Label>Segmento (ABF)</Label>
                   <Select onValueChange={(v) => setFormData({...formData, segment: v})}>
-                    <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                    <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                       <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
@@ -467,7 +467,7 @@ export default function OnboardingPage() {
                    {["Loja Física", "Quiosque", "Home Based", "Microfranquia"].map((opt) => (
                      <div 
                        key={opt} 
-                       className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                       className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                        onClick={() => {
                          const checkbox = document.getElementById(opt) as HTMLInputElement;
                          if (checkbox) checkbox.click();
@@ -487,7 +487,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Investimento Total Aproximado</Label>
                 <Select onValueChange={(v) => setFormData({...formData, approxInvestment: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione a faixa" />
                   </SelectTrigger>
                   <SelectContent>
@@ -521,7 +521,7 @@ export default function OnboardingPage() {
               <div className="space-y-2">
                 <Label>Experiência Necessária?</Label>
                 <Select onValueChange={(v) => setFormData({...formData, reqExperience: v})}>
-                  <SelectTrigger className="rounded-xl h-11 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="rounded-md h-11 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -537,7 +537,7 @@ export default function OnboardingPage() {
                   {["Administrativa", "Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div 
                       key={skill} 
-                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                       onClick={() => {
                         const checkbox = document.getElementById(`f-skill-${skill}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
@@ -560,7 +560,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.exclusivity === true ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.exclusivity === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.exclusivity === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, exclusivity: true})}
                   >
                     <Check className="mr-2 h-4 w-4" /> Sim
@@ -568,7 +568,7 @@ export default function OnboardingPage() {
                   <Button 
                     type="button"
                     variant={formData.exclusivity === false ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${formData.exclusivity === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${formData.exclusivity === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, exclusivity: false})}
                   >
                     <X className="mr-2 h-4 w-4" /> Não
@@ -581,7 +581,7 @@ export default function OnboardingPage() {
                   {["Treinamento", "Consultoria", "Marketing", "Software", "Projeto", "Manuais"].map(sup => (
                     <div 
                       key={sup} 
-                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
                       onClick={() => {
                         const checkbox = document.getElementById(`sup-${sup}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
@@ -603,7 +603,7 @@ export default function OnboardingPage() {
   return (
     <Layout showHeader={false}>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4">
-        <Card className="w-full max-w-2xl border-slate-200 dark:border-slate-800 shadow-xl dark:bg-slate-900 rounded-2xl overflow-hidden">
+        <Card className="w-full max-w-2xl border-slate-200 dark:border-slate-800 shadow-xl dark:bg-slate-900 rounded-lg overflow-hidden">
           <CardHeader className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 pt-8 pb-6">
              <div className="flex items-center justify-between mb-6">
                 <Button variant="ghost" size="icon" onClick={handleBack} className="h-10 w-10 text-slate-400 hover:text-primary transition-colors">
@@ -644,10 +644,10 @@ export default function OnboardingPage() {
             </AnimatePresence>
           </CardContent>
           <CardFooter className="p-8 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-between gap-4">
-            <Button variant="ghost" onClick={handleBack} className="h-12 rounded-xl px-6 font-semibold text-slate-600 dark:text-slate-400">
+            <Button variant="ghost" onClick={handleBack} className="h-12 rounded-md px-6 font-semibold text-slate-600 dark:text-slate-400">
               <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
             </Button>
-            <Button onClick={handleNext} className="h-12 rounded-xl px-8 font-bold bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20">
+            <Button onClick={handleNext} className="h-12 rounded-md px-8 font-bold bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20">
               {step === totalSteps ? "Finalizar Cadastro" : "Próximo Passo"} <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </CardFooter>

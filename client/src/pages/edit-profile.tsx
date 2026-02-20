@@ -107,7 +107,7 @@ export default function EditProfilePage() {
                   </div>
                   <div className="flex-1">
                     <label htmlFor="photo-upload" className="cursor-pointer">
-                      <Button variant="outline" className="h-11 rounded-xl border-slate-200 dark:border-slate-800 font-semibold border-slate-200 dark:border-slate-800" asChild>
+                      <Button variant="outline" className="h-11 rounded-md border-slate-200 dark:border-slate-800 font-semibold border-slate-200 dark:border-slate-800" asChild>
                         <span>Escolher Foto</span>
                       </Button>
                     </label>
@@ -118,12 +118,12 @@ export default function EditProfilePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Nome Completo</Label>
-                  <Input defaultValue={user?.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="h-11 rounded-xl border-slate-200 dark:border-slate-800" />
+                  <Input defaultValue={user?.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="h-11 rounded-md border-slate-200 dark:border-slate-800" />
                 </div>
                 <div className="space-y-2">
                   <Label>Idade</Label>
                   <Select defaultValue={user?.ageRange} onValueChange={(v) => setFormData({...formData, ageRange: v})}>
-                    <SelectTrigger className="h-11 rounded-xl border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
+                    <SelectTrigger className="h-11 rounded-md border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
                       <SelectValue placeholder="Selecione" />
                     </SelectTrigger>
                     <SelectContent>
@@ -143,7 +143,7 @@ export default function EditProfilePage() {
               <div className="space-y-2">
                 <Label>Investimento Disponível</Label>
                 <Select defaultValue={user?.investmentRange} onValueChange={(v) => setFormData({...formData, investmentRange: v})}>
-                  <SelectTrigger className="h-11 rounded-xl border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="h-11 rounded-md border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -159,7 +159,7 @@ export default function EditProfilePage() {
                 <Label>Modalidade Desejada</Label>
                 <div className="grid gap-2">
                    {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
-                     <div key={opt} className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer" onClick={() => document.getElementById(`opt-${opt}`)?.click()}>
+                     <div key={opt} className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-4 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer" onClick={() => document.getElementById(`opt-${opt}`)?.click()}>
                        <Checkbox id={`opt-${opt}`} className="rounded-sm" />
                        <label htmlFor={`opt-${opt}`} className="text-sm font-medium cursor-pointer w-full">{opt}</label>
                      </div>
@@ -177,13 +177,13 @@ export default function EditProfilePage() {
                   <Button 
                     type="button"
                     variant={(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === true ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, hasExperience: true})}
                   >Sim</Button>
                   <Button 
                     type="button"
                     variant={(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === false ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${(formData.hasExperience === undefined ? user?.hasExperience : formData.hasExperience) === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, hasExperience: false})}
                   >Não</Button>
                 </div>
@@ -192,7 +192,7 @@ export default function EditProfilePage() {
                 <Label>Habilidades Predominantes</Label>
                 <div className="flex flex-wrap gap-2">
                   {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
-                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer" onClick={() => document.getElementById(`skill-edit-${skill}`)?.click()}>
+                    <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer" onClick={() => document.getElementById(`skill-edit-${skill}`)?.click()}>
                       <Checkbox id={`skill-edit-${skill}`} className="rounded-sm" />
                       <label htmlFor={`skill-edit-${skill}`} className="text-sm font-medium cursor-pointer">{skill}</label>
                     </div>
@@ -208,7 +208,7 @@ export default function EditProfilePage() {
                 <Label>Setores de Interesse (ABF)</Label>
                 <div className="grid grid-cols-2 gap-2">
                   {["Alimentação", "Saúde", "Serviços", "Educação", "Tecnologia", "Moda", "Casa", "Automotivo", "Turismo", "Limpeza", "Comunicação", "Indústria"].map(sector => (
-                    <div key={sector} className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer" onClick={() => document.getElementById(`sector-edit-${sector}`)?.click()}>
+                    <div key={sector} className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 cursor-pointer" onClick={() => document.getElementById(`sector-edit-${sector}`)?.click()}>
                       <Checkbox id={`sector-edit-${sector}`} className="rounded-sm" />
                       <label htmlFor={`sector-edit-${sector}`} className="text-sm cursor-pointer w-full">{sector}</label>
                     </div>
@@ -227,12 +227,12 @@ export default function EditProfilePage() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Nome Fantasia</Label>
-                <Input defaultValue={user?.tradeName} onChange={(e) => setFormData({...formData, tradeName: e.target.value})} className="h-11 rounded-xl border-slate-200 dark:border-slate-800" />
+                <Input defaultValue={user?.tradeName} onChange={(e) => setFormData({...formData, tradeName: e.target.value})} className="h-11 rounded-md border-slate-200 dark:border-slate-800" />
               </div>
               <div className="space-y-2">
                 <Label>Segmento (ABF)</Label>
                 <Select defaultValue={user?.segment} onValueChange={(v) => setFormData({...formData, segment: v})}>
-                  <SelectTrigger className="h-11 rounded-xl border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="h-11 rounded-md border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -250,11 +250,11 @@ export default function EditProfilePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Faturamento Mensal</Label>
-                  <Input defaultValue={user?.monthlyRevenue} onChange={(e) => setFormData({...formData, monthlyRevenue: e.target.value})} className="h-11 rounded-xl border-slate-200 dark:border-slate-800" />
+                  <Input defaultValue={user?.monthlyRevenue} onChange={(e) => setFormData({...formData, monthlyRevenue: e.target.value})} className="h-11 rounded-md border-slate-200 dark:border-slate-800" />
                 </div>
                 <div className="space-y-2">
                   <Label>Lucratividade (%)</Label>
-                  <Input defaultValue={user?.profitability} onChange={(e) => setFormData({...formData, profitability: e.target.value})} className="h-11 rounded-xl border-slate-200 dark:border-slate-800" />
+                  <Input defaultValue={user?.profitability} onChange={(e) => setFormData({...formData, profitability: e.target.value})} className="h-11 rounded-md border-slate-200 dark:border-slate-800" />
                 </div>
               </div>
             </div>
@@ -265,7 +265,7 @@ export default function EditProfilePage() {
               <div className="space-y-2">
                 <Label>Motivo da Venda</Label>
                 <Select defaultValue={user?.sellReason} onValueChange={(v) => setFormData({...formData, sellReason: v})}>
-                  <SelectTrigger className="h-11 rounded-xl border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="h-11 rounded-md border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione o motivo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -285,7 +285,7 @@ export default function EditProfilePage() {
                       key={stage}
                       type="button"
                       variant={(formData.stage === undefined ? user?.stage : formData.stage) === stage ? "default" : "outline"} 
-                      className={`flex-1 h-11 h-11 rounded-xl text-sm ${(formData.stage === undefined ? user?.stage : formData.stage) === stage ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                      className={`flex-1 h-11 h-11 rounded-md text-sm ${(formData.stage === undefined ? user?.stage : formData.stage) === stage ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                       onClick={() => setFormData({...formData, stage})}
                     >
                       {stage}
@@ -299,13 +299,13 @@ export default function EditProfilePage() {
                   <Button 
                     type="button"
                     variant={(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === true ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === true ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, liabilities: true})}
                   >Sim</Button>
                   <Button 
                     type="button"
                     variant={(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === false ? "default" : "outline"} 
-                    className={`flex-1 h-11 rounded-xl ${(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
+                    className={`flex-1 h-11 rounded-md ${(formData.liabilities === undefined ? user?.liabilities : formData.liabilities) === false ? "bg-primary text-white" : "border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900"}`}
                     onClick={() => setFormData({...formData, liabilities: false})}
                   >Não</Button>
                 </div>
@@ -317,12 +317,12 @@ export default function EditProfilePage() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Valor Pedido (Valuation)</Label>
-                <Input defaultValue={user?.valuation} onChange={(e) => setFormData({...formData, valuation: e.target.value})} className="h-11 rounded-xl border-slate-200 dark:border-slate-800 text-lg font-semibold text-primary" />
+                <Input defaultValue={user?.valuation} onChange={(e) => setFormData({...formData, valuation: e.target.value})} className="h-11 rounded-md border-slate-200 dark:border-slate-800 text-lg font-semibold text-primary" />
               </div>
               <div className="space-y-2">
                 <Label>Imóvel Próprio incluído?</Label>
                 <Select defaultValue={user?.propertyInvolved} onValueChange={(v) => setFormData({...formData, propertyInvolved: v})}>
-                  <SelectTrigger className="h-11 rounded-xl border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
+                  <SelectTrigger className="h-11 rounded-md border-slate-200 dark:border-slate-800 border-slate-200 dark:border-slate-800">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
@@ -343,7 +343,7 @@ export default function EditProfilePage() {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto px-4 py-12">
-        <Card className="border-slate-200 dark:border-slate-800 shadow-md dark:bg-slate-900 rounded-2xl overflow-hidden">
+        <Card className="border-slate-200 dark:border-slate-800 shadow-md dark:bg-slate-900 rounded-lg overflow-hidden">
           <CardHeader className="border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-center justify-between mb-4">
               <Button variant="ghost" size="icon" onClick={handleBack} className="h-10 w-10"><ChevronLeft className="h-5 w-5" /></Button>
@@ -356,8 +356,8 @@ export default function EditProfilePage() {
             {renderStepContent()}
           </CardContent>
           <CardFooter className="p-8 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-between">
-            <Button variant="ghost" onClick={handleBack} className="h-12 rounded-xl px-6">Voltar</Button>
-            <Button onClick={handleNext} className="h-12 rounded-xl px-8 font-bold bg-primary text-white hover:bg-primary/90">
+            <Button variant="ghost" onClick={handleBack} className="h-12 rounded-md px-6">Voltar</Button>
+            <Button onClick={handleNext} className="h-12 rounded-md px-8 font-bold bg-primary text-white hover:bg-primary/90">
               {step === totalSteps ? "Salvar Alterações" : "Próximo Passo"} <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </CardFooter>

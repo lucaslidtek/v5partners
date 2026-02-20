@@ -5,6 +5,9 @@ import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Sparkles, Shield, Rocket, Target, Zap, ShieldCheck } from "lucide-react";
 
+import logoColor from "@assets/v5partners_color1_1764265378727.png";
+import logoWhite from "@assets/v5partners_white1_1764345179398.png";
+
 type Slide = {
   title: string;
   text: string;
@@ -80,7 +83,7 @@ const slidesByRole: Record<string, Slide[]> = {
 };
 
 export default function WelcomeCarouselPage() {
-  const { user } = useAuth();
+  const { user, settings } = useAuth();
   const [, setLocation] = useLocation();
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -108,6 +111,9 @@ export default function WelcomeCarouselPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center p-6">
       <div className="max-w-lg w-full">
+        <div className="flex items-center justify-center mb-8">
+           <img src={settings?.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-10 w-auto object-contain" />
+        </div>
         <div className="flex justify-between items-center mb-12">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" onClick={handleBackSlide} className="h-8 w-8 text-slate-400 hover:text-primary transition-colors">

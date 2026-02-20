@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -122,10 +123,11 @@ export default function OnboardingPage() {
                     <SelectValue placeholder="Selecione o valor" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="upto200k">Até R$ 200.000</SelectItem>
-                    <SelectItem value="200k-500k">R$ 200.000 - R$ 500.000</SelectItem>
-                    <SelectItem value="500k-1m">R$ 500.000 - R$ 1.000.000</SelectItem>
-                    <SelectItem value="1m-plus">Acima de R$ 1.000.000</SelectItem>
+                    <SelectItem value="upto300k">Até R$ 300.000</SelectItem>
+                    <SelectItem value="300k-600k">R$ 300.000 - R$ 600.000</SelectItem>
+                    <SelectItem value="600k-1m">R$ 600.000 - R$ 1.000.000</SelectItem>
+                    <SelectItem value="1m-1.5m">R$ 1.000.000 - R$ 1.500.000</SelectItem>
+                    <SelectItem value="1.5m-plus">Acima de R$ 1.500.000</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -133,7 +135,7 @@ export default function OnboardingPage() {
               <div className="space-y-3">
                 <Label>Modalidade Desejada</Label>
                 <div className="grid gap-2">
-                   {["Abrir franquia do zero (Greenfield)", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
+                   {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
                      <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer w-full">{opt}</label>
@@ -143,15 +145,32 @@ export default function OnboardingPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Retorno Desejado</Label>
-                 <Select onValueChange={(v) => setFormData({...formData, roiTime: v})}>
+                <Label>Preferência de Localização (selecione uma ou mais opções)</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["Shopping centers", "Galerias ou pequenos centros comerciais", "Ruas e avenidas", "Todas as opções acima"].map(loc => (
+                    <div key={loc} className="flex items-center space-x-2">
+                       <Checkbox id={`loc-${loc}`} />
+                       <label htmlFor={`loc-${loc}`} className="text-sm">{loc}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Cidade de Interesse (Pode ser diferente da moradia)</Label>
+                <Input placeholder="Ex: Curitiba, PR" onChange={(e) => setFormData({...formData, interestCity: e.target.value})}/>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Utilizará algum imóvel na negociação?</Label>
+                <Select onValueChange={(v) => setFormData({...formData, useProperty: v})}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Prazo esperado" />
+                    <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="short">Curto Prazo (1-2 anos)</SelectItem>
-                    <SelectItem value="medium">Médio Prazo (3-5 anos)</SelectItem>
-                    <SelectItem value="long">Longo Prazo (5+ anos)</SelectItem>
+                    <SelectItem value="sim">Sim</SelectItem>
+                    <SelectItem value="nao">Não</SelectItem>
+                    <SelectItem value="talvez">A avaliar</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -190,7 +209,7 @@ export default function OnboardingPage() {
                <div className="space-y-2">
                 <Label>Habilidades Predominantes</Label>
                 <div className="flex flex-wrap gap-2">
-                  {["Gestão", "Comercial", "Marketing", "Finanças", "Operacional", "RH"].map(skill => (
+                  {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
                        <Checkbox id={`skill-${skill}`} />
                        <label htmlFor={`skill-${skill}`} className="text-sm font-medium">{skill}</label>
@@ -208,12 +227,12 @@ export default function OnboardingPage() {
                 <p className="text-sm text-muted-foreground">Refine sua busca com critérios de setor e envolvimento.</p>
               </div>
               <div className="space-y-2">
-                <Label>Setores de Interesse</Label>
+                <Label>Setores de Interesse (Padrão ABF)</Label>
                  <div className="grid grid-cols-2 gap-2">
-                  {["Alimentação", "Saúde & Beleza", "Serviços", "Educação", "Tecnologia", "Moda", "Casa & Construção", "Automotivo"].map(sector => (
+                  {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação, Informática e Eletrônicos", "Indústria"].map(sector => (
                     <div key={sector} className="flex items-center space-x-2">
-                       <Checkbox id={`sector-${sector}`} />
-                       <label htmlFor={`sector-${sector}`} className="text-sm">{sector}</label>
+                       <Checkbox id={`sector-onb-${sector}`} />
+                       <label htmlFor={`sector-onb-${sector}`} className="text-sm">{sector}</label>
                     </div>
                   ))}
                 </div>
@@ -286,17 +305,23 @@ export default function OnboardingPage() {
                 <Input placeholder="Ex: Curitiba, PR" onChange={(e) => setFormData({...formData, location: e.target.value})}/>
               </div>
               <div className="space-y-2">
-                <Label>Segmento de Atuação</Label>
+                <Label>Segmento de Atuação (Padrão ABF)</Label>
                 <Select onValueChange={(v) => setFormData({...formData, segment: v})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione o segmento" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="varejo">Varejo</SelectItem>
-                    <SelectItem value="servicos">Serviços</SelectItem>
                     <SelectItem value="alimentacao">Alimentação</SelectItem>
+                    <SelectItem value="saude">Saúde, Beleza e Bem-Estar</SelectItem>
+                    <SelectItem value="servicos">Serviços e Outros Negócios</SelectItem>
+                    <SelectItem value="educacao">Educação</SelectItem>
                     <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                    <SelectItem value="saude">Saúde</SelectItem>
+                    <SelectItem value="moda">Moda</SelectItem>
+                    <SelectItem value="casa">Casa e Construção</SelectItem>
+                    <SelectItem value="automotivo">Automotivo</SelectItem>
+                    <SelectItem value="turismo">Hotelaria e Turismo</SelectItem>
+                    <SelectItem value="limpeza">Limpeza e Conservação</SelectItem>
+                    <SelectItem value="comunicacao">Comunicação, Informática e Eletrônicos</SelectItem>
                     <SelectItem value="industria">Indústria</SelectItem>
                   </SelectContent>
                 </Select>
@@ -327,18 +352,34 @@ export default function OnboardingPage() {
                   <Input placeholder="R$ 0,00" />
                 </div>
                  <div className="space-y-2">
-                  <Label>Lucro Líquido / EBITDA</Label>
+                  <Label>Lucratividade Média Mensal (%)</Label>
+                  <Input placeholder="0%" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Nº Funcionários</Label>
+                  <Input type="number" placeholder="0" />
+                </div>
+                 <div className="space-y-2">
+                  <Label>Folha de Pagamento</Label>
                   <Input placeholder="R$ 0,00" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Ponto de Equilíbrio</Label>
+                  <Input placeholder="R$ 0,00" />
+                </div>
+                 <div className="space-y-2">
+                  <Label>ROI (Retorno sobre Investimento)</Label>
+                  <Input placeholder="Meses ou %" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Ticket Médio</Label>
                   <Input placeholder="R$ 0,00" />
-                </div>
-                 <div className="space-y-2">
-                  <Label>Nº Funcionários</Label>
-                  <Input type="number" placeholder="0" />
                 </div>
               </div>
               <div className="space-y-2">
@@ -369,6 +410,7 @@ export default function OnboardingPage() {
                     <SelectItem value="mudanca">Mudança de Cidade/País</SelectItem>
                     <SelectItem value="novos_projetos">Novos Projetos</SelectItem>
                     <SelectItem value="dissolucao">Dissolução de Sociedade</SelectItem>
+                    <SelectItem value="incapacidade_financeira">Incapacidade Financeira</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -431,7 +473,27 @@ export default function OnboardingPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Imóvel Próprio na Negociação?</Label>
+                <Label>Aceita Imóvel na Negociação?</Label>
+                <Select onValueChange={(v) => setFormData({...formData, acceptsProperty: v})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sim">Sim</SelectItem>
+                    <SelectItem value="nao">Não</SelectItem>
+                    <SelectItem value="talvez">A avaliar</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Possui condição diferenciada de negociação? (Ex: Parcelamento)</Label>
+                <Textarea 
+                  placeholder="Descreva aqui se aceita parcelamento, prazos estendidos ou outras facilidades que possam destacar seu negócio."
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData({...formData, negotiationConditions: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Imóvel Próprio incluído?</Label>
                 <Select>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione" />
@@ -482,8 +544,26 @@ export default function OnboardingPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Segmento</Label>
-                  <Input placeholder="Ex: Alimentação" />
+                  <Label>Segmento (Padrão ABF)</Label>
+                  <Select onValueChange={(v) => setFormData({...formData, segment: v})}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o segmento" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="alimentacao">Alimentação</SelectItem>
+                      <SelectItem value="saude">Saúde, Beleza e Bem-Estar</SelectItem>
+                      <SelectItem value="servicos">Serviços e Outros Negócios</SelectItem>
+                      <SelectItem value="educacao">Educação</SelectItem>
+                      <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                      <SelectItem value="moda">Moda</SelectItem>
+                      <SelectItem value="casa">Casa e Construção</SelectItem>
+                      <SelectItem value="automotivo">Automotivo</SelectItem>
+                      <SelectItem value="turismo">Hotelaria e Turismo</SelectItem>
+                      <SelectItem value="limpeza">Limpeza e Conservação</SelectItem>
+                      <SelectItem value="comunicacao">Comunicação, Informática e Eletrônicos</SelectItem>
+                      <SelectItem value="industria">Indústria</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
                   <Label>Anos de Mercado</Label>
@@ -521,26 +601,38 @@ export default function OnboardingPage() {
                  <p className="text-sm text-muted-foreground">Defina os valores de investimento e retorno para o franqueado.</p>
                </div>
                <div className="space-y-2">
-                  <Label>Investimento Total Inicial (Faixa)</Label>
-                  <Select>
+                  <Label>Investimento Total Aproximado</Label>
+                  <Select onValueChange={(v) => setFormData({...formData, approxInvestment: v})}>
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione a faixa" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="upto100k">Até R$ 100.000</SelectItem>
                       <SelectItem value="100k-300k">R$ 100.000 - R$ 300.000</SelectItem>
-                      <SelectItem value="300k-500k">R$ 300.000 - R$ 500.000</SelectItem>
-                      <SelectItem value="500k-plus">Acima de R$ 500.000</SelectItem>
+                      <SelectItem value="300k-600k">R$ 300.000 - R$ 600.000</SelectItem>
+                      <SelectItem value="600k-800k">R$ 600.000 - R$ 800.000</SelectItem>
+                      <SelectItem value="800k-1m">R$ 800.000 - R$ 1.000.000</SelectItem>
+                      <SelectItem value="1m-plus">Acima de R$ 1 milhão</SelectItem>
                     </SelectContent>
                   </Select>
                </div>
                <div className="grid grid-cols-2 gap-4">
                  <div className="space-y-2">
-                    <Label>Taxa de Franquia</Label>
+                    <Label>Faturamento Médio Anual</Label>
                     <Input placeholder="R$ 0,00" />
                  </div>
                   <div className="space-y-2">
-                    <Label>Capital de Giro</Label>
+                    <Label>Lucratividade Média (%)</Label>
+                    <Input placeholder="0%" />
+                 </div>
+               </div>
+               <div className="grid grid-cols-2 gap-4">
+                 <div className="space-y-2">
+                    <Label>ROI (Retorno do Investimento) %</Label>
+                    <Input placeholder="0%" />
+                 </div>
+                 <div className="space-y-2">
+                    <Label>Taxa de Franquia</Label>
                     <Input placeholder="R$ 0,00" />
                  </div>
                </div>
@@ -591,12 +683,12 @@ export default function OnboardingPage() {
                   </Select>
               </div>
               <div className="space-y-2">
-                <Label>Competências Essenciais</Label>
+                <Label>Competências Essenciais (Sincronizado com Investidor) (Sincronizado com Investidor)</Label>
                 <div className="flex flex-wrap gap-2">
-                  {["Liderança", "Vendas", "Gestão Financeira", "Marketing Local"].map(skill => (
+                  {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
-                       <Checkbox id={`f-skill-${skill}`} />
-                       <label htmlFor={`f-skill-${skill}`} className="text-sm font-medium">{skill}</label>
+                       <Checkbox id={`f-skill-onb-${skill}`} />
+                       <label htmlFor={`f-skill-onb-${skill}`} className="text-sm font-medium">{skill}</label>
                     </div>
                   ))}
                 </div>
@@ -607,8 +699,8 @@ export default function OnboardingPage() {
            return (
              <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Regiões de Interesse para Expansão</Label>
-                  <Input placeholder="Ex: Sul e Sudeste, Capitais..." />
+                  <Label>Cidade de Interesse para Expansão</Label>
+                  <Input placeholder="Ex: Curitiba, PR" />
                 </div>
                 <div className="space-y-2">
                   <Label>Exclusividade Territorial?</Label>

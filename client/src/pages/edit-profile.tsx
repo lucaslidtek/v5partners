@@ -194,10 +194,11 @@ export default function EditProfilePage() {
                     <SelectValue placeholder="Selecione o valor" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="upto200k">Até R$ 200.000</SelectItem>
-                    <SelectItem value="200k-500k">R$ 200.000 - R$ 500.000</SelectItem>
-                    <SelectItem value="500k-1m">R$ 500.000 - R$ 1.000.000</SelectItem>
-                    <SelectItem value="1m-plus">Acima de R$ 1.000.000</SelectItem>
+                    <SelectItem value="upto300k">Até R$ 300.000</SelectItem>
+                    <SelectItem value="300k-600k">R$ 300.000 - R$ 600.000</SelectItem>
+                    <SelectItem value="600k-1m">R$ 600.000 - R$ 1.000.000</SelectItem>
+                    <SelectItem value="1m-1.5m">R$ 1.000.000 - R$ 1.500.000</SelectItem>
+                    <SelectItem value="1.5m-plus">Acima de R$ 1.500.000</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -205,7 +206,7 @@ export default function EditProfilePage() {
               <div className="space-y-3">
                 <Label>Modalidade Desejada</Label>
                 <div className="grid gap-2">
-                   {["Abrir franquia do zero (Greenfield)", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
+                   {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
                      <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
                        <Checkbox id={opt} />
                        <label htmlFor={opt} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer w-full">{opt}</label>
@@ -215,15 +216,37 @@ export default function EditProfilePage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Retorno Desejado</Label>
-                <Select defaultValue={user?.roiTime} onValueChange={(v) => setFormData({...formData, roiTime: v})}>
-                  <SelectTrigger data-testid="select-roi">
-                    <SelectValue placeholder="Prazo esperado" />
+                <Label>Preferência de Localização (selecione uma ou mais opções)</Label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["Shopping centers", "Galerias ou pequenos centros comerciais", "Ruas e avenidas", "Todas as opções acima"].map(loc => (
+                    <div key={loc} className="flex items-center space-x-2">
+                       <Checkbox id={`loc-edit-${loc}`} />
+                       <label htmlFor={`loc-edit-${loc}`} className="text-sm">{loc}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Cidade de Interesse (Pode ser diferente da moradia)</Label>
+                <Input 
+                  defaultValue={user?.interestCity}
+                  placeholder="Ex: Curitiba, PR" 
+                  onChange={(e) => setFormData({...formData, interestCity: e.target.value})}
+                  data-testid="input-interest-city"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Utilizará algum imóvel na negociação?</Label>
+                <Select defaultValue={user?.useProperty} onValueChange={(v) => setFormData({...formData, useProperty: v})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="short">Curto Prazo (1-2 anos)</SelectItem>
-                    <SelectItem value="medium">Médio Prazo (3-5 anos)</SelectItem>
-                    <SelectItem value="long">Longo Prazo (5+ anos)</SelectItem>
+                    <SelectItem value="sim">Sim</SelectItem>
+                    <SelectItem value="nao">Não</SelectItem>
+                    <SelectItem value="talvez">A avaliar</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -265,10 +288,10 @@ export default function EditProfilePage() {
               <div className="space-y-2">
                 <Label>Habilidades Predominantes</Label>
                 <div className="flex flex-wrap gap-2">
-                  {["Gestão", "Comercial", "Marketing", "Finanças", "Operacional", "RH"].map(skill => (
+                  {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div key={skill} className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-full">
-                      <Checkbox id={`skill-${skill}`} />
-                      <label htmlFor={`skill-${skill}`} className="text-sm font-medium cursor-pointer">{skill}</label>
+                      <Checkbox id={`skill-edit-${skill}`} />
+                      <label htmlFor={`skill-edit-${skill}`} className="text-sm font-medium cursor-pointer">{skill}</label>
                     </div>
                   ))}
                 </div>
@@ -279,12 +302,12 @@ export default function EditProfilePage() {
           return (
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label>Setores de Interesse</Label>
+                <Label>Setores de Interesse (Padrão ABF)</Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {["Alimentação", "Saúde & Beleza", "Serviços", "Educação", "Tecnologia", "Moda", "Casa & Construção", "Automotivo"].map(sector => (
+                  {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação, Informática e Eletrônicos", "Indústria"].map(sector => (
                     <div key={sector} className="flex items-center space-x-2">
-                      <Checkbox id={`sector-${sector}`} />
-                      <label htmlFor={`sector-${sector}`} className="text-sm cursor-pointer">{sector}</label>
+                      <Checkbox id={`sector-edit-${sector}`} />
+                      <label htmlFor={`sector-edit-${sector}`} className="text-sm cursor-pointer">{sector}</label>
                     </div>
                   ))}
                 </div>
@@ -405,17 +428,23 @@ export default function EditProfilePage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label>Segmento de Atuação</Label>
+                <Label>Segmento de Atuação (Padrão ABF)</Label>
                 <Select defaultValue={user?.segment} onValueChange={(v) => setFormData({...formData, segment: v})}>
                   <SelectTrigger data-testid="select-segment">
                     <SelectValue placeholder="Selecione o segmento" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="varejo">Varejo</SelectItem>
-                    <SelectItem value="servicos">Serviços</SelectItem>
                     <SelectItem value="alimentacao">Alimentação</SelectItem>
+                    <SelectItem value="saude">Saúde, Beleza e Bem-Estar</SelectItem>
+                    <SelectItem value="servicos">Serviços e Outros Negócios</SelectItem>
+                    <SelectItem value="educacao">Educação</SelectItem>
                     <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                    <SelectItem value="saude">Saúde</SelectItem>
+                    <SelectItem value="moda">Moda</SelectItem>
+                    <SelectItem value="casa">Casa e Construção</SelectItem>
+                    <SelectItem value="automotivo">Automotivo</SelectItem>
+                    <SelectItem value="turismo">Hotelaria e Turismo</SelectItem>
+                    <SelectItem value="limpeza">Limpeza e Conservação</SelectItem>
+                    <SelectItem value="comunicacao">Comunicação, Informática e Eletrônicos</SelectItem>
                     <SelectItem value="industria">Indústria</SelectItem>
                   </SelectContent>
                 </Select>
@@ -436,12 +465,53 @@ export default function EditProfilePage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Lucro Líquido / EBITDA</Label>
+                  <Label>Lucratividade Média Mensal (%)</Label>
                   <Input 
-                    defaultValue={user?.ebitda}
+                    defaultValue={user?.profitability}
+                    placeholder="0%" 
+                    onChange={(e) => setFormData({...formData, profitability: e.target.value})}
+                    data-testid="input-profitability"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Nº Funcionários</Label>
+                  <Input 
+                    defaultValue={user?.employees}
+                    type="number" 
+                    placeholder="0" 
+                    onChange={(e) => setFormData({...formData, employees: e.target.value})}
+                    data-testid="input-employees"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Folha de Pagamento</Label>
+                  <Input 
+                    defaultValue={user?.payroll}
                     placeholder="R$ 0,00" 
-                    onChange={(e) => setFormData({...formData, ebitda: e.target.value})}
-                    data-testid="input-ebitda"
+                    onChange={(e) => setFormData({...formData, payroll: e.target.value})}
+                    data-testid="input-payroll"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Ponto de Equilíbrio</Label>
+                  <Input 
+                    defaultValue={user?.breakeven}
+                    placeholder="R$ 0,00" 
+                    onChange={(e) => setFormData({...formData, breakeven: e.target.value})}
+                    data-testid="input-breakeven"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>ROI (Retorno sobre Investimento)</Label>
+                  <Input 
+                    defaultValue={user?.roi}
+                    placeholder="Meses ou %" 
+                    onChange={(e) => setFormData({...formData, roi: e.target.value})}
+                    data-testid="input-roi"
                   />
                 </div>
               </div>
@@ -453,16 +523,6 @@ export default function EditProfilePage() {
                     placeholder="R$ 0,00" 
                     onChange={(e) => setFormData({...formData, ticketAverage: e.target.value})}
                     data-testid="input-ticket"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Nº Funcionários</Label>
-                  <Input 
-                    defaultValue={user?.employees}
-                    type="number" 
-                    placeholder="0" 
-                    onChange={(e) => setFormData({...formData, employees: e.target.value})}
-                    data-testid="input-employees"
                   />
                 </div>
               </div>
@@ -496,6 +556,7 @@ export default function EditProfilePage() {
                     <SelectItem value="mudanca">Mudança de Cidade/País</SelectItem>
                     <SelectItem value="novos_projetos">Novos Projetos</SelectItem>
                     <SelectItem value="dissolucao">Dissolução de Sociedade</SelectItem>
+                    <SelectItem value="incapacidade_financeira">Incapacidade Financeira</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -546,7 +607,7 @@ export default function EditProfilePage() {
                 <Input 
                   defaultValue={user?.valuation}
                   placeholder="R$ 0,00" 
-                  className="text-lg font-semibold text-primary"
+                  className="text-lg font-semibold text-primary" 
                   onChange={(e) => setFormData({...formData, valuation: e.target.value})}
                   data-testid="input-valuation"
                 />
@@ -556,15 +617,37 @@ export default function EditProfilePage() {
                 <div className="grid grid-cols-1 gap-2">
                   {["Venda Total (100%)", "Venda Parcial (Sócio Majoritário)", "Venda Parcial (Sócio Minoritário)"].map((opt) => (
                     <div key={opt} className="flex items-center space-x-2 border p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer">
-                      <Checkbox id={opt} />
-                      <label htmlFor={opt} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
+                      <Checkbox id={`trans-edit-${opt}`} />
+                      <label htmlFor={`trans-edit-${opt}`} className="text-sm font-medium w-full cursor-pointer">{opt}</label>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Imóvel Próprio na Negociação?</Label>
-                <Select defaultValue={user?.propertyInvolved}>
+                <Label>Aceita Imóvel na Negociação?</Label>
+                <Select defaultValue={user?.acceptsProperty} onValueChange={(v) => setFormData({...formData, acceptsProperty: v})}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sim">Sim</SelectItem>
+                    <SelectItem value="nao">Não</SelectItem>
+                    <SelectItem value="talvez">A avaliar</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Possui condição diferenciada de negociação? (Ex: Parcelamento)</Label>
+                <Textarea 
+                  defaultValue={user?.negotiationConditions}
+                  placeholder="Descreva aqui se aceita parcelamento, prazos estendidos ou outras facilidades que possam destacar seu negócio."
+                  onChange={(e) => setFormData({...formData, negotiationConditions: e.target.value})}
+                  data-testid="textarea-conditions"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Imóvel Próprio incluído?</Label>
+                <Select defaultValue={user?.propertyInvolved} onValueChange={(v) => setFormData({...formData, propertyInvolved: v})}>
                   <SelectTrigger data-testid="select-property">
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>

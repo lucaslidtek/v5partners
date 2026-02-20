@@ -645,8 +645,14 @@ export default function OnboardingPage() {
         />
        </div>
        <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" size="icon" onClick={handleBack} className="h-10 w-10 text-slate-400 hover:text-primary transition-colors">
-         <ChevronLeft className="h-6 w-6" />
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => setLocation("/escolha-de-perfil")} 
+          className="h-9 px-3 text-slate-500 hover:text-primary border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 transition-all rounded-full text-xs font-medium flex items-center gap-2"
+        >
+          <User className="h-3.5 w-3.5" />
+          Trocar Perfil
         </Button>
         <div className="flex flex-col items-center">
          <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-1">
@@ -654,7 +660,7 @@ export default function OnboardingPage() {
          </span>
          <CardTitle className="text-2xl font-bold text-slate-900 dark:text-white">{getStepTitle()}</CardTitle>
         </div>
-        <div className="w-10" />
+        <div className="w-[100px]" />
        </div>
        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2 px-2">
         <span>Passo {step} de {totalSteps}</span>

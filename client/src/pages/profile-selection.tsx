@@ -108,7 +108,7 @@ export default function ProfileSelectionPage() {
                 
                 <CardFooter className="pb-8 pt-2">
                   <Button 
-                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12 shadow-lg shadow-black/5`}
+                    className={`w-full ${profile.buttonColor} ${profile.textColor} font-semibold h-12`}
                     onClick={() => {
                       setProfileType(profile.id as any);
                       setLocation("/boas-vindas");

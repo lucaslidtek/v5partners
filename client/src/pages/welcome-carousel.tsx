@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
@@ -109,72 +110,77 @@ export default function WelcomeCarouselPage() {
   const handleSkip = () => setLocation("/integracao");
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-6">
       <div className="max-w-lg w-full">
         <div className="flex items-center justify-center mb-8">
            <img src={settings?.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-10 w-auto object-contain" />
         </div>
-        <div className="flex justify-between items-center mb-12">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={handleBackSlide} className="h-8 w-8 text-slate-400 hover:text-primary transition-colors">
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex gap-1.5">
-              {slides.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === currentSlide ? "w-8 bg-primary" : "w-2 bg-slate-200 dark:bg-slate-800"
-                  }`} 
-                />
-              ))}
-            </div>
-          </div>
-          <Button variant="ghost" size="sm" onClick={handleSkip} className="text-slate-400">
-            Pular
-          </Button>
-        </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-8 text-center sm:text-left"
-          >
-            <div className={`w-16 h-16 rounded-lg flex items-center justify-center mx-auto sm:mx-0 ${
-              slides[currentSlide].color === 'blue' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' :
-              slides[currentSlide].color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' :
-              'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
-            }`}>
-              {(() => {
-                const Icon = slides[currentSlide].icon;
-                return <Icon className="h-8 w-8" />;
-              })()}
+        <Card className="border-none shadow-xl shadow-slate-200/50 dark:shadow-none bg-white dark:bg-slate-900 overflow-hidden">
+          <CardContent className="p-8 sm:p-10">
+            <div className="flex justify-between items-center mb-10">
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" size="icon" onClick={handleBackSlide} className="h-8 w-8 text-slate-400 hover:text-primary transition-colors">
+                  <ChevronLeft className="h-5 w-5" />
+                </Button>
+                <div className="flex gap-1.5">
+                  {slides.map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === currentSlide ? "w-8 bg-primary" : "w-2 bg-slate-200 dark:bg-slate-800"
+                      }`} 
+                    />
+                  ))}
+                </div>
+              </div>
+              <Button variant="ghost" size="sm" onClick={handleSkip} className="text-slate-400">
+                Pular
+              </Button>
             </div>
 
-            <div className="space-y-4">
-              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
-                {slides[currentSlide].title}
-              </h1>
-              <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
-                {slides[currentSlide].text}
-              </p>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8 text-center sm:text-left"
+              >
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto sm:mx-0 ${
+                  slides[currentSlide].color === 'blue' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' :
+                  slides[currentSlide].color === 'emerald' ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400' :
+                  'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
+                }`}>
+                  {(() => {
+                    const Icon = slides[currentSlide].icon;
+                    return <Icon className="h-8 w-8" strokeWidth={1.5} />;
+                  })()}
+                </div>
 
-        <div className="mt-12">
-          <Button 
-            onClick={handleNext} 
-            className="w-full h-14 text-lg font-bold rounded-lg bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
-          >
-            {slides[currentSlide].cta || "Próximo"}
-            {currentSlide < slides.length - 1 && <ChevronRight className="ml-2 h-5 w-5" />}
-          </Button>
-        </div>
+                <div className="space-y-4">
+                  <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+                    {slides[currentSlide].title}
+                  </h1>
+                  <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+                    {slides[currentSlide].text}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="mt-10">
+              <Button 
+                onClick={handleNext} 
+                className="w-full h-14 text-lg font-bold rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
+              >
+                {slides[currentSlide].cta || "Próximo"}
+                {currentSlide < slides.length - 1 && <ChevronRight className="ml-2 h-5 w-5" />}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

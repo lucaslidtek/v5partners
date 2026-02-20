@@ -749,7 +749,7 @@ export default function DashboardPage() {
     <div className={`${isMobile ? 'mb-6' : 'mb-8'}`}>
      <div className={`${isMobile ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-1 md:grid-cols-2 gap-4'}`}>
       {stats.map((stat, index) => (
-       <Card key={index} className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover: dark:hover:shadow-slate-900/50 transition-shadow`}>
+       <Card key={index} className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 hover:shadow-md dark:hover:shadow-slate-900/50 transition-shadow`}>
         <CardContent className="p-4 md:p-6 flex items-center justify-between">
          <div>
           <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-slate-500 dark:text-slate-400 mb-1`}>{stat.label}</p>
@@ -1211,7 +1211,7 @@ export default function DashboardPage() {
        initial={{ opacity: 0, y: 20 }}
        animate={{ opacity: 1, y: 0 }}
       >
-       <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover: dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
+       <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-md dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
         <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
          {/* Header com logo, título e status */}
          {isMobile ? (

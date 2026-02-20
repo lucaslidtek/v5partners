@@ -13,9 +13,11 @@ import { useAuth } from "@/lib/context";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Check, X, User, Briefcase, Lock, Info } from "lucide-react";
+import logoColor from "@assets/v5partners_color1_1764265378727.png";
+import logoWhite from "@assets/v5partners_white1_1764345179398.png";
 
 export default function OnboardingPage() {
-  const { user, updateUserData } = useAuth();
+  const { user, updateUserData, settings } = useAuth();
   const [, setLocation] = useLocation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<any>({});
@@ -605,6 +607,13 @@ export default function OnboardingPage() {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center p-4">
         <Card className="w-full max-w-2xl border-slate-200 dark:border-slate-800 shadow-xl dark:bg-slate-900 rounded-lg overflow-hidden">
           <CardHeader className="bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 pt-8 pb-6">
+             <div className="flex justify-center mb-6">
+               <img 
+                 src={settings.darkMode ? logoWhite : logoColor} 
+                 alt="V5 Partners" 
+                 className="h-10 w-auto object-contain" 
+               />
+             </div>
              <div className="flex items-center justify-between mb-6">
                 <Button variant="ghost" size="icon" onClick={handleBack} className="h-10 w-10 text-slate-400 hover:text-primary transition-colors">
                   <ChevronLeft className="h-6 w-6" />

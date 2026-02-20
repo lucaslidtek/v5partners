@@ -238,21 +238,36 @@ export default function OnboardingPage() {
             <div className="space-y-6">
               <div className="space-y-2">
                 <Label>Setores de Interesse (Padrão ABF)</Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação", "Indústria"].map(sector => (
-                    <div 
-                      key={sector} 
-                      className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
-                      onClick={() => {
-                        const checkbox = document.getElementById(`sector-onb-${sector}`) as HTMLInputElement;
-                        if (checkbox) checkbox.click();
-                      }}
-                    >
-                       <Checkbox id={`sector-onb-${sector}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
-                       <label htmlFor={`sector-onb-${sector}`} className="text-sm font-medium cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{sector}</label>
-                    </div>
-                  ))}
-                </div>
+                <Select onValueChange={(v) => {
+                  const currentSectors = formData.sectors || [];
+                  if (!currentSectors.includes(v)) {
+                    setFormData({...formData, sectors: [...currentSectors, v]});
+                  }
+                }}>
+                  <SelectTrigger className="rounded-xl h-12 border-slate-200 dark:border-slate-800">
+                    <SelectValue placeholder="Selecione os setores" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação", "Indústria"].map(sector => (
+                      <SelectItem key={sector} value={sector}>{sector}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {formData.sectors?.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {formData.sectors.map((s: string) => (
+                      <div key={s} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                        {s}
+                        <button 
+                          onClick={() => setFormData({...formData, sectors: formData.sectors.filter((item: string) => item !== s)})}
+                          className="hover:text-primary/70"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="space-y-4 pt-4">
                 <div className="space-y-2">

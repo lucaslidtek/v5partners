@@ -134,41 +134,71 @@ export default function OnboardingPage() {
          </SelectContent>
         </Select>
        </div>
-       <div className="space-y-3">
+       <div className="space-y-4">
         <Label>Modalidade Desejada</Label>
-        <div className="grid gap-2">
-          {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
-           <div 
-            key={opt} 
-            className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
-            onClick={() => {
-             const checkbox = document.getElementById(opt) as HTMLInputElement;
-             if (checkbox) checkbox.click();
-            }}
-           >
-            <Checkbox id={opt} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
-            <label htmlFor={opt} className="text-sm font-medium leading-none cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{opt}</label>
+        <Select onValueChange={(v) => {
+          const currentModalities = formData.modalities || [];
+          if (!currentModalities.includes(v)) {
+           setFormData({...formData, modalities: [...currentModalities, v]});
+          }
+        }}>
+         <SelectTrigger className="rounded-xl h-12 border-slate-200 dark:border-slate-800">
+          <SelectValue placeholder="Selecione as modalidades" />
+         </SelectTrigger>
+         <SelectContent>
+          {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map(opt => (
+           <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+          ))}
+         </SelectContent>
+        </Select>
+        {formData.modalities?.length > 0 && (
+         <div className="flex flex-wrap gap-2 mt-2">
+          {formData.modalities.map((m: string) => (
+           <div key={m} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+            {m}
+            <button 
+             onClick={() => setFormData({...formData, modalities: formData.modalities.filter((item: string) => item !== m)})}
+             className="hover:text-primary/70"
+            >
+             <X className="h-3 w-3" />
+            </button>
            </div>
           ))}
-        </div>
+         </div>
+        )}
        </div>
-       <div className="space-y-2">
+       <div className="space-y-4">
         <Label>Preferência de Localização</Label>
-        <div className="grid grid-cols-2 gap-2">
-         {["Shopping centers", "Galerias", "Ruas e avenidas", "Todas"].map(loc => (
-          <div 
-           key={loc} 
-           className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
-           onClick={() => {
-            const checkbox = document.getElementById(`loc-${loc}`) as HTMLInputElement;
-            if (checkbox) checkbox.click();
-           }}
-          >
-            <Checkbox id={`loc-${loc}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
-            <label htmlFor={`loc-${loc}`} className="text-sm font-medium cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{loc}</label>
-          </div>
-         ))}
-        </div>
+        <Select onValueChange={(v) => {
+          const currentLocs = formData.preferredLocations || [];
+          if (!currentLocs.includes(v)) {
+           setFormData({...formData, preferredLocations: [...currentLocs, v]});
+          }
+        }}>
+         <SelectTrigger className="rounded-xl h-12 border-slate-200 dark:border-slate-800">
+          <SelectValue placeholder="Selecione as localizações" />
+         </SelectTrigger>
+         <SelectContent>
+          {["Shopping centers", "Galerias", "Ruas e avenidas", "Todas"].map(loc => (
+           <SelectItem key={loc} value={loc}>{loc}</SelectItem>
+          ))}
+         </SelectContent>
+        </Select>
+        {formData.preferredLocations?.length > 0 && (
+         <div className="flex flex-wrap gap-2 mt-2">
+          {formData.preferredLocations.map((l: string) => (
+           <div key={l} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+            {l}
+            <button 
+             onClick={() => setFormData({...formData, preferredLocations: formData.preferredLocations.filter((item: string) => item !== l)})}
+             className="hover:text-primary/70"
+            >
+             <X className="h-3 w-3" />
+            </button>
+           </div>
+          ))}
+         </div>
+        )}
        </div>
        <div className="space-y-2">
         <Label>Cidade de Interesse</Label>
@@ -213,23 +243,38 @@ export default function OnboardingPage() {
          </Button>
         </div>
        </div>
-       <div className="space-y-2">
+       <div className="space-y-4">
         <Label>Habilidades Predominantes</Label>
-        <div className="flex flex-wrap gap-3">
-         {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
-          <div 
-           key={skill} 
-           className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group min-w-[180px]"
-           onClick={() => {
-            const checkbox = document.getElementById(`skill-${skill}`) as HTMLInputElement;
-            if (checkbox) checkbox.click();
-           }}
-          >
-            <Checkbox id={`skill-${skill}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
-            <label htmlFor={`skill-${skill}`} className="text-sm font-medium cursor-pointer text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{skill}</label>
-          </div>
-         ))}
-        </div>
+        <Select onValueChange={(v) => {
+          const currentSkills = formData.skills || [];
+          if (!currentSkills.includes(v)) {
+           setFormData({...formData, skills: [...currentSkills, v]});
+          }
+        }}>
+         <SelectTrigger className="rounded-xl h-12 border-slate-200 dark:border-slate-800">
+          <SelectValue placeholder="Selecione as habilidades" />
+         </SelectTrigger>
+         <SelectContent>
+          {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
+           <SelectItem key={skill} value={skill}>{skill}</SelectItem>
+          ))}
+         </SelectContent>
+        </Select>
+        {formData.skills?.length > 0 && (
+         <div className="flex flex-wrap gap-2 mt-2">
+          {formData.skills.map((s: string) => (
+           <div key={s} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm flex items-center gap-2">
+            {s}
+            <button 
+             onClick={() => setFormData({...formData, skills: formData.skills.filter((item: string) => item !== s)})}
+             className="hover:text-primary/70"
+            >
+             <X className="h-3 w-3" />
+            </button>
+           </div>
+          ))}
+         </div>
+        )}
        </div>
       </div>
      );

@@ -116,7 +116,7 @@ export default function WelcomeCarouselPage() {
            <img src={settings?.darkMode ? logoWhite : logoColor} alt="V5 Partners" className="h-10 w-auto object-contain" />
         </div>
 
-        <Card className="border-none shadow-xl shadow-slate-200/50 dark:shadow-none bg-white dark:bg-slate-900 overflow-hidden">
+        <Card className="border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none bg-white dark:bg-slate-900 overflow-hidden">
           <CardContent className="p-8 sm:p-10">
             <div className="flex justify-between items-center mb-10">
               <div className="flex items-center gap-4">

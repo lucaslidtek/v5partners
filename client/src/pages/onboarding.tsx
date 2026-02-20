@@ -140,14 +140,14 @@ export default function OnboardingPage() {
                    {["Abrir franquia do zero", "Comprar franquia em operação (Repasse)", "Comprar negócio independente", "Sócio em operação existente"].map((opt) => (
                      <div 
                        key={opt} 
-                       className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-4 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                       className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
                        onClick={() => {
                          const checkbox = document.getElementById(opt) as HTMLInputElement;
                          if (checkbox) checkbox.click();
                        }}
                      >
-                       <Checkbox id={opt} className="rounded-sm" />
-                       <label htmlFor={opt} className="text-sm font-medium leading-none cursor-pointer w-full">{opt}</label>
+                       <Checkbox id={opt} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                       <label htmlFor={opt} className="text-sm font-medium leading-none cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{opt}</label>
                      </div>
                    ))}
                 </div>
@@ -158,14 +158,14 @@ export default function OnboardingPage() {
                   {["Shopping centers", "Galerias", "Ruas e avenidas", "Todas"].map(loc => (
                     <div 
                       key={loc} 
-                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                      className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
                       onClick={() => {
                         const checkbox = document.getElementById(`loc-${loc}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
                       }}
                     >
-                       <Checkbox id={`loc-${loc}`} className="rounded-sm" />
-                       <label htmlFor={`loc-${loc}`} className="text-sm cursor-pointer w-full">{loc}</label>
+                       <Checkbox id={`loc-${loc}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                       <label htmlFor={`loc-${loc}`} className="text-sm font-medium cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{loc}</label>
                     </div>
                   ))}
                 </div>
@@ -215,18 +215,18 @@ export default function OnboardingPage() {
               </div>
               <div className="space-y-2">
                 <Label>Habilidades Predominantes</Label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-3">
                   {["Gestão Administrativa", "Gestão de Pessoal", "Comercial", "Marketing", "Finanças", "Operacional", "Tecnologia"].map(skill => (
                     <div 
                       key={skill} 
-                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                      className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group min-w-[180px]"
                       onClick={() => {
                         const checkbox = document.getElementById(`skill-${skill}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
                       }}
                     >
-                       <Checkbox id={`skill-${skill}`} className="rounded-sm" />
-                       <label htmlFor={`skill-${skill}`} className="text-sm font-medium cursor-pointer">{skill}</label>
+                       <Checkbox id={`skill-${skill}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                       <label htmlFor={`skill-${skill}`} className="text-sm font-medium cursor-pointer text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{skill}</label>
                     </div>
                   ))}
                 </div>
@@ -238,18 +238,18 @@ export default function OnboardingPage() {
             <div className="space-y-6">
               <div className="space-y-2">
                 <Label>Setores de Interesse (Padrão ABF)</Label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   {["Alimentação", "Saúde, Beleza e Bem-Estar", "Serviços e Outros Negócios", "Educação", "Tecnologia", "Moda", "Casa e Construção", "Automotivo", "Hotelaria e Turismo", "Limpeza e Conservação", "Comunicação", "Indústria"].map(sector => (
                     <div 
                       key={sector} 
-                      className="flex items-center space-x-2 border border-slate-200 dark:border-slate-800 p-3 rounded-md hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer"
+                      className="flex items-center space-x-3 border border-slate-200 dark:border-slate-800 p-4 rounded-xl hover:border-primary/50 hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-all cursor-pointer group"
                       onClick={() => {
                         const checkbox = document.getElementById(`sector-onb-${sector}`) as HTMLInputElement;
                         if (checkbox) checkbox.click();
                       }}
                     >
-                       <Checkbox id={`sector-onb-${sector}`} className="rounded-sm" />
-                       <label htmlFor={`sector-onb-${sector}`} className="text-sm cursor-pointer w-full">{sector}</label>
+                       <Checkbox id={`sector-onb-${sector}`} className="rounded-full h-5 w-5 border-slate-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
+                       <label htmlFor={`sector-onb-${sector}`} className="text-sm font-medium cursor-pointer w-full text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">{sector}</label>
                     </div>
                   ))}
                 </div>

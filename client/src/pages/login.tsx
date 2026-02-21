@@ -68,7 +68,7 @@ export default function LoginPage() {
      </div>
 
      <div className="relative z-10 text-sm text-slate-400">
-      © 2025 V5 Partners. Todos os direitos reservados.
+      © {new Date().getFullYear()} V5 Partners. Todos os direitos reservados.
      </div>
     </div>
 

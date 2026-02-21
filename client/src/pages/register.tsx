@@ -72,7 +72,7 @@ export default function RegisterPage() {
     </div>
 
     {/* Right Panel - Register Form */}
-    <div className="w-full lg:w-1/2 bg-white dark:bg-slate-900 flex items-center justify-center p-8 lg:p-24 relative">
+    <div className="w-full lg:w-1/2 bg-white dark:bg-[#0B1120] flex items-center justify-center p-8 lg:p-24 relative">
      <div className="w-full max-w-sm space-y-8">
       <div className="text-center lg:text-left">
        <img src={logoColor} alt="V5 Partners" className="h-12 w-auto mb-8 lg:hidden mx-auto" />
@@ -81,7 +81,7 @@ export default function RegisterPage() {
       </div>
 
       <div className="flex flex-col gap-4">
-       <Button variant="outline" className="w-full h-11 border-input dark:border-slate-700 hover:bg-muted dark:hover:bg-slate-800 hover:border-slate-300 transition-all">
+       <Button variant="outline" className="w-full h-11 border-input dark:border-slate-800 hover:bg-muted dark:hover:bg-slate-800/50 hover:border-slate-300 transition-all">
         <svg className="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -94,10 +94,10 @@ export default function RegisterPage() {
 
       <div className="relative">
        <div className="absolute inset-0 flex items-center">
-        <span className="w-full border-t border-border dark:border-slate-700" />
+        <span className="w-full border-t border-border dark:border-slate-800" />
        </div>
        <div className="relative flex justify-center text-xs uppercase">
-        <span className="bg-white dark:bg-slate-900 px-2 text-muted-foreground dark:text-slate-400">Ou continue com email</span>
+        <span className="bg-white dark:bg-[#0B1120] px-2 text-muted-foreground dark:text-slate-400">Ou continue com email</span>
        </div>
       </div>
 
@@ -111,7 +111,7 @@ export default function RegisterPage() {
          <Input 
           id="email" 
           placeholder="nome@empresa.com" 
-          className="pl-10 h-12 bg-muted/30 dark:bg-slate-800 border-input dark:border-slate-700 focus:bg-white dark:focus:bg-slate-750 transition-all duration-200"
+          className="pl-10 h-12 bg-slate-50 dark:bg-[#1E293B] border-input dark:border-slate-800 focus:bg-white dark:focus:bg-[#1E293B] transition-all duration-200"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
          />
@@ -130,7 +130,7 @@ export default function RegisterPage() {
           id="password" 
           type="password" 
           placeholder="••••••••" 
-          className="pl-10 h-12 bg-muted/30 border-input focus:bg-white transition-all duration-200"
+          className="pl-10 h-12 bg-slate-50 dark:bg-[#1E293B] border-input dark:border-slate-800 focus:bg-white dark:focus:bg-[#1E293B] transition-all duration-200"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
          />

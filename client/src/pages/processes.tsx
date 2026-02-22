@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/layout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, CheckCircle2, AlertCircle, FileText, Calendar, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, CheckCircle2, AlertCircle, FileText, Calendar, ArrowRight, Building2, MapPin } from "lucide-react";
 import { useLocation } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
@@ -21,6 +21,7 @@ type Match = {
  tags: string[];
  isNew: boolean;
  stage: 'new' | 'interested' | 'nda_signed' | 'meeting_scheduled';
+ type: 'empresa' | 'investidor' | 'franqueadora';
 };
 
 export default function ProcessesPage() {
@@ -121,23 +122,39 @@ export default function ProcessesPage() {
          initial={{ opacity: 0, y: 20 }}
          animate={{ opacity: 1, y: 0 }}
         >
-         <Card className={`border-l-4 ${config.borderColor.replace('border-', 'border-l-')}`}>
-          <CardContent className="p-6">
-           <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-grow">
-             <div className="flex items-start justify-between mb-2">
-              <div>
-               <h3 className="text-xl font-bold text-slate-900">{process.name}</h3>
-               <p className="text-slate-500 text-sm">{process.sector} • {process.location}</p>
+         <Card className={`overflow-hidden border-none shadow-lg ring-1 ring-slate-200/60 transition-all duration-300 hover:shadow-xl hover:ring-primary/20 bg-white relative`}>
+          <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${config.color.split(' ')[0].replace('bg-', 'bg-')}`} />
+          <CardContent className="p-0">
+           <div className="flex flex-col md:flex-row">
+            <div className="p-6 md:p-8 flex-grow">
+             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+              <div className="flex items-center gap-4">
+               {/* Logo Placeholder - assuming you might want to show logo here too */}
+               <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200 shadow-sm flex-shrink-0">
+                <Building2 className="h-6 w-6 text-slate-400" />
+               </div>
+               <div>
+                <h3 className="text-xl font-bold text-slate-900 tracking-tight">{process.name}</h3>
+                <div className="flex items-center text-slate-500 text-sm mt-0.5">
+                 <MapPin className="mr-1 h-3 w-3" />
+                 {process.sector} • {process.location}
+                </div>
+               </div>
               </div>
-              <Badge variant="outline" className={`${config.color} border-transparent`}>
-               <StageIcon className="mr-1.5 h-3.5 w-3.5" />
-               {config.label}
-              </Badge>
+              
+              <div className="flex flex-wrap gap-2">
+               <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 font-medium px-2.5 py-0.5 rounded-full">
+                {process.type === 'franqueadora' ? 'Franqueadora' : process.type === 'investidor' ? 'Investidor' : 'Empresa'}
+               </Badge>
+               <Badge className={`${config.color} border-transparent font-semibold px-3 py-1 rounded-full shadow-sm`}>
+                <StageIcon className="mr-1.5 h-3.5 w-3.5" />
+                {config.label}
+               </Badge>
+              </div>
              </div>
              
-             <p className="text-slate-600 mb-4 text-sm bg-slate-50 p-3 rounded-lg border border-slate-100">
-              {process.description}
+             <p className="text-slate-600 mb-6 text-sm leading-relaxed bg-white/50 p-4 rounded-xl border border-slate-100 shadow-sm italic">
+              "{process.description}"
              </p>
 
              <div className="space-y-2">
@@ -157,20 +174,19 @@ export default function ProcessesPage() {
              </div>
             </div>
             
-            <div className="flex md:flex-col gap-2 justify-center md:justify-start md:min-w-[140px] border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6">
-             <div className="text-center md:text-left mb-2">
-              <p className="text-xs text-slate-500">Valor</p>
-              <p className="font-bold text-slate-900">{process.price}</p>
+            <div className="flex md:flex-col gap-6 justify-center md:justify-center md:min-w-[200px] bg-slate-50/50 p-6 md:p-8 border-t md:border-t-0 md:border-l border-slate-100">
+             <div className="flex flex-col items-center md:items-start">
+              <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Valor do Ativo</p>
+              <p className="text-2xl font-black text-slate-900">{process.price}</p>
              </div>
-             <div className="text-center md:text-left mb-4">
-              <p className="text-xs text-slate-500">Receita</p>
-              <p className="font-bold text-slate-900">{process.revenue}</p>
+             <div className="flex flex-col items-center md:items-start">
+              <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-1">Receita Anual</p>
+              <p className="text-xl font-bold text-slate-700">{process.revenue}</p>
              </div>
              <Button 
-              variant="outline" 
-              className="w-full border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-colors h-9 text-sm rounded-lg"
+              className="w-full shadow-md hover:shadow-lg transition-all font-bold h-11 rounded-xl"
              >
-              Ver Detalhes <ArrowRight className="ml-2 h-3 w-3" />
+              Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
              </Button>
             </div>
            </div>

@@ -1211,7 +1211,7 @@ export default function DashboardPage() {
        initial={{ opacity: 0, y: 20 }}
        animate={{ opacity: 1, y: 0 }}
       >
-       <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-md dark:hover:shadow-slate-900/50'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : ''}`}>
+       <Card className={`border-slate-200 dark:border-slate-800 dark:bg-slate-900 ${!isMobile && 'hover:border-primary/30 dark:hover:border-primary/50 hover:shadow-xl hover:ring-1 hover:ring-primary/20'} transition-all duration-300 overflow-hidden ${isMobile ? 'border-l-4 border-l-primary rounded-xl' : 'rounded-2xl shadow-lg ring-1 ring-slate-200/50'}`}>
         <div className={`${isMobile ? 'p-5' : 'p-8'}`}>
          {/* Header com logo, título e status */}
          {isMobile ? (
@@ -1231,21 +1231,23 @@ export default function DashboardPage() {
            <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
           </>
          ) : (
-          <div className="flex items-start justify-between gap-4 mb-6">
-           <div className="flex gap-4 flex-1 items-start">
-            {renderLogo(match, match.matchScore)}
-            <div className="flex-1 min-w-0">
-             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-              <Badge className={`${getTypeColor(match.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-4">
+               {renderLogo(match, match.matchScore)}
+               <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">{getDisplayName(match)}</h3>
+                 <Badge className={`${getTypeColor(match.type)} text-xs px-2.5 py-1 font-semibold border-none shadow-sm rounded-full`} data-testid={`badge-match-type-${match.id}`}>{getTypeLabel(match.type)}</Badge>
+                </div>
+                <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
+               </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+               {match.isNew && (
+                <Badge className="bg-sky-100 text-sky-700 text-xs px-3 py-1 font-bold rounded-full shadow-sm animate-pulse border-none">Novo</Badge>
+               )}
+              </div>
              </div>
-             <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
-            </div>
-           </div>
-           {match.isNew && (
-            <span className="text-xs px-3 py-1 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap">Novo</span>
-           )}
-          </div>
          )}
 
          {/* Match Score Bar - More Prominent */}
@@ -1430,7 +1432,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
          >
-          <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : ''}`}>
+          <Card className={`border-l-4 ${config.borderColor} dark:bg-slate-900 ${isMobile ? 'rounded-xl' : 'rounded-2xl shadow-lg ring-1 ring-slate-200/50 overflow-hidden'}`}>
            <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
             {isMobile ? (
              <>
@@ -1449,18 +1451,18 @@ export default function DashboardPage() {
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
              </>
             ) : (
-             <div className="flex items-start justify-between gap-4 mb-4">
-              <div className="flex gap-4 flex-1 items-start min-w-0">
+             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-4">
                {renderLogo(process)}
                <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
-                 <Badge className={`${getTypeColor(process.type)} text-sm px-2 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">{getDisplayName(process)}</h3>
+                 <Badge className={`${getTypeColor(process.type)} text-xs px-2.5 py-1 font-semibold border-none shadow-sm rounded-full`} data-testid={`badge-process-type-${process.id}`}>{getTypeLabel(process.type)}</Badge>
                 </div>
-                <p className="text-base text-slate-500 dark:text-slate-400 mt-1">{process.sector} • {process.location}</p>
+                <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{process.sector} • {process.location}</p>
                </div>
               </div>
-              <Badge className={`${config.color} text-sm py-1.5 px-3`}>
+              <Badge className={`${config.color} text-sm py-1.5 px-4 font-bold rounded-full shadow-sm border-none`}>
                {config.label}
               </Badge>
              </div>

@@ -1216,36 +1216,48 @@ export default function DashboardPage() {
          {/* Header com logo, título e status */}
          {isMobile ? (
           <>
-           <div className="flex gap-3 items-start mb-3">
+           <div className="flex gap-3 items-start mb-4">
             {renderLogo(match, match.matchScore)}
             <div className="flex-1 min-w-0">
-             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(match)}</h3>
-              <Badge className={`${getTypeColor(match.type)} text-xs px-2 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+             <div className="flex flex-wrap gap-2 mb-2">
+              <Badge className={`${getTypeColor(match.type)} text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold border-none rounded`}>
+               {getTypeLabel(match.type)}
+              </Badge>
+              {match.isNew && (
+               <Badge className="bg-sky-500 text-white text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold rounded border-none">
+                Novo
+               </Badge>
+              )}
              </div>
-             {match.isNew && (
-              <span className="text-xs px-2.5 py-1.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap inline-block">Novo</span>
-             )}
+             <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
+             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
             </div>
            </div>
-           <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 font-medium">{match.sector} • {match.location}</p>
           </>
          ) : (
-             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+             <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-wrap gap-2">
+               <Badge className={`${getTypeColor(match.type)} text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold border-none rounded-md`}>
+                {getTypeLabel(match.type)}
+               </Badge>
+               {match.isNew && (
+                <Badge className="bg-sky-500 text-white text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold rounded-md border-none">
+                 Novo
+                </Badge>
+               )}
+              </div>
+              
               <div className="flex items-center gap-4">
                {renderLogo(match, match.matchScore)}
                <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">{getDisplayName(match)}</h3>
-                 <Badge className={`${getTypeColor(match.type)} text-xs px-2.5 py-1 font-semibold border-none shadow-sm rounded-full`} data-testid={`badge-match-type-${match.id}`}>{getTypeLabel(match.type)}</Badge>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">
+                 {getDisplayName(match)}
+                </h3>
+                <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">
+                 <MapPin className="mr-1.5 h-3.5 w-3.5" />
+                 {match.sector} • {match.location}
                 </div>
-                <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
                </div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-               {match.isNew && (
-                <Badge className="bg-sky-100 text-sky-700 text-xs px-3 py-1 font-bold rounded-full shadow-sm animate-pulse border-none">Novo</Badge>
-               )}
               </div>
              </div>
          )}
@@ -1436,35 +1448,47 @@ export default function DashboardPage() {
            <CardContent className={`${isMobile ? 'p-5' : 'p-8'}`}>
             {isMobile ? (
              <>
-              <div className="flex gap-2 items-start mb-2">
+              <div className="flex gap-3 items-start mb-4">
                {renderLogo(process)}
                <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">{getDisplayName(process)}</h3>
-                 <Badge className={`${getTypeColor(process.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(process.type)}</Badge>
+                <div className="flex flex-wrap gap-2 mb-2">
+                 <Badge className={`${getTypeColor(process.type)} text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold border-none rounded`}>
+                  {getTypeLabel(process.type)}
+                 </Badge>
+                 <Badge className={`${config.color} text-[10px] uppercase tracking-wider px-2 py-0.5 font-black rounded border-none`}>
+                  {config.label}
+                 </Badge>
                 </div>
-                <Badge className={`${config.color} text-xs py-1.5 px-2.5 whitespace-nowrap`}>
-                 {config.label}
-                </Badge>
+                <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">{getDisplayName(process)}</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{process.sector} • {process.location}</p>
                </div>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">{process.sector} • {process.location}</p>
              </>
             ) : (
-             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+             <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-wrap gap-2 items-center justify-between w-full">
+               <div className="flex gap-2">
+                <Badge className={`${getTypeColor(process.type)} text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold border-none rounded-md`}>
+                 {getTypeLabel(process.type)}
+                </Badge>
+               </div>
+               <Badge className={`${config.color} text-[10px] uppercase tracking-wider px-3 py-1 font-black rounded-md border-none`}>
+                {config.label}
+               </Badge>
+              </div>
+
               <div className="flex items-center gap-4">
                {renderLogo(process)}
                <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white leading-tight tracking-tight">{getDisplayName(process)}</h3>
-                 <Badge className={`${getTypeColor(process.type)} text-xs px-2.5 py-1 font-semibold border-none shadow-sm rounded-full`} data-testid={`badge-process-type-${process.id}`}>{getTypeLabel(process.type)}</Badge>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">
+                 {getDisplayName(process)}
+                </h3>
+                <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">
+                 <MapPin className="mr-1.5 h-3.5 w-3.5" />
+                 {process.sector} • {process.location}
                 </div>
-                <p className="text-base text-slate-500 dark:text-slate-400 mt-1 font-medium">{process.sector} • {process.location}</p>
                </div>
               </div>
-              <Badge className={`${config.color} text-sm py-1.5 px-4 font-bold rounded-full shadow-sm border-none`}>
-               {config.label}
-              </Badge>
              </div>
             )}
 
@@ -1597,19 +1621,21 @@ export default function DashboardPage() {
              {(() => {
               const colors = getCompatibilityColor(match.matchScore);
               return (
-               <div className="flex gap-2 items-start mb-2">
-                {renderLogo(match, match.matchScore)}
-                <div className="flex-1 min-w-0">
-                 <div className="flex items-center gap-2 mb-1">
+                <div className="flex gap-3 items-start mb-4">
+                 {renderLogo(match, match.matchScore)}
+                 <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap gap-2 mb-2">
+                   <Badge className={`${getTypeColor(match.type)} text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold border-none rounded`}>
+                    {getTypeLabel(match.type)}
+                   </Badge>
+                   {match.isNew && (
+                    <Badge className="bg-sky-500 text-white text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold rounded border-none">Novo</Badge>
+                   )}
+                  </div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight">{getDisplayName(match)}</h3>
-                  <Badge className={`${getTypeColor(match.type)} text-xs px-1.5 py-0.5 font-semibold`}>{getTypeLabel(match.type)}</Badge>
+                  <p className="text-2xs text-slate-500 dark:text-slate-400 mt-1 font-medium">{match.sector} • {match.location}</p>
                  </div>
-                 <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{match.sector}</p>
                 </div>
-                {match.isNew && (
-                 <span className="text-xs px-1.5 py-0.5 bg-sky-100 text-sky-700 rounded-full font-semibold whitespace-nowrap flex-shrink-0">Novo</span>
-                )}
-               </div>
               );
              })()}
              <p className="text-2xs text-slate-500 dark:text-slate-400 mb-3 truncate">{match.location}</p>

@@ -765,28 +765,6 @@ export default function DashboardPage() {
     </div>
     )}
 
-    {/* Search and Tabs Section - Mobile Only */}
-    {isMobile && (
-    <div className="flex flex-col gap-4 mb-6">
-     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-3 h-12 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
-       <TabsTrigger value="new" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
-        <Target className="w-4 h-4 mr-2" />
-        Matches
-       </TabsTrigger>
-       <TabsTrigger value="active" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
-        <Briefcase className="w-4 h-4 mr-2" />
-        Meus Matches
-       </TabsTrigger>
-       <TabsTrigger value="others" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
-        <Users className="w-4 h-4 mr-2" />
-        Outros
-       </TabsTrigger>
-      </TabsList>
-     </Tabs>
-    </div>
-    )}
-
     {/* Search and Filter Bar */}
     <div className={`flex ${isMobile ? 'flex-col gap-3 mb-6' : 'flex-col md:flex-row gap-4 mb-8'}`}>
      <div className="relative flex-grow flex items-center gap-2">

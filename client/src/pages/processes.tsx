@@ -127,29 +127,28 @@ export default function ProcessesPage() {
           <CardContent className="p-0">
            <div className="flex flex-col md:flex-row">
             <div className="p-6 md:p-8 flex-grow">
-             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+             <div className="flex flex-col gap-3 mb-6">
+              <div className="flex flex-wrap gap-2">
+               <Badge className={`${getTypeColor(process.type)} text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold border-none rounded-full shadow-none`}>
+                {process.type === 'franqueadora' ? 'Franqueadora' : process.type === 'investidor' ? 'Investidor' : 'Empresa'}
+               </Badge>
+               <Badge className={`${config.color} text-[10px] uppercase tracking-wider px-2.5 py-1 font-black rounded-full border-none shadow-none`}>
+                {config.label}
+               </Badge>
+              </div>
+              
               <div className="flex items-center gap-4">
                {/* Logo Placeholder - assuming you might want to show logo here too */}
                <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center border border-slate-200 shadow-sm flex-shrink-0">
                 <Building2 className="h-6 w-6 text-slate-400" />
                </div>
                <div>
-                <h3 className="text-xl font-bold text-slate-900 tracking-tight">{process.name}</h3>
-                <div className="flex items-center text-slate-500 text-sm mt-0.5">
+                <h3 className="text-xl font-black text-slate-900 tracking-tight">{process.name}</h3>
+                <div className="flex items-center text-slate-500 text-sm mt-0.5 font-medium">
                  <MapPin className="mr-1 h-3 w-3" />
                  {process.sector} • {process.location}
                 </div>
                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-               <Badge variant="secondary" className="bg-slate-100 text-slate-700 border-slate-200 font-medium px-2.5 py-0.5 rounded-full">
-                {process.type === 'franqueadora' ? 'Franqueadora' : process.type === 'investidor' ? 'Investidor' : 'Empresa'}
-               </Badge>
-               <Badge className={`${config.color} border-transparent font-semibold px-3 py-1 rounded-full shadow-sm`}>
-                <StageIcon className="mr-1.5 h-3.5 w-3.5" />
-                {config.label}
-               </Badge>
               </div>
              </div>
              

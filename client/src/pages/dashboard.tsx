@@ -1797,28 +1797,29 @@ export default function DashboardPage() {
              <CardContent className="p-4">
               {/* Header */}
               {(() => {
-               const colors = getCompatibilityColor(process.matchScore);
                return (
-                <div className="flex gap-2 items-start mb-2">
-                 {renderLogo(process, process.matchScore)}
-                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                   <h3 className="text-base font-bold text-slate-900 dark:text-white leading-tight truncate max-w-[120px] sm:max-w-none">{getDisplayName(process)}</h3>
-                   <Badge className={`${getTypeColor(process.type)} text-[10px] px-1.5 py-0.5 font-semibold whitespace-nowrap`}>{getTypeLabel(process.type)}</Badge>
-                  </div>
-                  <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5">{process.sector}</p>
+                <div className="flex flex-col gap-3 mb-5">
+                 <div className="flex flex-wrap gap-2">
+                  <Badge className={`${getTypeColor(process.type)} text-[10px] uppercase tracking-wider px-2.5 py-1 font-bold border-none rounded-full shadow-none`}>
+                   {getTypeLabel(process.type)}
+                  </Badge>
+                  <Badge className={`${config.color} text-[10px] uppercase tracking-wider px-2.5 py-1 font-black rounded-full border-none shadow-none`}>
+                   {config.label}
+                  </Badge>
+                 </div>
+                 <div className="flex gap-3 items-center">
+                  {renderLogo(process, process.matchScore)}
+                  <div className="flex-1 min-w-0">
+                   <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight tracking-tight">{getDisplayName(process)}</h3>
+                   <div className="flex items-center text-slate-500 dark:text-slate-400 text-xs mt-1 font-medium">
+                    <MapPin className="mr-1 h-3 w-3" />
+                    {process.sector} • {process.location}
+                   </div>
                  </div>
                 </div>
+               </div>
                );
               })()}
-
-              {/* Location & Status Badge */}
-              <div className="flex gap-2 items-center mb-3">
-               <p className="text-2xs text-slate-500 dark:text-slate-400 truncate flex-1">{process.location}</p>
-               <Badge className={`${config.color} text-xs px-1.5 py-0.5 whitespace-nowrap flex-shrink-0 font-semibold`}>
-                {config.label}
-               </Badge>
-              </div>
 
               {/* Progress Bar */}
               <div className="mb-3">

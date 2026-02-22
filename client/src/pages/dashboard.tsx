@@ -736,7 +736,7 @@ export default function DashboardPage() {
     <div className={`${isMobile ? 'mb-6' : 'mb-8'} flex items-center justify-between`}>
      <div>
       <h1 className={`${isMobile ? 'text-2xl font-bold' : 'text-3xl font-bold'} text-slate-900 dark:text-white`}>
-       {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Processos Ativos" : "Outros Perfis"}
+       {activeTab === "new" ? "Matches Recomendados" : activeTab === "active" ? "Meus Matches" : "Outros Perfis"}
       </h1>
       <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm md:text-base">
        {activeTab === "new" ? "Explore novos matches recomendados para você" : activeTab === "active" ? "Acompanhe seus processos em andamento" : "Oportunidades adicionais de investimento"}
@@ -762,6 +762,28 @@ export default function DashboardPage() {
        </Card>
       ))}
      </div>
+    </div>
+    )}
+
+    {/* Search and Tabs Section - Mobile Only */}
+    {isMobile && (
+    <div className="flex flex-col gap-4 mb-6">
+     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid w-full grid-cols-3 h-12 p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
+       <TabsTrigger value="new" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
+        <Target className="w-4 h-4 mr-2" />
+        Matches
+       </TabsTrigger>
+       <TabsTrigger value="active" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
+        <Briefcase className="w-4 h-4 mr-2" />
+        Meus Matches
+       </TabsTrigger>
+       <TabsTrigger value="others" className="rounded-lg data-[state=active]:bg-white dark:data-[state=active]:bg-slate-800 data-[state=active]:shadow-sm transition-all py-2 text-xs font-medium">
+        <Users className="w-4 h-4 mr-2" />
+        Outros
+       </TabsTrigger>
+      </TabsList>
+     </Tabs>
     </div>
     )}
 
@@ -1169,7 +1191,7 @@ export default function DashboardPage() {
         value="new" 
         className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
        >
-        Matches Recomendados
+        Matches
         <Badge 
          className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
         >
@@ -1735,16 +1757,16 @@ export default function DashboardPage() {
        </>
       )}
 
-      {/* Aba Ativos */}
+      {/* Aba Meus Matches */}
       {activeTab === "active" && (
        <>
         {filteredMatches.filter(m => m.stage !== 'new').length === 0 ? (
          <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
           <CardContent className="flex flex-col items-center justify-center py-12">
            <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
-            <Clock className="h-6 w-6 text-slate-400 dark:text-slate-600" />
+            <Briefcase className="h-6 w-6 text-slate-400 dark:text-slate-600" />
            </div>
-           <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum processo ativo</h3>
+           <h3 className="text-lg font-medium text-slate-900 dark:text-white">Nenhum match ativo</h3>
            <p className="text-slate-500 dark:text-slate-400 text-center max-w-sm mt-1">
             Demonstre interesse em oportunidades para iniciar um processo de negociação.
            </p>
@@ -2407,8 +2429,8 @@ export default function DashboardPage() {
         }`}
         data-testid="tab-bar-button-new"
        >
-        <Heart className="h-5 w-5 mb-0.5" />
-        <span className="text-xs font-medium text-center">Novos</span>
+        <Target className="h-5 w-5 mb-0.5" />
+        <span className="text-xs font-medium text-center">Matches</span>
        </button>
        <button
         onClick={() => setActiveTab("active")}
@@ -2419,8 +2441,8 @@ export default function DashboardPage() {
         }`}
         data-testid="tab-bar-button-active"
        >
-        <Clock className="h-5 w-5 mb-0.5" />
-        <span className="text-xs font-medium text-center">Ativos</span>
+        <Briefcase className="h-5 w-5 mb-0.5" />
+        <span className="text-xs font-medium text-center">Meus Matches</span>
        </button>
        <button
         onClick={() => setActiveTab("others")}

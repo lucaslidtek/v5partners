@@ -1180,6 +1180,7 @@ export default function DashboardPage() {
         value="active" 
         className="relative px-0 py-3 h-auto bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 data-[state=active]:text-primary data-[state=active]:bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-primary transition-all duration-300 font-medium text-sm whitespace-nowrap"
        >
+        <Heart className="w-4 h-4 mr-2" />
         Meus Matches
         <Badge 
          className="ml-3 px-2.5 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border-0"
@@ -2419,7 +2420,7 @@ export default function DashboardPage() {
         }`}
         data-testid="tab-bar-button-active"
        >
-        <Briefcase className="h-5 w-5 mb-0.5" />
+        <Heart className="h-5 w-5 mb-0.5" />
         <span className="text-xs font-medium text-center">Meus Matches</span>
        </button>
        <button

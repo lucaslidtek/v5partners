@@ -1903,6 +1903,14 @@ export default function DashboardPage() {
       {/* Aba Outras Empresas */}
       {activeTab === "others" && (
        <>
+        {/* Info Box - NDA Warning */}
+        <div className="mb-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+         <p className="text-[10px] sm:text-xs text-blue-700 dark:text-blue-300 leading-tight">
+          <Lock className="h-3 w-3 inline mr-1.5" />
+          Todos os dados das empresas confidenciais estão protegidos por acordo de NDA. Para mais informações, entre em contato com o vendedor.
+         </p>
+        </div>
+
         {otherCompanies.length === 0 ? (
          <Card className="border-dashed border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/30">
           <CardContent className="flex flex-col items-center justify-center py-12">

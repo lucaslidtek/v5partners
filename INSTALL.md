@@ -17,7 +17,7 @@ Para iniciar o servidor de desenvolvimento local:
 ```bash
 npm run dev
 ```
-O projeto estará disponível por padrão em `http://localhost:0005` (ou a porta indicada no terminal).
+O projeto estará disponível por padrão em `http://localhost:5555` (ou a porta indicada no terminal).
 
 ## Build de Produção
 Para criar a versão otimizada de produção:

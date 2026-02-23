@@ -36,7 +36,7 @@ Este é um protótipo interativo para a plataforma V5 Partners, focada em matchm
 ### Desenvolvimento Local
 1. `npm install`
 2. `npm run dev:client`
-O app estará disponível em `http://localhost:5000`.
+O app estará disponível em `http://localhost:5555`.
 
 ## Estrutura do Projeto
 - `client/src/pages/`: Páginas da aplicação

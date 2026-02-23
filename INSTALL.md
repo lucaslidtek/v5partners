@@ -19,7 +19,7 @@ Para rodar apenas o frontend (Vite):
 ```bash
 npm run dev:client
 ```
-O app estará disponível em `http://localhost:5000`.
+O app estará disponível em `http://localhost:5555`.
 
 ## Scripts Disponíveis
 - `npm run dev:client`: Inicia o servidor de desenvolvimento do Vite.

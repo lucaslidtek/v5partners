@@ -1,31 +1,30 @@
-# Passo a Passo para Rodar Localmente
+# Guia de Instalação e Execução Local
+
+Este projeto foi exportado do Replit e está configurado para rodar em qualquer ambiente local (VS Code, Cursor, Antigravity).
 
 ## Pré-requisitos
-- Node.js (v18 ou superior)
-- npm ou yarn
+- **Node.js**: Versão 20 ou superior recomendada.
+- **npm**: Instalado junto com o Node.js.
 
 ## Instalação
-1. Clone o repositório em sua máquina local.
+1. Extraia o conteúdo do ZIP em uma pasta.
 2. Abra o terminal na raiz do projeto.
-3. Execute o comando para instalar as dependências:
+3. Instale as dependências:
    ```bash
    npm install
    ```
 
-## Desenvolvimento
-Para iniciar o servidor de desenvolvimento local:
+## Execução (Modo Desenvolvimento)
+Para rodar apenas o frontend (Vite):
 ```bash
-npm run dev
+npm run dev:client
 ```
-O projeto estará disponível por padrão em `http://localhost:5555` (ou a porta indicada no terminal).
+O app estará disponível em `http://localhost:5000`.
 
-## Build de Produção
-Para criar a versão otimizada de produção:
-```bash
-npm run build
-```
-Os arquivos gerados estarão na pasta `dist/`.
+## Scripts Disponíveis
+- `npm run dev:client`: Inicia o servidor de desenvolvimento do Vite.
+- `npm run build`: Gera a versão de produção na pasta `dist/`.
+- `npm run check`: Validação de tipos com TypeScript.
 
-## Notas Importantes
-- Como este é um **Mockup Prototyping Stack**, não há necessidade de configurar um banco de dados real localmente para a interface funcionar.
-- A persistência de dados ocorre via `LocalStorage` no navegador.
+## Observação sobre o Backend
+Este projeto é um **Mockup de Frontend**. A pasta `server/` contém apenas lógica mínima para suportar o roteamento e servir os arquivos estáticos durante o desenvolvimento, não havendo um banco de dados real persistente.

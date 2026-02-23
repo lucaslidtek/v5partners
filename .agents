@@ -1,22 +1,22 @@
-# Regras de Ouro do Projeto - V5 Partners
+# Regras de Ouro do Projeto (IA-Ready)
 
 ## Stack Tecnológica
-- **Frontend**: React (Vite)
-- **Estilização**: Tailwind CSS + Radix UI (Shadcn/UI)
-- **Roteamento**: Wouter
-- **Gerenciamento de Estado**: React Hooks + LocalStorage para persistência mock
+- **Frontend**: React 19 + Vite 7
+- **Estilização**: Tailwind CSS 4
+- **Roteamento**: `wouter`
+- **Gerenciamento de Estado**: React Context (`client/src/lib/context.tsx`)
+- **Queries**: TanStack Query (React Query) v5
+- **Componentes**: Radix UI + Custom components
 - **Ícones**: Lucide React
-- **Tipografia**: Plus Jakarta Sans (Headings) e Inter (Body)
+- **Animações**: Framer Motion
 
-## O que NÃO mexer
-- **Backend**: A pasta `server/` e `shared/` são estritamente para simulação de API e não devem ser alteradas para lógica de negócio real neste estágio de mockup.
-- **Mock Data**: Manter a estrutura de dados simulada para garantir que o protótipo funcione offline/localmente sem dependências de DB.
+## Arquitetura e Padrões
+- **Design System**: Seguir rigorosamente o `client/DESIGN_SYSTEM.md`.
+- **Componentes UI**: Localizados em `client/src/components/ui`. Não modificar a estrutura base, apenas estender via props.
+- **Páginas**: Cada rota em `client/src/App.tsx` corresponde a um arquivo em `client/src/pages`.
+- **Assets**: Imagens e fontes devem ficar em `client/public`.
+- **NÃO MEXER**: Pasta `server/` (simulação de backend para o mockup).
 
-## Padrões de Design
-- **Visual**: Design elevado, moderno, com profundidade (subtle shadows) e espaços generosos.
-- **Componentes**: Usar e estender os componentes da pasta `client/src/components/ui`.
-- **Interações**: Animações suaves de entrada e transições de página.
-- **Acessibilidade**: Manter `data-testid` em todos os elementos interativos para testes e documentação.
-
-## Estrutura de Rotas
-As rotas principais estão definidas em `client/src/App.tsx`.
+## Lógica de Mock
+- Toda a persistência é feita via `LocalStorage` ou estado em memória.
+- As chamadas de API no frontend usam o `queryClient` mas não devem esperar um backend real persistente durante o desenvolvimento do mockup.

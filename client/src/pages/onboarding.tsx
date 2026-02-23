@@ -729,12 +729,15 @@ export default function OnboardingPage() {
        </motion.div>
       </AnimatePresence>
      </CardContent>
-     <CardFooter className="p-8 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex justify-between gap-4">
-      <Button variant="ghost" onClick={handleBack} className="h-12 rounded-md px-6 font-semibold text-slate-600 dark:text-slate-400">
-       <ChevronLeft className="mr-2 h-4 w-4" /> Voltar
+     <CardFooter className="p-4 sm:p-8 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex flex-row justify-between items-center gap-2 sm:gap-4">
+      <Button variant="ghost" onClick={handleBack} className="h-10 sm:h-12 rounded-md px-3 sm:px-6 font-semibold text-slate-600 dark:text-slate-400 text-sm sm:text-base whitespace-nowrap">
+       <ChevronLeft className="mr-1 sm:mr-2 h-4 w-4" /> Voltar
       </Button>
-      <Button onClick={handleNext} className="h-12 rounded-md px-8 font-bold bg-primary text-white hover:bg-primary/90 ">
-       {step === totalSteps ? "Finalizar Cadastro" : "Próximo Passo"} <ChevronRight className="ml-2 h-4 w-4" />
+      <Button onClick={handleNext} className="h-10 sm:h-12 rounded-md px-4 sm:px-8 font-bold bg-primary text-white hover:bg-primary/90 text-sm sm:text-base flex-1 sm:flex-none">
+       <span className="truncate">
+        {step === totalSteps ? "Finalizar Cadastro" : "Próximo Passo"}
+       </span>
+       <ChevronRight className="ml-1 sm:ml-2 h-4 w-4 flex-shrink-0" />
       </Button>
      </CardFooter>
     </Card>

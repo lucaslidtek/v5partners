@@ -160,10 +160,10 @@ export default function WelcomeCarouselPage() {
         </div>
 
         <div className="space-y-4">
-         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
+         <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
           {slides[currentSlide].title}
          </h1>
-         <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+         <p className="text-base text-slate-500 dark:text-slate-400 leading-relaxed">
           {slides[currentSlide].text}
          </p>
         </div>
@@ -173,10 +173,10 @@ export default function WelcomeCarouselPage() {
       <div className="mt-10">
        <Button 
         onClick={handleNext} 
-        className="w-full h-14 text-lg font-bold rounded-xl bg-primary hover:bg-primary/90  transition-all active:scale-[0.98]"
+        className="w-full h-12 text-base font-semibold rounded-lg bg-primary hover:bg-primary/90 transition-all active:scale-[0.98]"
        >
         {slides[currentSlide].cta || "Próximo"}
-        {currentSlide < slides.length - 1 && <ChevronRight className="ml-2 h-5 w-5" />}
+        {currentSlide < slides.length - 1 && <ChevronRight className="ml-2 h-4 w-4" />}
        </Button>
       </div>
      </CardContent>
